@@ -16,7 +16,7 @@
 				- notes (Mr)(Cp)
 				- accounts (Mr)(Cp)
 				- tasks (Mr)(Cp)
-		+ coCponents
+		+ components
             + main navbar (M)
 				- main navbar (C)
 				- main footer (C)
