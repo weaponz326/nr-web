@@ -1,22 +1,22 @@
 + projects
 	+ personal (A)
 		+ pages
-            - main landing (Mr)(Mp)
-            - legalities (Mr)(Mp)
-            - help (Mr)(Mp)
-		    - guest landing (Mr)(Mp)
-		    - auth (Mr)(Mp)
-            - user settings page(Mr)(C)
-		    - home (Mr)(Mp)
+            - main landing (Mr)(Cp)
+            - legalities (Mr)(Cp)
+            - help (Mr)(Cp)
+		    - guest landing (Mr)(Cp)
+		    - auth (Mr)(Cp)
+            - user settings page(Mr)(Cp)
+		    - home (Mr)(Cp)
 			+ modules
-				- portal (Mr)(Mp)
-				- settings (Mr)(Mp)
-				- calendar (Mr)(Mp)
-				- budget (Mr)(Mp)
-				- notes (Mr)(Mp)
-				- accounts (Mr)(Mp)
-				- tasks (Mr)(Mp)
-		+ components
+				- portal (Mr)(Cp)
+				- settings (Mr)(Cp)
+				- calendar (Mr)(Cp)
+				- budget (Mr)(Cp)
+				- notes (Mr)(Cp)
+				- accounts (Mr)(Cp)
+				- tasks (Mr)(Cp)
+		+ coCponents
             + main navbar (M)
 				- main navbar (C)
 				- main footer (C)
@@ -145,6 +145,7 @@
 		+ services
             - auth api (S)
             - pdf print (S)
+			- user setings (S)
 			+ modules
 				- portal api (S)
 				- settings api (S)
@@ -153,7 +154,6 @@
 				- notes api (S)
 				- accounts api (S)
 				- tasks api (S)
-			- user setings (S)
             + printing
 				- calendar print (S)
 				- budget print (S)
