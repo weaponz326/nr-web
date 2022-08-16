@@ -1,0 +1,197 @@
++ projects
+	+ personal (A)
+		+ pages
+            - main landing (Mr)(Mp)
+            - legalities (Mr)(Mp)
+            - help (Mr)(Mp)
+		    - guest landing (Mr)(Mp)
+		    - auth (Mr)(Mp)
+            - user settings page(Mr)(C)
+		    - home (Mr)(Mp)
+			+ modules
+				- portal (Mr)(Mp)
+				- settings (Mr)(Mp)
+				- calendar (Mr)(Mp)
+				- budget (Mr)(Mp)
+				- notes (Mr)(Mp)
+				- accounts (Mr)(Mp)
+				- tasks (Mr)(Mp)
+		+ components
+            + main navbar (M)
+				- main navbar (C)
+				- main footer (C)
+			+ main landing (M)
+				- main scrollnav (C)
+				- landing top (C)
+				- suite left (C)
+				- suite right (C)
+			+ legalities (M)
+				- terms
+				- privacy
+			+ help (M)
+				- getting started
+				- faq
+				- contact
+            + suite landing (M)
+				- suite scrollnav (C)
+                - landing loading (C)
+				- user top (C)
+				- guest top (C)
+				- about (C)
+				- pricing (C)
+				- contact (C)
+			+ auth forms (M)
+				- form header (C)
+				- form footer (C)
+				- signup form (C)
+				- login form (C)
+				- recovery form (C)
+				- reset form (C)
+            + user settings
+                - change password (C)
+                - change email (C)
+                - two factor auth (C)
+			+ module utilities (M)
+				- module sidenav (C)
+				- module topnav (C)
+                - connection toast (C)
+                - access toast (C)
+                - delete modal (C)
+                - bdayInput (C)
+                - imageInput (C)
+			+ modules
+				+ portal (M)
+					- dashboard (C)
+					- new rink (C)
+					+ rink details
+						- calendar details (C)
+                        - schedule details (C)
+                        - budget details (C)
+						- note details (C)
+                        - account details(C)
+                        - transaction details(C)
+						- task group details (C)
+						- task item details (C)
+					- timeline (C)
+					- view rink (C)
+					- search view (C)
+					- search results (C)
+					- search detail (C)
+				+ settings (M)
+					- dashboard  (C)
+					- profile (C)
+					- all accounts (C)
+                    - invitations
+					+ profile content
+						- basic (C)
+						- additional (C)
+						- photo (C)
+						- contact (C)
+						- location (C)
+				+ calendar (M)
+					- dashboard (C)
+					- all appointments (C)
+					- view calendar (C)
+				+ budget (M)
+					- dashboard (C)
+					- all budget (C)
+					- new budget (C)
+					- view budget (C)
+					- budget tables (C)
+					- add income (C)
+					- add ependiture (C)
+					- edit income (C)
+					- edit expenditure (C)
+				+ notes (M)
+					- dashboard (C)
+					- all notes (C)
+                    - new note (C)
+					- view note (C)
+				+ accounts (M)
+					- dashboard  (C)
+					- all accounts (C)
+					- add account (C)
+					- view account (C)
+					- account transactions (C)
+					- add transaction (C)
+					- edit transaction (C)
+					- transaction form (C)
+					- all transactions (C)
+				+ tasks (M)
+					- dashboard (C)
+					- all task groups (C)
+                    - new task group (C)
+					- all task items (C)
+					- view task group (C)
+					- kanban view (C)
+					- checklist view (C)
+					- add task (C)
+					- edit task (C)
+					- task form (C)
+				+ select windows
+					+ calendar windows (M)
+						- select calendar (C)
+						- select schedule (C)
+					+ budgets windows (M)
+						- select budget (C)
+					+ notes windows (M)
+						- select note (C)
+					+ accounts windows (M)
+						- select account
+						- select transaction
+					+ tasks windows (M)
+						- select task group (C)
+						- select task item (C)
+		+ services
+            - auth api (S)
+            - pdf print (S)
+			+ modules
+				- portal api (S)
+				- settings api (S)
+				- calendar api (S)
+				- budget api (S)
+				- notes api (S)
+				- accounts api (S)
+				- tasks api (S)
+			- user setings (S)
+            + printing
+				- calendar print (S)
+				- budget print (S)
+				- notes print (S)
+				- accounts print (S)
+				- tasks print (S)
+		+ models
+            - user model (Cm)
+            + modules
+                - portal model (Cm)
+                - settings model (Cm)
+                - calendar model (Cm)
+                - budget model (Cm)
+                - notes model (Cm)
+                - accounts model (Cm)
+                - tasks model (Cm)
+		+ guards
+			- auth (G)
+            + modules
+                + portal
+                    - view rink (G)
+                    - send rink (G)
+                + settings
+                + calendar
+                    - view calendar (G)
+                + budget
+                    - view budget (G)
+                + notes
+                    - view note (G)
+                + accounts
+                    - view account (G)
+                + tasks
+                    - view task group (G)
+    + restaurant
+    + school
+    + association
+    + enterprise
+    + hotel
+    + hospital
+    + shop
+    + production
