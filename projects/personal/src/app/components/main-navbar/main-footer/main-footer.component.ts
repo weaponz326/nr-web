@@ -9,6 +9,17 @@ export class MainFooterComponent implements OnInit {
 
   constructor() { }
 
+  baseUrl: string = "#";
+  personalUrl: string = "#";
+  restaurantUrl: string = "#";
+  schoolUrl: string = "#";
+  enterpriseUrl: string = "#";
+  associationUrl: string = "#";
+  hospitalUrl: string = "#";
+  hotelUrl: string = "#";
+  shopUrl: string = "#";
+  productionUrl: string = "#";
+
   ngOnInit(): void {
   }
 

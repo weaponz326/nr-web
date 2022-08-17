@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-suite-left',
@@ -9,6 +9,13 @@ export class SuiteLeftComponent implements OnInit {
 
   constructor() { }
 
+  @Input() suiteImageSrc: string = "";
+  @Input() suiteDivId: string = "";
+  @Input() suiteName: string = "";
+  @Input() suiteDescription: string = "";
+  @Input() suiteUses: any;
+  @Input() suiteButtonLink: string = "";
+  
   ngOnInit(): void {
   }
 
