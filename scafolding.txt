@@ -10,9 +10,13 @@
 				+ terms
 				+ privacy
             + help info (Mr)(Cp)
-				+ getting started
-				+ frequent questions
-				+ contact
+				+ articles (C)				
+				+ faq (C)
+				+ contact (C)
+				+ articles contents
+					+ getting started (C)
+					+ infrastructure (C)
+					+ adding users (C)
 		    + auth (Mr)(Cp)
             + user settings page(Mr)(Cp)
 				+ change password (C)

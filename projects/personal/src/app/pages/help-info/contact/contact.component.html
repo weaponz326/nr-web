@@ -1,1 +1,81 @@
-<p>contact works!</p>
+<div class="container">
+    <div class="row pt-3 my-5">
+        <div class="col-md-7">
+
+            <h2 class="mb-4">Contact us</h2>
+
+            <div class="row">
+                <div class="col">
+    
+                    <p class="h4 mb-2">General enquiries</p>
+                    <p class="mb-4">
+                        If you have enquiries or suggestions regarding netRink or its products, please contact us at<br />
+                        <a href="mailto:info@netrink.com">info@netrink.com</a>
+                    </p>
+    
+                    <p class="h4 mb-2">Sales</p>
+                    <p class="mb-4">
+                        Forward your sales inquiries for all of netRink's products to<br />
+                        <a href="mailto:sales@netrink.com">sales@netrink.com</a>
+                    </p>
+    
+                    <p class="h4 mb-2">Product support</p>
+                    <p class="mb-4">
+                        For all Support issues concerning our products, please reach to us at<br />
+                        <a href="mailto:support@netrink.com">support@netrink.com</a>
+                    </p>
+    
+                </div>
+            </div>
+    
+            <div class="row my-5">
+                <div class="col-md-9">
+    
+                    <div class="card">
+                        <div class="card-body p-4">
+    
+                            <p class="h4 my-3 text-center">Leave a message</p>
+    
+                            <div *ngIf="isSubmitted" class="alert-success small text-center rounded border p-3 mb-3">Message successfully submitted</div>
+                            <div *ngIf="isFieldEmpty" class="alert-danger small text-center rounded border p-3 mb-3">Please provide for all fields</div>
+    
+                            <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+                                <div class="form-group row mb-3">
+                                    <div class="col-md-12">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" name="name" required [(ngModel)]="name">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <div class="col-md-12">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="email" required [(ngModel)]="email">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <div class="col-md-12">
+                                        <label>Message</label>
+                                        <textarea class="form-control text-left" rows="3" name="message" required [(ngModel)]="message"></textarea>
+                                    </div>
+                                </div>
+    
+                                <div class="row form-group mb-3 mt-4">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="float-end btn btn-secondary" [disabled]="isSending">
+                                            Send
+                                            <i class="bi bi-send ms-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+    
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
