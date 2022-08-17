@@ -1,1 +1,15 @@
 <app-main-navbar></app-main-navbar>
+
+<app-main-scrollnav
+    (personalEvent)="gotoPersonal()"
+    (hospitalEvent)="gotoHospital()"
+    (restaurantEvent)="gotoRestaurant()"
+    (schoolEvent)="gotoSchool()"
+    (enterpriseEvent)="gotoEnterprise()"
+    (associationEvent)="gotoAssociation()"
+    (hotelEvent)="gotoHotel()"
+    (shopEvent)="gotoShop()"
+    (productionEvent)="gotoProduction()"
+></app-main-scrollnav>
+
+<app-landing-top></app-landing-top>

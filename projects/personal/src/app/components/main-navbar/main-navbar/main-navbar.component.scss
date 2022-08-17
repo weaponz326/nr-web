@@ -1,0 +1,30 @@
+.navbar-brand {
+	font-size: 26px;
+}
+
+.auth-btns button {
+	width: 90px;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:visited,
+.btn-outline-light:focus,
+.btn-outline-light:active {
+	color: #f8f9fc;
+	background-color: transparent;
+}
+
+.dropdown-menu {
+	z-index: 1100;
+  max-width: 150px;
+}
+
+.user-btn {
+  border-radius: 20px;
+}
+
+.user-info{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
