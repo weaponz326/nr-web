@@ -3,10 +3,10 @@
 		+ pages
             - main landing (Mr)(Cp)
             - legalities (Mr)(Cp)
-            - help (Mr)(Cp)
-		    - guest landing (Mr)(Cp)
+            - help info (Mr)(Cp)
 		    - auth (Mr)(Cp)
             - user settings page(Mr)(Cp)
+		    - guest landing (Mr)(Cp)
 		    - home (Mr)(Cp)
 			+ modules
 				- portal (Mr)(Cp)
@@ -28,18 +28,10 @@
 			+ legalities (M)
 				- terms
 				- privacy
-			+ help (M)
+			+ help info (M)
 				- getting started
-				- faq
-				- contact
-            + suite landing (M)
-				- suite scrollnav (C)
-                - landing loading (C)
-				- user top (C)
-				- guest top (C)
-				- about (C)
-				- pricing (C)
-				- contact (C)
+				- frequent questions
+				- contact            
 			+ auth forms (M)
 				- form header (C)
 				- form footer (C)
@@ -51,6 +43,14 @@
                 - change password (C)
                 - change email (C)
                 - two factor auth (C)
+			+ suite landing (M)
+				- suite scrollnav (C)
+                - landing loading (C)
+				- user top (C)
+				- guest top (C)
+				- about (C)
+				- pricing (C)
+				- contact (C)
 			+ module utilities (M)
 				- module sidenav (C)
 				- module topnav (C)
