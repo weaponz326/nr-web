@@ -14,7 +14,7 @@ export class MainNavbarComponent implements OnInit {
   constructor() { }
 
   @Input() source: string = "Personal";
-  @Input() navBrand: string = "NetRink";
+  @Input() navBrand: string = "netRink";
   @Input() isForms: boolean = false;
 
   userData: any;
