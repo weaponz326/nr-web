@@ -18,7 +18,7 @@
 					+ infrastructure (C)
 					+ adding users (C)
 		    + auth (Mr)(Cp)
-            + user settings page(Mr)(Cp)
+            + user settings (Mr)(Cp)
 				+ change password (C)
                 + change email (C)
                 + two factor auth (C)
