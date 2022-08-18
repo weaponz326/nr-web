@@ -1,1 +1,37 @@
-<p>two-factor-auth works!</p>
+<div class="row mb-5 page-form">
+    <div class="col-md-12">
+
+        <form class="page-form" [formGroup]="tfaForm">
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <p class="h4">Enable 2 factor authentication</p>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="offset-md-4">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input mb-2" type="checkbox" id="flexSwitchCheckDefault" (change)="disablePhone($event)">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Enable</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><label class="mt-1">Phone No. :</label></div>
+                <div class="col-md-8">
+                    <input type="password" formControlName="phone" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <button [disabled]="isTfaSending || !isTfaEnabled" type="submit" class="btn btn-secondary btn-sm float-end page-form-btn">Submit</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
