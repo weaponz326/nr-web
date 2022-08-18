@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResetFormComponent } from './reset-form.component';
+import { SignupSuccessComponent } from './signup-success.component';
 
-describe('ResetFormComponent', () => {
-  let component: ResetFormComponent;
-  let fixture: ComponentFixture<ResetFormComponent>;
+describe('SignupSuccessComponent', () => {
+  let component: SignupSuccessComponent;
+  let fixture: ComponentFixture<SignupSuccessComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResetFormComponent ]
+      declarations: [ SignupSuccessComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ResetFormComponent);
+    fixture = TestBed.createComponent(SignupSuccessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

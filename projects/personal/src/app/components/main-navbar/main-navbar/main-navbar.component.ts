@@ -43,6 +43,7 @@ export class MainNavbarComponent implements OnInit {
     this.isAuthLoading = true;
     
     // TODO:
+    this.isAuthLoading = false;
   }
 
   getUser(){

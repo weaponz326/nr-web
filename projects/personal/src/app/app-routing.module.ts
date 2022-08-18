@@ -14,6 +14,14 @@ const routes: Routes = [
     path: "help",
     loadChildren: () => import("./pages/help-info/help-info.module").then(m => m.HelpInfoModule)
   },
+  {
+    path: "auth",
+    loadChildren: () => import("./pages/auth/auth.module").then(m => m.AuthModule)
+  },
+  {
+    path: "user-settings",
+    loadChildren: () => import("./pages/user-settings/user-settings.module").then(m => m.UserSettingsModule)
+  },
 ];
 
 @NgModule({
