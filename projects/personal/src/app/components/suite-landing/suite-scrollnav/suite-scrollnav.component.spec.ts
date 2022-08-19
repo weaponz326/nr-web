@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { SuiteScrollnavComponent } from './suite-scrollnav.component';
+
+describe('SuiteScrollnavComponent', () => {
+  let component: SuiteScrollnavComponent;
+  let fixture: ComponentFixture<SuiteScrollnavComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ SuiteScrollnavComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(SuiteScrollnavComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

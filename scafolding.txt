@@ -23,7 +23,7 @@
                 + change email (C)
                 + two factor auth (C)
 		    + guest landing (Mr)(Cp)
-		    + home (Mr)(Cp)
+		    + module home (Mr)(Cp)
 			+ modules
 				+ portal (Mr)(Cp)
 					+ dashboard (C)
@@ -117,9 +117,10 @@
 				+ module topnav (C)
                 + connection toast (C)
                 + access toast (C)
-                + delete modal (C)
-                + bdayInput (C)
-                + imageInput (C)				
+                + delete modal 1 (C)
+                + delete modal 2 (C)
+                + bday input (C)
+                + image input (C)				
 			+ select windows
 				+ calendar windows (M)
 					+ select calendar (C)
