@@ -10,6 +10,7 @@ import { UserSettingsPage } from './user-settings.page';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangeEmailComponent } from './change-email/change-email.component';
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
     UserSettingsPage,
     ChangePasswordComponent,
     ChangeEmailComponent,
-    TwoFactorAuthComponent
+    TwoFactorAuthComponent,
+    DeleteAccountComponent
   ],
   imports: [
     CommonModule,
