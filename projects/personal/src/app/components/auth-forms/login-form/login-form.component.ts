@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
+
 
 @Component({
   selector: 'app-login-form',
@@ -9,9 +11,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor() { }
-
-  authError = "";
+  constructor(private authApi: AuthApiService) { }
 
   saved: boolean = false;
   isSending: boolean = false;
@@ -19,6 +19,10 @@ export class LoginFormComponent implements OnInit {
   sendVerification: boolean = false;
 
   suiteRegistrationType: string = "";
+
+  emailErrors: any;
+  passErrors: any;
+  nfErrors: any;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -35,16 +39,42 @@ export class LoginFormComponent implements OnInit {
 
   onSubmit(){
     this.saved = true;
+    this.isSending = true;
 
-    if (this.loginForm.valid){
-      this.isSending = true;
+    this.authApi.postLogin(this.loginForm.value)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (JSON.stringify(res).includes("key")){
+            localStorage.setItem('token', res.key);
 
-      // TODO:
-      // post login
-    }
-    else{
-      console.log("form is invalid");
-    }
+            // TODO: can't get auth_token if angular router is used
+            if(this.suiteRegistrationType == "nR Personal" || this.suiteRegistrationType == "netRink"){
+              window.location.href = "/";
+            }
+            else{
+              if(sessionStorage.getItem("is_suite_registration") == "OK"){
+                this.showPrompt = true;
+              }
+              else{
+                window.location.href = "/";
+              }
+
+              sessionStorage.removeItem("is_suite_registration");
+            }
+          }
+
+          this.isSending = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.emailErrors = err.error.email;
+          this.passErrors = err.error.password;
+          this.nfErrors = err.error.non_field_errors;
+
+          this.isSending = false;
+        }
+      })
   }
 
   registrationType(){

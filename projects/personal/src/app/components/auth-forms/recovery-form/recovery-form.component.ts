@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
+
 
 @Component({
   selector: 'app-recovery-form',
@@ -9,14 +11,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class RecoveryFormComponent implements OnInit {
 
-  constructor() { }
-
-  authError = "";
+  constructor(private authApi: AuthApiService) { }
 
   saved: boolean = false;
   isSending: boolean = false;
   showPrompt: boolean = false;
 
+  emailErrors: any;
+  nfErrors: any;
+  
   recoveryForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   })
@@ -27,15 +30,23 @@ export class RecoveryFormComponent implements OnInit {
   onSubmit(){
     this.saved = true;
 
-    if (this.recoveryForm.valid){
-      this.isSending = true;
+    this.isSending = true;
+    console.log(this.recoveryForm.value);
+    this.authApi.postRecoveryEmail(this.recoveryForm.value)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.showPrompt =  true;
+          this.isSending = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.emailErrors = err.error.email;
+          this.nfErrors = err.error.non_field_errors;
 
-      // TODO:
-      // post recovery mail
-    }
-    else{
-      console.log("form is invalid");
-    }
+          this.isSending = false;
+        }
+      })
   }
 
 }
