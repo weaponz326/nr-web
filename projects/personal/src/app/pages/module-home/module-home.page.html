@@ -1,1 +1,89 @@
-<p>module-home works!</p>
+<app-main-navbar
+    [navBrand]="'nR Personal'"
+    [source]="'Personal'"
+></app-main-navbar>
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar d-block mb-4 static-top shadow">
+    <div class="text-center module-heading">
+        <a routerLink="./">
+            <h3 class="mt-2"><i class="bi bi-house-fill me-2"></i>Home</h3>
+        </a>
+    </div>
+</nav>
+
+<div class="container home-div">
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="portal" routerLink="/home/portal/dashboard" data-bs-toggle="tooltip" title="Interact with people through netRink portal">
+                <figure>
+                    <img [src]="'assets/images/modules/portal.png'" class="home-icons" />
+                    <figcaption>Portal</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="calendar" routerLink="/home/calendar/dashboard" data-bs-toggle="tooltip" title="Manage all schedules and appointments">
+                <figure>
+                    <img [src]="'assets/images/modules/calendar.png'" class="home-icons" />
+                    <figcaption>Calendar</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="budget" routerLink="/home/budget/dashboard" data-bs-toggle="tooltip" title="Plan and prepare personal budgets">
+                <figure>
+                    <img [src]="'assets/images/modules/budget.png'" class="home-icons" />
+                    <figcaption>Budget</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="notes" routerLink="/home/notes/dashboard" data-bs-toggle="tooltip" title="Put down notes and attach supporting files">
+                <figure>
+                    <img [src]="'assets/images/modules/notes.png'" class="home-icons" />
+                    <figcaption>Notes</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="accounts" routerLink="/home/accounts/dashboard" data-bs-toggle="tooltip" title="Manage all financial accounts togethet in one space">
+                <figure>
+                    <img [src]="'assets/images/modules/accounts.png'" class="home-icons" />
+                    <figcaption>Accounts</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="tasks" routerLink="/home/tasks/dashboard" data-bs-toggle="tooltip" title="Manage and track to-do tasks and activities">
+                <figure>
+                    <img [src]="'assets/images/modules/tasks.png'" class="home-icons" />
+                    <figcaption>Tasks</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ---------------------------------------------------------------------------------------- -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="settings" routerLink="/home/settings/dashboard" data-bs-toggle="tooltip" title="Set the general configurations of your modules">
+                <figure>
+                    <img [src]="'assets/images/modules/settings.png'" class="home-icons" />
+                    <figcaption>Settings</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+</div>
