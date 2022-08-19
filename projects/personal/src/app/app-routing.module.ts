@@ -22,6 +22,19 @@ const routes: Routes = [
     path: "user-settings",
     loadChildren: () => import("./pages/user-settings/user-settings.module").then(m => m.UserSettingsModule)
   },
+  {
+    path: "guest",
+    loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
+  },
+  {
+    path: "home",
+    children: [
+      {
+        path: "",
+        loadChildren: () => import("./pages/module-home/module-home.module").then(m => m.ModuleHomeModule)
+      },
+    ]
+  }
 ];
 
 @NgModule({

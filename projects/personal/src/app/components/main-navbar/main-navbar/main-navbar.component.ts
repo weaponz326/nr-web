@@ -41,11 +41,6 @@ export class MainNavbarComponent implements OnInit {
     sessionStorage.setItem('app_source', this.navBrand);
   }
 
-  getAuth(){
-    
-    // TODO:
-  }
-
   getUser(){
     this.isAuthLoading = true;
 

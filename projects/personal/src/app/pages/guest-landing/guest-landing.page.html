@@ -1,1 +1,63 @@
-<p>guest-landing works!</p>
+<app-main-navbar
+    [navBrand]="'nR Personal'"
+    [source]="'Personal'"
+></app-main-navbar>
+
+<div *ngIf="isLoading" class="text-center vh-100 bg-light p-5">
+    <div class="spinner-grow text-secondary mt-5 mx-1" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-secondary mt-5 mx-1" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-secondary mt-5 mx-1" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<app-suite-scrollnav *ngIf="!isLoading"
+    (aboutEvent)="gotoAbout()"
+    (pricingEvent)="gotoPricing()"
+    (contactEvent)="gotoContact()"
+></app-suite-scrollnav>
+
+<app-guest-top *ngIf="!isLoading"
+    [suiteName]="'Personal'"
+    [primaryCaption]="'netRink Personal'"
+    [secondaryCaption]="'Get unlimited access to a range of simple and easy to use personal productivity tools'"
+    [features]="[
+        {
+            'title': 'Financial management',
+            'description': 'Plan your budgets, and assemble all your accounts in one place',
+            'imgLink': 'assets/images/features/financial.png'
+        },
+        {
+            'title': 'Note Taking',
+            'description': 'Put down notes, images, audio and video recordings, and access them anywhere',
+            'imgLink': 'assets/images/features/notes.png'
+        },
+        {
+            'title': 'Personal orgnisation',
+            'description': 'Take care of all your routine tasks and schedules',
+            'imgLink': 'assets/images/features/organization.png'
+        },
+        {
+            'title': 'Seamless integration',
+            'description': 'Import and export data to and from other netRink suites with ease',
+            'imgLink': 'assets/images/features/integration.png'
+        }
+    ]">
+</app-guest-top>
+
+<app-about id="aboutComponentReference"
+    [suiteName]="'Personal'"
+    [suiteDetails]="'netRink Personal lets you manage and organize yourself. Personal comes with a range of modular personal produtivity apps that are designed to see you through your day and make your life more organized and easy, all for free. The modular apps are well intergrated with each other and with other apps accross the netRink ecosystem, allowing you to link all aspects of your life.'"
+></app-about>
+
+<app-pricing id="pricingComponentReference"></app-pricing>
+
+<app-contact id="contactComponentReference"
+    [suiteName]="'Personal'"
+></app-contact>
+
+<app-main-footer></app-main-footer>
