@@ -31,6 +31,7 @@ export class GuestLandingPage implements OnInit {
           this.isLoading = false;
 
           if (res.id){
+            // TODO: use guard for redirecting instead of router
             this.router.navigateByUrl("/home");
           }
         },
