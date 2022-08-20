@@ -11,7 +11,7 @@
 
                         <div class="row mb-3 text-center">
                             <div class="col">
-                                <mat-error *ngIf="nfErrors!= ''">{{nfErrors}}</mat-error>
+                                <mat-error *ngFor="let err of nfErrors">{{err}}</mat-error>
                             </div>
                         </div>
 
@@ -23,7 +23,7 @@
                                         <mat-label>Email</mat-label>
                                         <input matInput type="text" formControlName="email" required>
                                     </mat-form-field>
-                                    <mat-error *ngIf="saved && recoveryForm.controls.email.errors">Email format is Incorrect</mat-error>
+                                    <mat-error *ngFor="let err of emailErrors">{{err}}</mat-error>
                                 </div>
                             </div>
 
@@ -38,8 +38,8 @@
                         <div *ngIf="showPrompt" class="row p5 text-center">
                             <div class="col">
                                 <img src="../../../../assets/images/forms/mail.png" class="mb-4 prompt-image mx-auto">
-                                <p class="lead">Account Submitted</p>
-                                <p class="lead">Plese check your email to confirm the account</p>
+                                <p class="lead">Email Submitted</p>
+                                <p class="lead">Plese check your email to continue with the recovery process</p>
                             </div>
                         </div>
 

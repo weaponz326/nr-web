@@ -11,7 +11,8 @@
 
                         <div class="row mb-3 text-center">
                             <div class="col">
-                                <mat-error *ngIf="nfErrors != ''">{{nfErrors}}</mat-error>
+                                <mat-error>{{detailErrors}}</mat-error>
+                                <mat-error *ngFor="let err of nfErrors">{{err}}</mat-error>
                             </div>
                         </div>
 
@@ -23,7 +24,7 @@
                                         <mat-label>Email</mat-label>
                                         <input matInput type="text" formControlName="email" required>
                                     </mat-form-field>
-                                    <mat-error *ngIf="saved && loginForm.controls.email.errors">Email format is Incorrect</mat-error>
+                                    <mat-error *ngFor="let err of emailErrors">{{err}}</mat-error>
                                 </div>
                             </div>
 
@@ -33,7 +34,7 @@
                                         <mat-label>Password</mat-label>
                                         <input matInput type="password" formControlName="password" required>
                                     </mat-form-field>
-                                    <mat-error *ngIf="saved && loginForm.controls.password.errors">Password is too short</mat-error>
+                                    <mat-error *ngFor="let err of passErrors">{{err}}</mat-error>
                                 </div>
                             </div>
 

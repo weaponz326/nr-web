@@ -29,11 +29,11 @@
 <div class="bg-light py-5" id="homeBottomDiv">
     <div class="container">
 
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-md-3" *ngFor="let feature of features">
                 <img src={{feature.imgLink}} height="40" width="40">
                 <p class="lead my-2">{{feature.title}}</p>
-                <p class="h6 text-muted">{{feature.description}}<p>
+                <p class="text-muted">{{feature.description}}<p>
             </div>
         </div>
 

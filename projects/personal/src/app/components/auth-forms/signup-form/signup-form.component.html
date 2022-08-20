@@ -25,14 +25,14 @@
                                                 <mat-label>First Name</mat-label>
                                                 <input matInput type="text" formControlName="firstName" required>
                                             </mat-form-field>
-                                            <mat-error *ngIf="saved && signupForm.controls.firstName.errors">First Name is required</mat-error>
+                                            <mat-error *ngFor="let err of fnErrors">{{err}}</mat-error>
                                         </div>
                                         <div class="col-md-6">
                                             <mat-form-field appearance="outline" class="w-100">
                                                 <mat-label>Last Name</mat-label>
                                                 <input matInput type="text" formControlName="lastName" required>
                                             </mat-form-field>
-                                            <mat-error *ngIf="saved && signupForm.controls.lastName.errors">Last Name is required</mat-error>
+                                            <mat-error *ngFor="let err of lnErrors">{{err}}</mat-error>
                                         </div>
                                     </div>
 
@@ -42,7 +42,7 @@
                                                 <mat-label>Location</mat-label>
                                                 <input matInput type="text" formControlName="location" required ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="onAddressChange($event)">
                                             </mat-form-field>
-                                            <mat-error *ngIf="saved && signupForm.controls.location.errors">Location is required</mat-error>
+                                            <mat-error *ngFor="let err of locErrors">{{err}}</mat-error>
                                         </div>
                                     </div>
 
@@ -53,7 +53,7 @@
                                                 <textarea matInput rows="3" formControlName="about" required maxlength="250"></textarea>
                                             </mat-form-field>
                                             <mat-hint>Not more than 250 characters</mat-hint>
-                                            <mat-error *ngIf="saved && signupForm.controls.about.errors">About is required</mat-error>
+                                            <mat-error *ngFor="let err of abtErrors">{{err}}</mat-error>
                                         </div>
                                     </div>
 
@@ -73,7 +73,7 @@
                                                 <mat-label>Email</mat-label>
                                                 <input matInput type="text" formControlName="email" required>
                                             </mat-form-field>
-                                            <mat-error *ngIf="saved && signupForm.controls.email.errors">Email format is Incorrect</mat-error>
+                                            <mat-error *ngFor="let err of emailErrors">{{err}}</mat-error>
                                         </div>
                                     </div>
 
@@ -81,10 +81,10 @@
                                         <div class="col">
                                             <mat-form-field appearance="outline" class="w-100">
                                                 <mat-label>Password</mat-label>
-                                                <input matInput type="password" formControlName="password1" required>
+                                                <input matInput type="password" formControlName="password" required>
                                             </mat-form-field>
                                             <mat-hint>Not less than 8 characters</mat-hint>
-                                            <mat-error *ngIf="saved && signupForm.controls.password1.errors">Password is too short</mat-error>
+                                            <mat-error *ngFor="let err of passErrors">{{err}}</mat-error>
                                         </div>
                                     </div>
 
@@ -92,9 +92,9 @@
                                         <div class="col">
                                             <mat-form-field appearance="outline" class="w-100">
                                                 <mat-label>Confirm Password</mat-label>
-                                                <input matInput type="password" formControlName="password2" required>
+                                                <input matInput type="password" formControlName="rePassword" required>
                                             </mat-form-field>
-                                            <mat-error *ngIf="saved && signupForm.controls.password1.value != signupForm.controls.password2.value">Passwords do not match</mat-error>
+                                            <mat-error *ngFor="let err of rePassErrors">{{err}}</mat-error>
                                         </div>
                                     </div>
 

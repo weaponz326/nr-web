@@ -49,7 +49,7 @@ export class MainNavbarComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          if(res.id) {
+          if(res.email) {
             this.isLoggedIn = true;
             this.name = res.first_name;
             this.email = res.email;

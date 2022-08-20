@@ -29,6 +29,7 @@ export class AuthApiService {
 
   public getUser(): Observable<any>{
     return this.http.get(this.personalUrl + "auth/users/me/", this.token);
+    // return this.http.get("http://localhost:8000/auth/users/me/", this.token);
   }
 
   public deleteUser(): Observable<any>{

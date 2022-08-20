@@ -23,6 +23,7 @@ export class LoginFormComponent implements OnInit {
   emailErrors: any;
   passErrors: any;
   nfErrors: any;
+  detailErrors: any;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -45,8 +46,9 @@ export class LoginFormComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          if (JSON.stringify(res).includes("key")){
-            localStorage.setItem('token', res.key);
+          if (res.access){
+            localStorage.setItem('auth_token', res.access);
+            localStorage.setItem('auth_refresh', res.refresh);
 
             // TODO: can't get auth_token if angular router is used
             if(this.suiteRegistrationType == "nR Personal" || this.suiteRegistrationType == "netRink"){
@@ -71,6 +73,7 @@ export class LoginFormComponent implements OnInit {
           this.emailErrors = err.error.email;
           this.passErrors = err.error.password;
           this.nfErrors = err.error.non_field_errors;
+          this.detailErrors = err.error.detail;
 
           this.isSending = false;
         }

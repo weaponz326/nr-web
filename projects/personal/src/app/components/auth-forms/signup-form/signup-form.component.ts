@@ -31,8 +31,8 @@ export class SignupFormComponent implements OnInit {
   locErrors: any;
   abtErrors: any;
   emailErrors: any;
-  pass1Errors: any;
-  pass2Errors: any;
+  passErrors: any;
+  rePassErrors: any;
   nfErrors: any;
   
   signupForm = new FormGroup({
@@ -41,8 +41,8 @@ export class SignupFormComponent implements OnInit {
       location: new FormControl('', Validators.required),
       about: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password1: new FormControl('', Validators.required),
-      password2: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      rePassword: new FormControl('', Validators.required),
   })
 
   ngOnInit(): void {
@@ -51,8 +51,8 @@ export class SignupFormComponent implements OnInit {
   onSubmit(){
     let userData = {
       email: this.signupForm.controls.email.value,
-      password1: this.signupForm.controls.password1.value,
-      password2: this.signupForm.controls.password2.value,
+      password: this.signupForm.controls.password.value,
+      re_password: this.signupForm.controls.rePassword.value,
       first_name: this.signupForm.controls.firstName.value,
       last_name: this.signupForm.controls.lastName.value,
       location: this.signupForm.controls.location.value,
@@ -60,40 +60,32 @@ export class SignupFormComponent implements OnInit {
     }
 
     this.saved = true;
+    this.isSending = true;
 
-    if (this.signupForm.valid && this.signupForm.controls.password1.value == this.signupForm.controls.password2.value){
-      this.isSending = true;
-
-      this.authApi.postSignup(userData)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            if (res.auth_token){
-              localStorage.setItem('auth_token', res.auth_token);
-              this.showPrompt = true;
-            }
-            this.isSending = false;
-          },
-          error: (err) => {
-            console.log(err);
-            this.fnErrors = err.errors?.first_name;
-            this.lnErrors = err.errors?.last_name;
-            this.locErrors = err.errors?.location;
-            this.abtErrors = err.errors?.about;
-            this.emailErrors = err.error?.email;
-            this.pass1Errors = err.error?.password1;
-            this.pass2Errors = err.error?.password2;
-            this.nfErrors = err.error?.non_field_errors;
-
-            this.isSending = false;
-            this.signupStepper.selectedIndex = 0;
+    this.authApi.postSignup(userData)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.email){
+            this.showPrompt = true;
           }
-        })  
-    }
-    else{
-      console.log("form is invalid");
-      this.signupStepper.selectedIndex = 0;
-    }
+          this.isSending = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.fnErrors = err.error?.first_name;
+          this.lnErrors = err.error?.last_name;
+          this.locErrors = err.error?.location;
+          this.abtErrors = err.error?.about;
+          this.emailErrors = err.error?.email;
+          this.passErrors = err.error?.password;
+          this.rePassErrors = err.error?.re_password;
+          this.nfErrors = err.error?.non_field_errors;
+
+          this.isSending = false;
+          this.signupStepper.selectedIndex = 0;
+        }
+      })  
 
     console.log(this.signupForm.value);
   }
