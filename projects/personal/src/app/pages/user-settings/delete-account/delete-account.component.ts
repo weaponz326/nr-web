@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
 
 
 @Component({
@@ -9,18 +11,39 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DeleteAccountComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authApi: AuthApiService) { }
 
-  isDeleteSending = false;
+  isSending: boolean = false;
 
+  passErrors: any;
+  nfErrors: any;
+  detailError: any;
+  
   deleteForm = new FormGroup({
-    password: new FormControl(''),
+    currentPassword: new FormControl('', [Validators.required]),
   })
 
   ngOnInit(): void {
   }
 
-  // TODO:
-  // submit form
+  onSubmit(){
+    this.isSending = true;
+    console.log(this.deleteForm.value);
+    this.authApi.deleteUser(this.deleteForm.value)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          window.location.href = "/";
+        },
+        error: (err) => {
+          console.log(err);
+          this.passErrors = err.error.current_password;
+          this.nfErrors = err.error.non_field_errors;
+          this.detailError = err.error.detail;
+
+          this.isSending = false;
+        }
+      })
+  }
 
 }

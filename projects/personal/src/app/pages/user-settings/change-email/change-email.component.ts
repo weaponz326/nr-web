@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
 
 
 @Component({
@@ -9,19 +11,53 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ChangeEmailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authApi: AuthApiService) { }
 
-  isEmailSending = false;
+  isSending: boolean = false;
+  showPrompt: boolean = false;
 
-  emailForm: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
+  emailErrors: any;
+  reEmailErrors: any;
+  passErrors: any;
+  nfErrors: any;
+  detailError: any;
+  
+  emailForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    reEmail: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  })
 
   ngOnInit(): void {
   }
 
-  // TODO:
-  // submit form
+  onSubmit(){
+    let emailData = {
+      new_email: this.emailForm.controls.email.value,
+      re_new_email: this.emailForm.controls.reEmail.value,
+      current_password: this.emailForm.controls.password.value,
+
+    }
+
+    this.isSending = true;
+    console.log(emailData);
+    this.authApi.postChangeEmail(this.emailForm.value)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isSending = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.emailErrors = err.error.new_email;
+          this.reEmailErrors = err.error.re_new_email;
+          this.passErrors = err.error.current_password;
+          this.nfErrors = err.error.non_field_errors;
+          this.detailError = err.error.detail;
+
+          this.isSending = false;
+        }
+      })
+  }
 
 }

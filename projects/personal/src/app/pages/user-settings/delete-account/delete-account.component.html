@@ -1,7 +1,7 @@
 <div class="row my-5 page-form">
     <div class="col-md-12">
 
-        <form class="page-form" [formGroup]="deleteForm">
+        <form class="page-form" [formGroup]="deleteForm" (ngSubmit)="onSubmit()">
 
             <div class="row mb-3">
                 <div class="col-md-12">
@@ -9,20 +9,24 @@
                 </div>
             </div>
 
-            <p class="lead text-danger">
+            <p class="lead text-warning">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
                 Account can not be recovered after deletion!
             </p>
 
             <div class="row mb-2">
                 <div class="col-md-4"><label class="mt-1">Password :</label></div>
                 <div class="col-md-8">
-                    <input type="password" formControlName="password" class="form-control form-control-sm w-100">
+                    <input type="password" formControlName="currentPassword" class="form-control form-control-sm w-100">
+                    <small class="text-danger">{{detailError}}</small>
+                    <small class="text-danger" *ngFor="let err of nfErrors">{{err}}</small>
+                    <small class="text-danger" *ngFor="let err of passErrors">{{err}}</small>
                 </div>
             </div>
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <button [disabled]="isDeleteSending" type="submit" class="btn btn-danger btn-sm float-end page-form-btn">Delete</button>
+                    <button [disabled]="isSending" type="submit" class="btn btn-danger btn-sm float-end page-form-btn">Delete</button>
                 </div>
             </div>
 

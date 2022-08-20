@@ -13,7 +13,6 @@ export class RecoveryFormComponent implements OnInit {
 
   constructor(private authApi: AuthApiService) { }
 
-  saved: boolean = false;
   isSending: boolean = false;
   showPrompt: boolean = false;
 
@@ -28,8 +27,6 @@ export class RecoveryFormComponent implements OnInit {
   }
 
   onSubmit(){
-    this.saved = true;
-
     this.isSending = true;
     console.log(this.recoveryForm.value);
     this.authApi.postRecoveryEmail(this.recoveryForm.value)

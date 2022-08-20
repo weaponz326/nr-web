@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
 
 
 @Component({
@@ -9,20 +11,53 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authApi: AuthApiService) { }
 
-  isResetSending = false;
+  isSending: boolean = false;
+  showPrompt: boolean = false;
 
-  resetForm = new FormGroup({
-    oldPassword: new FormControl(''),
-    password1: new FormControl(''),
-    password2: new FormControl(''),
+  passErrors: any;
+  rePassErrors: any;
+  curPassErrors: any;
+  nfErrors: any;
+  detailError: any;
+  
+  passwordForm = new FormGroup({
+    password: new FormControl('', [Validators.required]),
+    rePassword: new FormControl('', [Validators.required]),
+    currentPassword: new FormControl('', [Validators.required]),
   })
 
   ngOnInit(): void {
   }
 
-  // TODO:
-  // submit form
+  onSubmit(){
+    let passwordData = {
+      new_password: this.passwordForm.controls.password.value,
+      re_new_password: this.passwordForm.controls.rePassword.value,
+      current_password: this.passwordForm.controls.currentPassword.value,
+
+    }
+
+    this.isSending = true;
+    console.log(passwordData);
+    this.authApi.postChangePassword(this.passwordForm.value)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isSending = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.passErrors = err.error.new_password;
+          this.rePassErrors = err.error.re_new_password;
+          this.curPassErrors = err.error.current_password;
+          this.nfErrors = err.error.non_field_errors;
+          this.detailError = err.error.detail;
+
+          this.isSending = false;
+        }
+      })
+  }
 
 }

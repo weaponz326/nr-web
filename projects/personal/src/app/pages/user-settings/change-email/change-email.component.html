@@ -1,7 +1,7 @@
 <div class="row my-5 page-form">
     <div class="col-md-12">
 
-        <form class="page-form" [formGroup]="emailForm">
+        <form class="page-form" [formGroup]="emailForm" (ngSubmit)="onSubmit()">
 
             <div class="row mb-3">
                 <div class="col-md-12">
@@ -13,6 +13,15 @@
                 <div class="col-md-4"><label class="mt-1">New Email :</label></div>
                 <div class="col-md-8">
                     <input type="email" formControlName="email" class="form-control form-control-sm w-100">
+                    <small class="text-danger" *ngFor="let err of emailErrors">{{err}}</small>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><label class="mt-1">Confirm New Email :</label></div>
+                <div class="col-md-8">
+                    <input type="email" formControlName="reEmail" class="form-control form-control-sm w-100">
+                    <small class="text-danger" *ngFor="let err of reEmailErrors">{{err}}</small>
                 </div>
             </div>
 
@@ -20,12 +29,13 @@
                 <div class="col-md-4"><label class="mt-1">Password :</label></div>
                 <div class="col-md-8">
                     <input type="password" formControlName="password" class="form-control form-control-sm w-100">
+                    <small class="text-danger" *ngFor="let err of passErrors">{{err}}</small>
                 </div>
             </div>
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <button [disabled]="isEmailSending" type="submit" class="btn btn-secondary btn-sm float-end page-form-btn">Submit</button>
+                    <button [disabled]="isSending" type="submit" class="btn btn-secondary btn-sm float-end page-form-btn">Submit</button>
                 </div>
             </div>
 
