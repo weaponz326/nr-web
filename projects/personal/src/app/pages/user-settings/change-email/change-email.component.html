@@ -43,3 +43,22 @@
 
     </div>
 </div>
+
+<!-- success modal -->
+
+<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#emailChangeSuccessModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="emailChangeSuccessModal" tabindex="-1" aria-labelledby="emailChangeSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body">
+                <p class="lead my-3">Account email succesfully changed</p>
+                <button class="btn btn-sm btn-secondary modal-form-btn mb-3" data-bs-dismiss="modal">OK</button>
+            </div>
+
+        </div>
+    </div>
+</div>

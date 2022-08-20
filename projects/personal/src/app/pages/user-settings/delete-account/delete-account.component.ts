@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
@@ -12,6 +12,8 @@ import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service
 export class DeleteAccountComponent implements OnInit {
 
   constructor(private authApi: AuthApiService) { }
+
+  @ViewChild('buttonElementReference', { read: ElementRef, static: false }) buttonElement!: ElementRef;
 
   isSending: boolean = false;
 
@@ -44,6 +46,15 @@ export class DeleteAccountComponent implements OnInit {
           this.isSending = false;
         }
       })
+  }
+
+  openModal(){
+    this.buttonElement.nativeElement.click();
+  }
+
+  onConfirm() {
+    console.log("Yep... lets haul this account down the thrash can");
+    this.onSubmit();
   }
 
 }
