@@ -10,9 +10,6 @@ import { AuthHeadersService } from '../auth-headers/auth-headers.service';
   providedIn: 'root'
 })
 export class AuthApiService {
-  postSetPassword(value: Partial<{ password: string | null; rePassword: string | null; currentPassword: string | null; }>) {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(
     private http: HttpClient,
@@ -32,10 +29,6 @@ export class AuthApiService {
 
   public getUser(): Observable<any>{
     return this.http.get(this.personalUrl + "auth/users/me/", this.headers);
-  }
-
-  public deleteUser(deleteForm: any): Observable<any>{
-    return this.http.get(this.personalUrl + "auth/users/me/", deleteForm);
   }
 
   public postRecoveryEmail(email: any): Observable<any>{
@@ -58,4 +51,8 @@ export class AuthApiService {
     return this.http.post(this.personalUrl + "auth/users/set_password/", passwordForm, this.headers);
   }
 
+  public deleteUser(deleteForm: any): Observable<any>{
+    return this.http.get(this.personalUrl + "auth/users/me/", deleteForm);
+  }
+  
 }

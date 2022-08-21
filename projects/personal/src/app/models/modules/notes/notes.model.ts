@@ -1,2 +1,5 @@
-export class Notes {
+export class Note {
+  user!: string;
+  subject!: string;
+  body!: string;
 }
