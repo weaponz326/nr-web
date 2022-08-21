@@ -1,0 +1,35 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { SettingsRoutingModule } from './settings-routing.module';
+import { SettingsPage } from './settings.page';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AllAccountsComponent } from './all-accounts/all-accounts.component';
+import { InvitationsComponent } from './invitations/invitations.component';
+import { BasicComponent } from './profile-content/basic/basic.component';
+import { AdditionalComponent } from './profile-content/additional/additional.component';
+import { PhotoComponent } from './profile-content/photo/photo.component';
+import { ContactComponent } from './profile-content/contact/contact.component';
+import { LocationComponent } from './profile-content/location/location.component';
+
+
+@NgModule({
+  declarations: [
+    SettingsPage,
+    DashboardComponent,
+    ProfileComponent,
+    AllAccountsComponent,
+    InvitationsComponent,
+    BasicComponent,
+    AdditionalComponent,
+    PhotoComponent,
+    ContactComponent,
+    LocationComponent
+  ],
+  imports: [
+    CommonModule,
+    SettingsRoutingModule
+  ]
+})
+export class SettingsModule { }
