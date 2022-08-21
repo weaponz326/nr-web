@@ -142,7 +142,7 @@
 		+ services
 			+ auth
 				+ auth api (S)
-				+ auth api (S)
+				+ auth headers (S)
             + pdf print (S)
 			+ modules api
 				+ portal api (S)

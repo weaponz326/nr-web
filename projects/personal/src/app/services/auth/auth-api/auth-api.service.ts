@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
-import { AuthTokenService } from '../auth-token/auth-token.service';
+import { AuthHeadersService } from '../auth-headers/auth-headers.service';
 
 
 @Injectable({
@@ -16,23 +16,23 @@ export class AuthApiService {
 
   constructor(
     private http: HttpClient,
-    private authToken: AuthTokenService 
+    private authHeaders: AuthHeadersService 
   ) { }
 
   personalUrl = environment.personalUrl;
-  token = this.authToken.headers
+  headers = this.authHeaders.headers
 
   public postSignup(signupForm: any): Observable<any>{
     return this.http.post(this.personalUrl + "auth/users/", signupForm);
   }
 
   public putUser(updateForm: any): Observable<any>{
-    return this.http.put(this.personalUrl + "auth/users/me/", updateForm, this.token);
+    return this.http.put(this.personalUrl + "auth/users/me/", updateForm, this.headers);
   }
 
   public getUser(): Observable<any>{
-    return this.http.get(this.personalUrl + "auth/users/me/", this.token);
-    // return this.http.get("http://localhost:8000/auth/users/me/", this.token);
+    return this.http.get(this.personalUrl + "auth/users/me/", this.headers);
+    // return this.http.get("http://localhost:8000/auth/users/me/", this.headers);
   }
 
   public deleteUser(deleteForm: any): Observable<any>{
@@ -48,15 +48,15 @@ export class AuthApiService {
   }
 
   public postLogin(loginForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/jwt/create/", loginForm, this.token);
+    return this.http.post(this.personalUrl + "auth/jwt/create/", loginForm, this.headers);
   }
 
   public postChangeEmail(emailForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/users/set_email/", emailForm, this.token);
+    return this.http.post(this.personalUrl + "auth/users/set_email/", emailForm, this.headers);
   }
 
   public postChangePassword(passwordForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/users/set_password/", passwordForm, this.token);
+    return this.http.post(this.personalUrl + "auth/users/set_password/", passwordForm, this.headers);
   }
 
 }
