@@ -1,11 +1,11 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-delete-modal',
-  templateUrl: './delete-modal.component.html',
-  styleUrls: ['./delete-modal.component.scss']
+  selector: 'app-delete-modal-two',
+  templateUrl: './delete-modal-two.component.html',
+  styleUrls: ['./delete-modal-two.component.scss']
 })
-export class DeleteModalComponent implements OnInit {
+export class DeleteModalTwoComponent implements OnInit {
 
   constructor() { }
 
@@ -24,6 +24,5 @@ export class DeleteModalComponent implements OnInit {
     console.log("Yep... lets go ahead and delete this useless piece of ****");
     this.confirmEvent.emit("OK");
   }
-
 
 }

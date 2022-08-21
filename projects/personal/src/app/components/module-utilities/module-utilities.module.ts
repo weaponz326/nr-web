@@ -9,7 +9,8 @@ import { ConnectionToastComponent } from './connection-toast/connection-toast.co
 import { AccessToastComponent } from './access-toast/access-toast.component';
 import { BdayInputComponent } from './bday-input/bday-input.component';
 import { ImageInputComponent } from './image-input/image-input.component';
-import { DeleteModalComponent } from './delete-modal/delete-modal.component';
+import { DeleteModalOneComponent } from './delete-modal-one/delete-modal-one.component';
+import { DeleteModalTwoComponent } from './delete-modal-two/delete-modal-two.component';
 
 
 
@@ -21,7 +22,8 @@ import { DeleteModalComponent } from './delete-modal/delete-modal.component';
     AccessToastComponent,
     BdayInputComponent,
     ImageInputComponent,
-    DeleteModalComponent
+    DeleteModalOneComponent,
+    DeleteModalTwoComponent
   ],
   imports: [
     CommonModule,
