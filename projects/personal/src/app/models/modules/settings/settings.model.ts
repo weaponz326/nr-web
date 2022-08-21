@@ -11,9 +11,9 @@ export class ExtendedProfile {
 }
 
 export class Invitation {
-  created_at!: any;
   user!: string;
   invitation_status!: string;
-  account_type!: string;
+  inviter!: string;
+  inviter_type!: string;
 }
 
