@@ -10,6 +10,7 @@ import { NewCalendarComponent } from './new-calendar/new-calendar.component';
 import { AllCalendarComponent } from './all-calendar/all-calendar.component';
 import { AddAppointmentComponent } from './add-appointment/add-appointment.component';
 import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
+import { SchedulerViewComponent } from './scheduler-view/scheduler-view.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { EditAppointmentComponent } from './edit-appointment/edit-appointment.co
     NewCalendarComponent,
     AllCalendarComponent,
     AddAppointmentComponent,
-    EditAppointmentComponent
+    EditAppointmentComponent,
+    SchedulerViewComponent
   ],
   imports: [
     CommonModule,
