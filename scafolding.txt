@@ -58,6 +58,7 @@
 					+ all calendar (C)
 					+ new calendar (C)
 					+ view calendar (C)
+					+ scheduler view (C)
 					+ add appoitment (C)
 					+ edit appoitment (C)
 					+ all appointments (C)
