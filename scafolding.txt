@@ -117,8 +117,7 @@
 				+ module topnav (C)
                 + connection toast (C)
                 + access toast (C)
-                + delete modal 1 (C)
-                + delete modal 2 (C)
+                + delete modal (C)
                 + bday input (C)
                 + image input (C)				
 			+ select windows

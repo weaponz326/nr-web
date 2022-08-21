@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-module-topnav',
@@ -9,6 +9,10 @@ export class ModuleTopnavComponent implements OnInit {
 
   constructor() { }
 
+  @Input() headings: any[] = [];
+  @Input() showPrint: boolean = false;
+  @Output() print = new EventEmitter<object>();
+  
   ngOnInit(): void {
   }
 
