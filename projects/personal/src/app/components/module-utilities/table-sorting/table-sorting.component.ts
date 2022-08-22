@@ -9,7 +9,7 @@ export class TableSortingComponent implements OnInit {
 
   constructor() { }
 
-  @Input() sortField: string = "";
+  @Input() sortField: string = "todo";
   @Output() sortDirection = new EventEmitter<string>();
 
   currentSort = "";

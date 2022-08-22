@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { MainNavbarModule } from '../../../components/main-navbar/main-navbar.module';
@@ -30,6 +31,8 @@ import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     CalendarRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule

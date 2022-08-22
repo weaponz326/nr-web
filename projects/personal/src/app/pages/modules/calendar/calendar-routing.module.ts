@@ -16,7 +16,6 @@ const routes: Routes = [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
       { path: "all-calendar", component: AllCalendarComponent },
-      { path: "new-calendar", component: NewCalendarComponent },
       { path: "view-calendar", component: ViewCalendarComponent },
       { path: "all-schedules", component: AllSchedulesComponent },
     ]

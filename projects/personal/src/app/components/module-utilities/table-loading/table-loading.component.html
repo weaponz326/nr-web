@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div *ngIf="isNoData">
+    <div *ngIf="isNoData && !isLoading">
         <p *ngIf="loaderSize == 'md'" class="m-4">No data available</p>
         <p *ngIf="loaderSize == 'sm'" class="m-2">No data available</p>
     </div>

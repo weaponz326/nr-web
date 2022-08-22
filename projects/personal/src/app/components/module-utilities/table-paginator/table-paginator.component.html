@@ -9,17 +9,17 @@
         </li>
         <li class="page-item" [ngClass]="currentPage < 1 ? 'disabled' : ''">
             <a class="page-link" href="#" aria-label="Previous" (click)="changePage($event, currentPage - 1)">
-                {{currentPage - 1}}
+                <i class="bi bi-chevron-left"></i>
             </a>
         </li>
         <li class="page-item">
-            <a class="page-link" href="#" aria-label="Current">
+            <a class="page-link" aria-label="Current" (click)="$event.stopPropagation()">
                 {{currentPage}}
             </a>
         </li>
         <li class="page-item" [ngClass]="currentPage >= totalPages ? 'disabled' : ''">
             <a class="page-link" href="#" aria-label="Next" (click)="changePage($event, currentPage + 1)">
-                {{currentPage + 1}}
+                <i class="bi bi-chevron-right"></i>
             </a>
         </li>
         <li class="page-item" [ngClass]="currentPage >= totalPages ? 'disabled' : ''">
