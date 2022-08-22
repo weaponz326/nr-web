@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TasksRoutingModule } from './tasks-routing.module';
+import { MainNavbarModule } from '../../../components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from '../../../components/module-utilities/module-utilities.module';
+
 import { TasksPage } from './tasks.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllTaskGroupsComponent } from './all-task-groups/all-task-groups.component';
@@ -31,6 +35,10 @@ import { AllTaskItemsComponent } from './all-task-items/all-task-items.component
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
     TasksRoutingModule
   ]
 })

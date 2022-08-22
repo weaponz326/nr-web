@@ -35,7 +35,7 @@ import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
     ReactiveFormsModule,
     CalendarRoutingModule,
     MainNavbarModule,
-    ModuleUtilitiesModule
+    ModuleUtilitiesModule,
   ]
 })
 export class CalendarModule { }

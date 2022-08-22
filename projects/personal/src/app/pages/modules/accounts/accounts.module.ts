@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AccountsRoutingModule } from './accounts-routing.module';
+import { MainNavbarModule } from '../../../components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from '../../../components/module-utilities/module-utilities.module';
+
 import { AccountsPage } from './accounts.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllAccountsComponent } from './all-accounts/all-accounts.component';
@@ -29,6 +33,10 @@ import { AllTransactionComponent } from './all-transaction/all-transaction.compo
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
     AccountsRoutingModule
   ]
 })

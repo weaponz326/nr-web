@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SettingsRoutingModule } from './settings-routing.module';
+import { MainNavbarModule } from '../../../components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from '../../../components/module-utilities/module-utilities.module';
+
 import { SettingsPage } from './settings.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -29,6 +33,10 @@ import { LocationComponent } from './profile-content/location/location.component
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
     SettingsRoutingModule
   ]
 })

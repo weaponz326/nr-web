@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BudgetRoutingModule } from './budget-routing.module';
+import { MainNavbarModule } from '../../../components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from '../../../components/module-utilities/module-utilities.module';
+
 import { BudgetPage } from './budget.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllBudgetComponent } from './all-budget/all-budget.component';
@@ -29,6 +33,10 @@ import { EditExpenditureComponent } from './edit-expenditure/edit-expenditure.co
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
     BudgetRoutingModule
   ]
 })
