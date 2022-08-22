@@ -23,7 +23,7 @@ export class CalendarApiService {
   public getUserCalendars(page: any, size: any, sortField: any): Observable<any>{
     return this.http.get(this.personalUrl + "module-calendar/calendar?user=" + localStorage.getItem('personal_id')
       + "&page=" + page
-      + "&size=" + size
+      + "&size=1" + size
       + "&ordering=" + sortField,
       this.authHeaders.headers);
   }

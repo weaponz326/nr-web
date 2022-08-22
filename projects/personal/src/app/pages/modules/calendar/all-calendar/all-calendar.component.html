@@ -35,10 +35,10 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of calendarGridData" (dblclick)="viewCalendar(data?.id)" class="table-pointer">
-                                <td>{{data?.data().calendar_name}}</td>
-                                <td>{{data?.data().created_at.toDate() | date}}</td>
+                                <td>{{data?.calendar_name}}</td>
+                                <td>{{data?.created_at | date}}</td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="2">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
