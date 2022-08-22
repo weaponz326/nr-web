@@ -35,6 +35,19 @@ import { TableLoadingComponent } from './table-loading/table-loading.component';
     CommonModule,
     RouterModule,
     FormsModule
+  ],
+  exports: [
+    ModuleSidenavComponent,
+    ModuleTopnavComponent,
+    ConnectionToastComponent,
+    AccessToastComponent,
+    BdayInputComponent,
+    ImageInputComponent,
+    DeleteModalOneComponent,
+    DeleteModalTwoComponent,
+    TablePaginatorComponent,
+    TableSortingComponent,
+    TableLoadingComponent
   ]
 })
 export class ModuleUtilitiesModule { }

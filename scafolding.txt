@@ -59,9 +59,9 @@
 					+ new calendar (C)
 					+ view calendar (C)
 					+ scheduler view (C)
-					+ add appoitment (C)
-					+ edit appoitment (C)
-					+ all appointments (C)
+					+ add schedule (C)
+					+ edit schedule (C)
+					+ all schedules (C)
 				+ budget (Mr)(Cp)
 					+ dashboard (C)
 					+ all budget (C)
@@ -147,7 +147,10 @@
 			+ auth
 				+ auth api (S)
 				+ auth headers (S)
-            + pdf print (S)
+			+ module utilities
+				+ sorting switch (S)
+            	+ pdf print (S)
+				+ datetime formatter (S)
 			+ modules api
 				+ portal api (S)
 				+ settings api (S)

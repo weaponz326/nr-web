@@ -33,6 +33,34 @@ const routes: Routes = [
         path: "",
         loadChildren: () => import("./pages/module-home/module-home.module").then(m => m.ModuleHomeModule)
       },
+      {
+        path: "portal",
+        loadChildren: () => import("./pages/modules/portal/portal.module").then(m => m.PortalModule)
+      },
+      {
+        path: "settings",
+        loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
+      },
+      {
+        path: "calendar",
+        loadChildren: () => import("./pages/modules/calendar/calendar.module").then(m => m.CalendarModule)
+      },
+      {
+        path: "budget",
+        loadChildren: () => import("./pages/modules/budget/budget.module").then(m => m.BudgetModule)
+      },
+      {
+        path: "notes",
+        loadChildren: () => import("./pages/modules/notes/notes.module").then(m => m.NotesModule)
+      },
+      {
+        path: "accounts",
+        loadChildren: () => import("./pages/modules/accounts/accounts.module").then(m => m.AccountsModule)
+      },
+      {
+        path: "tasks",
+        loadChildren: () => import("./pages/modules/tasks/tasks.module").then(m => m.TasksModule)
+      }
     ]
   }
 ];
