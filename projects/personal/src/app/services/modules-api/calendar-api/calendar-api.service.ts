@@ -47,7 +47,7 @@ export class CalendarApiService {
   // schedules
 
   public getUserSchedules(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-calendar/schedule?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.personalUrl + "module-calendar/all-schedule?user=" + localStorage.getItem('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -55,7 +55,7 @@ export class CalendarApiService {
   }
 
   public getCalendarSchedules(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-calendar/calendar-schedule?calendar=" + sessionStorage.getItem('personal_calendar_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-calendar/schedule?calendar=" + sessionStorage.getItem('personal_calendar_id'), this.authHeaders.headers);
   }
 
   public getSchedule(schedule_id: any): Observable<any>{
