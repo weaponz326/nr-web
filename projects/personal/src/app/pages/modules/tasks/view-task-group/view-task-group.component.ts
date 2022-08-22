@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+
+import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
+
 
 @Component({
   selector: 'app-view-task-group',
@@ -7,9 +13,68 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewTaskGroupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tasksApi: TasksApiService) { }
+
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  navHeading: any[] = [
+    { text: "All Task Groups", url: "/home/tasks/all-task-groups" },
+    { text: "View Task Group", url: "/home/tasks/view-task-group" },
+  ];
+
+  taskGroupFormData: any;
+
+  isTaskGroupLoading: boolean = false;
+  isTaskGroupSaving: boolean = false;
+
+  taskGroupForm = new FormGroup({
+    taskGroupName: new FormControl('')
+  })
 
   ngOnInit(): void {
+    this.getTaskGroup();
+  }
+
+  getTaskGroup(){
+    this.isTaskGroupLoading = true;
+
+    this.tasksApi.getTaskGroup()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.taskGroupFormData = res;
+          this.taskGroupForm.controls.taskGroupName.setValue(res.task_group);
+          this.isTaskGroupLoading = false;
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isTaskGroupLoading = false;
+          console.log(err);
+        }
+      })
+  }
+
+  updateTaskGroup(){
+    let data = {
+      calendar_name: this.taskGroupForm.controls.taskGroupName.value,
+    }
+
+    console.log(data);
+    
+    this.isTaskGroupSaving = true;
+
+    this.tasksApi.putTaskGroup(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isTaskGroupSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isTaskGroupSaving = false;
+        }
+      })
   }
 
 }

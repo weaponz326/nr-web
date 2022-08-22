@@ -1,1 +1,94 @@
-<p>all-task-items works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getUserTaskItems(1,20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered table-sm w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="30%" class="min-width-4">
+                                    Task Item
+                                    <app-table-sorting #taskItemSortingComponentReference
+                                    [sortField]="'task_item'" (sortDirection)="sortTable($event)"
+                                    ></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-2">
+                                    Priority
+                                    <app-table-sorting #prioritySortingComponentReference
+                                    [sortField]="'priority'" (sortDirection)="sortTable($event)"
+                                    ></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-3">
+                                    Start Date
+                                    <app-table-sorting #startDateSortingComponentReference
+                                    [sortField]="'start_date'" (sortDirection)="sortTable($event)"
+                                    ></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-3">
+                                    End Date
+                                    <app-table-sorting #endDateSortingComponentReference
+                                    [sortField]="'end_date'" (sortDirection)="sortTable($event)"
+                                    ></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-2">
+                                    Status
+                                    <app-table-sorting #statusSortingComponentReference
+                                    [sortField]="'status'" (sortDirection)="sortTable($event)"
+                                    ></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Task Group
+                                    <app-table-sorting #taskGroupSortingComponentReference
+                                    [sortField]="'task_group'" (sortDirection)="sortTable($event)"
+                                    ></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of taskItemsGridData">
+                                <td>{{data.data()?.task_item}}</td>
+                                <td>{{data.data()?.priority}}</td>
+                                <td>{{data.data()?.start_date | date}}</td>
+                                <td>{{data.data()?.end_date | date}}</td>
+                                <td>{{data.data()?.status}}</td>
+                                <td>{{data.data()?.task_group.data.task_group}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="6">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="6">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getUserTaskItems($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

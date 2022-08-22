@@ -58,8 +58,8 @@ export class CalendarApiService {
     return this.http.get(this.personalUrl + "module-calendar/schedule?calendar=" + sessionStorage.getItem('personal_calendar_id'), this.authHeaders.headers);
   }
 
-  public getSchedule(schedule_id: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-calendar/schedule/=" + schedule_id, this.authHeaders.headers);
+  public getSchedule(scheduleId: any): Observable<any>{
+    return this.http.get(this.personalUrl + "module-calendar/schedule/=" + scheduleId, this.authHeaders.headers);
   }
 
   public postSchedule(schedule: any): Observable<any>{

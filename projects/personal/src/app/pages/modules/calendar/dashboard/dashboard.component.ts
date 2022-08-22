@@ -16,9 +16,4 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onPrint(){
-    console.log("lets start printing...");
-    // this.calendarPrint.printAllCalendars();
-  }
-
 }

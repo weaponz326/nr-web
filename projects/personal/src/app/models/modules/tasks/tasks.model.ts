@@ -1,5 +1,4 @@
 export class TaskGroup {
-  created_at!: any;
   user!: string;
   task_group!: string;
 }
