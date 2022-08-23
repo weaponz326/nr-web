@@ -3,7 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { Calendar } from 'projects/personal/src/app/models/modules/calendar/calendar.model';
 import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
+
 
 @Component({
   selector: 'app-view-calendar',
@@ -54,8 +56,9 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   updateCalendar(){
-    let data = {
-      calendar_name: this.calendarForm.controls.calendarName.value,
+    let data: Calendar = {
+      user: localStorage.getItem('personal_id') as string,
+      calendar_name: this.calendarForm.controls.calendarName.value as string
     }
 
     console.log(data);

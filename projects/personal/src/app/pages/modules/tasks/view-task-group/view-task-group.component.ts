@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { TaskGroup } from 'projects/personal/src/app/models/modules/tasks/tasks.model';
 import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
 
 
@@ -55,8 +56,9 @@ export class ViewTaskGroupComponent implements OnInit {
   }
 
   updateTaskGroup(){
-    let data = {
-      calendar_name: this.taskGroupForm.controls.taskGroupName.value,
+    let data: TaskGroup = {
+      user: localStorage.getItem('personal_id') as string,
+      task_group: this.taskGroupForm.controls.taskGroupName.value as string,
     }
 
     console.log(data);

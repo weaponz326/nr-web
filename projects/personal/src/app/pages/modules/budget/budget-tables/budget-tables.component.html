@@ -1,1 +1,124 @@
-<p>budget-tables works!</p>
+<div class="row">
+    <div class="col-md-12">
+
+        <hr class="top-divider" />
+        <hr class="bottom-divider" />
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <h4 class="mb-3">Income</h4>
+
+            <div class="overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="10%" class="min-width-1">No.</th>
+                            <th width="55%" class="min-width-3">Item</th>
+                            <th width="20%" class="min-width-2">Amount</th>
+                            <th width="15%" class="p-0 min-width-2">
+                                <button class="btn btn-secondary btn-sm w-100" (click)="addIncome.openModal()">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of incomeGridData; index as i">
+                            <td>{{data?.item_number}}</td>
+                            <td>{{data?.item_description}}</td>
+                            <td><span class="float-end">{{data?.amount}}</span></td>
+                            <td class="p-0">
+                                <button class="btn btn-sm border w-50" (click)="openEditIncome(data)"><i class="bi bi-pen"></i></button>
+                                <button [disabled]="isIncomeDeleting" class="btn btn-sm border w-50" (click)="confirmIncomeDelete(data.id)"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="isFetchingIncomeGridData" class="text-center">
+                            <td colspan="4">
+                                <div class="spinner-grow spinner-grow-sm m-2" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bg-light">
+                            <td colspan="2"></td>
+                            <td><span class="float-end">{{totalIncome}}</span></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <h4 class="mb-3">Expenditure</h4>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered table-sm w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="10%" class="min-width-1">No.</th>
+                                <th width="55%" class="min-width-3">Item</th>
+                                <th width="20%" class="min-width-2">Amount</th>
+                                <th width="15%" class="p-0 min-width-2">
+                                    <button class="btn btn-secondary btn-sm w-100" (click)="addExpenditure.openModal()">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of expenditureGridData; index as i">
+                                <td>{{data?.item_number}}</td>
+                                <td>{{data?.item_description}}</td>
+                                <td><span class="float-end">{{data?.amount}}</span></td>
+                                <td class="p-0">
+                                    <button class="btn btn-sm border w-50" (click)="openEditExpenditure(data)"><i class="bi bi-pen"></i></button>
+                                    <button [disabled]="isExpenditureDeleting" class="btn btn-sm border w-50" (click)="confirmExpenditureDelete(data.id)"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isFetchingExpenditureGridData" class="text-center">
+                                <td colspan="4">
+                                    <div class="spinner-grow spinner-grow-sm m-2" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="bg-light">
+                                <td colspan="2"></td>
+                                <td><span class="float-end">{{totalExpenditure}}</span></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- add and edit income and expenditore modal components -->
+
+<app-add-income #addIncomeComponentReference (saveIncomeEvent)="createIncome($event)"></app-add-income>
+
+<app-edit-income #editIncomeComponentReference (saveIncomeEvent)="updateIncome($event)"></app-edit-income>
+
+<app-add-expenditure #addExpenditureComponentReference (saveExpenditureEvent)="createExpenditure($event)"></app-add-expenditure>
+
+<app-edit-expenditure #editExpenditureComponentReference (saveExpenditureEvent)="updateExpenditure($event)"></app-edit-expenditure>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal components -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteIncome()"></app-delete-modal-one>
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteExpenditure()"></app-delete-modal-two>

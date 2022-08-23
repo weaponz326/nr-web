@@ -10,7 +10,7 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   navHeading: any[] = [
-    { text: "All Calendars", url: "/home/calendar/all-calendar" },
+    { text: "Dashboard", url: "/home/calendar/dashboard" },
   ];
 
   ngOnInit(): void {
