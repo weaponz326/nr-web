@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
-import { TableSortingComponent } from 'projects/personal/src/app/components/module-utilities/table-sorting/table-sorting.component';
 
 import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
 import { TasksPrintService } from 'projects/personal/src/app/services/printing/tasks-print/tasks-print.service';
@@ -20,13 +19,6 @@ export class AllTaskItemsComponent implements OnInit {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  @ViewChild('taskItemSortingComponentReference', { read: TableSortingComponent, static: false }) taskItemSorting!: TableSortingComponent;
-  @ViewChild('prioritySortingComponentReference', { read: TableSortingComponent, static: false }) prioritySorting!: TableSortingComponent;
-  @ViewChild('startDateSortingComponentReference', { read: TableSortingComponent, static: false }) startDateSorting!: TableSortingComponent;
-  @ViewChild('endDateSortingComponentReference', { read: TableSortingComponent, static: false }) endDateSorting!: TableSortingComponent;
-  @ViewChild('statusSortingComponentReference', { read: TableSortingComponent, static: false }) statusSorting!: TableSortingComponent;
-  @ViewChild('taskGroupSortingComponentReference', { read: TableSortingComponent, static: false }) taskGroupSorting!: TableSortingComponent;
-
   navHeading: any[] = [
     { text: "All Task Items", url: "/home/tasks/all-task-items" },
   ];
@@ -39,6 +31,8 @@ export class AllTaskItemsComponent implements OnInit {
   currentPage = 0;
   totalPages = 0;
   totalItems = 0;
+
+  currentSortColumn = "";
 
   ngOnInit(): void {
   }
@@ -71,40 +65,11 @@ export class AllTaskItemsComponent implements OnInit {
       })
   }
 
-  sortTable(field: any){
-    console.log(field);
-    this.getUserTaskItems(1, 20, field);
+  sortTable(column: any){
+    console.log(column);
+    this.getUserTaskItems(1, 20, column);
 
-    if((field == 'task_item') || (field == "-task_item")){
-      this.prioritySorting.resetSort();
-      this.startDateSorting.resetSort();
-      this.endDateSorting.resetSort();
-      this.statusSorting.resetSort();
-    }
-    else if((field == 'priority') || (field == "-priority")){
-      this.taskItemSorting.resetSort();
-      this.startDateSorting.resetSort();
-      this.endDateSorting.resetSort();
-      this.statusSorting.resetSort();
-    }
-    else if((field == 'start_date') || (field == "-start_date")){
-      this.taskItemSorting.resetSort();
-      this.prioritySorting.resetSort();
-      this.endDateSorting.resetSort();
-      this.statusSorting.resetSort();
-    }
-    else if((field == 'end_date') || (field == "-end_date")){
-      this.taskItemSorting.resetSort();
-      this.prioritySorting.resetSort();
-      this.startDateSorting.resetSort();
-      this.statusSorting.resetSort();
-    }
-    else if((field == 'status') || (field == "-status")){
-      this.taskItemSorting.resetSort();
-      this.prioritySorting.resetSort();
-      this.startDateSorting.resetSort();
-      this.endDateSorting.resetSort();
-    }
+    this.currentSortColumn = column;
   }
 
   onPrint(){

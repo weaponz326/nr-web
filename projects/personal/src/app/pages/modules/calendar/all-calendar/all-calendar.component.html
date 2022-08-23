@@ -21,15 +21,11 @@
                             <tr class="bg-light">
                                 <th width="65%" class="min-width-4">
                                     Calendar Name
-                                    <app-table-sorting #calendarNameSortingComponentReference
-                                    [sortField]="'calendar_name'" (sortDirection)="sortTable($event)"
-                                    ></app-table-sorting>
+                                    <app-table-sorting [sortField]="'calendar_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="35%" class="min-width-3">
                                     Created At
-                                    <app-table-sorting #createdAtSortingComponentReference
-                                    [sortField]="'created_at'" (sortDirection)="sortTable($event)"
-                                    ></app-table-sorting>
+                                    <app-table-sorting [sortField]="'created_at'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                             </tr>
                         </thead>

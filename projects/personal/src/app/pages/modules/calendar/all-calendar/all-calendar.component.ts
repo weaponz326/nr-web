@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NewCalendarComponent } from '../new-calendar/new-calendar.component';
-import { TableSortingComponent } from 'projects/personal/src/app/components/module-utilities/table-sorting/table-sorting.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
@@ -25,9 +24,6 @@ export class AllCalendarComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('newCalendarComponentReference', { read: NewCalendarComponent, static: false }) newCalendar!: NewCalendarComponent;
   
-  @ViewChild('calendarNameSortingComponentReference', { read: TableSortingComponent, static: false }) calendarNameSorting!: TableSortingComponent;
-  @ViewChild('createdAtSortingComponentReference', { read: TableSortingComponent, static: false }) createdAtSorting!: TableSortingComponent;
-
   navHeading: any[] = [
     { text: "All Calendars", url: "/home/calendar/all-calendar" },
   ];
@@ -40,6 +36,8 @@ export class AllCalendarComponent implements OnInit {
   currentPage = 0;
   totalPages = 0;
   totalItems = 0;
+
+  currentSortColumn = "";
 
   ngOnInit(): void {
     this.getUserCalendars(1, 20, "");
@@ -73,12 +71,7 @@ export class AllCalendarComponent implements OnInit {
     console.log(column);
     this.getUserCalendars(1, 20, column);
 
-    if((column == 'calendar_name') || (column == "-calendar_name")){
-      this.createdAtSorting.resetSort();
-    }
-    else if((column == 'created_at') || (column == "-created_at")){
-      this.calendarNameSorting.resetSort();
-    }
+    this.currentSortColumn = column;
   }
 
   viewCalendar(id: any){

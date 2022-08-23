@@ -6,7 +6,6 @@ import { NewTaskGroupComponent } from '../new-task-group/new-task-group.componen
 
 import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
 import { TasksPrintService } from 'projects/personal/src/app/services/printing/tasks-print/tasks-print.service';
-import { TableSortingComponent } from 'projects/personal/src/app/components/module-utilities/table-sorting/table-sorting.component';
 
 
 @Component({
@@ -25,9 +24,6 @@ export class AllTaskGroupsComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('newTaskGroupComponentReference', { read: NewTaskGroupComponent, static: false }) newTaskGroup!: NewTaskGroupComponent;
 
-  @ViewChild('taskGroupSortingComponentReference', { read: TableSortingComponent, static: false }) taskGroupSorting!: TableSortingComponent;
-  @ViewChild('createdAtSortingComponentReference', { read: TableSortingComponent, static: false }) createdAtSorting!: TableSortingComponent;
-
   navHeading: any[] = [
     { text: "All Task Groups", url: "/home/tasks/all-task-groups" },
   ];
@@ -40,6 +36,8 @@ export class AllTaskGroupsComponent implements OnInit {
   currentPage = 0;
   totalPages = 0;
   totalItems = 0;
+
+  currentSortColumn = "";
 
   ngOnInit(): void {
     this.getUserTaskGroups(1, 20, "");
@@ -76,16 +74,11 @@ export class AllTaskGroupsComponent implements OnInit {
     this.router.navigateByUrl('/home/tasks/view-task-group/kanban-view')
   }
 
-  sortTable(field: any){
-    console.log(field);
-    this.getUserTaskGroups(1, 20, field);
+  sortTable(column: any){
+    console.log(column);
+    this.getUserTaskGroups(1, 20, column);
 
-    if((field == 'task_group') || (field == "-task_group")){
-      this.createdAtSorting.resetSort();
-    }
-    else if((field == 'created_at') || (field == "-created_at")){
-      this.taskGroupSorting.resetSort();
-    }
+    this.currentSortColumn = column;
   }
 
   onPrint(){

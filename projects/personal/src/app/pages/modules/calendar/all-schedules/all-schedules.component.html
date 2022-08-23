@@ -19,27 +19,19 @@
                         <tr class="bg-light">
                             <th width="35%">
                                 Schedule
-                                <app-table-sorting #scheduleNameSortingComponentReference
-                                [sortField]="'schedule_name'" (sortDirection)="sortTable($event)"
-                                ></app-table-sorting>
+                                <app-table-sorting [sortField]="'schedule_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="23%">
                                 Start Date
-                                <app-table-sorting #startDateSortingComponentReference
-                                [sortField]="'start_date'" (sortDirection)="sortTable($event)"
-                                ></app-table-sorting>
+                                <app-table-sorting [sortField]="'start_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="23%">
                                 End Date
-                                <app-table-sorting #endDateSortingComponentReference
-                                [sortField]="'end_date'" (sortDirection)="sortTable($event)"
-                                ></app-table-sorting>
+                                <app-table-sorting [sortField]="'end_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="19%">
                                 Status
-                                <app-table-sorting #statusSortingComponentReference
-                                [sortField]="'status'" (sortDirection)="sortTable($event)"
-                                ></app-table-sorting>
+                                <app-table-sorting [sortField]="'status'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                         </tr>
                     </thead>

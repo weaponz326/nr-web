@@ -9,25 +9,22 @@ export class TableSortingComponent implements OnInit {
 
   constructor() { }
 
-  @Input() sortField: string = "todo";
+  @Input() sortField: string = "";
+  @Input() currentField: string = "";
   @Output() sortDirection = new EventEmitter<string>();
-
-  currentSort = "";
 
   ngOnInit(): void {
   }
 
-  setSort(sort: any){
-    if(sort == "down")
-      this.currentSort = this.sortField;
-    else if(sort == "up")
-      this.currentSort = "-" + this.sortField;
+  setSort(direction: any){
+    this.sortDirection.emit(direction);
 
-    this.sortDirection.emit(this.currentSort);
+    console.log(this.currentField)
   }
 
+  // TODO: delete
   resetSort(){
-    this.currentSort = "";
+    // this.sort = "";
   }
   
 }
