@@ -1,0 +1,81 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+    
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="row mb-4">
+                    <div class="col-md-8 mx-auto">
+                        <div class="input-group">
+                            <input [(ngModel)]="searchValue" type="text" class="form-control" placeholder="Search for notes" (keydown.enter)="getSearch()">
+                            <button class="btn btn-secondary px-4" (click)="getSearch()">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>                
+
+                <div *ngIf="!isFetchingBoardData" class="row g-4 note-card-div">
+
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <button class="btn btn-lg btn-light mx-auto my-auto p-3 rounded-circle" (click)="newNote.openModal()">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>                    
+
+                    <div *ngFor="let data of noteBoardData; index as i" class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <p class="note-card-title mb-1">{{data.title}}</p>
+                                <p class="note-card-date text-muted mb-2">{{data.created_at | date:'short'}}</p>
+                                <p class="note-card-body mb-2">{{data.body}}</p>
+                                <div class="note-card-btn">
+                                    <hr class="my-2">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openDeleteConfirm(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openEditModal(i)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="isFetchingBoardData" class="row g-4 note-card-div">
+                    <div *ngFor="let x of [1,1,1,1,1,1]" class="col-md-4">
+                        <div *ngIf="isFetchingBoardData" class="card p-3">
+                            <div class="spinner-grow mx-auto my-auto text-muted" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+</main>
+
+<!-- new note comopnent -->
+
+<app-new-note #newNoteComponentReference (reloadEvent)="getUserNotes(1, 8, '')"></app-new-note>
+
+<!-- edit note comopnent -->
+
+<app-edit-note #editNoteComponentReference (reloadEvent)="getUserNotes(1, 8, '')"></app-edit-note>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteNote()"></app-delete-modal-one>

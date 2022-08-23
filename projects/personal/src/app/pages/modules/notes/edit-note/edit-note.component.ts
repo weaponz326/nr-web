@@ -1,28 +1,33 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
 
 import { Note } from 'projects/personal/src/app/models/modules/notes/notes.model';
 import { NotesApiService } from 'projects/personal/src/app/services/modules-api/notes-api/notes-api.service';
 
 
 @Component({
-  selector: 'app-new-note',
-  templateUrl: './new-note.component.html',
-  styleUrls: ['./new-note.component.scss']
+  selector: 'app-edit-note',
+  templateUrl: './edit-note.component.html',
+  styleUrls: ['./edit-note.component.scss']
 })
-export class NewNoteComponent implements OnInit {
+export class EditNoteComponent implements OnInit {
 
   constructor(private notesApi: NotesApiService) { }
 
-  @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
-  @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
-  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-
   @Output() reloadEvent = new EventEmitter<any>();
 
+  @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
+  @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
+
+  noteData: any;
+
   isNoteSaving = false;
+  isNoteDeleting = false;
 
   noteForm = new FormGroup({
     title: new FormControl(''),
@@ -32,11 +37,17 @@ export class NewNoteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openModal(){
-    this.newButton.nativeElement.click();
+  openModal(data: any){
+    this.editButton.nativeElement.click();
+    this.noteData = data;
+
+    console.log(data);
+
+    this.noteForm.controls.title.setValue(data.title);
+    this.noteForm.controls.body.setValue(data.body);
   }
 
-  createNote(){
+  updateNote(){
     let data: Note = {
       user: localStorage.getItem('personal_id') as string,
       title: this.noteForm.controls.title.value as string,
@@ -47,7 +58,7 @@ export class NewNoteComponent implements OnInit {
 
     this.isNoteSaving = true;
 
-    this.notesApi.postNote(data)
+    this.notesApi.putNote(data, this.noteData.id)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -67,5 +78,25 @@ export class NewNoteComponent implements OnInit {
         }
       })
   }
-  
+
+  deleteNote(){
+    this.isNoteDeleting = true;
+
+    this.notesApi.deleteNote(this.noteData.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.reloadEvent.emit();
+          this.dismissButton.nativeElement.click();
+          this.isNoteDeleting = false;
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isNoteDeleting = false;
+          console.log(err);
+        }
+      })
+  }
+
 }

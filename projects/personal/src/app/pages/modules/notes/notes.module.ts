@@ -8,18 +8,20 @@ import { ModuleUtilitiesModule } from '../../../components/module-utilities/modu
 
 import { NotesPage } from './notes.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AllNotesComponent } from './all-notes/all-notes.component';
 import { NewNoteComponent } from './new-note/new-note.component';
-import { ViewNoteComponent } from './view-note/view-note.component';
+import { NoteBoardComponent } from './note-board/note-board.component';
+import { NoteCardComponent } from './note-card/note-card.component';
+import { EditNoteComponent } from './edit-note/edit-note.component';
 
 
 @NgModule({
   declarations: [
     NotesPage,
     DashboardComponent,
-    AllNotesComponent,
     NewNoteComponent,
-    ViewNoteComponent
+    NoteBoardComponent,
+    NoteCardComponent,
+    EditNoteComponent,
   ],
   imports: [
     CommonModule,

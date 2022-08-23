@@ -1,5 +1,5 @@
 export class Note {
   user!: string;
-  subject!: string;
+  title!: string;
   body!: string;
 }

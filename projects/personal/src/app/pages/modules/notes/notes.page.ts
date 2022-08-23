@@ -9,6 +9,10 @@ export class NotesPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "Note Board", url: "/home/notes/note-board", icon: "bi bi-clipboard" },
+  ]
+
   ngOnInit(): void {
   }
 

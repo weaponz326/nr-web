@@ -1,19 +1,28 @@
-<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#newNoteModal">
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editNoteModal">
     Launch demo modal
 </button>
 
-<div class="modal fade form-modal" id="newNoteModal" tabindex="-1" aria-labelledby="newNoteModalLabel" aria-hidden="true">
+<div class="modal fade form-modal" id="editNoteModal" tabindex="-1" aria-labelledby="editNoteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <form class="page-form" [formGroup]="noteForm" (ngSubmit)="createNote()">
+            <form class="page-form" [formGroup]="noteForm" (ngSubmit)="updateNote()">
 
                 <div class="modal-header bg-light">
-                    <span class="modal-title" id="newNoteModalLabel">Add New Note</span>
+                    <span class="modal-title" id="editNoteModalLabel">View Note</span>
                     <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="modal-body">
+                <div class="modal-body">                    
+                    <div class="row">
+                        <div class="col">
+                            <p class="small text-muted my-1">First created on: {{noteData?.created_at | date:'short'}}</p>
+                            <p class="small text-muted my-1">Last updated on: {{noteData?.updated_at | date:'short'}}</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-2">
+
                     <div class="row mb-3">
                         <div class="col">
                             <label class="float-start mt-1 mb-2">Note Title :</label>
@@ -31,6 +40,7 @@
 
                 <div class="modal-footer">
                     <button [disabled]="isNoteSaving" type="submit" class="btn btn-sm btn-secondary modal-form-btn">Save</button>
+                    <button [disabled]="isNoteDeleting" class="btn btn-sm btn-secondary modal-form-btn" (click)="deleteModal.openModal()">Delete</button>
                     <button type="button" class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
 
@@ -43,3 +53,7 @@
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteNote()"></app-delete-modal-two>
