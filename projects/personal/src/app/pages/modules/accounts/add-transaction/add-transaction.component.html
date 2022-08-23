@@ -1,1 +1,29 @@
-<p>add-transaction works!</p>
+<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addTransactionModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="addTransactionModal" tabindex="-1" aria-labelledby="addTransactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="addTransactionModalLabel">Add Transaction</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- transaction form component -->
+
+                <app-transaction-form #transactionFormComponentReference></app-transaction-form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button [disabled]="isSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveTransaction()">Save</button>
+                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
