@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+
 import { SettingsRoutingModule } from './settings-routing.module';
 import { MainNavbarModule } from '../../../components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from '../../../components/module-utilities/module-utilities.module';
@@ -35,6 +37,7 @@ import { LocationComponent } from './profile-content/location/location.component
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    GooglePlaceModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
     SettingsRoutingModule

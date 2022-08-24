@@ -27,6 +27,10 @@ export class AuthApiService {
     return this.http.put(this.personalUrl + "auth/users/me/", updateForm, this.headers);
   }
 
+  public patchUser(updateForm: any): Observable<any>{
+    return this.http.patch(this.personalUrl + "auth/users/me/", updateForm, this.headers);
+  }
+
   public getUser(): Observable<any>{
     return this.http.get(this.personalUrl + "auth/users/me/", this.headers);
   }

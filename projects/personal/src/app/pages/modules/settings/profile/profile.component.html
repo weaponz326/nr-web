@@ -1,1 +1,54 @@
-<p>profile works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <nav class="settings-tabs">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-basic-tab" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" role="tab" aria-controls="nav-basic" aria-selected="true">
+                            Basic Profle
+                        </button>
+                        <button class="nav-link" id="nav-photo-tab" data-bs-toggle="tab" data-bs-target="#nav-photo" type="button" role="tab" aria-controls="nav-photo" aria-selected="false">
+                            Profle Photo
+                        </button>
+                        <button class="nav-link" id="nav-bio-tab" data-bs-toggle="tab" data-bs-target="#nav-bio" type="button" role="tab" aria-controls="nav-bio" aria-selected="false">
+                            Bio Profle
+                        </button>
+                        <button class="nav-link" id="nav-location-tab" data-bs-toggle="tab" data-bs-target="#nav-location" type="button" role="tab" aria-controls="nav-location" aria-selected="false">
+                            Location Details
+                        </button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+                            Contact Details
+                        </button>
+                    </div>
+                </nav>
+                <div class="tab-content mt-3" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
+                        <app-basic #basicComponentReference (updateUserEvent)="updateUser($event)"></app-basic>
+                    </div>
+                    <div class="tab-pane fade" id="nav-photo" role="tabpanel" aria-labelledby="nav-photo-tab">
+                        <app-photo #photoComponentReference (updateUserEvent)="updateUser($event)"></app-photo>
+                    </div>
+                    <div class="tab-pane fade" id="nav-bio" role="tabpanel" aria-labelledby="nav-bio-tab">
+                        <app-additional #additionalComponentReference (updateExtendedEvent)="updateExtended($event)"></app-additional>
+                    </div>
+                    <div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="nav-location-tab">
+                        <app-location #locationComponentReference (updateUserEvent)="updateUser($event)" (updateExtendedEvent)="updateExtended($event)"></app-location>
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <app-contact #contactComponentReference (updateExtendedEvent)="updateExtended($event)"></app-contact>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

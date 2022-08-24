@@ -1,1 +1,59 @@
-<p>location works!</p>
+<div class="row m-2 page-form">
+    <div class="col-md-6">
+
+        <form class="page-form" [formGroup]="locationForm" (ngSubmit)="updateLocation()">
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <h5>Location Details</h5>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><label class="mt-1">Country :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="country" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><label class="mt-1">Region / State :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="state" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><label class="mt-1">City / Town :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="city" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><label class="mt-1">Location :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="location" class="form-control form-control-sm w-100"
+                    ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="onAddressChange($event)">
+                </div>
+            </div>
+
+            <div *ngIf="!(isUserLoading || isExtendedProfileLoading)" class="row mt-3 page-form-div">
+                <div class="col-md-12">
+                    <button [disabled]="isUserSaving || isExtendedProfileSaving" type="submit" class="btn btn-secondary btn-sm float-end page-form-btn">Save</button>
+                </div>
+            </div>
+            <div *ngIf="isUserLoading || isExtendedProfileLoading" class="row mt-3">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-sm float-end btn-light page-form-btn">
+                        <div class="spinner-grow spinner-grow-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

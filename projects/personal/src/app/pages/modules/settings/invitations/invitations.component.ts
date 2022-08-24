@@ -9,6 +9,10 @@ export class InvitationsComponent implements OnInit {
 
   constructor() { }
 
+  navHeading: any[] = [
+    { text: "Invitations", url: "/home/settings/invitations" },
+  ];
+
   ngOnInit(): void {
   }
 

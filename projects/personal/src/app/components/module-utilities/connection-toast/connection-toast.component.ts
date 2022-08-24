@@ -21,15 +21,11 @@ export class ConnectionToastComponent implements OnInit {
     console.log("opening connection toast");
     this.isShowToast = true;
 
-    this.timer = setInterval(() => {
-      this.hideToast();
+    var timer = setInterval(() => {
+      this.isShowToast = false;
+      clearInterval(timer);
+      console.log("closing toast...", timer);
     }, 3000);
   }
-
-  hideToast(): void{
-    this.isShowToast = false;
-    clearInterval(this.timer);
-    console.log("closing toast...");
-  };
 
 }

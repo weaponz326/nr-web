@@ -1,1 +1,55 @@
-<p>all-accounts works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="mb-5">
+                    <h5 class="mb-2">Personal Account</h5>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th width="50%" scope="col">Name</th>
+                                <th width="50%" scope="col">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{userData?.first_name}} {{userData?.last_name}}</td>
+                                <td>{{userData?.email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- <div *ngFor="let data of suiteData; index as i" class="mb-5">
+                    <h5 class="mb-2">{{suiteNames[i]}} Accounts</h5>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th width="55%" scope="col">Account Name</th>
+                                <th width="45%" scope="col">Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let account of data">
+                                <td>{{account.data().account.data.name}}</td>
+                                <td>{{account.data().account.data.location}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
