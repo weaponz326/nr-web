@@ -22,7 +22,7 @@ export class BudgetApiService {
   public getUserBudgets(page: any, size: any, sortField: any): Observable<any>{
     return this.http.get(this.personalUrl + "module-budget/budget?user=" + localStorage.getItem('personal_id')
       + "&page=" + page
-      + "&siz=" + size
+      + "&size=" + size
       + "&ordering=" + sortField,
       this.authHeaders.headers);
   }

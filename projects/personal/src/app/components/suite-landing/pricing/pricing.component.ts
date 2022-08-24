@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pricing',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PricingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  register(e: any){
+    e.preventDefault();
+
+    if(!localStorage.getItem('personal_id')){
+      this.router.navigateByUrl('/auth/signup')
+    }
+    else{
+      try{
+        this.router.navigateByUrl('register');
+      }
+      catch{
+        console.log('where u thinking of going? ...huh?');
+      }
+    }
   }
 
 }

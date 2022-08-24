@@ -17,7 +17,8 @@ export class AuthApiService {
   ) { }
 
   personalUrl = environment.personalUrl;
-  headers = this.authHeaders.headers
+  headers = this.authHeaders.headers;
+  refreshToken = this.authHeaders.refreshToken;
 
   public postSignup(signupForm: any): Observable<any>{
     return this.http.post(this.personalUrl + "auth/users/", signupForm);
@@ -47,6 +48,10 @@ export class AuthApiService {
     return this.http.post(this.personalUrl + "auth/jwt/create/", loginForm, this.headers);
   }
 
+  public postTokenReferesh(): Observable<any>{
+    return this.http.post(this.personalUrl + "auth/jwt/refresh/", this.refreshToken, this.headers);
+  }
+
   public postChangeEmail(emailForm: any): Observable<any>{
     return this.http.post(this.personalUrl + "auth/users/set_email/", emailForm, this.headers);
   }
@@ -56,8 +61,10 @@ export class AuthApiService {
   }
 
   public deleteUser(deleteForm: any): Observable<any>{
-    return this.http.get(this.personalUrl + "auth/users/me/", deleteForm);
+    return this.http.delete(this.personalUrl + "auth/users/me/", deleteForm);
   }
+
+
   
   // personal search
 

@@ -46,6 +46,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
+          
           if (res.access){
             localStorage.setItem('auth_token', res.access);
             localStorage.setItem('auth_refresh', res.refresh);

@@ -30,7 +30,7 @@ export class MainNavbarComponent implements OnInit {
   photo: string = "../../../../assets/images/utilities/photo-avatar.jpg";
 
   ngOnInit(): void {
-    this.getUser();
+    this.refreshAuth();
 
     if(!this.isForms){
       this.setSource();
@@ -41,16 +41,33 @@ export class MainNavbarComponent implements OnInit {
     sessionStorage.setItem('app_source', this.navBrand);
   }
 
-  getUser(){
+  refreshAuth(){
     this.isAuthLoading = true;
 
+    this.authApi.postTokenReferesh()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if (res.access){
+            localStorage.setItem('auth_token', res.access);
+            this.getUser();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAuthLoading = false;
+        }
+      })
+  }
+
+  getUser(){
     this.authApi.getUser()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.email) {
-            this.isLoggedIn = true;
+          if(res.email) {            
             this.name = res.first_name;
             this.email = res.email;
             if(res.photo != null) this.photo = environment.personalUrl + res.photo;
@@ -59,13 +76,13 @@ export class MainNavbarComponent implements OnInit {
             localStorage.setItem('personal_id', res.id);
             sessionStorage.setItem('personal_name', full_name);
 
+            this.isLoggedIn = true;
             this.isAuthLoading = false;
           }
         },
         error: (err) => {
           console.log(err);
           this.isLoggedIn = false;
-
           this.isAuthLoading = false;
         }
       })
@@ -76,6 +93,8 @@ export class MainNavbarComponent implements OnInit {
     console.log("u logging out? ...where u think u going?");
     
     localStorage.removeItem("auth_token");
+    localStorage.removeItem("refresh_token");
+
     localStorage.removeItem("personal_id");
     localStorage.removeItem("hospital_id");
     localStorage.removeItem("restaurant_id");
@@ -88,6 +107,5 @@ export class MainNavbarComponent implements OnInit {
 
     window.location.href = "/";  
   }
-
 
 }
