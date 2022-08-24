@@ -59,4 +59,14 @@ export class AuthApiService {
     return this.http.get(this.personalUrl + "auth/users/me/", deleteForm);
   }
   
+  // personal search
+
+  public getSearchList(search: any): Observable<any>{
+    return this.http.get(this.personalUrl + "users/search-list?search=" + search, this.authHeaders.headers);
+  }
+
+  public getSearchDetail(userId: any): Observable<any>{
+    return this.http.get(this.personalUrl + "users/search-detail/" + userId, this.authHeaders.headers);
+  }
+
 }

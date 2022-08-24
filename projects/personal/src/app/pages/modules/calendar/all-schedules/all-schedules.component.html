@@ -42,7 +42,7 @@
                             <td>{{data?.end_date | date}}</td>
                             <td>{{data?.status}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
                             <td colspan="4">
                                 <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                             </td>

@@ -27,16 +27,7 @@
 			+ modules
 				+ portal (Mr)(Cp)
 					+ dashboard (C)
-					+ new rink (C)
-					+ rink details
-						+ calendar details (C)
-                        + schedule details (C)
-                        + budget details (C)
-						+ note details (C)
-                        + account details(C)
-                        + transaction details(C)
-						+ task group details (C)
-						+ task item details (C)
+					+ new rink (C)					
 					+ timeline (C)
 					+ view rink (C)
 					+ search view (C)
@@ -144,6 +135,15 @@
 				+ tasks windows (M)
 					+ select task group (C)
 					+ select task item (C)
+			+ rink details
+				+ calendar details (C)
+				+ schedule details (C)
+				+ budget details (C)
+				+ note details (C)
+				+ account details(C)
+				+ transaction details(C)
+				+ task group details (C)
+				+ task item details (C)
 		+ services
 			+ auth
 				+ auth api (S)

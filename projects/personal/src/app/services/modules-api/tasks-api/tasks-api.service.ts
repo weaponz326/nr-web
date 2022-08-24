@@ -23,7 +23,7 @@ export class TasksApiService {
   public getUserTaskGroups(page: any, size: any, sortField: any): Observable<any>{
     return this.http.get(this.personalUrl + "module-tasks/task-group?user=" + localStorage.getItem('personal_id')
       + "&page=" + page
-      + "&size=1" + size
+      + "&size=" + size
       + "&ordering=" + sortField,
       this.authHeaders.headers);
   }

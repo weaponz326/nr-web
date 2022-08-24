@@ -21,7 +21,7 @@ export class NotesApiService {
   public getUserNotes(page: any, size: any, sortField: any): Observable<any>{
     return this.http.get(this.personalUrl + "module-notes/note?user=" + localStorage.getItem('personal_id')
       + "&page=" + page
-      + "&size=1" + size
+      + "&size=" + size
       + "&ordering=" + sortField,
       this.authHeaders.headers);
   }
