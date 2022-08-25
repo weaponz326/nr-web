@@ -26,19 +26,27 @@ export class DashboardComponent implements OnInit {
     { text: "Dashboard", url: "/home/calendar/dashboard" },
   ];
 
-  calendarMonthData: any;
-  ScheduleMonthData: any;
+  calendarMonthDataSets: any[] = [];
+  scheduleMonthDataSets: any[] = [];
+  calendarMonthLabels: any[] = [];
+  scheduleMonthLabels: any[] = [];
 
   calendarMonthCount: number = 0;
   scheduleMonthCount: number = 0;
 
+  calendarLineChartConfig: any;
   scheduleLineChartConfig: any;
 
   ngOnInit(): void {
+    this.getCalendarCount();
+    this.getScheduleCount();
+    this.getCalendarAnnotate();
+    this.getScheduleAnnotate();
   }
 
   ngAfterViewInit(): void {
     this.initScheduleLineChart();
+    this.initCalendarLineChart();
   }
 
   initScheduleLineChart(){
@@ -47,13 +55,122 @@ export class DashboardComponent implements OnInit {
     this.scheduleLineChartConfig = new Chart(scheduleLineChartElement, {
       type: "line",
       data: {
-        labels: [],
+        labels: this.scheduleMonthLabels,
         datasets: [{
-          data: [],
+          data: this.scheduleMonthDataSets,
         }]
       },
-      options: {},
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      },
     });
+  }
+
+  initCalendarLineChart(){
+    let calendarLineChartElement = this.elementRef.nativeElement.querySelector('#calendarLineChart')
+
+    this.calendarLineChartConfig = new Chart(calendarLineChartElement, {
+      type: "line",
+      data: {
+        labels: this.calendarMonthLabels,
+        datasets: [{
+          data: this.calendarMonthDataSets,
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      },
+    });
+  }
+
+  getCalendarCount(){
+    this.calendarApi.getCalendarCount()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.calendarMonthCount = res.count;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getScheduleCount(){
+    this.calendarApi.getScheduleCount()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.scheduleMonthCount = res.count;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getCalendarAnnotate(){
+    this.calendarApi.getCalendarAnnotate()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.calendarMonthDataSets = res.map((x: any) => {
+            return x.count;
+          })
+
+          this.calendarMonthLabels = res.map((x: any) => {
+            return x.date;
+          })
+
+          this.calendarLineChartConfig.destroy();
+          this.initCalendarLineChart();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getScheduleAnnotate(){
+    this.calendarApi.getScheduleAnnotate()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.scheduleMonthDataSets = res.map((x: any) => {
+            return x.count;
+          })
+
+          this.scheduleMonthLabels = res.map((x: any) => {
+            return x.date;
+          })
+
+          this.scheduleLineChartConfig.destroy();
+          this.initScheduleLineChart();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

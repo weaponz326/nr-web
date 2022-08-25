@@ -74,4 +74,22 @@ export class CalendarApiService {
     return this.http.delete(this.personalUrl + "module-calendar/schedule/" + scheduleId, this.authHeaders.headers);
   }
 
+  // dashboard
+
+  public getCalendarCount(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-calendar/calendar-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getScheduleCount(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-calendar/schedule-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getCalendarAnnotate(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-calendar/calendar-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getScheduleAnnotate(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-calendar/schedule-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
 }

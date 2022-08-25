@@ -11,7 +11,7 @@
                         <div class="row g-0 align-items-center">
                             <div class="col mr-2">
                                 <div class="h6 mb-3">Calendars <span class="text-muted">| this month</span></div>
-                                <div class="h4 mb-0">{{calendarMonthCount}}</div>
+                                <div class="h3 mb-0">{{calendarMonthCount}}</div>
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                         <div class="row g-0 align-items-center">
                             <div class="col mr-2">
                                 <div class="h6 mb-3">Schedules <span class="text-muted">| this month</span></div>
-                                <div class="h4 mb-0">{{scheduleMonthCount}}</div>
+                                <div class="h3 mb-0">{{scheduleMonthCount}}</div>
                             </div>
                         </div>
                     </div>
@@ -41,6 +41,22 @@
 
                         <div class="chart-area">
                             <canvas id="scheduleLineChart"
+                                
+                            ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card bg-light shadow mb-4">
+                    <div class="card-body">
+                        <div class="h6 m-0">All Calendars <span class="text-muted">| this month</span></div>
+
+                        <div class="chart-area">
+                            <canvas id="calendarLineChart"
                                 
                             ></canvas>
                         </div>
