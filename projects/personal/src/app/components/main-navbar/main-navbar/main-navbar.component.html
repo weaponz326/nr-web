@@ -3,8 +3,14 @@
 
         <a class="navbar-brand" [routerLink]="'/'">{{navBrand}}</a>
 
-        <div *ngIf="!isForms">
-            <div *ngIf="!isAuthLoading">
+        <div *ngIf="!isForms"> 
+
+            <div *ngIf="isAuthLoading" class="d-flex auth-btns">
+                <button class="btn btn-secondary disabled" type="button">.</button>
+            </div>
+
+            <div *ngIf="!isAuthLoading">                
+
                 <div *ngIf="this.isLoggedIn; then loggedinBlock else notLoggedinBlock"></div>
 
                 <ng-template #notLoggedinBlock>
@@ -43,7 +49,9 @@
                         </ul>
                     </div>
                 </ng-template>
+
             </div>
+
         </div>
 
     </div>

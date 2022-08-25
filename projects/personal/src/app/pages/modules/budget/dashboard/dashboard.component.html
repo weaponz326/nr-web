@@ -3,7 +3,68 @@
 <main>
     <div class="container-fluid px-4">
     
-        <p>dashboard works!</p>
+        <div class="row mb-3">
+
+            <div class="col-md-3 mb-4">
+                <div class="card bg-light shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center">
+                            <div class="col mr-2">
+                                <div class="h6 mb-3">Calendars <span class="text-muted">| this month</span></div>
+                                <div class="h4 mb-0">{{budgetMonthCount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-3 mb-4">
+                <div class="card bg-light shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center">
+                            <div class="col mr-2">
+                                <div class="h6 mb-3">Income <span class="text-muted">| this month</span></div>
+                                <div class="h4 mb-0">$ {{incomeMonthTotal}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card bg-light shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center">
+                            <div class="col mr-2">
+                                <div class="h6 mb-3">Expenditure <span class="text-muted">| this month</span></div>
+                                <div class="h4 mb-0">$ {{expenditureMonthTotal}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card bg-light shadow mb-4">
+                    <div class="card-body">
+                        <div class="h6 m-0">Income and Expenditure <span class="text-muted">| this month</span></div>
+
+                        <div class="chart-area p-4">
+                            <canvas id="ioePieChart"
+                                
+                            ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </main>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
