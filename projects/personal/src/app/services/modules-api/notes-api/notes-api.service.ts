@@ -43,17 +43,17 @@ export class NotesApiService {
   }
 
   public getSearch(search: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/note-search?search=" + search, this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-notes/dashboard/note-search?search=" + search, this.authHeaders.headers);
   }
 
   // dashboard
 
   public getNoteCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/note-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-notes/dashboard/note-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getNoteAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/note-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-notes/dashboard/note-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

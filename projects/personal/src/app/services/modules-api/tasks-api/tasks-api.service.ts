@@ -77,23 +77,23 @@ export class TasksApiService {
   // dashboard
 
   public getTaskGroupCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-tasks/task-group-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-tasks/dashboard/task-group-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getTaskItemCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-tasks/task-item-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-tasks/dashboard/task-item-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getAllToDoCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-tasks/all-todo-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-tasks/dashboard/all-todo-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getTaskGroupAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-tasks/task-group-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-tasks/dashboard/task-group-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getTaskItemAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-tasks/task-item-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-tasks/dashboard/task-item-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

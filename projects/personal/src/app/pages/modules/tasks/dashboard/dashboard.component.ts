@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.taskItemMonthLabels,
         datasets: [{
-          data: this.taskGroupMonthDataSets,
+          data: this.taskItemMonthDataSets,
         }]
       },
       options: {

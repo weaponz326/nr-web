@@ -90,15 +90,15 @@ export class BudgetApiService {
   // dashboard
 
   public getBudgetCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/budget-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-budget/dashboard/budget-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getIncomeTotal(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/income-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-budget/dashboard/income-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getExpenditureTotal(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/expenditure-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-budget/dashboard/expenditure-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

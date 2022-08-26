@@ -77,19 +77,19 @@ export class CalendarApiService {
   // dashboard
 
   public getCalendarCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-calendar/calendar-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-calendar/dashboard/calendar-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getScheduleCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-calendar/schedule-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-calendar/dashboard/schedule-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getCalendarAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-calendar/calendar-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-calendar/dashboard/calendar-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getScheduleAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-calendar/schedule-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-calendar/dashboard/schedule-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

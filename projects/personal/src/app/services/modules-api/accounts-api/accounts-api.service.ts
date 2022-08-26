@@ -76,15 +76,15 @@ export class AccountsApiService {
   // dashboard
 
   public getAllAccountCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-accounts/all-account-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-accounts/dashboard/all-account-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getTransactionShare(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-accounts/transaction-share?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-accounts/dashboard/transaction-share?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getTransactionAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-accounts/transaction-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-accounts/dashboard/transaction-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

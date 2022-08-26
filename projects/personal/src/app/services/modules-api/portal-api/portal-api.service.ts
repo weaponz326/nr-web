@@ -50,11 +50,11 @@ export class PortalApiService {
   // dashboard
 
   public getRinkShareCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-portal/rink-share-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-portal/dashboard/rink-share-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getRinkShareAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-portal/rink-share-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-portal/dashboard/rink-share-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }
