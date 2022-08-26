@@ -131,13 +131,8 @@ export class DashboardComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.calendarMonthDataSets = res.map((x: any) => {
-            return x.count;
-          })
-
-          this.calendarMonthLabels = res.map((x: any) => {
-            return x.date;
-          })
+          this.calendarMonthDataSets = res.map((x: any) => x.count)
+          this.calendarMonthLabels = res.map((x: any) => x.date)
 
           this.calendarLineChartConfig.destroy();
           this.initCalendarLineChart();
@@ -155,13 +150,8 @@ export class DashboardComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.scheduleMonthDataSets = res.map((x: any) => {
-            return x.count;
-          })
-
-          this.scheduleMonthLabels = res.map((x: any) => {
-            return x.date;
-          })
+          this.scheduleMonthDataSets = res.map((x: any) => x.count)
+          this.scheduleMonthLabels = res.map((x: any) => x.date)
 
           this.scheduleLineChartConfig.destroy();
           this.initScheduleLineChart();

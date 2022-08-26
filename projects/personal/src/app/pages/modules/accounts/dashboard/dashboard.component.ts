@@ -26,8 +26,11 @@ export class DashboardComponent implements OnInit {
     { text: "Dashboard", url: "/home/accounts/dashboard" },
   ];
 
-  accountMonthData: any;
-  CnDMonthData: any;
+  cndMonthLineCreditDataSets: any[] = [];
+  cndMonthLineDebitDataSets: any[] = [];
+  cndMonthLineLabels: any[] = [];
+  cndMonthPieDataSets: any[] = [0,0];
+  cndMonthPieLabels: any[] = ["Credit", "Debit"];
 
   allAccountCount: number = 0;
   creditMonthTotal: number = 0;
@@ -37,6 +40,9 @@ export class DashboardComponent implements OnInit {
   cndPieChartConfig: any;
 
   ngOnInit(): void {
+    this.getAllAccountCount();
+    this.getTransactionShare();
+    this.getTransactionAnnotate();
   }
 
   ngAfterViewInit(): void {
@@ -50,12 +56,22 @@ export class DashboardComponent implements OnInit {
     this.cndLineChartConfig = new Chart(cndLineChartElement, {
       type: "line",
       data: {
-        labels: [],
+        labels: this.cndMonthLineLabels,
         datasets: [{
-          data: [],
+          data: this.cndMonthLineCreditDataSets,
+          fill: true
+        },{
+          data: this.cndMonthLineDebitDataSets,
+          fill: true
         }]
       },
-      options: {},
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          }
+        }
+      },
     });
   }
 
@@ -65,13 +81,69 @@ export class DashboardComponent implements OnInit {
     this.cndPieChartConfig = new Chart(cndPieChartElement, {
       type: "pie",
       data: {
-        labels: [],
+        labels: this.cndMonthPieLabels,
         datasets: [{
-          data: [],
+          data: this.cndMonthPieDataSets,
         }]
       },
       options: {},
     });
+  }
+
+  getAllAccountCount(){
+    this.accountsApi.getAllAccountCount()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.allAccountCount = res.count;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getTransactionShare(){
+    this.accountsApi.getTransactionShare()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.creditMonthTotal = res.credit;
+          this.debitMonthTotal = res.debit;
+
+          this.cndMonthPieDataSets[0] = res.credit;
+          this.cndMonthPieDataSets[1] = res.debit;
+
+          this.cndPieChartConfig.destroy();
+          this.initCnDPieChart()
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getTransactionAnnotate(){
+    this.accountsApi.getTransactionAnnotate()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.cndMonthLineLabels = res.credit.map((x: any) => x.date)
+          this.cndMonthLineCreditDataSets = res.credit.map((x: any) => x.count)
+          this.cndMonthLineDebitDataSets = res.debit.map((x: any) => x.count)
+
+          this.cndLineChartConfig.destroy();
+          this.initCnDLineChart();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

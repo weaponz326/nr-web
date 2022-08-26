@@ -23,9 +23,20 @@ export class DashboardComponent implements OnInit {
     { text: "Dashboard", url: "/home/calendar/dashboard" },
   ];
 
-  allAccountData: any;
+  allAccountDataSets: any[] = [1, 0, 0, 0, 0, 0, 0, 0, 0];
+  allAccountLabels: any[] = [
+    "Personal",
+    "Restaurant",
+    "School",
+    "Enterprise",
+    "Association",
+    "Hospital",
+    "Hotel",
+    "Shop",
+    "Production",
+  ];
 
-  allAccountCount: number = 0;
+  allAccountCount: number = 1;
 
   accountBarChartConfig: any;
 
@@ -40,14 +51,23 @@ export class DashboardComponent implements OnInit {
     let accountBarChartElement = this.elementRef.nativeElement.querySelector('#accountBarChart')
 
     this.accountBarChartConfig = new Chart(accountBarChartElement, {
-      type: "line",
+      type: "bar",
       data: {
-        labels: [],
+        labels: this.allAccountLabels,
         datasets: [{
-          data: [],
+          data: this.allAccountDataSets,
         }]
       },
-      options: {},
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      },
     });
   }
 

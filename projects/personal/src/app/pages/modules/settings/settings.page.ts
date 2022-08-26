@@ -12,7 +12,7 @@ export class SettingsPage implements OnInit {
   navLinks: any[] = [
     { text: "Profile", url: "/home/settings/profile", icon: "bi bi-person" },
     { text: "All Accounts", url: "/home/settings/all-accounts", icon: "bi bi-list-ul" },
-    { text: "Invitations", url: "/home/settings/invitations", icon: "bi bi-envelope" },
+    // { text: "Invitations", url: "/home/settings/invitations", icon: "bi bi-envelope" },
   ]
 
   ngOnInit(): void {

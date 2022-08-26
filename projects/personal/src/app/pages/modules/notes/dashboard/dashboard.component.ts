@@ -26,13 +26,16 @@ export class DashboardComponent implements OnInit {
     { text: "Dashboard", url: "/home/notes/dashboard" },
   ];
 
-  noteMonthData: any;
+  noteMonthDataSets: any[] = [];
+  noteMonthLabels: any[] = [];
 
   noteMonthCount: number = 0;
 
   noteLineChartConfig: any;
 
   ngOnInit(): void {
+    this.getNoteCount();
+    this.getNoteAnnotate();
   }
 
   ngAfterViewInit(): void {
@@ -45,13 +48,55 @@ export class DashboardComponent implements OnInit {
     this.noteLineChartConfig = new Chart(noteLineChartElement, {
       type: "line",
       data: {
-        labels: [],
+        labels: this.noteMonthLabels,
         datasets: [{
-          data: [],
+          data: this.noteMonthDataSets,
         }]
       },
-      options: {},
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      },
     });
+  }
+
+  getNoteCount(){
+    this.notesApi.getNoteCount()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.noteMonthCount = res.count;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNoteAnnotate(){
+    this.notesApi.getNoteAnnotate()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.noteMonthDataSets = res.map((x: any) => x.count)
+          this.noteMonthLabels = res.map((x: any) => x.date)
+
+          this.noteLineChartConfig.destroy();
+          this.initNoteLineChart();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

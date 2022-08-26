@@ -26,8 +26,8 @@ export class DashboardComponent implements OnInit {
     { text: "Dashboard", url: "/home/budget/dashboard" },
   ];
 
-  Data: any;
-  ioeMonthData: any;
+  ioeMonthDataSets: any[] = [0,0];
+  ioeMonthDataLabels: any[] = ['Income', 'Expenditure'];
 
   budgetMonthCount: number = 0;
   incomeMonthTotal: number = 0;
@@ -36,25 +36,80 @@ export class DashboardComponent implements OnInit {
   ioePieChartConfig: any;
 
   ngOnInit(): void {
+    this.getBudgetCount();
+    this.getIncomeTotal();
+    this.getExpenditureTotal();
   }
 
   ngAfterViewInit(): void {
-    this.initIoELineChart();
+    this.initIoEPieChart();
   }
 
-  initIoELineChart(){
+  initIoEPieChart(){
     let ioePieChartElement = this.elementRef.nativeElement.querySelector('#ioePieChart')
 
     this.ioePieChartConfig = new Chart(ioePieChartElement, {
       type: "pie",
       data: {
-        labels: [],
+        labels: this.ioeMonthDataLabels,
         datasets: [{
-          data: [],
+          data: this.ioeMonthDataSets,
         }]
       },
       options: {},
     });
+  }
+
+  getBudgetCount(){
+    this.budgetApi.getBudgetCount()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.budgetMonthCount = res.count;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getIncomeTotal(){
+    this.budgetApi.getIncomeTotal()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.incomeMonthTotal = res.total.amount__sum;
+          this.ioeMonthDataSets[0] = res.total.amount__sum;
+          
+          this.ioePieChartConfig.destroy();
+          this.initIoEPieChart()
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getExpenditureTotal(){
+    this.budgetApi.getExpenditureTotal()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.expenditureMonthTotal = res.total.amount__sum;
+          this.ioeMonthDataSets[1] = res.total.amount__sum;
+          
+          this.ioePieChartConfig.destroy();
+          this.initIoEPieChart();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

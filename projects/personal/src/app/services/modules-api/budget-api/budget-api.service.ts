@@ -87,4 +87,18 @@ export class BudgetApiService {
     return this.http.delete(this.personalUrl + "module-budget/expenditure/" + expenditureId, this.authHeaders.headers);
   }
 
+  // dashboard
+
+  public getBudgetCount(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-budget/budget-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getIncomeTotal(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-budget/income-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getExpenditureTotal(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-budget/expenditure-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
 }

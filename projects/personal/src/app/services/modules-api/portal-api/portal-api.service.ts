@@ -47,4 +47,14 @@ export class PortalApiService {
     return this.http.delete(this.personalUrl + "module-portal/rink/" + sessionStorage.getItem('personal_rink_id'), this.authHeaders.headers);
   }
 
+  // dashboard
+
+  public getRinkShareCount(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-portal/rink-share-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getRinkShareAnnotate(): Observable<any>{
+    return this.http.get(this.personalUrl + "module-portal/rink-share-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
 }

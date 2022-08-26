@@ -26,8 +26,9 @@ export class DashboardComponent implements OnInit {
     { text: "Dashboard", url: "/home/portal/dashboard" },
   ];
 
-  rinkInMonthData: any;
-  rinkOutMonthData: any;
+  rinkInMonthDataSets: any[] = [];
+  rinkOutMonthDataSets: any[] = [];
+  rinkMonthLabels: any[] = [];
 
   rinkInMonthCount: number = 0;
   rinkOutMonthCount: number = 0;
@@ -35,6 +36,8 @@ export class DashboardComponent implements OnInit {
   rinkLineChartConfig: any;
 
   ngOnInit(): void {
+    this.getRinkShareCount();
+    this.getRinkShareAnnotate();
   }
 
   ngAfterViewInit(): void {
@@ -47,13 +50,61 @@ export class DashboardComponent implements OnInit {
     this.rinkLineChartConfig = new Chart(rinkLineChartElement, {
       type: "line",
       data: {
-        labels: [],
+        labels: this.rinkMonthLabels,
         datasets: [{
-          data: [],
+          data: this.rinkInMonthDataSets,
+          fill: true
+        },{
+          data: this.rinkOutMonthDataSets,
+          fill: true
         }]
       },
-      options: {},
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      },
     });
+  }
+
+  getRinkShareCount(){
+    this.portalApi.getRinkShareCount()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.rinkInMonthCount = res.rink_in;
+          this.rinkOutMonthCount = res.rink_out;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getRinkShareAnnotate(){
+    this.portalApi.getRinkShareAnnotate()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.rinkInMonthDataSets = res.rink_in.map((x: any) => x.count)
+          this.rinkOutMonthDataSets = res.rink_out.map((x: any) => x.count)
+          this.rinkMonthLabels = res.rink_in.map((x: any) => x.date)
+
+          this.rinkLineChartConfig.destroy();
+          this.initRinkLineChart();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }
