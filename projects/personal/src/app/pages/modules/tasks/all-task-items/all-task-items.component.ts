@@ -35,9 +35,6 @@ export class AllTaskItemsComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
     this.getUserTaskItems(1, 20, "");
   }
 

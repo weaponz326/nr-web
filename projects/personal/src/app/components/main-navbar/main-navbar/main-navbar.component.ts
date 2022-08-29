@@ -93,7 +93,7 @@ export class MainNavbarComponent implements OnInit {
     console.log("u logging out? ...where u think u going?");
     
     localStorage.removeItem("auth_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("auth_refresh");
 
     localStorage.removeItem("personal_id");
     localStorage.removeItem("hospital_id");
