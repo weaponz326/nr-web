@@ -23,6 +23,7 @@
                 + change email (C)
                 + two factor auth (C)
 		    + guest landing (Mr)(Cp)
+		    + apps download (Mr)(Cp)
 		    + module home (Mr)(Cp)
 			+ modules
 				+ portal (Mr)(Cp)
@@ -109,6 +110,7 @@
 				+ about (C)
 				+ pricing (C)
 				+ contact (C)
+				+ apps download (C)
 			+ module utilities (M)
 				+ module sidenav (C)
 				+ module topnav (C)

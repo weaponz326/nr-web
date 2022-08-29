@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
   },
   {
+    path: "apps-download",
+    loadChildren: () => import("./pages/apps-download/apps-download.module").then(m => m.AppsDownloadModule)
+  },
+  {
     path: "home",
     children: [
       {

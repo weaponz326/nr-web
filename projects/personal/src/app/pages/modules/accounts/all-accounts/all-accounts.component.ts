@@ -40,7 +40,7 @@ export class AllAccountsComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
-    this.getUserAccounts(1, 20, "");
+    this.getUserAccounts(1, 20, "-created_at");
   }
 
  getUserAccounts(page: any, size: any, sortField: any){

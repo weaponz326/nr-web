@@ -15,15 +15,13 @@
 
         <div class="row pb-5">
             <div class="col-md-12">
-                <a href="#">
-                    <button class="create-btn btn btn-lg btn-danger mb-3" (click)="createAccount($event)">
-                        create {{ suiteName }} account
-                    </button>
-                    <br>
-                    <button class="create-btn btn btn-secondary" >
-                        Download <i class="bi bi-windows mx-2"></i> apps
-                    </button>
-                </a>
+                <button class="create-btn btn btn-lg btn-danger mb-3" (click)="createAccount($event)">
+                    create {{ suiteName }} account
+                </button>
+                <br>
+                <button class="create-btn btn btn-secondary" routerLink="/apps-download">
+                    Download <i class="bi bi-windows mx-2"></i> apps
+                </button>
             </div>
         </div>
 
