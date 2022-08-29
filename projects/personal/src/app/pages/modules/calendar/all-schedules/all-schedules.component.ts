@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
-import { CalendarPrintService } from 'projects/personal/src/app/services/printing/calendar-print/calendar-print.service';
+import { CalendarPrintService } from 'projects/personal/src/app/services/modules-printing/calendar-print/calendar-print.service';
 
 
 @Component({
@@ -71,7 +71,7 @@ export class AllSchedulesComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.calendarPrint.printAllSchedules();
+    this.calendarPrint.printAllSchedules();
   }
 
 }

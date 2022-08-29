@@ -160,7 +160,7 @@
 				+ notes api (S)
 				+ accounts api (S)
 				+ tasks api (S)
-            + printing
+            + modules printing
 				+ calendar print (S)
 				+ budget print (S)
 				+ notes print (S)

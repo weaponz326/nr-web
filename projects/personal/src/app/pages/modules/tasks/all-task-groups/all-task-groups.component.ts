@@ -5,7 +5,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { NewTaskGroupComponent } from '../new-task-group/new-task-group.component';
 
 import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
-import { TasksPrintService } from 'projects/personal/src/app/services/printing/tasks-print/tasks-print.service';
+import { TasksPrintService } from 'projects/personal/src/app/services/modules-printing/tasks-print/tasks-print.service';
 
 
 @Component({
@@ -83,7 +83,7 @@ export class AllTaskGroupsComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.tasksPrint.printAllTaskGroups();
+    this.tasksPrint.printAllTaskGroups();
   }
 
 }

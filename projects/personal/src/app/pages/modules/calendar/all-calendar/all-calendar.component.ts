@@ -5,7 +5,7 @@ import { NewCalendarComponent } from '../new-calendar/new-calendar.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
-import { CalendarPrintService } from 'projects/personal/src/app/services/printing/calendar-print/calendar-print.service';
+import { CalendarPrintService } from 'projects/personal/src/app/services/modules-printing/calendar-print/calendar-print.service';
 
 
 @Component({
@@ -83,7 +83,7 @@ export class AllCalendarComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.calendarPrint.printAllCalendars();
+    this.calendarPrint.printAllCalendars();
   }
 
 }

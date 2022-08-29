@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
-import { AccountsPrintService } from 'projects/personal/src/app/services/printing/accounts-print/accounts-print.service';
+import { AccountsPrintService } from 'projects/personal/src/app/services/modules-printing/accounts-print/accounts-print.service';
 import { Account } from 'projects/personal/src/app/models/modules/accounts/accounts.model';
 
 
@@ -134,7 +134,7 @@ export class ViewAccountComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.accountsPrint.printViewAccount();
+    this.accountsPrint.printViewAccount();
   }
 
 }

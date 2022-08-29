@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
-import { TasksPrintService } from 'projects/personal/src/app/services/printing/tasks-print/tasks-print.service';
+import { TasksPrintService } from 'projects/personal/src/app/services/modules-printing/tasks-print/tasks-print.service';
 
 @Component({
   selector: 'app-all-task-items',
@@ -71,7 +71,7 @@ export class AllTaskItemsComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.tasksPrint.getPrintAllTaskItems(this.totalItems);
+    this.tasksPrint.printAllTaskItems();
   }
 
 }

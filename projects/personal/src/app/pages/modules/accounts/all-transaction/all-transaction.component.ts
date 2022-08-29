@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
-import { AccountsPrintService } from 'projects/personal/src/app/services/printing/accounts-print/accounts-print.service';
+import { AccountsPrintService } from 'projects/personal/src/app/services/modules-printing/accounts-print/accounts-print.service';
 
 
 @Component({
@@ -72,7 +72,7 @@ export class AllTransactionComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.accountsPrint.printAllTransactions();
+    this.accountsPrint.printAllTransactions();
   }
 
 }

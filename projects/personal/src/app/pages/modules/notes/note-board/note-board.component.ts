@@ -5,7 +5,7 @@ import { NewNoteComponent } from '../new-note/new-note.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { NotesApiService } from 'projects/personal/src/app/services/modules-api/notes-api/notes-api.service';
-import { NotesPrintService } from 'projects/personal/src/app/services/printing/notes-print/notes-print.service';
+import { NotesPrintService } from 'projects/personal/src/app/services/modules-printing/notes-print/notes-print.service';
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 
 
@@ -119,7 +119,7 @@ export class NoteBoardComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.notePrint.printAllNotes();
+    this.notesPrint.printAllNotes();
   }
 
 }

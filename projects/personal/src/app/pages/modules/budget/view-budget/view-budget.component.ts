@@ -6,7 +6,7 @@ import { BudgetTablesComponent } from '../budget-tables/budget-tables.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { BudgetApiService } from 'projects/personal/src/app/services/modules-api/budget-api/budget-api.service';
-import { BudgetPrintService } from 'projects/personal/src/app/services/printing/budget-print/budget-print.service';
+import { BudgetPrintService } from 'projects/personal/src/app/services/modules-printing/budget-print/budget-print.service';
 import { Budget } from 'projects/personal/src/app/models/modules/budget/budget.model';
 
 
@@ -128,7 +128,7 @@ export class ViewBudgetComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.budgetPrint.printViewBudget();
+    this.budgetPrint.printViewBudget();
   }
 
 }
