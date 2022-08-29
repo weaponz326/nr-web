@@ -180,6 +180,7 @@
                 + tasks (Cm)
 		+ guards
 			- auth (G)
+			- user (G)
             + modules
                 + portal
                     + view rink (G)
