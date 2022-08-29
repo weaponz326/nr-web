@@ -43,7 +43,7 @@ export class NotesApiService {
   }
 
   public getSearch(search: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/dashboard/note-search?search=" + search, this.authHeaders.headers);
+    return this.http.get(this.personalUrl + "module-notes/note-search?search=" + search, this.authHeaders.headers);
   }
 
   // dashboard

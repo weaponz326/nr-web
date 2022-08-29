@@ -185,7 +185,7 @@
                     + view rink (G)
                     + send rink (G)
                 + settings
-					+ veiw setings (G)
+					+ view invitation (G)
                 + calendar
                     + view calendar (G)
                 + budget
