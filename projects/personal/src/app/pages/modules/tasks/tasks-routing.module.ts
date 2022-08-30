@@ -9,6 +9,9 @@ import { ChecklistViewComponent } from './checklist-view/checklist-view.componen
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { KanbanViewComponent } from './kanban-view/kanban-view.component';
 
+import { ViewTaskGroupGuard } from '../../../guards/modules/tasks/view-task-group/view-task-group.guard';
+
+
 const routes: Routes = [
   {
     path: "",
@@ -20,6 +23,7 @@ const routes: Routes = [
       {
         path: "view-task-group",
         component: ViewTaskGroupComponent,
+        canActivate: [ViewTaskGroupGuard],
         children: [
           { path: "", component: KanbanViewComponent },
           { path: "kanban-view", component: KanbanViewComponent },

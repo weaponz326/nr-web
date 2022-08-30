@@ -5,6 +5,7 @@ import { NotesPage } from './notes.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NoteBoardComponent } from './note-board/note-board.component';
 
+
 const routes: Routes = [
   {
     path: "",

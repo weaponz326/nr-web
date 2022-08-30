@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+  
+  constructor(private router: Router) { }
+  
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    if (!!localStorage.getItem('personal_id')){
+      this.router.navigateByUrl('/home');
+      return false;
+    }
+    else{
+      return true;
+    }
   }
   
 }

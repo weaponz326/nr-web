@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AccountsPage } from './accounts.page';
 import { AllAccountsComponent } from './all-accounts/all-accounts.component';
 import { AllTransactionComponent } from './all-transaction/all-transaction.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAccountComponent } from './view-account/view-account.component';
+
+import { ViewAccountGuard } from '../../../guards/modules/accounts/view-account/view-account.guard';
+
 
 const routes: Routes = [
   {
@@ -14,7 +18,7 @@ const routes: Routes = [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
       { path: "all-accounts", component: AllAccountsComponent },
-      { path: "view-account", component: ViewAccountComponent },
+      { path: "view-account", component: ViewAccountComponent, canActivate: [ViewAccountGuard] },
       { path: "all-transactions", component: AllTransactionComponent },
     ]
   }

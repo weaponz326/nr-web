@@ -18,28 +18,6 @@ export class GuestLandingPage implements OnInit {
   isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.getAuth();
-  }
-
-  getAuth(){
-    this.isLoading = true;
-
-    this.authApi.getUser()
-      .subscribe({
-        next: res => {
-          console.log(res);
-          this.isLoading = false;
-
-          if (res.id){
-            // TODO: use guard for redirecting instead of router
-            this.router.navigateByUrl("/home");
-          }
-        },
-        error: err => {
-          console.log(err);
-          this.isLoading = false;
-        }
-      })
   }
 
   gotoAbout() {
@@ -56,6 +34,5 @@ export class GuestLandingPage implements OnInit {
     console.log('to contact...');
     document.querySelector('#contactComponentReference')?.scrollIntoView({ behavior: 'smooth'});
   }
-
 
 }

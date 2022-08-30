@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ViewRinkGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+  
+  constructor(private router: Router) { }
+
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    if (!!sessionStorage.getItem('personal_rink_id')){
+      return true;
+    }
+    else{
+      this.router.navigateByUrl('/home/portal/timeline');
+      return false;
+    }
   }
   
 }

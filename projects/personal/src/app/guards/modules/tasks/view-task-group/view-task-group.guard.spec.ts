@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ViewNoteGuard } from './view-note.guard';
+import { ViewTaskGroupGuard } from './view-task-group.guard';
 
-describe('ViewNoteGuard', () => {
-  let guard: ViewNoteGuard;
+describe('ViewTaskGroupGuard', () => {
+  let guard: ViewTaskGroupGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(ViewNoteGuard);
+    guard = TestBed.inject(ViewTaskGroupGuard);
   });
 
   it('should be created', () => {

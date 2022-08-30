@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './guards/auth/auth.guard';
+import { UserGuard } from './guards/user/user.guard';
+
+
 const routes: Routes = [
   {
     path: "",
@@ -20,18 +24,18 @@ const routes: Routes = [
   },
   {
     path: "user-settings",
+    canActivate: [AuthGuard],
     loadChildren: () => import("./pages/user-settings/user-settings.module").then(m => m.UserSettingsModule)
   },
   {
     path: "guest",
+    canActivate: [UserGuard],
     loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
   },
   {
-    path: "apps-download",
-    loadChildren: () => import("./pages/apps-download/apps-download.module").then(m => m.AppsDownloadModule)
-  },
-  {
     path: "home",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: "",
