@@ -110,7 +110,6 @@
 				+ about (C)
 				+ pricing (C)
 				+ contact (C)
-				+ apps download (C)
 			+ module utilities (M)
 				+ module sidenav (C)
 				+ module topnav (C)

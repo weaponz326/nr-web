@@ -9,7 +9,6 @@ import { UserTopComponent } from './user-top/user-top.component';
 import { AboutComponent } from './about/about.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ContactComponent } from './contact/contact.component';
-import { AppsDownloadComponent } from './apps-download/apps-download.component';
 
 
 
@@ -21,7 +20,6 @@ import { AppsDownloadComponent } from './apps-download/apps-download.component';
     AboutComponent,
     PricingComponent,
     ContactComponent,
-    AppsDownloadComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +33,6 @@ import { AppsDownloadComponent } from './apps-download/apps-download.component';
     AboutComponent,
     PricingComponent,
     ContactComponent,
-    AppsDownloadComponent
   ]
 })
 export class SuiteLandingModule { }
