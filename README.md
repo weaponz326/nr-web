@@ -28,7 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## netRink project structure
 
-Each netRink suite is implemented as a standalone angular project, with all the projects being in one angular environment.
-This allows the all the applications to share the same node modules and dependancies.
+Each netRink suite is implemented as a standalone angular application, with all the applications being in one angular project.
+This allows all the applications to share the same node modules and dependancies.
 
 npm commands that target a specific project should be run with the option `--project=project_name`.
