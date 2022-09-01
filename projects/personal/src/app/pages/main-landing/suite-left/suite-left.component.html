@@ -1,9 +1,10 @@
 <div class="bg-dark-light py-5">
     <div class="container scroll-div" id={{suiteDivId}}>
-        <div class="row g-5">
+        
+        <h1 class="display-4 pb-3">{{suiteName}}</h1>
 
+        <div class="row g-5">
             <div class="col-md-6 suite-details">
-                <h1 class="display-4 pb-3">{{suiteName}}</h1>
                 <p class="h4 my-4">{{suiteDescription}}</p>
                 <ul>
                     <li class="suite-uses" *ngFor="let use of suiteUses">
@@ -11,14 +12,14 @@
                     </li>
                 </ul>
                 <a href={{suiteButtonLink}} target="_blank">
-                    <button class="btn btn-lg btn-primary mt-4 ms-4">go to {{suiteName}}</button>
+                    <button class="btn btn-lg btn-primary mt-5 ms-4 goto-suite-btn">go to {{suiteName}}</button>
                 </a>
             </div>
 
             <div class="col-md-6 bg-white rounded">
                 <img src={{suiteImageSrc}} class="img-fluid my-auto border border-2 rounded">
             </div>
-
         </div>
+
     </div>
 </div>
