@@ -14,12 +14,12 @@ export class NotesApiService {
     private authHeaders: AuthHeadersService
   ) { }
 
-  personalUrl = environment.personalUrl;
+  personalApi = environment.personalApi;
 
   // notes
 
   public getUserNotes(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/note?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.personalApi + "module-notes/note?user=" + localStorage.getItem('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -27,33 +27,33 @@ export class NotesApiService {
   }
 
   public getNote(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/note/" + sessionStorage.getItem('personal_note_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-notes/note/" + sessionStorage.getItem('personal_note_id'), this.authHeaders.headers);
   }
 
   public postNote(note: any): Observable<any>{
-    return this.http.post(this.personalUrl + "module-notes/note/", note, this.authHeaders.headers);
+    return this.http.post(this.personalApi + "module-notes/note/", note, this.authHeaders.headers);
   }
 
   public putNote(note: any, noteId: any): Observable<any>{
-    return this.http.put(this.personalUrl + "module-notes/note/" + noteId, note, this.authHeaders.headers);
+    return this.http.put(this.personalApi + "module-notes/note/" + noteId, note, this.authHeaders.headers);
   }
 
   public deleteNote(noteId: any): Observable<any>{
-    return this.http.delete(this.personalUrl + "module-notes/note/" + noteId, this.authHeaders.headers);
+    return this.http.delete(this.personalApi + "module-notes/note/" + noteId, this.authHeaders.headers);
   }
 
   public getSearch(search: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/note-search?search=" + search, this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-notes/note-search?search=" + search, this.authHeaders.headers);
   }
 
   // dashboard
 
   public getNoteCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/dashboard/note-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-notes/dashboard/note-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getNoteAnnotate(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-notes/dashboard/note-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-notes/dashboard/note-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

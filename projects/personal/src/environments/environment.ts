@@ -5,16 +5,26 @@
 export const environment = {
   production: false,
 
-  baseUrl: "http://localhost:8000/",
-  personalUrl: "http://localhost:8000/",
-  restaurantUrl: "http://localhost:8001/",
-  schoolUrl: "http://localhost:8002/",
-  enterpriseUrl: "http://localhost:8003/",
-  associationUrl: "http://localhost:8004/",
-  hospitalUrl: "http://localhost:8005/",
-  hotelUrl: "http://localhost:8006/",
-  shopUrl: "http://localhost:8007/",
-  productionUrl: "http://localhost:8008/",
+  baseUrl: "#",
+  personalUrl: "#",
+  restaurantUrl: "#",
+  schoolUrl: "#",
+  enterpriseUrl: "#",
+  associationUrl: "#",
+  hospitalUrl: "#",
+  hotelUrl: "#",
+  shopUrl: "#",
+  productionUrl: "#",
+
+  personalApi: "http://localhost:8000/",
+  restaurantApi: "http://localhost:8001/",
+  schoolApi: "http://localhost:8002/",
+  enterpriseApi: "http://localhost:8003/",
+  associationApi: "http://localhost:8004/",
+  hospitalApi: "http://localhost:8005/",
+  hotelApi: "http://localhost:8006/",
+  shopApi: "http://localhost:8007/",
+  productionApi: "http://localhost:8008/",
 };
 
 /*

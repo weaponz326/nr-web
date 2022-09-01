@@ -15,12 +15,12 @@ export class BudgetApiService {
     private authHeaders: AuthHeadersService
   ) { }
 
-  personalUrl = environment.personalUrl;
+  personalApi = environment.personalApi;
 
   // budget
 
   public getUserBudgets(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/budget?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.personalApi + "module-budget/budget?user=" + localStorage.getItem('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -28,77 +28,77 @@ export class BudgetApiService {
   }
 
   public getBudget(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/budget/" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/budget/" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
   }
 
   public postBudget(budget: any): Observable<any>{
-    return this.http.post(this.personalUrl + "module-budget/budget/", budget, this.authHeaders.headers);
+    return this.http.post(this.personalApi + "module-budget/budget/", budget, this.authHeaders.headers);
   }
 
   public putBudget(budget: any): Observable<any>{
-    return this.http.put(this.personalUrl + "module-budget/budget/" + sessionStorage.getItem('personal_budget_id'), budget, this.authHeaders.headers);
+    return this.http.put(this.personalApi + "module-budget/budget/" + sessionStorage.getItem('personal_budget_id'), budget, this.authHeaders.headers);
   }
 
   public deleteBudget(): Observable<any>{
-    return this.http.delete(this.personalUrl + "module-budget/budget/" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
+    return this.http.delete(this.personalApi + "module-budget/budget/" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
   }
 
   // income
 
   public getBudgetIncome(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/income?budget=" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/income?budget=" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
   }
 
   public getIncome(incomeId: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/income/=" + incomeId, this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/income/=" + incomeId, this.authHeaders.headers);
   }
 
   public postIncome(income: any): Observable<any>{
-    return this.http.post(this.personalUrl + "module-budget/income/", income, this.authHeaders.headers);
+    return this.http.post(this.personalApi + "module-budget/income/", income, this.authHeaders.headers);
   }
 
   public putIncome(income: any, incomeId: any): Observable<any>{
-    return this.http.put(this.personalUrl + "module-budget/income/" + incomeId, income, this.authHeaders.headers);
+    return this.http.put(this.personalApi + "module-budget/income/" + incomeId, income, this.authHeaders.headers);
   }
 
   public deleteIncome(incomeId: any): Observable<any>{
-    return this.http.delete(this.personalUrl + "module-budget/income/" + incomeId, this.authHeaders.headers);
+    return this.http.delete(this.personalApi + "module-budget/income/" + incomeId, this.authHeaders.headers);
   }
 
   // expenditure
 
   public getBudgetExpenditure(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/expenditure?budget=" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/expenditure?budget=" + sessionStorage.getItem('personal_budget_id'), this.authHeaders.headers);
   }
 
   public getExpenditure(expenditureId: any): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/expenditure/=" + expenditureId, this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/expenditure/=" + expenditureId, this.authHeaders.headers);
   }
 
   public postExpenditure(expenditure: any): Observable<any>{
-    return this.http.post(this.personalUrl + "module-budget/expenditure/", expenditure, this.authHeaders.headers);
+    return this.http.post(this.personalApi + "module-budget/expenditure/", expenditure, this.authHeaders.headers);
   }
 
   public putExpenditure(expenditure: any, expenditureId: any): Observable<any>{
-    return this.http.put(this.personalUrl + "module-budget/expenditure/" + expenditureId, expenditure, this.authHeaders.headers);
+    return this.http.put(this.personalApi + "module-budget/expenditure/" + expenditureId, expenditure, this.authHeaders.headers);
   }
 
   public deleteExpenditure(expenditureId: any): Observable<any>{
-    return this.http.delete(this.personalUrl + "module-budget/expenditure/" + expenditureId, this.authHeaders.headers);
+    return this.http.delete(this.personalApi + "module-budget/expenditure/" + expenditureId, this.authHeaders.headers);
   }
 
   // dashboard
 
   public getBudgetCount(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/dashboard/budget-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/dashboard/budget-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getIncomeTotal(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/dashboard/income-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/dashboard/income-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public getExpenditureTotal(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-budget/dashboard/expenditure-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-budget/dashboard/expenditure-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

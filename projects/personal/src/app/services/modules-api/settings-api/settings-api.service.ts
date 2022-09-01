@@ -15,18 +15,18 @@ export class SettingsApiService {
     private authHeaders: AuthHeadersService
   ) { }
 
-  personalUrl = environment.personalUrl;
+  personalApi = environment.personalApi;
 
   public getExtendedProfile(): Observable<any>{
-    return this.http.get(this.personalUrl + "module-settings/extended-profile/" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.personalApi + "module-settings/extended-profile/" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   public putExtendedProfile(extended: any): Observable<any>{
-    return this.http.put(this.personalUrl + "module-settings/extended-profile/" + localStorage.getItem('personal_id'), extended, this.authHeaders.headers);
+    return this.http.put(this.personalApi + "module-settings/extended-profile/" + localStorage.getItem('personal_id'), extended, this.authHeaders.headers);
   }
 
   public patchExtendedProfile(extended: any): Observable<any>{
-    return this.http.patch(this.personalUrl + "module-settings/extended-profile/" + localStorage.getItem('personal_id'), extended, this.authHeaders.headers);
+    return this.http.patch(this.personalApi + "module-settings/extended-profile/" + localStorage.getItem('personal_id'), extended, this.authHeaders.headers);
   }
 
 }

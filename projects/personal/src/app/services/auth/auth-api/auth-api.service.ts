@@ -16,52 +16,52 @@ export class AuthApiService {
     private authHeaders: AuthHeadersService 
   ) { }
 
-  personalUrl = environment.personalUrl;
+  personalApi = environment.personalApi;
   headers = this.authHeaders.headers;
   refreshToken = this.authHeaders.refreshToken;
 
   public postSignup(signupForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/users/", signupForm);
+    return this.http.post(this.personalApi + "auth/users/", signupForm);
   }
 
   public putUser(updateForm: any): Observable<any>{
-    return this.http.put(this.personalUrl + "auth/users/me/", updateForm, this.headers);
+    return this.http.put(this.personalApi + "auth/users/me/", updateForm, this.headers);
   }
 
   public patchUser(updateForm: any): Observable<any>{
-    return this.http.patch(this.personalUrl + "auth/users/me/", updateForm, this.headers);
+    return this.http.patch(this.personalApi + "auth/users/me/", updateForm, this.headers);
   }
 
   public getUser(): Observable<any>{
-    return this.http.get(this.personalUrl + "auth/users/me/", this.headers);
+    return this.http.get(this.personalApi + "auth/users/me/", this.headers);
   }
 
   public postRecoveryEmail(email: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/users/reset_password/", email);
+    return this.http.post(this.personalApi + "auth/users/reset_password/", email);
   }
 
   public postResetPassword(resetForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/users/reset_password_confirm/", resetForm);
+    return this.http.post(this.personalApi + "auth/users/reset_password_confirm/", resetForm);
   }
 
   public postLogin(loginForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/jwt/create/", loginForm, this.headers);
+    return this.http.post(this.personalApi + "auth/jwt/create/", loginForm, this.headers);
   }
 
   public postTokenReferesh(): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/jwt/refresh/", this.refreshToken, this.headers);
+    return this.http.post(this.personalApi + "auth/jwt/refresh/", this.refreshToken, this.headers);
   }
 
   public postChangeEmail(emailForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/users/set_email/", emailForm, this.headers);
+    return this.http.post(this.personalApi + "auth/users/set_email/", emailForm, this.headers);
   }
 
   public postChangePassword(passwordForm: any): Observable<any>{
-    return this.http.post(this.personalUrl + "auth/users/set_password/", passwordForm, this.headers);
+    return this.http.post(this.personalApi + "auth/users/set_password/", passwordForm, this.headers);
   }
 
   public deleteUser(deleteForm: any): Observable<any>{
-    return this.http.delete(this.personalUrl + "auth/users/me/", deleteForm);
+    return this.http.delete(this.personalApi + "auth/users/me/", deleteForm);
   }
 
 
@@ -69,11 +69,11 @@ export class AuthApiService {
   // personal search
 
   public getSearchList(search: any): Observable<any>{
-    return this.http.get(this.personalUrl + "users/search-list?search=" + search, this.authHeaders.headers);
+    return this.http.get(this.personalApi + "users/search-list?search=" + search, this.authHeaders.headers);
   }
 
   public getSearchDetail(userId: any): Observable<any>{
-    return this.http.get(this.personalUrl + "users/search-detail/" + userId, this.authHeaders.headers);
+    return this.http.get(this.personalApi + "users/search-detail/" + userId, this.authHeaders.headers);
   }
 
 }
