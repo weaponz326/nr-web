@@ -16,15 +16,16 @@ export class MainNavbarComponent implements OnInit {
 
   constructor(private authApi: AuthApiService) { }
 
-  @Input() source: string = "Personal";
+  @Input() source: string = "netRink";
   @Input() navBrand: string = "netRink";
   @Input() isForms: boolean = false;
-
-  userData: any;
 
   isLoggedIn: boolean = false;
   isAuthLoading: boolean = false;
 
+  navBrandLink = "/"
+
+  userData: any;
   name: string = "";
   email: string = "";
   photo: string = "../../../../assets/images/utilities/photo-avatar.jpg";
@@ -34,6 +35,10 @@ export class MainNavbarComponent implements OnInit {
 
     if(!this.isForms){
       this.setSource();
+    }
+
+    if(this.source == "Personal"){
+      this.navBrandLink = "/guest";
     }
   }
 
