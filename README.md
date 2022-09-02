@@ -39,3 +39,7 @@ To add a new applcation or suite to a project, use the command
 ```bash
 ng generate application suite_name --routing
 ```
+
+## Building desktop apps with Electron
+
+Before building a desktop app with electron for a particular project, change the pathname in `main.js` to the path of the project in the `dist` folder. Also change the target of the electron build command in `package.json` to the the respective project name. 
