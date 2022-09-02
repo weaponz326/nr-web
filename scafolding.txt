@@ -307,8 +307,6 @@
 					+ edit stock item (C)
 					+ stock item form (C)
 		+ components
-			+ register form (M)
-				+ register form (C)
 			+ select windows
 				+ menu windows (M)
           			+ select menu group (C)
@@ -325,6 +323,7 @@
           			+ select payment (C)
 				+ roster windows (M)
           			+ select roster (C)
+					+ select shift (C)
 				+ reservations windows (M)
           			+ select reservation (C)
 				+ orders windows (M)
@@ -394,6 +393,7 @@
                     + view rink (G)
                     + send rink (G)
 				+ settings
+					+ view bill (G)
 				+ menu
                     + view menu group (G)
 				+ staff
@@ -411,6 +411,7 @@
 				+ orders
                     + view order (G)
 				+ kitchen stock
+					+ view kitchen stock (G)
 			+ access
 				+ admin (G)
 				+ portal (G)

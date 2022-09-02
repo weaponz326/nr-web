@@ -32,3 +32,10 @@ Each netRink suite is implemented as a standalone angular application, with all 
 This allows all the applications to share the same node modules and dependancies.
 
 npm commands that target a specific project should be run with the option `--project=project_name`.
+
+## Adding aplications to project
+
+To add a new applcation or suite to a project, use the command
+```bash
+ng generate application suite_name --routing
+```
