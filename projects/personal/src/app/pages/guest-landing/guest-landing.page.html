@@ -3,25 +3,13 @@
     [source]="'Personal'"
 ></app-main-navbar>
 
-<div *ngIf="isLoading" class="text-center vh-100 bg-light p-5">
-    <div class="spinner-grow text-secondary mt-5 mx-1" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-secondary mt-5 mx-1" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-secondary mt-5 mx-1" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-
-<app-suite-scrollnav *ngIf="!isLoading"
+<app-suite-scrollnav
     (aboutEvent)="gotoAbout()"
     (pricingEvent)="gotoPricing()"
     (contactEvent)="gotoContact()"
 ></app-suite-scrollnav>
 
-<app-guest-top *ngIf="!isLoading"
+<app-guest-top #guestTopComopnentReference (watchDemo)="watchDemo()"
     [suiteName]="'Personal'"
     [primaryCaption]="'netRink Personal'"
     [secondaryCaption]="'Get unlimited access to a range of simple and easy to use personal productivity tools'"

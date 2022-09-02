@@ -10,12 +10,7 @@ import { AuthApiService } from '../../services/auth/auth-api/auth-api.service';
 })
 export class GuestLandingPage implements OnInit {
 
-  constructor(
-    private router: Router,
-    private authApi: AuthApiService,
-  ) { }
-
-  isLoading: boolean = false;
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -33,6 +28,11 @@ export class GuestLandingPage implements OnInit {
   gotoContact() {
     console.log('to contact...');
     document.querySelector('#contactComponentReference')?.scrollIntoView({ behavior: 'smooth'});
+  }
+
+  watchDemo(){
+    console.log("so u wanna watch the demo erh!");
+    window.open('#', "_blank") || window.location.replace('#');
   }
 
 }

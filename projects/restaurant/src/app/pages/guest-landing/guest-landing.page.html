@@ -1,1 +1,51 @@
-<p>guest-landing works!</p>
+<app-main-navbar
+    [navBrand]="'nR Restaurant'"
+    [source]="'Restaurant'"
+></app-main-navbar>
+
+<app-suite-scrollnav
+    (aboutEvent)="gotoAbout()"
+    (pricingEvent)="gotoPricing()"
+    (contactEvent)="gotoContact()"
+></app-suite-scrollnav>
+
+<app-guest-top #guestTopComopnentReference (watchDemo)="watchDemo()"
+    [suiteName]="'Restaurant'"
+    [primaryCaption]="'netRink Restaurant'"
+    [secondaryCaption]="'Effective running of the day to day activities of your catering institution'"
+    [features]="[
+        {
+            'title': 'Bills and payments',
+            'description': 'Automatically generate bills and receive payments from guests',
+            'imgLink': 'assets/images/features/bills.png'
+        },
+        {
+            'title': 'Operations management',
+            'description': 'Handle all operations of your facility with ease',
+            'imgLink': 'assets/images/features/operations.png'
+        },
+        {
+            'title': 'Reservations and orders',
+            'description': 'receive and respond to reservations and orders',
+            'imgLink': 'assets/images/features/orders.png'
+        },
+        {
+            'title': 'Guests management',
+            'description': 'Manage your guests for good customer relationship',
+            'imgLink': 'assets/images/features/guests.png'
+        }
+    ]"
+></app-guest-top>
+
+<app-about id="aboutComponentReference"
+    [suiteName]="'Restaurant'"
+    [suiteDetails]="'netRink Restaurant helps manage all aspects of your catering establishment. Restaurant comes with a range of extensive modular apps that are designed to see you through your day-to-day operations effectively. The modular apps are well integrated with each, allowing you to bring all aspects of your restaurant operations into a single perspective.'"
+></app-about>
+
+<app-pricing id="pricingComponentReference"></app-pricing>
+
+<app-contact id="contactComponentReference"
+    [suiteName]="'Personal'"
+></app-contact>
+
+<app-main-footer></app-main-footer>

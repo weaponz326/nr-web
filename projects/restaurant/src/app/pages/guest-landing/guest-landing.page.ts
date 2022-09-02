@@ -12,4 +12,24 @@ export class GuestLandingPage implements OnInit {
   ngOnInit(): void {
   }
 
+  gotoAbout() {
+    console.log('to about...');
+    document.querySelector('#aboutComponentReference')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  gotoPricing() {
+    console.log('to pricing...');
+    document.querySelector('#pricingComponentReference')?.scrollIntoView({ behavior: 'smooth'});
+  }
+
+  gotoContact() {
+    console.log('to contact...');
+    document.querySelector('#contactComponentReference')?.scrollIntoView({ behavior: 'smooth'});
+  }
+
+  watchDemo(){
+    console.log("so u wanna watch the demo erh!");
+    window.open('#', "_blank") || window.location.replace('#');
+  }
+
 }
