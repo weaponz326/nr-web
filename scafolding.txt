@@ -378,6 +378,7 @@
                 + settings (Cm)
                 + menu (Cm)
                 + staff (Cm)
+                + tables (Cm)
                 + customers (Cm)
                 + deliveries (Cm)
                 + payments (Cm)
