@@ -73,16 +73,6 @@ export class UserLandingPage implements OnInit {
     //   )
   }
 
-  // // NB: function not being used currently
-  // activateAccount(data: any){
-  //   console.log(data);
-  //   localStorage.setItem('restaurant_id', data.data().account.id);
-  //   sessionStorage.setItem('restaurant_account_user_id', data.id);
-  //   this.router.navigateByUrl('/home');
-
-  //   // TODO: store selected account in server session
-  // }
-
   gotoAbout() {
     console.log('to about...');
     document.querySelector('#aboutComponentReference')?.scrollIntoView({ behavior: 'smooth' });
