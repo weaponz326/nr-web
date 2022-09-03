@@ -10,9 +10,6 @@ import { AuthHeadersService } from '../../auth/auth-headers/auth-headers.service
   providedIn: 'root'
 })
 export class PortalApiService {
-  getSearchDetail(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(
     private http: HttpClient,
