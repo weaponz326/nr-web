@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PortalRoutingModule } from './portal-routing.module';
+import { MainNavbarModule } from 'projects/personal/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { PortalPage } from './portal.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SearchViewComponent } from './search-view/search-view.component';
@@ -25,6 +29,10 @@ import { ViewRinkComponent } from './view-rink/view-rink.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
     PortalRoutingModule
   ]
 })

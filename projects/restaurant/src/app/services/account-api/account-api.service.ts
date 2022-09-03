@@ -34,5 +34,15 @@ export class AccountApiService {
   public postSelectedAccount(accountId: any): Observable<any>{
     return this.http.post(this.restaurantApi + "accounts/active-account/", { active_account: accountId }, { withCredentials: true });
   }
+
+  // search
+
+  public getSearchResults(input: string): Observable<any>{
+    return this.http.get(this.restaurantApi + "accounts/search?search=" + input, this.authHeaders.headers);
+  }
+
+  public getSearchDetail(account: string): Observable<any>{
+    return this.http.get(this.restaurantApi + "accounts/search/" + account, this.authHeaders.headers);
+  }
   
 }

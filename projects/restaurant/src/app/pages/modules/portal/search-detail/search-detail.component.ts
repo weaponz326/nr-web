@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-search-detail',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  @Input() searchDetail: any;
 
   ngOnInit(): void {
+  }
+
+  createRink(){
+    console.log(this.searchDetail.id);
+    sessionStorage.setItem('restaurant_rink_recipient', this.searchDetail.id);
+    this.router.navigateByUrl('home/portal/new-rink');
   }
 
 }

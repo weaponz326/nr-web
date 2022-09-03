@@ -29,6 +29,18 @@ const routes: Routes = [
         path: "",
         loadChildren: () => import("./pages/module-home/module-home.module").then(m => m.ModuleHomeModule)
       },
+      {
+        path: "admin",
+        loadChildren: () => import("./pages/modules/admin/admin.module").then(m => m.AdminModule)
+      },
+      {
+        path: "portal",
+        loadChildren: () => import("./pages/modules/portal/portal.module").then(m => m.PortalModule)
+      },
+      {
+        path: "settings",
+        loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
+      },
     ]
   },
 ];
