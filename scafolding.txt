@@ -227,6 +227,7 @@
 					+ dashboard (C)
 					+ profile (C)
 					+ billing (C)
+					+ payments history
 					+ profile content
 						+ basic (C)
 						+ logo (C)

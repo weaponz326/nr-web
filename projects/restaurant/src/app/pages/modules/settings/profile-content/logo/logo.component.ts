@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ImageInputComponent } from 'projects/personal/src/app/components/module-utilities/image-input/image-input.component';
+
 
 @Component({
   selector: 'app-logo',
@@ -9,7 +11,22 @@ export class LogoComponent implements OnInit {
 
   constructor() { }
 
+  @Output() updateAccountEvent = new EventEmitter<any>;
+
+  @ViewChild('imageInputComponentReference', { read: ImageInputComponent, static: false }) imageInput!: ImageInputComponent;
+
+  isAccountLoading = false;
+  isAccountSaving = false;
+
   ngOnInit(): void {
+  }
+
+  updateLogo(){
+    let data = {
+      logo: this.imageInput.image
+    }
+
+    this.updateAccountEvent.emit(data);
   }
 
 }

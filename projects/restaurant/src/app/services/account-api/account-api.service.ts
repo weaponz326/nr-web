@@ -18,8 +18,12 @@ export class AccountApiService {
 
   restaurantApi = environment.restaurantApi;
 
-  public postAccount(profile: any): Observable<any>{
-    return this.http.post(this.restaurantApi + "accounts/account/", profile);
+  public postAccount(account: any): Observable<any>{
+    return this.http.post(this.restaurantApi + "accounts/account/", account);
+  }
+
+  public patchAccount(account: any): Observable<any>{
+    return this.http.patch(this.restaurantApi + "accounts/account/" + localStorage.getItem('restaurant_id'), account);
   }
 
   public getAccount(): Observable<any>{
@@ -33,10 +37,6 @@ export class AccountApiService {
 
   public getUserAccounts(): Observable<any>{
     return this.http.get(this.restaurantApi + "accounts/user-accounts?personal_id=" + localStorage.getItem('personal_id'));
-  }
-
-  public postSelectedAccount(accountId: any): Observable<any>{
-    return this.http.post(this.restaurantApi + "accounts/active-account/", { active_account: accountId }, { withCredentials: true });
   }
 
   // search

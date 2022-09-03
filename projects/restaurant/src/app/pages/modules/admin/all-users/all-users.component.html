@@ -19,13 +19,6 @@
                                 <th width="65%" class="min-width-4">User's Name</th>
                                 <th width="35%" class="min-width-2">User Level</th>
                             </tr>
-                            <tr *ngIf="isFetchingGridData" class="text-center">
-                                <td colspan="4">
-                                    <div class="spinner-grow m-4" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </td>
-                            </tr>
                             <tr *ngIf="isFetchingGridData">
                                 <td colspan="2">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="false"></app-table-loading>

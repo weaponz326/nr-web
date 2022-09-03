@@ -12,15 +12,15 @@
             <table class="table table-hover table-pointer">
                 <thead>
                     <tr>
-                        <th width="60%">{{suiteName}} Name</th>
-                        <th width="40%">{{suiteName}} Location</th>
+                        <th class="p2" width="60%">{{suiteName}} Name</th>
+                        <th class="p2" width="40%">{{suiteName}} Location</th>
                     </tr>
                 </thead>
 
                 <tbody *ngIf="accountsData?.length != 0">
                     <tr *ngFor="let account of accountsData" [ngClass]="isAccountChecking? 'checking-color' : ''" (click)="accountSelected(account)">
-                        <td>{{account?.account.name}}</td>
-                        <td>{{account?.account.location}}</td>
+                        <td class="p2">{{account?.account.name}}</td>
+                        <td class="p2">{{account?.account.location}}</td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="accountsData?.length == 0">

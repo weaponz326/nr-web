@@ -29,6 +29,10 @@ export class SettingsApiService {
     return this.http.put(this.restaurantApi + "module-settings/extended-profile/" + localStorage.getItem('restaurant_id'), extended);
   }
 
+  public patchExtendedProfile(extended: any): Observable<any>{
+    return this.http.patch(this.restaurantApi + "module-settings/extended-profile/" + localStorage.getItem('restaurant_id'), extended);
+  }
+
   // subscriptions
 
   public getSubscription(): Observable<any>{
@@ -38,6 +42,10 @@ export class SettingsApiService {
 
   public putSubscription(subscription: any): Observable<any>{
     return this.http.put(this.restaurantApi + "module-settings/subscription/" + localStorage.getItem('restaurant_id'), subscription);
+  }
+
+  public patchSubscription(subscription: any): Observable<any>{
+    return this.http.patch(this.restaurantApi + "module-settings/subscription/" + localStorage.getItem('restaurant_id'), subscription);
   }
 
 }
