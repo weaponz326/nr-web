@@ -34,11 +34,6 @@ export class RegisterPage implements OnInit {
             localStorage.setItem('restaurant_id', res.id);
           }
 
-          // // TODO: implement with receivers at backend
-          // this.createAccountUser(accountData);
-          // this.createExtendedProfile();
-          // this.createSubscription();
-
           this.isSending = false;
         },
         error: (err) => {

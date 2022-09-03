@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ export class AccountApiService {
 
   constructor(
     private http: HttpClient,
+    private authHeaders: AuthHeadersService
   ) { }
 
   restaurantApi = environment.restaurantApi;

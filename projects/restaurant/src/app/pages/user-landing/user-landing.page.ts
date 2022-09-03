@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { UserTopComponent } from 'projects/personal/src/app/components/suite-landing/user-top/user-top.component';
+
+import { AdminApiService } from '../../services/modules-api/admin-api/admin-api.service';
+import { SettingsApiService } from '../../services/modules-api/settings-api/settings-api.service';
+
 
 @Component({
   selector: 'app-user-landing',
@@ -11,8 +16,8 @@ export class UserLandingPage implements OnInit {
 
   constructor(
     private router: Router,
-    // private adminApi: AdminApiService,
-    // private settingsApi: SettingsApiService
+    private adminApi: AdminApiService,
+    private settingsApi: SettingsApiService
   ) { }
 
   @ViewChild('userTopComponentReference', { read: UserTopComponent, static: false }) userTop!: UserTopComponent;
@@ -29,48 +34,48 @@ export class UserLandingPage implements OnInit {
   getUserAccountUser(){
     this.isAccountLoading = true;
 
-    // this.adminApi.getUserAccountUser()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.accountsData = res.docs;
-    //       this.isAccountLoading = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isAccountLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.adminApi.getAccountUserAccounts()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.accountsData = res;
+          this.isAccountLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAccountLoading = false;
+          // this.connectionToast.openToast();
+        }
+      })
   }
 
   checkAccountActive(data: any){
     this.isAccountChecking = true;
-    console.log(data.data());
+    console.log(data);
 
-    localStorage.setItem('restaurant_id', data.data().account.id);
+    localStorage.setItem('restaurant_id', data.account.id);
 
-    // this.settingsApi.getSubscription()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res.data());
-    //       this.isAccountChecking = false;
+    this.settingsApi.getSubscription()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isAccountChecking = false;
 
-    //       if (res.data().status == "Active" || res.data().status == "Active" && data.data().account.data.created_by == localStorage.getItem('personal_id')){
-    //         sessionStorage.setItem('restaurant_account_user_id', data.id);
-    //         this.router.navigateByUrl('/home');
-    //       }
-    //       else {
-    //         localStorage.removeItem('restaurant_id');
-    //         this.userTop.openSubscriptionModal();
-    //       }
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isAccountChecking = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          if (res.status == "Active" || res.status != "Active" && data.account.creator_id == localStorage.getItem('personal_id')){
+            sessionStorage.setItem('restaurant_account_user_id', data.id);
+            this.router.navigateByUrl('/home');
+          }
+          else {
+            localStorage.removeItem('restaurant_id');
+            this.userTop.openSubscriptionModal();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAccountChecking = false;
+          // this.connectionToast.openToast();
+        }
+      })
   }
 
   gotoAbout() {

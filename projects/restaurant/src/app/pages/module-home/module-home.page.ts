@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { AccessToastComponent } from 'projects/personal/src/app/components/module-utilities/access-toast/access-toast.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+
+import { AdminApiService } from '../../services/modules-api/admin-api/admin-api.service';
+
 
 @Component({
   selector: 'app-module-home',
@@ -10,7 +14,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 export class ModuleHomePage implements OnInit {
 
   constructor(
-    // private adminApi: AdminApiService
+    private adminApi: AdminApiService
   ) { }
 
   @ViewChild('accessToastComponentReference', { read: AccessToastComponent, static: false }) accessToast!: AccessToastComponent;
@@ -27,23 +31,22 @@ export class ModuleHomePage implements OnInit {
   getUserAccess() {
     this.isAccessLoading = true;
 
-    // this.adminApi.getUserAccess()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
+    this.adminApi.getUserAccess()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.access = res.data();
-    //       const data = JSON.stringify(res.data());
-    //       localStorage.setItem("restaurantUserAccess", data);
+          this.access = res;
+          localStorage.setItem("restaurantUserAccess", res);
 
-    //       this.isAccessLoading = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isAccessLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          this.isAccessLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAccessLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   checkAccess(module: string){

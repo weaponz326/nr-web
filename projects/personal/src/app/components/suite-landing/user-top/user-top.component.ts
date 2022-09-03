@@ -25,10 +25,10 @@ export class UserTopComponent implements OnInit {
     this.modalButton.nativeElement.click();
   }
 
-  accountSelected(accountId: any){
+  accountSelected(account: any){
     if (!this.isAccountChecking){
-      this.selectAccount.emit(accountId);
-      console.log(accountId);
+      this.selectAccount.emit(account);
+      console.log(account);
     }
   }
 
