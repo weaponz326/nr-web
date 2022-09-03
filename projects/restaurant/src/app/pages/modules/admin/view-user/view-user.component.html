@@ -1,1 +1,98 @@
-<p>view-user works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row gx-5 page-form">
+            <div class="col-md-6">
+
+                <form class="page-form" [formGroup]="userForm">
+
+                    <div class="row mb-2">
+                        <div class="col-md-4"><label class="mt-1">User Name :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="personalName" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4"><label class="mt-1">Access Level :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="accessLevel" class="form-control form-control-sm w-100" (change)="changeLevel($event)">
+                                <option>Admin</option>
+                                <option>Manager</option>
+                                <option>Staff</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-md-6">
+                <span class="small"><strong>Admin</strong> - has access to all modules by default</span><br />
+                <span class="small"><strong>Manager</strong> - has access to all but except Admin and Settings modules by default</span><br />
+                <span class="small"><strong>Staff</strong> - has no access to all modules by default</span><br />
+            </div>
+
+        </div>
+
+        <hr class="top-divider" />
+        <hr class="bottom-divider" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <app-access-form #accessFormComponentReference></app-access-form>
+            </div>
+        </div>
+
+        <div *ngIf="!isUserLoading" class="row page-form">
+            <div class="col-md-6">
+                <button class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/admin/all-users">Cancel</button>
+                <button [disabled]="isUserDeleting" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isUserSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateAdminUser()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isUserLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- subscription check modal -->
+
+<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#creatorDeleteErrorModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="creatorDeleteErrorModal" tabindex="-1" aria-labelledby="creatorDeleteErrorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-header bg-light">
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="my-4">You cannot delete or change the access level of the creator of the account</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteAdminUser()"></app-delete-modal-one>

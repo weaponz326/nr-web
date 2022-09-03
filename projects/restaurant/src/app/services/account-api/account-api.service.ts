@@ -22,6 +22,10 @@ export class AccountApiService {
     return this.http.post(this.restaurantApi + "accounts/account/", profile);
   }
 
+  public getAccount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "accounts/account/" + localStorage.getItem('restaurant_id'));
+  }
+
   public hasAccount(): Observable<any>{
     console.log(localStorage.getItem('personal_id'));
     return this.http.post(this.restaurantApi + "accounts/has-account/", { personal_id: localStorage.getItem('personal_id') });

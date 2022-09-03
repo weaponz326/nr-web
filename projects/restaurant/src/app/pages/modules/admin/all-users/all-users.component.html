@@ -1,1 +1,52 @@
-<p>all-users works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row mb-3">
+            <div class="col">
+                <button class="btn btn-secondary page-add-btn" routerLink="/home/admin/search">Invite User</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="65%" class="min-width-4">User's Name</th>
+                                <th width="35%" class="min-width-2">User Level</th>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData" class="text-center">
+                                <td colspan="4">
+                                    <div class="spinner-grow m-4" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData">
+                                <td colspan="2">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="false"></app-table-loading>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of usersGridData" (dblclick)="viewUser(data.id)" class="table-pointer">
+                                <td>{{data?.data().user.data.first_name}} {{data?.data().user.data.last_name}}</td>
+                                <td>{{data?.data().access_level}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
