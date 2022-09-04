@@ -1,13 +1,13 @@
-<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addMenuItemModal">
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editMenuItemModal">
     Launch demo modal
 </button>
 
-<div class="modal fade form-modal" id="addMenuItemModal" tabindex="-1" aria-labelledby="addMenuItemModalLabel" aria-hidden="true">
+<div class="modal fade form-modal" id="editMenuItemModal" tabindex="-1" aria-labelledby="editMenuItemModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header bg-light">
-                <span class="modal-title" id="addMenuItemModalLabel">Add Item</span>
+                <span class="modal-title" id="editMenuItemModalLabel">Edit Item</span>
                 <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -21,6 +21,7 @@
 
             <div class="modal-footer">
                 <button [disabled]="isMenuItemSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveMenuItem()">Save</button>
+                <button [disabled]="isMenuItemDeleting" class="btn btn-sm btn-secondary modal-form-btn" (click)="deleteMenuItem()">Delete</button>
                 <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
 

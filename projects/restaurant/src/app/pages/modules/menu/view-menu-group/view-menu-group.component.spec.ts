@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewMenuItemComponent } from './view-menu-item.component';
+import { ViewMenuGroupComponent } from './view-menu-group.component';
 
-describe('ViewMenuItemComponent', () => {
-  let component: ViewMenuItemComponent;
-  let fixture: ComponentFixture<ViewMenuItemComponent>;
+describe('ViewMenuGroupComponent', () => {
+  let component: ViewMenuGroupComponent;
+  let fixture: ComponentFixture<ViewMenuGroupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewMenuItemComponent ]
+      declarations: [ ViewMenuGroupComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewMenuItemComponent);
+    fixture = TestBed.createComponent(ViewMenuGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

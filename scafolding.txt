@@ -237,10 +237,11 @@
 					+ dashboard (C)
                     + all menu groups (C)
                     + new menu group (C)
+					+ view menu group
 					+ all menu items (C)
                     + menu items (C)
 					+ add menu item (C)
-					+ view menu item (C)
+					+ edit menu item (C)
 					+ menu item form (C)
 				+ staff (Mr)(Mp)
 					+ dashboard (C)
