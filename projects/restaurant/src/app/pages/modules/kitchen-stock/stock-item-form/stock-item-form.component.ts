@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-stock-item-form',
@@ -7,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockItemFormComponent implements OnInit {
 
-  constructor() { }
+  selectedMenuItemId: any;
+
+  stockItemForm = new FormGroup({
+    itemCode: new FormControl(''),
+    itemName: new FormControl(''),
+    category: new FormControl(''),
+    itemType: new FormControl(''),
+    quantity: new FormControl(0),
+    refillOrdered: new FormControl(0),
+  })
 
   ngOnInit(): void {
   }

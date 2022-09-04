@@ -9,6 +9,10 @@ export class KitchenStockPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Items", url: "/home/kitchen-stock/all-stock-items", icon: "bi bi-list-ul" },
+  ]
+  
   ngOnInit(): void {
   }
 

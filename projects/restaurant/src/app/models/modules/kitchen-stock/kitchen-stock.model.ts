@@ -4,7 +4,7 @@ export class StockItem {
     item_name!: string;
     category!: string;
     item_type!: string;
-    quantity!: string;
-    refill_ordered!: string;
+    quantity!: number;
+    refill_ordered!: number;
   }
   
