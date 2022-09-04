@@ -1,1 +1,135 @@
-<p>view-order works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <form class="page-form" [formGroup]="orderForm" (ngSubmit)="updateOrder()">
+
+            <h4 class="mb-3">Order Details</h4>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="orderCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="orderDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Customer Name :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="customerName" class="form-control">
+                                <button type="button" class="btn btn-secondary" (click)="openCustomerWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order Type :</label></div>
+                        <div class="col-md-8">
+                            <select *ngIf="orderForm.controls.orderType.value != 'Delivery'" formControlName="orderType" class="form-control form-control-sm w-100">
+                                <option>Dine In</option>
+                                <option>Delivery</option>
+                                <option>Take Away</option>
+                            </select>
+                            <div *ngIf="orderForm.controls.orderType.value == 'Delivery'" class="input-group input-group-sm w-100">
+                                <select formControlName="orderType" class="form-control">
+                                    <option>Dine In</option>
+                                    <option>Delivery</option>
+                                    <option>Take Away</option>
+                                </select>
+                                <button type="button" class="btn btn-secondary" (click)="gotoDelivery(orderFormData.id)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order Status :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="orderStatus" class="form-control form-control-sm w-100">
+                                <option>Processing</option>
+                                <option>Finished</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Table No. :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="tableNumber" class="form-control">
+                                <button type="button" class="btn btn-secondary" (click)="openTableWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div *ngIf="!isOrderLoading" class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-secondary btn-sm page-form-btn" (click)="onPrintRoll()"><i class="bi bi-receipt me-2"></i>Print</button>
+
+                    <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/orders/all-orders">Cancel</button>
+                    <button [disabled]="isOrderDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                    <button [disabled]="isOrderSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn">Save</button>
+                </div>
+            </div>
+            <div *ngIf="isOrderLoading" class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                        <div class="spinner-grow spinner-grow-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="top-divider" />
+            <hr class="bottom-divider" />
+
+        </form>
+
+        <!-- order items component -->
+
+        <app-order-items #orderItemsComponentReference></app-order-items>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteOrder()"></app-delete-modal-one>
+
+<!-- select customer window component -->
+
+<!-- <app-select-customer #selectCustomerComponentReference (rowSelected)="onCustomerSelected($event)"></app-select-customer> -->
+
+<!-- select table window component -->
+
+<!-- <app-select-table #selectTableComponentReference (rowSelected)="onTableSelected($event)"></app-select-table> -->

@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OrdersRoutingModule } from './orders-routing.module';
+import { MainNavbarModule } from 'projects/personal/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { OrdersPage } from './orders.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
@@ -27,6 +31,10 @@ import { ItemFormComponent } from './item-form/item-form.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
     OrdersRoutingModule
   ]
 })
