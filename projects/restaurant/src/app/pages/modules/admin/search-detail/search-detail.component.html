@@ -1,1 +1,52 @@
-<p>search-detail works!</p>
+<div class="row mt-3">
+    <div class="col-md-4 text-center align-middle">
+        <img *ngIf="searchDetail?.data().photo != ''" [src]="searchDetail?.data().photo" alt="" width="120" height="120" class="rounded-circle" />
+        <img *ngIf="searchDetail?.data().photo == ''" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="Company" width="120" height="120" class="rounded-circle" />
+    </div>
+    <div class="col-md-8">
+        <div class="row mb-3">
+            <div class="col-md-2"><em><small>Name :</small></em></div>
+            <div class="col-md-10"><strong>{{searchDetail?.data().first_name}} {{searchDetail?.data().last_name}}</strong></div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2"><em><small>Location :</small></em></div>
+            <div class="col-md-10">{{searchDetail?.data().location}}</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2"><em><small>About :</small></em></div>
+            <div class="col-md-8">{{searchDetail?.data().about}}</div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <button [disabled]="isSending" class="btn btn-secondary page-add-btn" (click)="sendInvitation()">Send Invitation</button>
+    </div>
+</div>
+
+<!-- subscription check modal -->
+
+<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#subscriptionCheckModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="subscriptionCheckModal" tabindex="-1" aria-labelledby="subscriptionCheckModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-header bg-light">
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="my-4">You have reached the maximum allowed users for your subscription plan.</p>
+                <button routerLink="/home/settings/billing" class="btn btn-sm btn-secondary mb-3" data-bs-dismiss="modal">Upgrade Plan</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+

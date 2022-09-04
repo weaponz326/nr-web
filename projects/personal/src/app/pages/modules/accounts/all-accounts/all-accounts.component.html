@@ -38,7 +38,8 @@
                                 <td>{{data?.account_name}}</td>
                                 <td>{{data?.account_number}}</td>
                                 <td>{{data?.bank_name}}</td>
-                            </tr>                          <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            </tr>                          
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="3">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>

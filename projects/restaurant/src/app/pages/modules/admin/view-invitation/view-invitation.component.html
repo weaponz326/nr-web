@@ -1,1 +1,64 @@
-<p>view-invitation works!</p>
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editItemModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="editItemModalLabel">View Invitation</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <div class="row mb-4">
+                    <div class="col text-muted">
+                        <label><em>Invitation Date :</em></label>
+                        {{invitationData?.created_at | date: 'MMMM d, y, hh:mm:ss a'}}
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <img *ngIf="invitationData?.user.photo != ''" [src]="invitationData?.user.photo" alt="" width="90" height="90" class="rounded-circle" />
+                        <img *ngIf="invitationData?.user.photo == ''" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="" width="90" height="90" class="rounded-circle" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <strong>{{invitationData?.user.first_name}} {{invitationData?.user.last_name}}</strong>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col text-muted">
+                        {{invitationData?.user.location}}
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <label><em>Invitation Status :</em></label>
+                        {{invitationData?.invitation_status}}
+                    </div>
+                </div>
+
+                <!-- <div *ngIf="invitationData?.invitation_status == 'Awaiting'" class="row">
+                    <div class="offset-md-3 col">
+                        <button class="btn btn-secondary page-add-btn">Cancel Invitation</button>
+                    </div>
+                </div> -->
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

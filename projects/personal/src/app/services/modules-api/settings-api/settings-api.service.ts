@@ -29,4 +29,6 @@ export class SettingsApiService {
     return this.http.patch(this.personalApi + "module-settings/extended-profile/" + localStorage.getItem('personal_id'), extended, this.authHeaders.headers);
   }
 
+  // invitation
+
 }

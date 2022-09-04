@@ -5,7 +5,6 @@ export class AccountUser {
 }
 
 export class Invitation {
-  created_at!: any;
   account!: string;
   user!: string;
   invitation_status!: string;

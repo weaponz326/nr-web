@@ -75,8 +75,11 @@ export class AdminApiService {
     return this.http.get(this.restaurantApi + "module-admin/invitation/" + sessionStorage.getItem('restaurant_invitation_id'));
   }
 
-  public getAccpuntInvitations(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/invitation?account=" + localStorage.getItem('restaurant_id'));
+  public getAccountInvitation(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-admin/invitation?account=" + localStorage.getItem('restaurant_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField);
   }
 
 }
