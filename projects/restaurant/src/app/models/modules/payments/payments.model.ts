@@ -3,5 +3,5 @@ export class Payment {
   account!: string;
   payment_code!: string;
   payment_date!: string;
-  amount_paid!: string;
+  amount_paid!: number;
 }

@@ -272,6 +272,7 @@
 					+ all paymnets (C)
 					+ new payment (C)
 					+ view payment (C)
+					+ payment form (C)
 				+ roster (Mr)(Mp)
 					+ dashboard (C)
 					+ all roster (C)
