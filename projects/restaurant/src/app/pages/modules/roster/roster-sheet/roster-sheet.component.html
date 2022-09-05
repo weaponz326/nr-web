@@ -1,1 +1,43 @@
-<p>roster-sheet works!</p>
+<div class="row mb-2">
+    <div class="col-md-12">
+        <button class="btn btn-secondary float-end nr-standard-font" routerLink="/home/roster/manage-batches">
+            <i class="bi bi-arrow-left-right me-2"></i> Manage Batches
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="row mb-2 mt-3">
+            <div class="col-md-12">
+                <button [disabled]="isFetchingSheetData" class="btn btn-light border float-end page-refresh-btn">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="70" class="min-width-3">
+                            Shifts
+                        </th>
+                        <th *ngFor="let date of sheetDays" width="50" class="min-width-2">
+                            {{date | date: 'short'}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

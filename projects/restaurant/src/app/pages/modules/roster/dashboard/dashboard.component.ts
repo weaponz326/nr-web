@@ -9,6 +9,10 @@ export class DashboardComponent implements OnInit {
 
   constructor() { }
 
+  navHeading: any[] = [
+    { text: "Dashboard", url: "/home/roster/dashboard" },
+  ];
+
   ngOnInit(): void {
   }
 
