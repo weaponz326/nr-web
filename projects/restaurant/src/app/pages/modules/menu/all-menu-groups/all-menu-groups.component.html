@@ -31,8 +31,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of menuGroupGridData" (dblclick)="viewMenuGroup(data.id)" class="table-pointer">
-                                <td>{{data?.data().menu_group}}</td>
-                                <td>{{data?.data().category}}</td>
+                                <td>{{data?.menu_group}}</td>
+                                <td>{{data?.category}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="2">

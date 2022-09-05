@@ -56,7 +56,7 @@ export class AllTablesComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.tablesGridData = res.docs;
+          this.tablesGridData = res.results;
 
           this.currentPage = res.current_page;
           this.totalPages = res.total_pages;
