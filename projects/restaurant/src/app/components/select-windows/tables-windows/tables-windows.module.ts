@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectTableComponent } from './select-table/select-table.component';
 
 
@@ -9,7 +12,8 @@ import { SelectTableComponent } from './select-table/select-table.component';
     SelectTableComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule,
   ],
   exports: [
     SelectTableComponent    
