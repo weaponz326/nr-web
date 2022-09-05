@@ -1,1 +1,55 @@
-<p>reservation-tables works!</p>
+<div class="row">
+    <div class="col-md-7">
+
+        <h4 class="mb-3">Reserved Tables</h4>
+
+        <div class="overflow-auto">
+            <table class="table table-sm table-bordered w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="60%" class="min-width-2">Table No.</th>
+                        <th width="30%" class="min-width-2">Capacity</th>
+                        <th width="10%" class="p-0 min-width-1">
+                            <!-- <button class="btn btn-secondary btn-sm w-100" (click)="selectTable.openModal()">
+                                <i class="bi bi-plus"></i>
+                            </button> -->
+                            <button class="btn btn-secondary btn-sm w-100">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of reservationTablesGridData; index as i">
+                        <td>{{data?.data().table.table_number}}</td>
+                        <td>{{data?.data().table.capacity}}</td>
+                        <td class="p-0">
+                            <!-- <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"> -->
+                            <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData">
+                        <td colspan="3">
+                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="false"></app-table-loading>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEventTwo)="deleteReservationTable()"></app-delete-modal-two>
+
+<!-- select table window component -->
+
+<!-- <app-select-table #selectTableComponentReference (rowSelected)="createReservationTable($event)"></app-select-table> -->

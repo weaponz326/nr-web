@@ -39,10 +39,10 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of staffGridData" (dblclick)="viewStaff(data.id)" class="table-pointer">
-                                <td>{{data?.data().staff_code}}</td>
-                                <td>{{data?.data().first_name}} {{data?.data().last_name}}</td>
-                                <td>{{data?.data().department}}</td>
-                                <td>{{data?.data().job}}</td>
+                                <td>{{data?.staff_code}}</td>
+                                <td>{{data?.first_name}} {{data?.last_name}}</td>
+                                <td>{{data?.department}}</td>
+                                <td>{{data?.job}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="4">

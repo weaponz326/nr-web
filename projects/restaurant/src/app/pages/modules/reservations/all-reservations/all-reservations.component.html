@@ -1,1 +1,82 @@
-<p>all-reservations works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" (click)="newReservation.openModal()">New Reservation</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountReservation(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="15%" class="min-width-2">
+                                    Reservation ID
+                                    <app-table-sorting [sortField]="'reservation_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Reservation Date
+                                    <app-table-sorting [sortField]="'reservation_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="30%" class="min-width-3">
+                                    Customer Name
+                                    <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Arrival Date
+                                    <app-table-sorting [sortField]="'arrival_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-2">
+                                    Status
+                                    <app-table-sorting [sortField]="'status'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of reservationsGridData" (dblclick)="viewReservation(data.id)" class="table-pointer">
+                                <td>{{data?.reservation_code}}</td>
+                                <td>{{data?.reservation_date | date}}</td>
+                                <td>{{data?.customer.customer_name}}</td>
+                                <td>{{data?.arrival_date | date}}</td>
+                                <td>{{data?.status}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="5">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="5">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountReservation($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- new reservation modal component -->
+
+<app-new-reservation #newReservationComponentReference></app-new-reservation>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
