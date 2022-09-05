@@ -1,1 +1,71 @@
-<p>select-menu-item works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectMenuItemModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectMenuItemModal" tabindex="-1" aria-labelledby="selectMenuItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectMenuItemModalLabel">Select Restaurant Menu Item</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="20%" class="min-width-2">
+                                Item ID
+                                <app-table-sorting [sortField]="'item_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="40%" class="min-width-4">
+                                Item Name
+                                <app-table-sorting [sortField]="'item_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="15%" class="min-width-2">
+                                Price
+                                <app-table-sorting [sortField]="'price'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="25%" class="min-width-3">
+                                Menu Group
+                                <app-table-sorting [sortField]="'menu_group'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of menuItemsGridData" (dblclick)="selectRow(data)" class="table-pointer">
+                            <td>{{data?.item_code}}</td>
+                            <td>{{data?.item_name}}</td>
+                            <td>{{data?.price}}</td>
+                            <td>{{data?.menu_group.data.menu_group}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="4">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="4">
+                                <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountMenuItem($event, 20, '')"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-toggle="modal" data-bs-target="#selectMenuItemModal">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

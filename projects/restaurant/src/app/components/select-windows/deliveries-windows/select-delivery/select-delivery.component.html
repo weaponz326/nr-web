@@ -1,1 +1,76 @@
-<p>select-delivery works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectCustomerModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectCustomerModal" tabindex="-1" aria-labelledby="selectCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectCustomerModalLabel">Select Restaurant Delivery</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="15%" class="min-width-2">
+                                Order ID
+                                <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="25%" class="min-width-3">
+                                Customer Name
+                                <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="25%" class="min-width-3">
+                                Delivery Location
+                                <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="15%" class="min-width-3">
+                                Date Delivered
+                                <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="20%" class="min-width-2">
+                                Delivery Status
+                                <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of deliveriesGridData; index as i">
+                            <td>{{data?.delivery_code}}</td>
+                            <td>{{data?.delivery_date | date}}</td>
+                            <td>{{data?.order.customer.customer_name}}</td>
+                            <td>{{data?.delivery_location}}</td>
+                            <td>{{data?.delivery_status}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="5">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="5">
+                                <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountDelivery($event, 20, '')"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-toggle="modal" data-bs-target="#selectCustomerModal">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

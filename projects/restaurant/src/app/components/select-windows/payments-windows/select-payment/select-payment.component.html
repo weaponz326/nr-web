@@ -1,1 +1,71 @@
-<p>select-payment works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectPaymentModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectPaymentModal" tabindex="-1" aria-labelledby="selectPaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectPaymentModalLabel">Select Restaurant Payment</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="25%" class="min-width-2">
+                                Payment ID
+                                <app-table-sorting [sortField]="'payment_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="30%" class="min-width-3">
+                                Payment Date
+                                <app-table-sorting [sortField]="'payment_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="20%" class="min-width-2">
+                                Amount Paid
+                                <app-table-sorting [sortField]="'amount_paid'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="25%" class="min-width-2">
+                                Order ID
+                                <app-table-sorting [sortField]="'order_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of paymentsGridData" (dblclick)="selectRow(data)" class="table-pointer">
+                            <td>{{data?.payment_code}}</td>
+                            <td>{{data?.payment_date}}</td>
+                            <td>{{data?.amount_paid}}</td>
+                            <td>{{data?.order.order_code}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="3">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="3">
+                                <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountPayment($event, 20, '')"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-toggle="modal" data-bs-target="#selectPaymentModal">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

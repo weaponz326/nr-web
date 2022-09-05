@@ -1,1 +1,71 @@
-<p>select-stock-item works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectStockItemModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectStockItemModal" tabindex="-1" aria-labelledby="selectStockItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectStockItemModalLabel">Select Restaurant Stock Item</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="20%" class="min-width-2">
+                                Stock Item ID
+                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="40%" class="min-width-4">
+                                Stock Item Name
+                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="15%" class="min-width-2">
+                                Quantity
+                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="25%" class="min-width-3">
+                                Item Type
+                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of itemsGridData; index as i" (dblclick)="selectRow(data)" class="table-pointer">
+                            <td>{{data?.item_code}}</td>
+                            <td>{{data?.item_name}}</td>
+                            <td>{{data?.quantity}}</td>
+                            <td>{{data?.item_type}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="4">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="4">
+                                <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountStockItem($event, 20, '')"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-toggle="modal" data-bs-target="#selectStockItemModal">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
