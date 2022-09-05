@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-table-form',
@@ -8,6 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class TableFormComponent implements OnInit {
 
   constructor() { }
+
+  tableForm = new FormGroup({
+    tableNumber: new FormControl(''),
+    tableType: new FormControl(''),
+    capacity: new FormControl(),
+    location: new FormControl(''),
+    tableStatus: new FormControl(''),
+  })
 
   ngOnInit(): void {
   }

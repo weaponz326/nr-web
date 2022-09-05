@@ -9,6 +9,10 @@ export class TablesPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Tables", url: "/home/tables/all-tables", icon: "bi bi-list-ul" },
+  ]
+  
   ngOnInit(): void {
   }
 
