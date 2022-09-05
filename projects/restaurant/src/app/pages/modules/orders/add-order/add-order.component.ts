@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectCustomerComponent } from '../../../select-windows/customers-windows/select-customer/select-customer.component';
-// import { SelectTableComponent } from '../../../select-windows/tables-windows/select-table/select-table.component';
+import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
+import { SelectTableComponent } from '../../../../components/select-windows/tables-windows/select-table/select-table.component';
 
 import { OrdersApiService } from 'projects/restaurant/src/app/services/modules-api/orders-api/orders-api.service';
 import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
@@ -31,8 +31,8 @@ export class AddOrderComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  // @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
-  // @ViewChild('selectTableComponentReference', { read: SelectTableComponent, static: false }) selectTable!: SelectTableComponent;
+  @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
+  @ViewChild('selectTableComponentReference', { read: SelectTableComponent, static: false }) selectTable!: SelectTableComponent;
 
   selectedCustomerId = "";
   selectedTableId = "";
@@ -81,7 +81,7 @@ export class AddOrderComponent implements OnInit {
 
             if (data.order_type == "Delivery"){
               // this.createDelivery();
-              // TODO: implement with django siganls on backend
+              // TODO: implement with django signals on backend
             }
 
             this.dismissButton.nativeElement.click();
@@ -101,7 +101,7 @@ export class AddOrderComponent implements OnInit {
 
   openCustomerWindow(){
     console.log("You are opening select customer window")
-    // this.selectCustomer.openModal();
+    this.selectCustomer.openModal();
   }
 
   onCustomerSelected(customerData: any){
@@ -113,7 +113,7 @@ export class AddOrderComponent implements OnInit {
 
   openTableWindow(){
     console.log("You are opening select table window")
-    // this.selectTable.openModal();
+    this.selectTable.openModal();
   }
 
   onTableSelected(tableData: any){

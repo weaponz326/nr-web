@@ -35,9 +35,9 @@ import { ViewInvitationComponent } from './view-invitation/view-invitation.compo
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AdminRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    AdminRoutingModule
   ]
 })
 export class AdminModule { }

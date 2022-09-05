@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { MainNavbarModule } from 'projects/personal/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { OrdersWindowsModule } from '../../../components/select-windows/orders-windows/orders-windows.module';
 
 import { PaymentsPage } from './payments.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -27,9 +28,10 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    PaymentsRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    PaymentsRoutingModule
+    OrdersWindowsModule
   ]
 })
 export class PaymentsModule { }

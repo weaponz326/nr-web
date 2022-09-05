@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectCustomerComponent } from '../../../select-windows/customers-windows/select-customer/select-customer.component';
+import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { ReservationsApiService } from 'projects/restaurant/src/app/services/modules-api/reservations-api/reservations-api.service';
 
@@ -26,7 +26,7 @@ export class NewReservationComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
+  @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
 
   selectedCustomerId = "";
 
@@ -81,7 +81,7 @@ export class NewReservationComponent implements OnInit {
 
   openCustomerWindow(){
     console.log("You are opening select customer window")
-    // this.selectCustomer.openModal();
+    this.selectCustomer.openModal();
   }
 
   onCustomerSelected(customerData: any){

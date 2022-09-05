@@ -31,9 +31,9 @@ import { ViewRinkComponent } from './view-rink/view-rink.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    PortalRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    PortalRoutingModule
   ]
 })
 export class PortalModule { }

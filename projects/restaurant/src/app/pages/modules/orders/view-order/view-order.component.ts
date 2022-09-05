@@ -5,8 +5,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { OrderItemsComponent } from '../order-items/order-items.component';
-// import { SelectCustomerComponent } from '../../../select-windows/customers-windows/select-customer/select-customer.component';
-// import { SelectTableComponent } from '../../../select-windows/tables-windows/select-table/select-table.component';
+import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
+import { SelectTableComponent } from '../../../../components/select-windows/tables-windows/select-table/select-table.component';
 
 import { OrdersApiService } from 'projects/restaurant/src/app/services/modules-api/orders-api/orders-api.service';
 // import { OrdersPrintService } from 'projects/restaurant/src/app/services/printing/orders-print/orders-print.service';
@@ -31,8 +31,8 @@ export class ViewOrderComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('orderItemsComponentReference', { read: OrderItemsComponent, static: false }) orderItems!: OrderItemsComponent;
 
-  // @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
-  // @ViewChild('selectTableComponentReference', { read: SelectTableComponent, static: false }) selectTable!: SelectTableComponent;
+  @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
+  @ViewChild('selectTableComponentReference', { read: SelectTableComponent, static: false }) selectTable!: SelectTableComponent;
 
   navHeading: any[] = [
     { text: "All Orders", url: "/home/orders/all-orders" },
@@ -96,7 +96,7 @@ export class ViewOrderComponent implements OnInit {
       order_date: this.orderForm.controls.orderDate.value,
       order_type: this.orderForm.controls.orderType.value,
       order_status: this.orderForm.controls.orderStatus.value,
-      // total_amount: this.orderItems.totalAmount,
+      total_amount: this.orderItems.totalAmount,
       customer: this.selectedCustomerId,
       table: this.selectedTableId,
     }
@@ -141,7 +141,7 @@ export class ViewOrderComponent implements OnInit {
 
   openCustomerWindow(){
     console.log("You are opening select customer window")
-    // this.selectCustomer.openModal();
+    this.selectCustomer.openModal();
   }
 
   onCustomerSelected(customerData: any){
@@ -153,7 +153,7 @@ export class ViewOrderComponent implements OnInit {
 
   openTableWindow(){
     console.log("You are opening select table window")
-    // this.selectTable.openModal();
+    this.selectTable.openModal();
   }
 
   onTableSelected(tableData: any){

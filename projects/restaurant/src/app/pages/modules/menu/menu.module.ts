@@ -35,9 +35,9 @@ import { EditMenuItemComponent } from './edit-menu-item/edit-menu-item.component
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MenuRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    MenuRoutingModule
   ]
 })
 export class MenuModule { }

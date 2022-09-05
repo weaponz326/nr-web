@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { SelectMenuItemComponent } from '../../../select-windows/menu-windows/select-menu-item/select-menu-item.component';
+import { SelectMenuItemComponent } from '../../../../components/select-windows/menu-windows/select-menu-item/select-menu-item.component';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class ItemFormComponent implements OnInit {
 
   constructor() { }
 
-  // @ViewChild('selectMenuItemComponentReference', { read: SelectMenuItemComponent, static: false }) selectMenuItem!: SelectMenuItemComponent;
+  @ViewChild('selectMenuItemComponentReference', { read: SelectMenuItemComponent, static: false }) selectMenuItem!: SelectMenuItemComponent;
 
   selectedMenuItemId = "";
   selectedMenuItemData: any;
@@ -29,7 +29,7 @@ export class ItemFormComponent implements OnInit {
 
   openMenuItemWindow(){
     console.log("You are opening select menu item window")
-    // this.selectMenuItem.openModal();
+    this.selectMenuItem.openModal();
   }
 
   onMenuItemSelected(itemData: any){

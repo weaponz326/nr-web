@@ -27,9 +27,9 @@ import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DeliveriesRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    DeliveriesRoutingModule
   ]
 })
 export class DeliveriesModule { }

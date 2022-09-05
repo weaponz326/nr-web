@@ -28,9 +28,9 @@ import { StockItemFormComponent } from './stock-item-form/stock-item-form.compon
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    KitchenStockRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    KitchenStockRoutingModule
   ]
 })
 export class KitchenStockModule { }

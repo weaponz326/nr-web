@@ -36,9 +36,9 @@ import { PaymentsHistoryComponent } from './payments-history/payments-history.co
     FormsModule,
     ReactiveFormsModule,
     GooglePlaceModule,
+    SettingsRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    SettingsRoutingModule
   ]
 })
 export class SettingsModule { }

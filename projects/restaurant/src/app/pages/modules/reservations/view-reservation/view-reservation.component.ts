@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { ReservationTablesComponent } from '../reservation-tables/reservation-tables.component';
-// import { SelectCustomerComponent } from '../../../select-windows/customers-windows/select-customer/select-customer.component';
+import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { ReservationsApiService } from 'projects/restaurant/src/app/services/modules-api/reservations-api/reservations-api.service';
 // import { ReservationsPrintService } from 'projects/restaurant/src/app/services/printing/reservations-print/reservations-print.service';
@@ -29,7 +29,7 @@ export class ViewReservationComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('reservationTablesComponentReference', { read: ReservationTablesComponent, static: false }) reservationTables!: ReservationTablesComponent;
-  // @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
+  @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
 
   navHeading: any[] = [
     { text: "All Reservations", url: "/home/reservations/all-reservations" },
@@ -137,7 +137,7 @@ export class ViewReservationComponent implements OnInit {
 
   openCustomerWindow(){
     console.log("You are opening select customer window")
-    // this.selectCustomer.openModal();
+    this.selectCustomer.openModal();
   }
 
   onCustomerSelected(customerData: any){

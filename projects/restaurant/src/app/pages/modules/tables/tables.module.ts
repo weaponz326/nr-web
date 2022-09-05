@@ -27,9 +27,9 @@ import { TableFormComponent } from './table-form/table-form.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    TablesRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    TablesRoutingModule
   ]
 })
 export class TablesModule { }

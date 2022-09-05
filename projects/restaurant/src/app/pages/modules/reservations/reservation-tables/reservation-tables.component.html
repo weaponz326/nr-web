@@ -10,9 +10,9 @@
                         <th width="60%" class="min-width-2">Table No.</th>
                         <th width="30%" class="min-width-2">Capacity</th>
                         <th width="10%" class="p-0 min-width-1">
-                            <!-- <button class="btn btn-secondary btn-sm w-100" (click)="selectTable.openModal()">
+                            <button class="btn btn-secondary btn-sm w-100" (click)="selectTable.openModal()">
                                 <i class="bi bi-plus"></i>
-                            </button> -->
+                            </button>
                             <button class="btn btn-secondary btn-sm w-100">
                                 <i class="bi bi-plus"></i>
                             </button>
@@ -24,7 +24,7 @@
                         <td>{{data?.data().table.table_number}}</td>
                         <td>{{data?.data().table.capacity}}</td>
                         <td class="p-0">
-                            <!-- <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"> -->
+                            <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"></button>
                             <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)">
                                 <i class="bi bi-trash"></i>
                             </button>
@@ -52,4 +52,4 @@
 
 <!-- select table window component -->
 
-<!-- <app-select-table #selectTableComponentReference (rowSelected)="createReservationTable($event)"></app-select-table> -->
+<app-select-table #selectTableComponentReference (rowSelected)="createReservationTable($event)"></app-select-table>

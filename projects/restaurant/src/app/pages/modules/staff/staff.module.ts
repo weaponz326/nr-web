@@ -27,9 +27,9 @@ import { StaffFormComponent } from './staff-form/staff-form.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    StaffRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    StaffRoutingModule
   ]
 })
 export class StaffModule { }

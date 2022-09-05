@@ -27,9 +27,9 @@ import { CustomerFormComponent } from './customer-form/customer-form.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    CustomersRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    CustomersRoutingModule
   ]
 })
 export class CustomersModule { }

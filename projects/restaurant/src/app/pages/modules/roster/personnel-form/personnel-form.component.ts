@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectStaffComponent } from '../../../select-windows/staff-windows/select-staff/select-staff.component';
+import { SelectStaffComponent } from '../../../../components/select-windows/staff-windows/select-staff/select-staff.component';
 
 import { RosterApiService } from 'projects/restaurant/src/app/services/modules-api/roster-api/roster-api.service';
 
@@ -17,7 +17,7 @@ export class PersonnelFormComponent implements OnInit {
   constructor(private rosterApi: RosterApiService) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('selectStaffComponentReference', { read: SelectStaffComponent, static: false }) selectStaff!: SelectStaffComponent;
+  @ViewChild('selectStaffComponentReference', { read: SelectStaffComponent, static: false }) selectStaff!: SelectStaffComponent;
 
   batchSource: any[] = [];
 
@@ -58,7 +58,7 @@ export class PersonnelFormComponent implements OnInit {
 
   openStaffWindow(){
     console.log("You are opening select staff window")
-    // this.selectStaff.openModal();
+    this.selectStaff.openModal();
   }
 
 }
