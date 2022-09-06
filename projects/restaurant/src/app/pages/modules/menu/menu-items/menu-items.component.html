@@ -15,9 +15,9 @@
         </thead>
         <tbody>
             <tr *ngFor="let data of menuItemsGridData; index as i" (dblclick)="openEditMenuItem(data)" class="table-pointer">
-                <td>{{data?.data().item_code}}</td>
-                <td>{{data?.data().item_name}}</td>
-                <td>{{data?.data().price}}</td>
+                <td>{{data?.item_code}}</td>
+                <td>{{data?.item_name}}</td>
+                <td>{{data?.price}}</td>
             </tr>
             <tr *ngIf="isFetchingGridData">
                 <td colspan="3">
@@ -52,9 +52,9 @@
 
 <!-- add and edit menu-item modal components -->
 
-<app-add-menu-item #addMenuItemComponentReference (saveMenuItemEvent)="createMenuItem($event)"></app-add-menu-item>
+<app-add-menu-item #addMenuItemComponentReference (saveMenuItemEvent)="postMenuItem($event)"></app-add-menu-item>
 
-<app-edit-menu-item #editMenuItemComponentReference (saveMenuItemEvent)="updateMenuItem($event)" (deleteMenuItemEvent)="confirmDelete($event)"></app-edit-menu-item>
+<app-edit-menu-item #editMenuItemComponentReference (saveMenuItemEvent)="putMenuItem($event)" (deleteMenuItemEvent)="confirmDelete($event)"></app-edit-menu-item>
 
 <!-- connection error toast component -->
 
@@ -62,4 +62,4 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteMenuItem()"></app-delete-modal> -->
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteMenuItem()"></app-delete-modal-two>

@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
-import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
 import { NewMenuGroupComponent } from '../new-menu-group/new-menu-group.component';
+
+import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
+
 
 @Component({
   selector: 'app-all-menu-groups',

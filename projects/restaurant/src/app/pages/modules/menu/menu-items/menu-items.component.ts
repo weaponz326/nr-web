@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input, ElementRef } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 
 import { AddMenuItemComponent } from '../add-menu-item/add-menu-item.component'
 import { EditMenuItemComponent } from '../edit-menu-item/edit-menu-item.component'
@@ -46,7 +45,7 @@ export class MenuItemsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.menuItemsGridData = res.docs;
+          this.menuItemsGridData = res;
           this.isFetchingGridData = false;
         },
         error: (err) => {
@@ -57,7 +56,7 @@ export class MenuItemsComponent implements OnInit {
       })
   }
 
-  createMenuItem(data: any){
+  postMenuItem(data: any){
     console.log(data);
     this.addMenuItem.isMenuItemSaving = true;
 
@@ -66,20 +65,19 @@ export class MenuItemsComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.getMenuGroupMenuItem();
-        },
-        error: (err) => {
-          console.log(err);
-
           this.addMenuItem.dismissButton.nativeElement.click();
           this.addMenuItem.isMenuItemSaving = false;
 
+          this.getMenuGroupMenuItem();
+        },
+        error: (err) => {
+          console.log(err);          
           this.connectionToast.openToast();
         }
       })
   }
 
-  updateMenuItem(menu_item: any){
+  putMenuItem(menu_item: any){
     this.editMenuItem.isMenuItemSaving = true;
     console.log(menu_item);
 
@@ -88,14 +86,38 @@ export class MenuItemsComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.getMenuGroupMenuItem();          
+          if(this.editMenuItem.menuItemForm.image.isImageChanged){
+            this.putMenuItemImage(menu_item.id, menu_item.file);
+          }
+          else{
+            this.editMenuItem.dismissButton.nativeElement.click();
+            this.editMenuItem.isMenuItemSaving = false;
+            this.editMenuItem.menuItemForm.image.setPlaceholderImage();
+            this.getMenuGroupMenuItem();          
+          }
         },
         error: (err) => {
-          console.log(err);
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
 
+  putMenuItemImage(id: string, image: File){
+    this.editMenuItem.isMenuItemSaving = true;
+    console.log(image);
+
+    this.menuApi.putMenuItemImage(id, image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
           this.editMenuItem.dismissButton.nativeElement.click();
           this.editMenuItem.isMenuItemSaving = false;
-
+          this.editMenuItem.menuItemForm.image.setPlaceholderImage();
+          this.getMenuGroupMenuItem();
+        },
+        error: (err) => {
+          console.log(err);          
           this.connectionToast.openToast();
         }
       })
@@ -116,10 +138,6 @@ export class MenuItemsComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-
-          this.editMenuItem.isMenuItemDeleting = false;
-          this.editMenuItem.dismissButton.nativeElement.click();
-
           this.connectionToast.openToast();
         }
       })

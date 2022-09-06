@@ -33,28 +33,30 @@ export class EditMenuItemComponent implements OnInit {
   openModal(data: any){
     this.menuItemData = data;
 
-    this.menuItemForm.menuItemForm.controls.itemCode.setValue(data.data().item_code);
-    this.menuItemForm.menuItemForm.controls.itemName.setValue(data.data().item_name);
-    this.menuItemForm.menuItemForm.controls.price.setValue(data.data().price);
+    this.menuItemForm.menuItemForm.controls.itemCode.setValue(data.item_code);
+    this.menuItemForm.menuItemForm.controls.itemName.setValue(data.item_name);
+    this.menuItemForm.menuItemForm.controls.price.setValue(data.price);
+    this.menuItemForm.menuItemForm.controls.description.setValue(data.description);
 
-    if (data.data().image != "") this.menuItemForm.image.imgSrc = data.data().image;
-    else this.menuItemForm.image.setPlaceholderImage;
+    // if (data.image != "") this.menuItemForm.image.imgSrc = data.image;
+    // else this.menuItemForm.image.setPlaceholderImage;
 
     this.editButton.nativeElement.click();
   }
 
   saveMenuItem(){
-    let data: MenuItem = {
+    let data = {
+      menu_group: sessionStorage.getItem('restaurant_menu_group_id') as string,
       item_code: this.menuItemForm.menuItemForm.controls.itemCode.value as string,
       item_name: this.menuItemForm.menuItemForm.controls.itemName.value as string,
       price: this.menuItemForm.menuItemForm.controls.price.value as number,
-      image: "",
-      menu_group: sessionStorage.getItem('restaurant_menu_group_id') as string,
+      description: this.menuItemForm.menuItemForm.controls.description.value as string,
     }
 
     let menu_item = {
       id: this.menuItemData.id,
-      data: data
+      data: data,
+      image: this.menuItemForm.image.image
     }
 
     this.saveMenuItemEvent.emit(menu_item);

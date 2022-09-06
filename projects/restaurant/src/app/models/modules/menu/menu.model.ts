@@ -9,6 +9,7 @@ export class MenuGroup {
     item_code!: string;
     item_name!: string;
     price!: number;
-    image!: string;
+    image!: any;
+    description!: string;
   }
   

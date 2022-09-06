@@ -1,4 +1,4 @@
-<input #imageInput [hidden]="true" type="file" requiredFileType="image" class="d-none" (change)="onImageSelected($event) "/>
+<input #imageInput [hidden]="true" type="file" accept="image" requiredFileType="image" class="d-none" (change)="onImageSelected($event) "/>
 
 <div class="card border rounded list-pointer" [style.width.px]="width" [style.height.px]="height"  (click)="imageInput.click()">
     <div class="card-img-top">

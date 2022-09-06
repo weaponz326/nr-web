@@ -18,7 +18,8 @@ export class MenuItemFormComponent implements OnInit {
   menuItemForm = new FormGroup({
     itemCode: new FormControl(''),
     itemName: new FormControl(''),
-    price: new FormControl(1.00)
+    price: new FormControl(1.00),
+    description: new FormControl('')
   })
 
   ngOnInit(): void {

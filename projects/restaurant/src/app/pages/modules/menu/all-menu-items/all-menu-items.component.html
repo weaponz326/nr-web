@@ -42,11 +42,11 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of menuItemsGridData">
-                                <td>{{data?.data().item_code}}</td>
-                                <td>{{data?.data().item_name}}</td>
-                                <td>{{data?.data().price}}</td>
-                                <td>{{data?.data().menu_group.data.menu_group}}</td>
-                                <td>{{data?.data().menu_group.data.category}}</td>
+                                <td>{{data?.item_code}}</td>
+                                <td>{{data?.item_name}}</td>
+                                <td>{{data?.price}}</td>
+                                <td>{{data?.menu_group.menu_group}}</td>
+                                <td>{{data?.menu_group.category}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="5">

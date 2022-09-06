@@ -16,7 +16,6 @@ export class ImageInputComponent implements OnInit {
   image: any;
   imgSrc = '';
 
-  isImageSet = false;
   isImageChanged = false;
 
   ngOnInit(): void {
@@ -36,6 +35,7 @@ export class ImageInputComponent implements OnInit {
 
   onImageSelected(e: any){
     const file: File = e.target.files[0];
+    console.log(file);
 
     if (file) {
       var reader = new FileReader();
@@ -43,8 +43,7 @@ export class ImageInputComponent implements OnInit {
       reader.onload = (e: any) => {
         this.imgSrc = e.target.result;
         this.image = file;
-        this.isImageSet = true;
-        this.isImageSet = true;
+        this.isImageChanged = true;
       }
     }
   }
