@@ -1,3 +1,11 @@
 .bg-darker {
     background-color: #78797a !important;
 }
+
+.modal:nth-of-type(even) {
+    z-index: 1062 !important;
+}
+
+.modal-backdrop.show:nth-of-type(even) {
+    z-index: 1061 !important;
+}
