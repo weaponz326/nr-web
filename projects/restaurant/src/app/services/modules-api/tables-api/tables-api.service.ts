@@ -28,15 +28,15 @@ export class TablesApiService {
   }
 
   public getSingleTable(id: any): Observable<any>{
-    return this.http.get(this.restaurantApi + id);
+    return this.http.get(this.restaurantApi + "module-tables/table/" + id);
   }
 
   public putTable(id: any, data: any): Observable<any>{
-    return this.http.put(this.restaurantApi + id, data);
+    return this.http.put(this.restaurantApi + "module-tables/table/" + id, data);
   }
 
   public deleteTable(id: any): Observable<any>{
-    return this.http.delete(this.restaurantApi + id);
+    return this.http.delete(this.restaurantApi + "module-tables/table/" + id);
   }
 
 }

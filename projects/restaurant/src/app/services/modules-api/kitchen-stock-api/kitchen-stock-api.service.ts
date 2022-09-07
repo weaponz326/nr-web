@@ -14,27 +14,27 @@ export class KitchenStockApiService {
     private http: HttpClient,
   ) { }
 
-  restaurantUrl = environment.restaurantUrl;
+  restaurantApi = environment.restaurantApi;
 
   // items
 
   public getAccountStockItem(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.restaurantUrl + "module-kitchen-stock/stock-item?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.restaurantApi + "module-kitchen-stock/stock-item?account=" + localStorage.getItem('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField);
   }
 
   public postStockItem(item: any): Observable<any>{
-    return this.http.post(this.restaurantUrl + "module-kitchen-stock/stock-item/", item);
+    return this.http.post(this.restaurantApi + "module-kitchen-stock/stock-item/", item);
   }
 
   public putStockItem(id: any, data: any): Observable<any>{
-    return this.http.put(this.restaurantUrl + id, data);
+    return this.http.put(this.restaurantApi + "module-kitchen-stock/stock-item/" + id, data);
   }
 
   public deleteStockItem(id: any): Observable<any>{
-    return this.http.delete(this.restaurantUrl + id);
+    return this.http.delete(this.restaurantApi + "module-kitchen-stock/stock-item/" + id);
   }
 
 }

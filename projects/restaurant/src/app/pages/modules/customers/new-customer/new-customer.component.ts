@@ -36,7 +36,7 @@ export class NewCustomerComponent implements OnInit {
   createCustomer(){
     console.log('u are saving a new customer');
 
-    var data: Customer = {
+    let data: Customer = {
       account: localStorage.getItem('restaurant_id') as string,
       customer_code: this.customerForm.customerForm.controls.customerCode.value as string,
       customer_name: this.customerForm.customerForm.controls.customerName.value as string,

@@ -13,9 +13,6 @@ export class BdayInputComponent implements OnInit {
   monthInput = "";
   yearInput = "";
 
-  // TODO: to be removed
-  value = this.yearInput + "-" + this.monthInput + "-" + this.dayInput;
-
   dobDaySource = this.getDays();
   dobMonthSource = this.getMonths();
   dobYearSource = this.getYears();
@@ -24,15 +21,22 @@ export class BdayInputComponent implements OnInit {
   }
 
   getValue(){
-    let value = this.yearInput + "-" + this.monthInput + "-" + this.dayInput;
-    return value;
+    if(this.yearInput != "" || this.monthInput != "" || this.dayInput != ""){
+      let value = this.yearInput + "-" + this.monthInput + "-" + this.dayInput;
+      return value;
+    }
+    else{
+      return null;
+    }
   }
 
   setValue(date: any){
-    var dateArray = date.split('-');
-    this.yearInput = dateArray[0];
-    this.monthInput = dateArray[1];
-    this.dayInput = dateArray[2];
+    if(date != null){
+      var dateArray = date.split('-');
+      this.yearInput = dateArray[0];
+      this.monthInput = dateArray[1];
+      this.dayInput = dateArray[2];
+    }
   }
 
   getDays(): any[] {

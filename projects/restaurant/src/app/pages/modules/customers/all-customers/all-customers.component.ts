@@ -53,7 +53,7 @@ export class AllCustomersComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.customersGridData = res.docs;
+          this.customersGridData = res.results;
 
           this.currentPage = res.current_page;
           this.totalPages = res.total_pages;

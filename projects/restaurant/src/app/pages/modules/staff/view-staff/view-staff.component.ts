@@ -88,7 +88,7 @@ export class ViewStaffComponent implements OnInit {
       first_name: this.staffForm.staffForm.controls.firstName.value,
       last_name: this.staffForm.staffForm.controls.lastName.value,
       sex: this.staffForm.staffForm.controls.sex.value,
-      date_of_birth: this.staffForm.bday.value,
+      date_of_birth: this.staffForm.bday.getValue(),
       nationality: this.staffForm.staffForm.controls.nationality.value,
       religion: this.staffForm.staffForm.controls.religion.value,
       phone: this.staffForm.staffForm.controls.phone.value,
@@ -109,7 +109,13 @@ export class ViewStaffComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.isStaffSaving = false;
+
+          if(this.staffForm.photo.isImageChanged){
+            this.putMenuItemImage();
+          }
+          else{
+            this.isStaffSaving = false;
+          }
         },
         error: (err) => {
           console.log(err);
@@ -137,6 +143,20 @@ export class ViewStaffComponent implements OnInit {
           console.log(err);
           this.connectionToast.openToast();
           this.isStaffDeleting = false;
+        }
+      })
+  }
+
+  putMenuItemImage(){
+    this.staffApi.putStaffPhoto(this.staffForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isStaffSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
         }
       })
   }

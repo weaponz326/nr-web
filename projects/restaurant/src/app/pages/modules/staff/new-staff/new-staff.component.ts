@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
 
 import { StaffFormComponent } from '../staff-form/staff-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
@@ -37,13 +36,12 @@ export class NewStaffComponent implements OnInit {
   createStaff(){
     console.log('u are saving a new staff');
 
-    var data: Staff = {
+    var data = {
       account: localStorage.getItem('restaurant_id') as string,
       first_name: this.staffForm.staffForm.controls.firstName.value as string,
       last_name: this.staffForm.staffForm.controls.lastName.value as string,
       sex: this.staffForm.staffForm.controls.sex.value as string,
-      date_of_birth: this.staffForm.bday.value,
-      photo: "",
+      date_of_birth: this.staffForm.bday.getValue(),
       nationality: this.staffForm.staffForm.controls.nationality.value as string,
       religion: this.staffForm.staffForm.controls.religion.value as string,
       phone: this.staffForm.staffForm.controls.phone.value as string,
@@ -64,13 +62,33 @@ export class NewStaffComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-
           sessionStorage.setItem('restaurant_staff_id', res.id);
-          this.router.navigateByUrl('/home/staff/view-staff');                    
+
+          if(this.staffForm.photo.isImageChanged){
+            this.putMenuItemImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/staff/view-staff');                    
+          }
+
         },
         error: (err) => {
           console.log(err);
           this.isStaffSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  putMenuItemImage(){
+    this.staffApi.putStaffPhoto(this.staffForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/staff/view-staff');                    
+        },
+        error: (err) => {
+          console.log(err);          
           this.connectionToast.openToast();
         }
       })

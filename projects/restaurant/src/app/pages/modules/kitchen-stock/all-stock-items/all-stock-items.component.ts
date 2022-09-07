@@ -63,6 +63,8 @@ export class AllStockItemsComponent implements OnInit {
           this.isFetchingGridData = false;
           if(this.totalItems == 0)
             this.isDataAvailable = false
+          else 
+            this.isDataAvailable = true
         },
         error: (err) => {
           console.log(err);

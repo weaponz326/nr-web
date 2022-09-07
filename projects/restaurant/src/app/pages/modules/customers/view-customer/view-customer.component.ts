@@ -75,17 +75,18 @@ export class ViewCustomerComponent implements OnInit {
   putCustomer(){
     console.log('u are saving a new customer');
 
-    var data = {
-      customer_code: this.customerForm.customerForm.controls.customerCode.value,
-      customer_name: this.customerForm.customerForm.controls.customerName.value,
-      customer_type: this.customerForm.customerForm.controls.customerType.value,
-      phone: this.customerForm.customerForm.controls.phone.value,
-      email: this.customerForm.customerForm.controls.email.value,
-      address: this.customerForm.customerForm.controls.address.value,
-      state: this.customerForm.customerForm.controls.state.value,
-      city: this.customerForm.customerForm.controls.city.value,
-      allergies: this.customerForm.customerForm.controls.allergies.value,
-      preferences: this.customerForm.customerForm.controls.preferences.value,
+    let data: Customer = {
+      account: localStorage.getItem('restaurant_id') as string,
+      customer_code: this.customerForm.customerForm.controls.customerCode.value as string,
+      customer_name: this.customerForm.customerForm.controls.customerName.value as string,
+      customer_type: this.customerForm.customerForm.controls.customerType.value as string,
+      phone: this.customerForm.customerForm.controls.phone.value as string,
+      email: this.customerForm.customerForm.controls.email.value as string,
+      address: this.customerForm.customerForm.controls.address.value as string,
+      state: this.customerForm.customerForm.controls.state.value as string,
+      city: this.customerForm.customerForm.controls.city.value as string,
+      allergies: this.customerForm.customerForm.controls.allergies.value as string,
+      preferences: this.customerForm.customerForm.controls.preferences.value as string,
     }
 
     console.log(data);
