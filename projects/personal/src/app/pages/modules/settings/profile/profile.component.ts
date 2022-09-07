@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
 
           this.extendedProfileData = res;
 
-          this.additional.bdayInput.value = this.extendedProfileData.date_of_birth;
+          this.additional.bdayInput.setValue(this.extendedProfileData.date_of_birth);
           this.additional.additionalForm.controls.gender.setValue(this.extendedProfileData.gender);
           this.location.locationForm.controls.country.setValue(this.extendedProfileData.country);
           this.location.locationForm.controls.state.setValue(this.extendedProfileData.state);
