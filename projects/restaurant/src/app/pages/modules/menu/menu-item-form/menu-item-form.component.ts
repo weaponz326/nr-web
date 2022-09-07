@@ -25,4 +25,12 @@ export class MenuItemFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  resetForm(){
+    this.menuItemForm.controls.itemCode.setValue('');
+    this.menuItemForm.controls.itemName.setValue('');
+    this.menuItemForm.controls.price.setValue(0.00);
+    this.image.setPlaceholderImage();
+    this.menuItemForm.controls.description.setValue('');
+  }
+
 }

@@ -56,19 +56,24 @@ export class MenuItemsComponent implements OnInit {
       })
   }
 
-  postMenuItem(data: any){
-    console.log(data);
+  postMenuItem(menu_item: any){
+    console.log(menu_item);
     this.addMenuItem.isMenuItemSaving = true;
 
-    this.menuApi.postMenuItem(data)
+    this.menuApi.postMenuItem(menu_item.data)
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          this.addMenuItem.dismissButton.nativeElement.click();
-          this.addMenuItem.isMenuItemSaving = false;
-
-          this.getMenuGroupMenuItem();
+          if(this.addMenuItem.menuItemForm.image.isImageChanged){
+            this.putMenuItemImage(res.id, menu_item.file);
+          }
+          else{
+            this.addMenuItem.dismissButton.nativeElement.click();
+            this.addMenuItem.isMenuItemSaving = false;
+            this.addMenuItem.menuItemForm.resetForm();
+            this.getMenuGroupMenuItem();
+          }
         },
         error: (err) => {
           console.log(err);          
@@ -92,7 +97,7 @@ export class MenuItemsComponent implements OnInit {
           else{
             this.editMenuItem.dismissButton.nativeElement.click();
             this.editMenuItem.isMenuItemSaving = false;
-            this.editMenuItem.menuItemForm.image.setPlaceholderImage();
+            this.editMenuItem.menuItemForm.resetForm();
             this.getMenuGroupMenuItem();          
           }
         },

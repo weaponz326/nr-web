@@ -23,7 +23,7 @@ export class ImageInputComponent implements OnInit {
   }
 
   setPlaceholderImage(){
-    this.imgSrc = '';
+    // this.imgSrc = '';
 
     if(this.imgType == 'photo'){
       this.imgSrc = 'assets/images/utilities/photo-avatar.jpg';

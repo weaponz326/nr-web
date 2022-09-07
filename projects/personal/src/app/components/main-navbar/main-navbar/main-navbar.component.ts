@@ -30,6 +30,8 @@ export class MainNavbarComponent implements OnInit {
   email: string = "";
   photo: string = "../../../../assets/images/utilities/photo-avatar.jpg";
 
+  refreshAttempts = 3;
+
   ngOnInit(): void {
     this.refreshAuth();
 
@@ -87,6 +89,13 @@ export class MainNavbarComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
+
+          if(this.refreshAttempts <= 0){
+            this.refreshAuth();
+            this.refreshAttempts--;
+            console.log(this.refreshAttempts);
+          }
+
           this.isLoggedIn = false;
           this.isAuthLoading = false;
         }

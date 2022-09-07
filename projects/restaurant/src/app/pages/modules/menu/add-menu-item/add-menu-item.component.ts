@@ -34,24 +34,20 @@ export class AddMenuItemComponent implements OnInit {
   }
 
   saveMenuItem(){
-    let data: MenuItem = {
+    let data = {
       menu_group: sessionStorage.getItem('restaurant_menu_group_id') as string,
       item_code: this.menuItemForm.menuItemForm.controls.itemCode.value as string,
       item_name: this.menuItemForm.menuItemForm.controls.itemName.value as string,
       price: this.menuItemForm.menuItemForm.controls.price.value as number,
-      image: this.menuItemForm.image.image,
       description: this.menuItemForm.menuItemForm.controls.description.value as string,
     }
 
-    this.saveMenuItemEvent.emit(data);
-  }
+    let menu_item = {
+      data: data,
+      iamge: this.menuItemForm.image.image
+    }
 
-  resetForm(){
-    this.menuItemForm.menuItemForm.controls.itemCode.setValue('');
-    this.menuItemForm.menuItemForm.controls.itemName.setValue('');
-    this.menuItemForm.menuItemForm.controls.price.setValue(1.00);
-    this.menuItemForm.image.setPlaceholderImage();
-    this.menuItemForm.menuItemForm.controls.description.setValue('');
+    this.saveMenuItemEvent.emit(menu_item);
   }
 
 }
