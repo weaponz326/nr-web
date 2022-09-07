@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -9,9 +9,11 @@ import { SelectCustomerComponent } from '../../../../components/select-windows/c
 import { SelectTableComponent } from '../../../../components/select-windows/tables-windows/select-table/select-table.component';
 
 import { OrdersApiService } from 'projects/restaurant/src/app/services/modules-api/orders-api/orders-api.service';
+import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
 // import { OrdersPrintService } from 'projects/restaurant/src/app/services/printing/orders-print/orders-print.service';
 
 import { Order } from 'projects/restaurant/src/app/models/modules/orders/orders.model';
+import { Delivery } from 'projects/restaurant/src/app/models/modules/deliveries/deliveries.model';
 
 
 @Component({
@@ -24,8 +26,11 @@ export class ViewOrderComponent implements OnInit {
   constructor(
     private router: Router,
     private ordersApi: OrdersApiService,
+    private deliveriesApi: DeliveriesApiService,
     // private ordersPrint: OrdersPrintService
   ) { }
+
+  @ViewChild('existButtonElementReference', { read: ElementRef, static: false }) existButtonElement!: ElementRef;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
@@ -48,6 +53,7 @@ export class ViewOrderComponent implements OnInit {
   isOrderLoading: boolean = false;
   isOrderSaving: boolean = false;
   isOrderDeleting: boolean = false;
+  isCheckingDelivery: boolean = false;
 
   orderForm = new FormGroup({
     orderCode: new FormControl(''),
@@ -92,7 +98,7 @@ export class ViewOrderComponent implements OnInit {
       })
   }
 
-  updateOrder(){
+  putOrder(){
     var customerName = "";
 
     if(this.selectedCustomerName != ""){
@@ -177,9 +183,58 @@ export class ViewOrderComponent implements OnInit {
   }
 
   gotoDelivery(deliveryId: any){
-    console.log(deliveryId);
+    this.isCheckingDelivery = true;
     sessionStorage.setItem('restaurant_delivery_id', deliveryId);
-    this.router.navigateByUrl('/home/deliveries/view-delivery')
+
+    this.deliveriesApi.getDelivery()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if(res.id){
+            this.router.navigateByUrl('/home/deliveries/view-delivery');
+          }
+          else if(res == "not exist"){
+            this.existButtonElement.nativeElement.click();
+            this.isCheckingDelivery = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCheckingDelivery = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  createDelivery(){
+    let data: Delivery = {
+      id: sessionStorage.getItem('restaurant_order_id') as string,
+      account: localStorage.getItem('restaurant_id') as string,
+      order: sessionStorage.getItem('restaurant_order_id') as string,
+      date_delivered: "",
+      delivery_location: "",
+      delivery_status: "",
+    }
+
+    console.log(data);
+    this.isCheckingDelivery = true;
+
+    this.deliveriesApi.postDelivery(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.putOrder();
+          sessionStorage.setItem('restaurant_delivery_id', res.id);
+          this.router.navigateByUrl('/home/deliveries/view-delivery');
+          this.isCheckingDelivery = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCheckingDelivery = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

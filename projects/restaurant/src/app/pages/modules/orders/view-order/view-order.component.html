@@ -3,7 +3,7 @@
 <main>
     <div class="container-fluid px-4">
 
-        <form class="page-form" [formGroup]="orderForm" (ngSubmit)="updateOrder()">
+        <form class="page-form" [formGroup]="orderForm" (ngSubmit)="putOrder()">
 
             <h4 class="mb-3">Order Details</h4>
 
@@ -54,7 +54,7 @@
                                     <option>Delivery</option>
                                     <option>Take Away</option>
                                 </select>
-                                <button type="button" class="btn btn-secondary" (click)="gotoDelivery(orderFormData.id)">
+                                <button type="button" class="btn btn-secondary" [disabled]="isCheckingDelivery" (click)="gotoDelivery(orderFormData.id)">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
@@ -117,6 +117,26 @@
 
     </div>
 </main>
+
+<button [hidden]="true" #existButtonElementReference data-bs-toggle="modal" data-bs-target="#existConfirmationModalOne">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="existConfirmationModalOne" tabindex="-1" aria-labelledby="existConfirmationModalOneLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body">
+                <p class="mt-4">Delivery for this order does not exist!</p>
+                <button class="btn btn-sm btn-secondary mb-4 px-3" data-bs-dismiss="modal" (click)="createDelivery()">
+                    Create Delivery
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <!-- connection error prompt component -->
 

@@ -29,7 +29,7 @@ export class AdditionalComponent implements OnInit {
 
   updateAdditional(){
     let data = {
-      date_of_birth: this.bdayInput.value,
+      date_of_birth: this.bdayInput.getValue(),
       gender: this.additionalForm.controls.gender.value,
     }
 

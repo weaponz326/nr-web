@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { DeliveryFormComponent } from '../delivery-form/delivery-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
@@ -24,7 +24,6 @@ export class EditDeliveryComponent implements OnInit {
     // private deliveriesPrint: DeliveriesPrintService,
   ) { }
 
-  @ViewChild('deliveryFormComponentReference', { read: DeliveryFormComponent, static: false }) deliveryForm!: DeliveryFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
@@ -34,10 +33,20 @@ export class EditDeliveryComponent implements OnInit {
   ];
 
   deliveryData: any;
+  orderId: any;
 
   isDeliveryLoading = false;
   isDeliverySaving = false;
   isDeliveryDeleting = false;
+
+  deliveryForm = new FormGroup({
+    orderCode: new FormControl({value: '', disabled: true}),
+    orderDate: new FormControl({value: '', disabled: true}),
+    customerName: new FormControl({value: '', disabled: true}),
+    dateDelivered: new FormControl(''),
+    deliveryLocation: new FormControl(''),
+    deliveryStatus: new FormControl(''),
+  })
 
   ngOnInit(): void {
     this.getDelivery();
@@ -54,14 +63,14 @@ export class EditDeliveryComponent implements OnInit {
           this.deliveryData = res;
           this.isDeliveryLoading = false;
 
-          this.deliveryForm.deliveryForm.controls.orderCode.setValue(this.deliveryData.order.order_code);
-          this.deliveryForm.deliveryForm.controls.orderDate.setValue(this.deliveryData.order.order_date);
-          this.deliveryForm.deliveryForm.controls.customerName.setValue(this.deliveryData.order.customer.customer_name);
-          this.deliveryForm.deliveryForm.controls.dateDelivered.setValue(this.deliveryData.date_delivered);
-          this.deliveryForm.deliveryForm.controls.deliveryLocation.setValue(this.deliveryData.delivery_location);
-          this.deliveryForm.deliveryForm.controls.deliveryStatus.setValue(this.deliveryData.delivery_status);
+          this.deliveryForm.controls.orderCode.setValue(this.deliveryData.order.order_code);
+          this.deliveryForm.controls.orderDate.setValue(new Date(this.deliveryData.order.order_date).toISOString().slice(0, 16));
+          this.deliveryForm.controls.customerName.setValue(this.deliveryData.order.customer_name);
+          this.deliveryForm.controls.dateDelivered.setValue(this.deliveryData.date_delivered);
+          this.deliveryForm.controls.deliveryLocation.setValue(this.deliveryData.delivery_location);
+          this.deliveryForm.controls.deliveryStatus.setValue(this.deliveryData.delivery_status);
 
-          this.deliveryForm.orderId = this.deliveryData.id;
+          this.orderId = this.deliveryData.order.id;
         },
         error: (err) => {
           console.log(err);
@@ -71,13 +80,13 @@ export class EditDeliveryComponent implements OnInit {
       })
   }
 
-  updateDelivery(){
+  putDelivery(){
     console.log('u are saving a new delivery');
 
     let data = {
-      date_delivered: this.deliveryForm.deliveryForm.controls.dateDelivered.value,
-      delivery_location: this.deliveryForm.deliveryForm.controls.deliveryLocation.value,
-      delivery_status: this.deliveryForm.deliveryForm.controls.deliveryStatus.value,
+      date_delivered: this.deliveryForm.controls.dateDelivered.value,
+      delivery_location: this.deliveryForm.controls.deliveryLocation.value,
+      delivery_status: this.deliveryForm.controls.deliveryStatus.value,
     }
 
     console.log(data);
@@ -115,6 +124,11 @@ export class EditDeliveryComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  gotoOrder(){
+    sessionStorage.setItem('restaurant_order_id', this.orderId);
+    this.router.navigateByUrl('/home/orders/view-order')
   }
 
   onPrint(){

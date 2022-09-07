@@ -11,6 +11,7 @@ export class DeliveriesPage implements OnInit {
 
   navLinks: any[] = [
     { text: "All Deliveries", url: "/home/deliveries/all-deliveries", icon: "bi bi-list-ul" },
+    { text: "Add Delivery", url: "/home/deliveries/add-delivery", icon: "bi bi-plus-square" },
   ]
   
   ngOnInit(): void {

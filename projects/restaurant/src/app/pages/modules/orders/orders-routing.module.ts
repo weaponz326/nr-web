@@ -11,7 +11,7 @@ const routes: Routes = [
     path: "",
     component: OrdersPage,
     children: [
-      { path: "", component: AllOrdersComponent },
+      { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
       { path: "all-orders", component: AllOrdersComponent },
       { path: "view-order", component: ViewOrderComponent }

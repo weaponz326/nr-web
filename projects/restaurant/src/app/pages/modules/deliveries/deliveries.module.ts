@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeliveriesRoutingModule } from './deliveries-routing.module';
 import { MainNavbarModule } from 'projects/personal/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { OrdersWindowsModule } from '../../../components/select-windows/orders-windows/orders-windows.module';
 
 import { DeliveriesPage } from './deliveries.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -30,6 +31,7 @@ import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
     DeliveriesRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    OrdersWindowsModule
   ]
 })
 export class DeliveriesModule { }
