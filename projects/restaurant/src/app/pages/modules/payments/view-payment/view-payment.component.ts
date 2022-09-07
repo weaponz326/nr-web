@@ -29,6 +29,7 @@ export class ViewPaymentComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   navHeading: any[] = [
+    { text: "All Payments", url: "/home/payments/all-payments" },
     { text: "View Payment", url: "/home/payments/view-payment" },
   ];
 
@@ -54,16 +55,14 @@ export class ViewPaymentComponent implements OnInit {
           this.isPaymentLoading = false;
 
           this.paymentForm.paymentForm.controls.paymentCode.setValue(res.payment_code);
-          this.paymentForm.paymentForm.controls.paymentDate.setValue(res.payment_date);
+          this.paymentForm.paymentForm.controls.paymentDate.setValue(new Date(res.payment_date).toISOString().slice(0, 16));
           this.paymentForm.paymentForm.controls.amountPaid.setValue(res.amount_paid);
-
-          // this.paymentForm.paymentForm.controls.selectedCustomerId = res.order.data.customer.id;
-          this.paymentForm.paymentForm.controls.orderCode.setValue(res.order.data.order_code);
-          this.paymentForm.paymentForm.controls.customerName.setValue(res.order.data.customer.customer_name);
-          this.paymentForm.paymentForm.controls.totalAmount.setValue(res.order.data.total_amount);
+          this.paymentForm.paymentForm.controls.orderCode.setValue(res.order.order_code);
+          this.paymentForm.paymentForm.controls.customerName.setValue(res.order.customer_name);
+          this.paymentForm.paymentForm.controls.totalAmount.setValue(res.order.total_amount);
 
           this.paymentForm.selectedOrderId = res.order.id;
-          this.paymentForm.selectedOrderData = res.order.data;
+          this.paymentForm.selectedOrderData = res.order;
           this.paymentForm.setBalance()
         },
         error: (err) => {
@@ -77,9 +76,10 @@ export class ViewPaymentComponent implements OnInit {
   updatePayment(){
     console.log('u are saving a new payment');
 
-    var data = {
+    var data: Payment = {
+      account: localStorage.getItem('restaurant_id') as string,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
-      payment_date: this.paymentForm.paymentForm.controls.paymentDate.value as string,
+      payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,
       amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as number,
       order: this.paymentForm.selectedOrderId
     }

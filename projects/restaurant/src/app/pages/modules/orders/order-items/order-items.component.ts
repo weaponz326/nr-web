@@ -42,7 +42,7 @@ export class OrderItemsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.itemsGridData = res.docs;
+          this.itemsGridData = res;
           this.calculateTotalPrice();
 
           this.isFetchingGridData = false;
@@ -58,7 +58,7 @@ export class OrderItemsComponent implements OnInit {
   calculateTotalPrice(){
     this.totalAmount = 0;
     for (let item of this.itemsGridData){
-      this.totalAmount += item.data().menu_item.data.price * item.data().quantity;
+      this.totalAmount += item.menu_item.data.price * item.quantity;
     }
 
     this.patchTotalAmount();
@@ -134,7 +134,7 @@ export class OrderItemsComponent implements OnInit {
   patchTotalAmount(){
     let data = {total_amount: this.totalAmount}
 
-    this.ordersApi.patchTotal(data)
+    this.ordersApi.putOrder(data)
       .subscribe({
         next: (res) => {
           console.log(res);

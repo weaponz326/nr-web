@@ -20,10 +20,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of itemsGridData; index as i" (dblClick)="openEditItem(i)">
-                        <td>{{data?.data().menu_item.data.item_name}}</td>
-                        <td>{{data?.data().menu_item.data.price}}</td>
-                        <td>{{data?.data().quantity}}</td>
-                        <td>{{data?.data().menu_item.data.price * data?.data().quantity}}</td>
+                        <td>{{data?.menu_item.item_name}}</td>
+                        <td>{{data?.menu_item.price}}</td>
+                        <td>{{data?.quantity}}</td>
+                        <td>{{data?.menu_item.price * data?.quantity}}</td>
                         <td class="p-0">
                             <button class="btn btn-sm border w-50" (click)="openEditItem(data)"><i class="bi bi-pen"></i></button>
                             <button [disabled]="isItemDeleting" class="btn btn-sm border w-50" (click)="confirmDelete(data.id)">

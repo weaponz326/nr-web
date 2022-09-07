@@ -35,13 +35,14 @@ export class AddOrderComponent implements OnInit {
   @ViewChild('selectTableComponentReference', { read: SelectTableComponent, static: false }) selectTable!: SelectTableComponent;
 
   selectedCustomerId = "";
+  selectedCustomerName = "";
   selectedTableId = "";
 
   isOrderSaving = false;
 
   orderForm = new FormGroup({
     orderCode: new FormControl(''),
-    orderDate: new FormControl(''),
+    orderDate: new FormControl(),
     customerName: new FormControl(''),
     orderType: new FormControl(''),
     tableNumber: new FormControl({value: '', disabled: true}),
@@ -57,15 +58,25 @@ export class AddOrderComponent implements OnInit {
   }
 
   createOrder(){
+    var customerName = "";
+
+    if(this.selectedCustomerName != ""){
+      customerName = this.selectedCustomerName;
+    }
+    else{
+      customerName = this.orderForm.controls.customerName.value as string;
+    }
+
     let data: Order = {
       account: localStorage.getItem('restaurant_id') as string,
+      customer: this.selectedCustomerId,
+      table: this.selectedTableId,
+      customer_name: customerName,
       order_code: this.orderForm.controls.orderCode.value as string,
       order_date: this.orderForm.controls.orderDate.value as string,
       order_type: this.orderForm.controls.orderType.value as string,
       total_amount: 0,
       order_status: "",
-      customer: this.selectedCustomerId,
-      table: this.selectedTableId,
     }
 
     console.log(data);
@@ -107,8 +118,9 @@ export class AddOrderComponent implements OnInit {
   onCustomerSelected(customerData: any){
     console.log(customerData);
 
-    this.orderForm.controls.customerName.setValue(customerData.customer_name);
     this.selectedCustomerId = customerData.id;
+    this.selectedCustomerName = customerData.customer_name;
+    this.orderForm.controls.customerName.setValue(customerData.customer_name);
   }
 
   openTableWindow(){

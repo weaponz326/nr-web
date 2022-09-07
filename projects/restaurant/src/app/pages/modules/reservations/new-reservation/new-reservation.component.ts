@@ -29,6 +29,7 @@ export class NewReservationComponent implements OnInit {
   @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
 
   selectedCustomerId = "";
+  selectedCustomerName = "";
 
   isReservationSaving = false;
 
@@ -51,13 +52,14 @@ export class NewReservationComponent implements OnInit {
   createReservation(){
     let data: Reservation = {
       account: localStorage.getItem('restaurant_id') as string,
+      customer: this.selectedCustomerId,
+      customer_name: this.reservationForm.controls.customerName.value as string,
       reservation_code: this.reservationForm.controls.reservationCode.value as string,
-      reservation_date: this.reservationForm.controls.reservationDate.value as Date,
+      reservation_date: this.reservationForm.controls.reservationDate.value,
       number_guests: null,
       number_tables: null,
-      arrival_date: this.reservationForm.controls.arrivalDate.value as Date,
+      arrival_date: this.reservationForm.controls.arrivalDate.value,
       status: this.reservationForm.controls.status.value as string,
-      customer: this.selectedCustomerId,
     }
 
     this.isReservationSaving = true;
@@ -87,8 +89,9 @@ export class NewReservationComponent implements OnInit {
   onCustomerSelected(customerData: any){
     console.log(customerData);
 
-    this.reservationForm.controls.customerName.setValue(customerData.data().customer_name);
     this.selectedCustomerId = customerData.id;
+    this.selectedCustomerName = customerData.customer_name;
+    this.reservationForm.controls.customerName.setValue(customerData.customer_name);
   }
 
 }

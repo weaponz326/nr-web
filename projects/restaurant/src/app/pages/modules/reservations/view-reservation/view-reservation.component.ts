@@ -39,7 +39,7 @@ export class ViewReservationComponent implements OnInit {
   reservationFormData: any;
 
   selectedCustomerId: any;
-  selectedTableId: any;
+  selectedCustomerName: any;
 
   isReservationLoading: boolean = false;
   isReservationSaving: boolean = false;
@@ -69,15 +69,20 @@ export class ViewReservationComponent implements OnInit {
           this.reservationFormData = res;
           this.isReservationLoading = false;
 
+          var arrivalDate = null;
+          if(this.reservationFormData.arrival_date != null)
+            arrivalDate = new Date(this.reservationFormData.arrival_date).toISOString().slice(0, 16);
+
           this.reservationForm.controls.reservationCode.setValue(this.reservationFormData.reservation_code);
-          this.reservationForm.controls.reservationDate.setValue(this.reservationFormData.reservation_date);
-          this.reservationForm.controls.arrivalDate.setValue(this.reservationFormData.arrival_date);
+          this.reservationForm.controls.reservationDate.setValue(new Date(this.reservationFormData.reservation_date).toISOString().slice(0, 16));
+          this.reservationForm.controls.arrivalDate.setValue(arrivalDate);
           this.reservationForm.controls.status.setValue(this.reservationFormData.status);
           this.reservationForm.controls.numberGuests.setValue(this.reservationFormData.number_guests);
           this.reservationForm.controls.numberTables.setValue(this.reservationFormData.number_tables);
 
-          this.selectedCustomerId = this.reservationFormData.customer.id;
-          this.reservationForm.controls.customerName.setValue(this.reservationFormData.customer.customer_name);
+          this.selectedCustomerId = this.reservationFormData.customer?.id;
+          this.selectedCustomerName = this.reservationFormData.customerName;
+          this.reservationForm.controls.customerName.setValue(this.reservationFormData.customer_name);
         },
         error: (err) => {
           console.log(err);
@@ -88,14 +93,16 @@ export class ViewReservationComponent implements OnInit {
   }
 
   updateReservation(){
-    let data = {
-      reservation_code: this.reservationForm.controls.reservationCode.value,
+    let data: Reservation = {
+      account: localStorage.getItem('restaurant_id') as string,
+      customer: this.selectedCustomerId,
+      customer_name: this.reservationForm.controls.customerName.value as string,
+      reservation_code: this.reservationForm.controls.reservationCode.value as string,
       reservation_date: this.reservationForm.controls.reservationDate.value,
       number_guests: this.reservationForm.controls.numberGuests.value,
       number_tables: this.reservationForm.controls.numberTables.value,
       arrival_date: this.reservationForm.controls.arrivalDate.value,
-      status: this.reservationForm.controls.status.value,
-      customer: this.selectedCustomerId,
+      status: this.reservationForm.controls.status.value as string,
     }
 
     console.log(data);

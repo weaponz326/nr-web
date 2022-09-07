@@ -50,7 +50,7 @@ export class AllOrdersComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.ordersGridData = res.docs;
+          this.ordersGridData = res.results;
 
           this.currentPage = res.current_page;
           this.totalPages = res.total_pages;

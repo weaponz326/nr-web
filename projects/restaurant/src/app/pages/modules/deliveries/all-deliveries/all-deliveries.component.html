@@ -42,10 +42,10 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of deliveriesGridData" (dblclick)="viewDelivery(data.id)" class="table-pointer">
-                                <td>{{data?.order.order_code}}</td>
-                                <td>{{data?.order.order_date}}</td>
+                                <td>{{data?.order?.order_code}}</td>
+                                <td>{{data?.order?.order_date | date:'short'}}</td>
                                 <td>{{data?.delivery_location}}</td>
-                                <td>{{data?.date_delivered | date}}</td>
+                                <td>{{data?.date_delivered | date:'short'}}</td>
                                 <td>{{data?.delivery_status}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

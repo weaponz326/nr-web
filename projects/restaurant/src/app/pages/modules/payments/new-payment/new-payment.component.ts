@@ -42,10 +42,10 @@ export class NewPaymentComponent implements OnInit {
 
     var data: Payment = {
       account: localStorage.getItem('restaurant_id') as string,
-      payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
-      payment_date: this.paymentForm.paymentForm.controls.paymentDate.value as string,
-      amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as number,
       order: this.paymentForm.selectedOrderId,
+      payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
+      payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,
+      amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as number,
     }
 
     console.log(data);

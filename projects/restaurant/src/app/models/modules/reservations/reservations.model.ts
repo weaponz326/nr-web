@@ -1,6 +1,7 @@
 export class Reservation {
     account!: string;
     customer!: string;
+    customer_name!: string;
     reservation_code!: string;
     reservation_date!: Date;
     arrival_date!: Date;

@@ -42,6 +42,7 @@ export class ViewOrderComponent implements OnInit {
   orderFormData: any;
 
   selectedCustomerId = "";
+  selectedCustomerName = "";
   selectedTableId = "";
 
   isOrderLoading: boolean = false;
@@ -50,7 +51,7 @@ export class ViewOrderComponent implements OnInit {
 
   orderForm = new FormGroup({
     orderCode: new FormControl(''),
-    orderDate: new FormControl(''),
+    orderDate: new FormControl(),
     orderType: new FormControl(''),
     orderStatus: new FormControl(''),
     customerName: new FormControl(''),
@@ -72,15 +73,16 @@ export class ViewOrderComponent implements OnInit {
           this.orderFormData = res;
           this.isOrderLoading = false;
 
-          this.orderForm.controls.orderCode.setValue(this.orderFormData.data().order_code);
-          this.orderForm.controls.orderDate.setValue(this.orderFormData.data().order_date);
-          this.orderForm.controls.orderType.setValue(this.orderFormData.data().order_type);
-          this.orderForm.controls.orderStatus.setValue(this.orderFormData.data().order_status);
+          this.orderForm.controls.orderCode.setValue(this.orderFormData.order_code);
+          this.orderForm.controls.orderDate.setValue(new Date(this.orderFormData.order_date).toISOString().slice(0, 16));
+          this.orderForm.controls.orderType.setValue(this.orderFormData.order_type);
+          this.orderForm.controls.orderStatus.setValue(this.orderFormData.order_status);
 
-          this.selectedCustomerId = this.orderFormData.data().customer.id;
-          this.selectedTableId = this.orderFormData.data().table.id;
-          this.orderForm.controls.customerName.setValue(this.orderFormData.data().customer.customer_name);
-          this.orderForm.controls.tableNumber.setValue(this.orderFormData.data().table.table_number);
+          this.selectedCustomerId = this.orderFormData.customer?.id;
+          this.selectedCustomerName = this.orderFormData.customer_name;
+          this.orderForm.controls.customerName.setValue(this.orderFormData.customer_name);
+          this.selectedTableId = this.orderFormData.table?.id;
+          this.orderForm.controls.tableNumber.setValue(this.orderFormData.table?.table_number);
         },
         error: (err) => {
           console.log(err);
@@ -91,14 +93,25 @@ export class ViewOrderComponent implements OnInit {
   }
 
   updateOrder(){
-    let data = {
-      order_code: this.orderForm.controls.orderCode.value,
-      order_date: this.orderForm.controls.orderDate.value,
-      order_type: this.orderForm.controls.orderType.value,
-      order_status: this.orderForm.controls.orderStatus.value,
-      total_amount: this.orderItems.totalAmount,
-      customer: this.selectedCustomerId,
+    var customerName = "";
+
+    if(this.selectedCustomerName != ""){
+      customerName = this.selectedCustomerName;
+    }
+    else{
+      customerName = this.orderForm.controls.customerName.value as string;
+    }
+
+    let data: Order = {
+      account: localStorage.getItem('restaurant_id') as string,
       table: this.selectedTableId,
+      customer: this.selectedCustomerId,
+      customer_name: this.orderForm.controls.customerName.value as string,
+      order_code: this.orderForm.controls.orderCode.value as string,
+      order_date: this.orderForm.controls.orderDate.value,
+      order_type: this.orderForm.controls.orderType.value as string,
+      order_status: this.orderForm.controls.orderStatus.value as string,
+      total_amount: this.orderItems.totalAmount,      
     }
 
     console.log(data);
@@ -147,7 +160,7 @@ export class ViewOrderComponent implements OnInit {
   onCustomerSelected(customerData: any){
     console.log(customerData);
 
-    this.orderForm.controls.customerName.setValue(customerData.data().customer_name);
+    this.orderForm.controls.customerName.setValue(customerData.customer_name);
     this.selectedCustomerId = customerData.id;
   }
 
@@ -159,7 +172,7 @@ export class ViewOrderComponent implements OnInit {
   onTableSelected(tableData: any){
     console.log(tableData);
 
-    this.orderForm.controls.tableNumber.setValue(tableData.data().table_number);
+    this.orderForm.controls.tableNumber.setValue(tableData.table_number);
     this.selectedTableId = tableData.id;
   }
 

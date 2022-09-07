@@ -20,7 +20,7 @@ export class PaymentFormComponent implements OnInit {
 
   paymentForm = new FormGroup({
     paymentCode: new FormControl(''),
-    paymentDate: new FormControl(''),
+    paymentDate: new FormControl(),
     orderCode: new FormControl({value: '', disabled: true}),
     customerName: new FormControl({value: '', disabled: true}),
     totalAmount: new FormControl({value: 0, disabled: true}),
@@ -35,11 +35,11 @@ export class PaymentFormComponent implements OnInit {
     console.log(orderData);
 
     this.selectedOrderId = orderData.id;
-    this.selectedOrderData = orderData.data();
+    this.selectedOrderData = orderData;
 
-    this.paymentForm.controls.orderCode.setValue(orderData.data().order_code);
-    this.paymentForm.controls.customerName.setValue(orderData.data().customer.customer_name);
-    this.paymentForm.controls.totalAmount.setValue(orderData.data().total_amount);
+    this.paymentForm.controls.orderCode.setValue(orderData.order_code);
+    this.paymentForm.controls.customerName.setValue(orderData.customer_name);
+    this.paymentForm.controls.totalAmount.setValue(orderData.total_amount);
   }
 
   openOrderWindow(){
@@ -48,9 +48,12 @@ export class PaymentFormComponent implements OnInit {
   }
 
   setBalance(){
-    this.paymentForm.controls.balance.setValue(
-      ((this.paymentForm.controls.totalAmount.value as number) - (this.paymentForm.controls.amountPaid.value as number))
-    )
+    let amountPaid = this.paymentForm.controls.amountPaid.value;
+    let totalAmount = this.paymentForm.controls.totalAmount.value;
+
+    if(totalAmount != null && amountPaid != null){
+      this.paymentForm.controls.balance.setValue(totalAmount - amountPaid);
+    }
   }
 
 }

@@ -2,6 +2,7 @@ export class Order {
   account!: string;
   table!: string;
   customer!: string;
+  customer_name!: string;
   order_code!: string;
   order_date!: string;
   order_type!: string;

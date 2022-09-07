@@ -43,11 +43,11 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of paymentsGridData" (dblclick)="viewPayment(data.id)" class="table-pointer">
-                                <td>{{data?.data().payment_code}}</td>
-                                <td>{{data?.data().payment_date}}</td>
-                                <td>{{data?.data().amount_paid}}</td>
-                                <td>{{data?.data().order.data.order_code}}</td>
-                                <td>{{data?.data().order.data.customer.customer_name}}</td>
+                                <td>{{data?.payment_code}}</td>
+                                <td>{{data?.payment_date}}</td>
+                                <td>{{data?.amount_paid}}</td>
+                                <td>{{data?.order.order_code}}</td>
+                                <td>{{data?.order.customer_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="5">

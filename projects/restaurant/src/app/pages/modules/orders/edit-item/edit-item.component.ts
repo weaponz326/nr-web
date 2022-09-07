@@ -31,18 +31,19 @@ export class EditItemComponent implements OnInit {
   openModal(data: any){
     this.orderItemData = data;
 
-    this.itemForm.itemForm.controls.menuItem.setValue(data.data().menu_item.data.item_name);
-    this.itemForm.itemForm.controls.price.setValue(data.data().menu_item.data.price);
-    this.itemForm.itemForm.controls.quantity.setValue(data.data().quantity);
-    this.itemForm.selectedMenuItemId = data.data().menu_item.id;
-    this.itemForm.selectedMenuItemData = data.data().menu_item.data;
+    this.itemForm.itemForm.controls.menuItem.setValue(data.menu_item.item_name);
+    this.itemForm.itemForm.controls.price.setValue(data.menu_item.price);
+    this.itemForm.itemForm.controls.quantity.setValue(data.quantity);
+    this.itemForm.selectedMenuItemId = data.menu_item.id;
+    this.itemForm.selectedMenuItemData = data.menu_item;
 
     this.editButton.nativeElement.click();
   }
 
   saveItem(){
-    let data = {
-      quantity: this.itemForm.itemForm.controls.quantity.value,
+    let data: OrderItem = {
+      order: sessionStorage.getItem('restaurant_order_id') as string,
+      quantity: this.itemForm.itemForm.controls.quantity.value as number,
       menu_item: this.itemForm.selectedMenuItemId,
     }
 

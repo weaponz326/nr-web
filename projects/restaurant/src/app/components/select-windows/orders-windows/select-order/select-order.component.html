@@ -17,19 +17,19 @@
                         <tr class="bg-light">
                             <th width="20%" class="min-width-2">
                                 Order ID
-                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                <app-table-sorting [sortField]="'order_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="25%" class="min-width-3">
                                 Order Date
-                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                <app-table-sorting [sortField]="'order_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="35%" class="min-width-3">
                                 Customer Name
-                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="20%" class="min-width-2">
                                 Total Amount
-                                <app-table-sorting [sortField]="'customer_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                <app-table-sorting [sortField]="'total_amount'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                         </tr>
                     </thead>
@@ -37,7 +37,7 @@
                         <tr *ngFor="let data of ordersGridData" (dblclick)="selectRow(data)" class="table-pointer">
                             <td>{{data?.order_code}}</td>
                             <td>{{data?.order_date | date}}</td>
-                            <td>{{data?.customer.customer_name}}</td>
+                            <td>{{data?.customer_name}}</td>
                             <td>{{data?.total_amount}}</td>
                         </tr>
                         <tr *ngIf="isFetchingGridData || !isDataAvailable">

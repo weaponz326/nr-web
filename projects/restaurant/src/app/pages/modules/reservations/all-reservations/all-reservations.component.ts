@@ -52,7 +52,7 @@ export class AllReservationsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.reservationsGridData = res.docs;
+          this.reservationsGridData = res.results;
 
           this.currentPage = res.current_page;
           this.totalPages = res.total_pages;

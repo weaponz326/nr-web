@@ -28,7 +28,7 @@
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Customer Name :</label></div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="customerName" class="form-control">
+                                <input formControlName="customerName" class="form-control" (keydown)="selectedCustomerId = ''">
                                 <button type="button" class="btn btn-secondary" (click)="openCustomerWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>

@@ -44,9 +44,9 @@
                         <tbody>
                             <tr *ngFor="let data of reservationsGridData" (dblclick)="viewReservation(data.id)" class="table-pointer">
                                 <td>{{data?.reservation_code}}</td>
-                                <td>{{data?.reservation_date | date}}</td>
-                                <td>{{data?.customer.customer_name}}</td>
-                                <td>{{data?.arrival_date | date}}</td>
+                                <td>{{data?.reservation_date | date:'short'}}</td>
+                                <td>{{data?.customer_name}}</td>
+                                <td>{{data?.arrival_date | date:'short'}}</td>
                                 <td>{{data?.status}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
