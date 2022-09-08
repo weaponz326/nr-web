@@ -33,8 +33,8 @@ export class EditBatchComponent implements OnInit {
     console.log(data);
     this.batchData = data;
 
-    this.batchForm.controls.batchName.setValue(data.data().batch_name);
-    this.batchForm.controls.batchSymbol.setValue(data.data().batch_symbol);
+    this.batchForm.controls.batchName.setValue(data.batch_name);
+    this.batchForm.controls.batchSymbol.setValue(data.batch_symbol);
 
     this.editButton.nativeElement.click();
   }

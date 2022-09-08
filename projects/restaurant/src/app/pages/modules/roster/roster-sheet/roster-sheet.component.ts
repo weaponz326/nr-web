@@ -46,7 +46,7 @@ export class RosterSheetComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.sheetDays = res.data().days;
+          this.sheetDays = res.days;
         },
         error: (err) => {
           console.log(err);
@@ -74,7 +74,7 @@ export class RosterSheetComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.rosterBatchesData = res.docs;
+          this.rosterBatchesData = res;
         },
         error: (err) => {
           console.log(err);

@@ -75,7 +75,7 @@ export class ViewRosterComponent implements OnInit {
       })
   }
 
-  updateRoster(){
+  postRoster(){
     let data = {
       roster_name: this.rosterForm.controls.rosterName.value,
       roster_code: this.rosterForm.controls.rosterCode.value,

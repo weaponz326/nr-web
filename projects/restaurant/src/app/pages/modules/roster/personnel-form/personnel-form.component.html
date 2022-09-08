@@ -28,7 +28,7 @@
         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Batch :</label></div>
         <div class="col-md-8">
             <select formControlName="batchSymbol" class="form-control form-control-sm w-100">
-                <option *ngFor="let batch of batchSource">{{batch.data().batch_symbol}}</option>
+                <option *ngFor="let batch of batchSource">{{batch.batch_symbol}}</option>
             </select>
         </div>
     </div>

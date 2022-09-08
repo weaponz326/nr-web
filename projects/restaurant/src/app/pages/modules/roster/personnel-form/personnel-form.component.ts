@@ -37,7 +37,7 @@ export class PersonnelFormComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);        
-          this.batchSource = res.docs;
+          this.batchSource = res;
           this.personnelForm.controls.batchSymbol.setValue(batch);
         },
         error: (err) => {
@@ -51,9 +51,9 @@ export class PersonnelFormComponent implements OnInit {
     console.log(staffData);
 
     this.selectedStaffId = staffData.id;
-    this.personnelForm.controls.personnelCode.setValue(staffData.data().staff_code);
-    this.personnelForm.controls.personnelName.setValue(staffData.data().first_name + " " + staffData.data().first_name);
-    this.personnelForm.controls.batchSymbol.setValue(staffData.data().batch_symbol);
+    this.personnelForm.controls.personnelCode.setValue(staffData.staff_code);
+    this.personnelForm.controls.personnelName.setValue(staffData.first_name + " " + staffData.first_name);
+    this.personnelForm.controls.batchSymbol.setValue(staffData.batch_symbol);
   }
 
   openStaffWindow(){

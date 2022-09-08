@@ -1,3 +1,7 @@
+<div class="col-md-12">
+    <h4 class="mb-3">Roster Shifts</h4>
+</div>
+
 <div class="row">
     <div class="col-md-12">
 
@@ -17,9 +21,9 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of shiftsGridData; index as i">
-                        <td>{{data?.data().shift_name}}</td>
-                        <td>{{data?.data().start_time}}</td>
-                        <td>{{data?.data().end_time}}</td>
+                        <td>{{data?.shift_name}}</td>
+                        <td>{{data?.start_time}}</td>
+                        <td>{{data?.end_time}}</td>
                         <td class="p-0">
                             <button class="btn btn-sm border w-50" (click)="openEditShift(data)"><i class="bi bi-pen"></i></button>
                             <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
