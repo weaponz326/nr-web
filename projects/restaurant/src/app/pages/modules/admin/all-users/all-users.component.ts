@@ -45,7 +45,7 @@ export class AllUsersComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.usersGridData = res.docs;
+          this.usersGridData = res;
           this.isFetchingGridData = false;
         },
         error: (err) => {
