@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 import { MenuItemFormComponent } from '../menu-item-form/menu-item-form.component'
 
 import { MenuItem } from 'projects/restaurant/src/app/models/modules/menu/menu.model';
+import { environment } from 'projects/personal/src/environments/environment';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class EditMenuItemComponent implements OnInit {
   }
 
   openModal(data: any){
+    console.log(data);
     this.menuItemData = data;
 
     this.menuItemForm.menuItemForm.controls.itemCode.setValue(data.item_code);
@@ -38,8 +40,10 @@ export class EditMenuItemComponent implements OnInit {
     this.menuItemForm.menuItemForm.controls.price.setValue(data.price);
     this.menuItemForm.menuItemForm.controls.description.setValue(data.description);
 
-    // if (data.image != "") this.menuItemForm.image.imgSrc = data.image;
-    // else this.menuItemForm.image.setPlaceholderImage;
+    if (data.image != null)
+      this.menuItemForm.image.imgSrc = environment.restaurantApi + data.image;
+    else
+      this.menuItemForm.image.imgSrc = 'assets/images/utilities/logo-placeholder.jpg';
 
     this.editButton.nativeElement.click();
   }

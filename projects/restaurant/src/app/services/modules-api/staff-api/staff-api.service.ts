@@ -45,7 +45,7 @@ export class StaffApiService {
     let formParams = new FormData();
     formParams.append('photo', photo);
     formParams.append('account', localStorage.getItem('restaurant_id') as string);
-    return this.http.put(this.restaurantApi + "module-menu/menu-item/" + sessionStorage.getItem('restaurant_staff_id'), formParams)
+    return this.http.put(this.restaurantApi + "module-staff/staff/" + sessionStorage.getItem('restaurant_staff_id'), formParams)
   }
 
 }

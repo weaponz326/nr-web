@@ -37,8 +37,8 @@ export class SelectMenuItemComponent implements OnInit {
 
   openModal(){
     this.menuItemsGridData = [];
-    this.getAccountMenuItem(1, 20, "-created_at");
     this.openButton.nativeElement.click();
+    this.getAccountMenuItem(1, 20, "-created_at");
   }
 
   getAccountMenuItem(page: any, size: any, sortField: any){

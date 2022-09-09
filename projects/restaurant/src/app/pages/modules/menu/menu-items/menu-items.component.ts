@@ -62,7 +62,7 @@ export class MenuItemsComponent implements OnInit {
           console.log(res);
 
           if(this.addMenuItem.menuItemForm.image.isImageChanged){
-            this.putMenuItemImage(res.id, menu_item.file);
+            this.putMenuItemImage(res.id, menu_item.image);
           }
           else{
             this.addMenuItem.dismissButton.nativeElement.click();
@@ -88,7 +88,7 @@ export class MenuItemsComponent implements OnInit {
           console.log(res);
 
           if(this.editMenuItem.menuItemForm.image.isImageChanged){
-            this.putMenuItemImage(menu_item.id, menu_item.file);
+            this.putMenuItemImage(menu_item.id, menu_item.image);
           }
           else{
             this.editMenuItem.dismissButton.nativeElement.click();

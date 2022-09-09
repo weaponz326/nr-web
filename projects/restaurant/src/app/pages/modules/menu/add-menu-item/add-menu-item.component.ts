@@ -44,7 +44,7 @@ export class AddMenuItemComponent implements OnInit {
 
     let menu_item = {
       data: data,
-      iamge: this.menuItemForm.image.image
+      image: this.menuItemForm.image.image
     }
 
     this.saveMenuItemEvent.emit(menu_item);

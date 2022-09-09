@@ -24,6 +24,7 @@ export class ImageInputComponent implements OnInit {
 
   setPlaceholderImage(){
     // this.imgSrc = '';
+    console.log(this.imgType);
 
     if(this.imgType == 'photo'){
       this.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
@@ -34,15 +35,14 @@ export class ImageInputComponent implements OnInit {
   }
 
   onImageSelected(e: any){
-    const file: File = e.target.files[0];
-    console.log(file);
+    this.image = e.target.files[0];
+    console.log(this.image);
 
-    if (file) {
+    if (this.image) {
       var reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.image);
       reader.onload = (e: any) => {
         this.imgSrc = e.target.result;
-        this.image = file;
         this.isImageChanged = true;
       }
     }

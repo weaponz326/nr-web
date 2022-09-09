@@ -10,6 +10,7 @@ import { StaffApiService } from 'projects/restaurant/src/app/services/modules-ap
 // import { StaffPrintService } from 'projects/restaurant/src/app/services/printing/staff-print/staff-print.service';
 
 import { Staff } from 'projects/restaurant/src/app/models/modules/staff/staff.model';
+import { environment } from 'projects/personal/src/environments/environment';
 
 
 @Component({
@@ -72,6 +73,11 @@ export class ViewStaffComponent implements OnInit {
           this.staffForm.staffForm.controls.staffCode.setValue(this.staffFormData.staff_code);
           this.staffForm.staffForm.controls.department.setValue(this.staffFormData.department);
           this.staffForm.staffForm.controls.job.setValue(this.staffFormData.job);
+          
+          if (this.staffFormData.photo != null)
+            this.staffForm.photo.imgSrc = environment.restaurantApi + this.staffFormData.photo;
+          else
+            this.staffForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
         },
         error: (err) => {
           console.log(err);
