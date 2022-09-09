@@ -64,6 +64,12 @@ export class MainNavbarComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.isAuthLoading = false;
+
+          if(this.refreshAttempts >= 0){
+            this.refreshAuth();
+            this.refreshAttempts--;
+            console.log(this.refreshAttempts);
+          }
         }
       })
   }
@@ -88,13 +94,7 @@ export class MainNavbarComponent implements OnInit {
           }
         },
         error: (err) => {
-          console.log(err);
-
-          if(this.refreshAttempts >= 0){
-            this.refreshAuth();
-            this.refreshAttempts--;
-            console.log(this.refreshAttempts);
-          }
+          console.log(err);          
 
           this.isLoggedIn = false;
           this.isAuthLoading = false;

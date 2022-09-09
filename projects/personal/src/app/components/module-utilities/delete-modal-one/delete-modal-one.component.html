@@ -11,8 +11,8 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal" (click)="onConfirm()">Yes</button>
-                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">No</button>
+                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget" (click)="onConfirm()">Yes</button>
+                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">No</button>
             </div>
         </div>
     </div>

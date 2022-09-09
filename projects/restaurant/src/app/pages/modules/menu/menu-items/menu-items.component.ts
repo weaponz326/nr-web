@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 
 import { AddMenuItemComponent } from '../add-menu-item/add-menu-item.component'
 import { EditMenuItemComponent } from '../edit-menu-item/edit-menu-item.component'
@@ -23,10 +23,6 @@ export class MenuItemsComponent implements OnInit {
   @ViewChild('editMenuItemComponentReference', { read: EditMenuItemComponent, static: false }) editMenuItem!: EditMenuItemComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
-
-  @ViewChild('modalButtonElementReference', { read: ElementRef, static: false }) modalButton!: ElementRef;
-
-  storageBasePath = "/restaurant/" + localStorage.getItem('restaurant_id') + "/module_menu/";
 
   menuItemsGridData: any[] = [];
 
@@ -154,9 +150,10 @@ export class MenuItemsComponent implements OnInit {
   }
 
   confirmDelete(id: any){
+    console.log('confirm and lets get rid of it...');
+
     this.deleteId = id;
     this.deleteModal.openModal();
-    this.modalButton.nativeElement.click();
   }
 
 }

@@ -90,4 +90,4 @@
 
 <!-- delete confirmation modal component -->
 
-<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="confirmDelete($event)"></app-delete-modal-one>
+<app-delete-modal-one #deleteModalComponentReference [closeTarget]="'#editItemModal'" (confirmEvent)="confirmDelete($event)"></app-delete-modal-one>

@@ -108,7 +108,7 @@ export class ViewRosterComponent implements OnInit {
     this.deleteModal.openModal();
   }
 
-  deleteOrder(){
+  deleteRoster(){
     this.isRosterDeleting = true;
 
     this.rosterApi.deleteRoster()

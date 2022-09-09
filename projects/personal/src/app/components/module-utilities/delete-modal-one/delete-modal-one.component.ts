@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-delete-modal-one',
@@ -10,6 +10,7 @@ export class DeleteModalOneComponent implements OnInit {
   constructor() { }
 
   @Output() confirmEvent = new EventEmitter<any>();
+  @Input() closeTarget = "";
 
   @ViewChild('buttonElementReference', { read: ElementRef, static: false }) buttonElement!: ElementRef;
 
