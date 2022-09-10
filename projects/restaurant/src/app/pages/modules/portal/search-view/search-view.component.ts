@@ -36,12 +36,12 @@ export class SearchViewComponent implements OnInit {
   searchQuery: any;
 
   ngOnInit(): void {
-    console.log(sessionStorage.getItem('personalSearchInput'));
+    console.log(sessionStorage.getItem('restaurantSearchInput'));
 
-    if(sessionStorage.getItem('personalSearchInput')){
-      this.searchInput = String(sessionStorage.getItem('personalSearchInput') || '');
-      this.searchFilter = String(sessionStorage.getItem('personalSearchFilter') || 'Personal');
-      this.searchQuery = sessionStorage.getItem('personalSearchInput');
+    if(sessionStorage.getItem('restaurantSearchInput')){
+      this.searchInput = String(sessionStorage.getItem('restaurantSearchInput') || '');
+      this.searchFilter = String(sessionStorage.getItem('restaurantSearchFilter') || 'Personal');
+      this.searchQuery = sessionStorage.getItem('restaurantSearchInput');
 
       this.doSearch();
     }
@@ -52,8 +52,8 @@ export class SearchViewComponent implements OnInit {
       // put search input in url just for the looks
       this.router.navigate(['/home/portal/search', { input: this.searchInput, filter: this.searchFilter }]);
 
-      sessionStorage.setItem('personalSearchInput', this.searchInput);
-      sessionStorage.setItem('personalSearchFilter', this.searchFilter);
+      sessionStorage.setItem('restaurantSearchInput', this.searchInput);
+      sessionStorage.setItem('restaurantSearchFilter', this.searchFilter);
       this.searchQuery = this.searchInput;
 
       this.getSearchResults();
@@ -83,9 +83,9 @@ export class SearchViewComponent implements OnInit {
   }
 
   getSearchDetail(userId: any){
-    sessionStorage.setItem('personalSearchUser', userId);
+    sessionStorage.setItem('restaurantSearchAccount', userId);
 
-    this.accountApi.getSearchDetail(sessionStorage.getItem('personalSearchUser') as string)
+    this.accountApi.getSearchDetail(sessionStorage.getItem('restaurantSearchAccount') as string)
       .subscribe({
         next: (res) => {
           console.log(res);

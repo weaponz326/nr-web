@@ -33,7 +33,19 @@ export class NewRinkComponent implements OnInit {
   recipientData: any;
 
   selectedSourceId: any;
-  typeSource: any[] = [];
+  typeSource: any[] = [
+    'Menu Group',
+    'Menu Item',
+    'Staff',
+    'Payment',
+    'Order',
+    'Kitchen Stock Item',
+    'Roster',
+    'Table',
+    'Delivery',
+    'Reservation',
+    'Customer',
+  ];
 
   isRinkSending = false;
 
@@ -53,14 +65,14 @@ export class NewRinkComponent implements OnInit {
   }
 
   getRecipientDetail(){
-    this.accountApi.getSearchDetail(String(sessionStorage.getItem('restaurantSearchUser')))
+    this.accountApi.getSearchDetail(String(sessionStorage.getItem('restaurantSearchAccount')))
       .subscribe({
         next: (res) => {
           console.log(res);
 
           this.recipientData = res;
 
-          this.rinkForm.controls.recipientName.setValue(this.recipientData.first_name + " " + this.recipientData.last_name);
+          this.rinkForm.controls.recipientName.setValue(this.recipientData.name);
           this.rinkForm.controls.recipientLocation.setValue(this.recipientData.location);
         },
         error: (err) => {

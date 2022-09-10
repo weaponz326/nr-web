@@ -1,20 +1,20 @@
 <div class="row mt-4">
     <div class="col-md-4 text-center align-middle">
-        <img *ngIf="searchDetail?.photo != null" [src]="searchDetail?.photo" alt="" width="120" height="120" class="rounded-circle" />
-        <img *ngIf="searchDetail?.photo == null" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="Company" width="120" height="120" class="rounded-circle" />
+        <img *ngIf="searchDetail?.photo != null" [src]="searchDetail?.photo" alt="" width="120" height="120" class="rounded" />
+        <img *ngIf="searchDetail?.photo == null" src="../../../../../assets/images/utilities/logo-placeholder.jpg" alt="Company" width="120" height="120" class="rounded" />
     </div>
     <div class="col-md-8">
         <div class="row mb-2">
-            <div class="col-md-3"><em><small>Name :</small></em></div>
-            <div class="col-md-9"><strong>{{searchDetail?.first_name}} {{searchDetail?.last_name}}</strong></div>
+            <div class="col-md-4"><em><small class="float-end">Restaurant Name :</small></em></div>
+            <div class="col-md-8"><strong>{{searchDetail?.name}}</strong></div>
         </div>
         <div class="row mb-2">
-            <div class="col-md-3"><em><small>Location :</small></em></div>
-            <div class="col-md-9">{{searchDetail?.location}}</div>
+            <div class="col-md-4"><em><small class="float-end">Location :</small></em></div>
+            <div class="col-md-8">{{searchDetail?.location}}</div>
         </div>
         <div class="row mb-2">
-            <div class="col-md-3"><em><small>About :</small></em></div>
-            <div class="col-md-9">{{searchDetail?.about}}</div>
+            <div class="col-md-4"><em><small class="float-end">About :</small></em></div>
+            <div class="col-md-8">{{searchDetail?.about}}</div>
         </div>
     </div>
 </div>

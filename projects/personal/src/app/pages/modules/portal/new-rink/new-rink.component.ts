@@ -42,14 +42,14 @@ export class NewRinkComponent implements OnInit {
 
   selectedSourceId: any;
   typeSource: any[] = [
-    'Calendar',
-    'Schedule',
-    'Budget',
-    'Note',
     'Account',
-    'Transaction',
+    'Budget',
+    'Calendar',
+    'Note',
+    'Schedule',
     'Task Group',
-    'Task Item'
+    'Task Item',
+    'Transaction'
   ];
 
   isRinkSending = false;

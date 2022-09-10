@@ -19,8 +19,8 @@
 
                 <tbody *ngIf="accountsData?.length != 0">
                     <tr *ngFor="let account of accountsData" [ngClass]="isAccountChecking? 'checking-color' : ''" (click)="accountSelected(account)">
-                        <td class="p2">{{account?.account.name}}</td>
-                        <td class="p2">{{account?.account.location}}</td>
+                        <td class="py-3">{{account?.account.name}}</td>
+                        <td class="py-3">{{account?.account.location}}</td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="accountsData?.length == 0">

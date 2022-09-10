@@ -42,11 +42,11 @@ export class AccountApiService {
   // search
 
   public getSearchResults(input: string): Observable<any>{
-    return this.http.get(this.restaurantApi + "accounts/search?search=" + input, this.authHeaders.headers);
+    return this.http.get(this.restaurantApi + "accounts/search-list?search=" + input);
   }
 
   public getSearchDetail(account: string): Observable<any>{
-    return this.http.get(this.restaurantApi + "accounts/search/" + account, this.authHeaders.headers);
+    return this.http.get(this.restaurantApi + "accounts/search-detail/" + account);
   }
   
 }
