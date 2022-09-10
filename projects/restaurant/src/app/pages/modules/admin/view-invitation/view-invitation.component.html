@@ -22,20 +22,20 @@
 
                 <div class="row mb-2">
                     <div class="col">
-                        <img *ngIf="invitationData?.user.photo != ''" [src]="invitationData?.user.photo" alt="" width="90" height="90" class="rounded-circle" />
-                        <img *ngIf="invitationData?.user.photo == ''" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="" width="90" height="90" class="rounded-circle" />
+                        <img *ngIf="invitationData?.photo != null" [src]="invitationData?.photo" alt="" width="90" height="90" class="rounded-circle" />
+                        <img *ngIf="invitationData?.photo == null" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="" width="90" height="90" class="rounded-circle" />
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="col">
-                        <strong>{{invitationData?.user.first_name}} {{invitationData?.user.last_name}}</strong>
+                        <strong>{{invitationData?.invitee_name}}</strong>
                     </div>
                 </div>
 
                 <div class="row mb-4">
                     <div class="col text-muted">
-                        {{invitationData?.user.location}}
+                        {{invitationData?.invitee_location}}
                     </div>
                 </div>
 

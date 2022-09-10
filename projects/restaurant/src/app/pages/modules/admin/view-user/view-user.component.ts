@@ -80,9 +80,9 @@ export class ViewUserComponent implements OnInit {
           console.log(res);
           this.userFormData = res;
 
-          this.AccountUserPersonalId = res.data().user.id;
-          this.userForm.controls.personalName.setValue(res.data().user.data.first_name + " " + res.data().user.data.last_name);
-          this.userForm.controls.accessLevel.setValue(res.data().access_level);
+          this.AccountUserPersonalId = res.id;
+          this.userForm.controls.personalName.setValue(res.personal_name);
+          this.userForm.controls.accessLevel.setValue(res.access_level);
 
           this.isUserLoading = false;
         },

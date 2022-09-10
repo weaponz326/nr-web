@@ -46,19 +46,19 @@ export class AccessFormComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.accessForm.admin_access = res.data().admin_access;
-          this.accessForm.customers_access = res.data().customers_access;
-          this.accessForm.deliveries_access = res.data().deliveries_access;
-          this.accessForm.kitchen_stock_access = res.data().kitchen_stock_access;
-          this.accessForm.menu_access = res.data().menu_access;
-          this.accessForm.orders_access = res.data().orders_access;
-          this.accessForm.payments_access = res.data().payments_access;
-          this.accessForm.portal_access = res.data().portal_access;
-          this.accessForm.roster_access = res.data().roster_access;
-          this.accessForm.reservations_access = res.data().reservations_access;
-          this.accessForm.settings_access = res.data().settings_access;
-          this.accessForm.staff_access = res.data().staff_access;
-          this.accessForm.tables_access = res.data().tables_access;
+          this.accessForm.admin_access = res.admin_access;
+          this.accessForm.customers_access = res.customers_access;
+          this.accessForm.deliveries_access = res.deliveries_access;
+          this.accessForm.kitchen_stock_access = res.kitchen_stock_access;
+          this.accessForm.menu_access = res.menu_access;
+          this.accessForm.orders_access = res.orders_access;
+          this.accessForm.payments_access = res.payments_access;
+          this.accessForm.portal_access = res.portal_access;
+          this.accessForm.roster_access = res.roster_access;
+          this.accessForm.reservations_access = res.reservations_access;
+          this.accessForm.settings_access = res.settings_access;
+          this.accessForm.staff_access = res.staff_access;
+          this.accessForm.tables_access = res.tables_access;
         },
         error: (err) => {
           console.log(err);

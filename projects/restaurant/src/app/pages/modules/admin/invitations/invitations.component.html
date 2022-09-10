@@ -25,7 +25,7 @@
                                 </th>
                                 <th width="50%" class="min-width-4">
                                     User's Name
-                                    <app-table-sorting [sortField]="'user_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                    <app-table-sorting [sortField]="'invitee_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="25%" class="min-width-2">
                                     Invitation Status
@@ -35,9 +35,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of invitationsGridData" (dblclick)="openInvitation(data)" class="table-pointer">
-                                <td>{{data?.data().created_at.toDate() | date}}</td>
-                                <td>{{data?.data().user.data.first_name}} {{data?.data().user.data.last_name}}</td>
-                                <td>{{data?.data().invitation_status}}</td>
+                                <td>{{data?.created_at | date:'short'}}</td>
+                                <td>{{data?.invitee_name}}</td>
+                                <td>{{data?.invitation_status}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="3">

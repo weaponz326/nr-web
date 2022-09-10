@@ -31,4 +31,24 @@ export class SettingsApiService {
 
   // invitation
 
+  public getUserInvitation(): Observable<any>{
+    return this.http.get(this.personalApi + "module-settings/invitation?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public postInvitation(invitation: any): Observable<any>{
+    return this.http.post(this.personalApi + "module-settings/invitation/", invitation, this.authHeaders.headers);
+  }
+
+  public getInvitation(): Observable<any>{
+    return this.http.get(this.personalApi + "module-settings/invitation/" + sessionStorage.getItem('personal_invitation_id'), this.authHeaders.headers);
+  }
+
+  public putInvitation(invitation: any): Observable<any>{
+    return this.http.put(this.personalApi + "module-settings/invitation/" + sessionStorage.getItem('personal_invitation_id'), invitation, this.authHeaders.headers);
+  }
+
+  public deleteInvitation(): Observable<any>{
+    return this.http.delete(this.personalApi + "module-settings/invitation/" + sessionStorage.getItem('personal_invitation_id'), this.authHeaders.headers);
+  }
+
 }

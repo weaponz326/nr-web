@@ -1,31 +1,26 @@
-<div class="row mb-3">
-    <div *ngIf="searchResults.length != 0" class="col-md-12 text-center text-muted">
-        <small>showing results for <b>"{{searchQuery}}"</b></small>
-    </div>
-    <div *ngIf="searchResults.length == 0" class="col-md-12 text-center text-muted">
-        <small>no results found for <b>"{{searchQuery}}"</b></small>
+<div class="row mb-4 mt-2">
+    <div class="col-md-12 text-center text-muted">
+        <small>showing results for <em>"<b>{{searchQuery}}</b>"</em></small>
     </div>
 </div>
 
-<div class="result-body">
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <tbody>
-
-                <tr *ngFor="let result of searchResults" class="list-pointer" (click)="viewDetail(result.id)">
-                    <td width="10%" class="align-middle">
-                        <img *ngIf="result?.data().photo != ''" [src]="result?.data().photo" alt="" width="40" height="40" class="rounded-circle" />
-                        <img *ngIf="result?.data().photo == ''" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="Company" width="40" height="40" class="rounded-circle" />
-                    </td>
-                    <td width="50%" class="align-middle">
-                        <p class="m-0"><strong>{{result?.data().first_name}} {{result?.data().last_name}}</strong></p>
-                    </td>
-                    <td width="40%" class="align-middle">
-                        <p class="m-0">{{result?.data().location}}</p>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-</div>
+<table class="table align-middle border-top border-bottom">
+    <tbody>
+        <tr *ngFor="let result of searchResults" class="border-top border-bottom" (click)="viewDetail(result.id)">
+            <td class="py-2">
+                <div class="row list-pointer">
+                    <div class="col-md-1">
+                        <img *ngIf="result?.photo != null" [src]="result?.photo" alt="user" width="40" height="40" class="rounded-circle" />
+                        <img *ngIf="result?.photo == null" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="Company" width="40" height="40" class="rounded-circle" />
+                    </div>
+                    <div class="col-md-6">
+                        <p class="pt-2"><strong>{{result?.first_name}} {{result?.last_name}}</strong></p>
+                    </div>
+                    <div class="col-md-5">
+                        <p class="pt-2">{{result?.location}}</p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
