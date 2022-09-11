@@ -36,7 +36,6 @@ export class SettingsApiService {
   // subscriptions
 
   public getSubscription(): Observable<any>{
-    console.log(localStorage.getItem('restaurant_id'))
     return this.http.get(this.restaurantApi + "module-settings/subscription/" + localStorage.getItem('restaurant_id'));
   }
 

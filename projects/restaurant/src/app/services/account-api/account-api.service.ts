@@ -30,6 +30,12 @@ export class AccountApiService {
     return this.http.get(this.restaurantApi + "accounts/account/" + localStorage.getItem('restaurant_id'));
   }
 
+  public putLogo(logo: File) {
+    let formParams = new FormData();
+    formParams.append('logo', logo);
+    return this.http.put(this.restaurantApi + "module-settings/account/" + localStorage.getItem('restaurant_id'), formParams)
+  }
+  
   public hasAccount(): Observable<any>{
     console.log(localStorage.getItem('personal_id'));
     return this.http.post(this.restaurantApi + "accounts/has-account/", { personal_id: localStorage.getItem('personal_id') });

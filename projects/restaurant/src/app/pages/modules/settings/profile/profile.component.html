@@ -24,16 +24,16 @@
                 </nav>
                 <div class="tab-content mt-3" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
-                        <app-basic #basicComponentReference (updateAccountEvent)="updateAccount($event)"></app-basic>
+                        <app-basic #basicComponentReference (updateAccountEvent)="putAccount($event)"></app-basic>
                     </div>
                     <div class="tab-pane fade" id="nav-logo" role="tabpanel" aria-labelledby="nav-logo-tab">
-                        <app-logo #logoComponentReference (updateAccountEvent)="updateAccount($event)"></app-logo>
+                        <app-logo #logoComponentReference (updateAccountEvent)="putLogo($event)"></app-logo>
                     </div>
                     <div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="nav-location-tab">
-                        <app-location #locationComponentReference (updateAccountEvent)="updateAccount($event)" (updateExtendedEvent)="updateExtended($event)"></app-location>
+                        <app-location #locationComponentReference (updateAccountEvent)="putAccount($event)" (updateExtendedEvent)="putExtended($event)"></app-location>
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <app-contact #contactComponentReference (updateExtendedEvent)="updateExtended($event)"></app-contact>
+                        <app-contact #contactComponentReference (updateExtendedEvent)="putExtended($event)"></app-contact>
                     </div>
                 </div>
 

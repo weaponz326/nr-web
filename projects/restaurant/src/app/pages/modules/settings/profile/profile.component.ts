@@ -6,6 +6,7 @@ import { ContactComponent } from '../profile-content/contact/contact.component';
 import { LocationComponent } from '../profile-content/location/location.component';
 import { LogoComponent } from '../profile-content/logo/logo.component';
 
+import { environment } from 'projects/personal/src/environments/environment';
 import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
 import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
 
@@ -57,7 +58,7 @@ export class ProfileComponent implements OnInit {
           this.basic.basicForm.controls.name.setValue(res.name);
           this.basic.basicForm.controls.about.setValue(res.about);
           this.location.locationForm.controls.location.setValue(res.location);
-          if(res.logo != null) this.logo.imageInput.imgSrc = res.logo;
+          if(res.logo != null) this.logo.imageInput.imgSrc = environment.restaurantApi + res.logo;
 
           this.basic.isAccountLoading = false;
           this.logo.isAccountLoading = false;
@@ -102,31 +103,46 @@ export class ProfileComponent implements OnInit {
       })
   }
 
-  updateAccount(data: any){
+  putAccount(data: any){
     console.log(data);
 
     this.basic.isAccountSaving = true;
-    this.logo.isAccountSaving = true;
 
     this.accountApi.patchAccount(data)
       .subscribe({
         next: (res) => {
           console.log(res);
-
           this.basic.isAccountSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.basic.isAccountSaving = false;
+        }
+      })    
+  }
+
+  putLogo(data: any){
+    console.log(data);
+
+    this.logo.isAccountSaving = true;
+
+    this.accountApi.putLogo(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
           this.logo.isAccountSaving = false;
         },
         error: (err) => {
           console.log(err);
           this.connectionToast.openToast();
-
-          this.basic.isAccountSaving = false;
           this.logo.isAccountSaving = false;
         }
       })    
   }
 
-  updateExtended(data: any){
+
+  putExtended(data: any){
     console.log(data);
 
     this.location.isExtendedProfileSaving = true;

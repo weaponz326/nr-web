@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-// import { PaystackOptions } from 'angular4-paystack';
+// import { PaystackPop } from '@paystack/inline-js';
 
-import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import * as connectionToastComponent from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { environment } from 'projects/restaurant/src/environments/environment';
 import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
@@ -22,7 +22,7 @@ export class BillingComponent implements OnInit {
 
   @ViewChild('paystackButtonElementReference', { read: ElementRef, static: false }) paystackButton!: ElementRef;
 
-  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('connectionToastComponentReference', { read: connectionToastComponent.ConnectionToastComponent, static: false }) connectionToast!: connectionToastComponent.ConnectionToastComponent;
 
   navHeading: any[] = [
     { text: "Subscription", url: "/home/settings/billing" },
@@ -79,7 +79,7 @@ export class BillingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSubscription();
+    this.getSubscription();    
   }
 
   getSubscription(){
@@ -91,12 +91,13 @@ export class BillingComponent implements OnInit {
           console.log(res);
           this.subscriptionData = res;
 
-          this.subscriptionTypeValue = this.subscriptionData.data().subscription_type;
-          this.billingFrequencyValue = this.subscriptionData.data().billing_frequency;
-          this.numberUsersValue = this.subscriptionData.data().number_users;
+          this.subscriptionTypeValue = this.subscriptionData.subscription_type;
+          this.billingFrequencyValue = this.subscriptionData.billing_frequency;
+          this.numberUsersValue = this.subscriptionData.number_users;
 
           this.isSubscriptionLoading = false;
-          this.setSubscription(this.subscriptionTypeValue);
+          this.selectedSubscription = this.subscriptionTypeValue;
+          this.setFormFields();
           this.setOptions();
         },
         error: (err) => {
@@ -130,6 +131,16 @@ export class BillingComponent implements OnInit {
     this.selectedSubscription = event.target.value;
     console.log(this.selectedSubscription);
 
+    if(this.selectedFrequency == ""){
+      this.billingFrequencyValue = "Monthly";
+      this.selectedFrequency = "Monthly";
+    }
+
+    this.setFormFields();
+  }
+
+  setFormFields(){
+    // sunscription type field
     if (this.selectedSubscription == "Individual"){
       this.billingFrequencyValue = "";
       this.numberUsersValue = 1;
@@ -155,13 +166,7 @@ export class BillingComponent implements OnInit {
       this.isnumberUsersDisabled = true;
     }
 
-    this.setOptions();
-  }
-
-  setFrequency(event: any){
-    this.selectedFrequency = event.target.value;
-    console.log(this.selectedFrequency);
-
+    // billing frequency field
     if (this.selectedSubscription == "Small Team"){
       this.numberUsersStep = 10;
       this.numberUsersValue = 10;
@@ -172,6 +177,13 @@ export class BillingComponent implements OnInit {
     }
 
     this.setOptions();
+  }
+
+  setFrequency(event: any){
+    this.selectedFrequency = event.target.value;
+    console.log(this.selectedFrequency);
+
+    this.setFormFields();
   }
 
   setOptions(){
