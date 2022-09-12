@@ -27,13 +27,13 @@ export class DashboardComponent implements OnInit {
   ];
 
   allStockItemCount: number = 0;
-  outOfOrderCount: number = 0;
+  outOfStockCount: number = 0;
 
   ordersLineChartConfig: any;
 
   ngOnInit(): void {
     this.getAllStockItemCount();
-    this.getOutOfOrderCount();
+    this.getOutOfStockCount();
   }
 
   getAllStockItemCount(){
@@ -50,12 +50,12 @@ export class DashboardComponent implements OnInit {
       })
   }
 
-  getOutOfOrderCount(){
-    this.kitchenStockApi.getOutOfOrderCount()
+  getOutOfStockCount(){
+    this.kitchenStockApi.getOutOfStockCount()
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.outOfOrderCount = res.count;
+          this.outOfStockCount = res.count;
         },
         error: (err) => {
           console.log(err);

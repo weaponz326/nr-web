@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPaymentCount();
+    this.getPaymentTotal();
     this.getPaymentAnnotate();
   }
 
@@ -71,6 +72,20 @@ export class DashboardComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.allPaymentCount = res.count;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getPaymentTotal(){
+    this.paymentsApi.getPaymentTotal()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.paymentMonthTotal = res.total;
         },
         error: (err) => {
           console.log(err);

@@ -51,7 +51,7 @@ export class StaffApiService {
   // dashboard
 
   public getStaffCount(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-staff/dashboard/menu-staff-count?account=" + localStorage.getItem('restaurant_id'));
+    return this.http.get(this.restaurantApi + "module-staff/dashboard/staff-count?account=" + localStorage.getItem('restaurant_id'));
   }
 
 }
