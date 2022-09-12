@@ -37,4 +37,14 @@ export class KitchenStockApiService {
     return this.http.delete(this.restaurantApi + "module-kitchen-stock/stock-item/" + id);
   }
 
+  // dashboard
+
+  public getStockItemCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-kitchen-stock/dashboard/stock-item-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
+  public getOutOfOrderCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-kitchen-stock/dashboard/out-of-order-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

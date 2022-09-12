@@ -77,4 +77,14 @@ export class MenuApiService {
     return this.http.put(this.restaurantApi + "module-menu/menu-item/" + id, formParams)
   }
 
+  // dashboard
+
+  public getMenuGroupCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-menu/dashboard/menu-group-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
+  public getMenuItemCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-menu/dashboard/menu-item-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

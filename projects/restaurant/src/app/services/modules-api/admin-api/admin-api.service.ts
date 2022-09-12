@@ -82,4 +82,10 @@ export class AdminApiService {
       + "&ordering=" + sortField);
   }
 
+  // dashboard
+
+  public getAccountUserCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-admin/dashboard/account-user-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

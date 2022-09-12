@@ -39,4 +39,14 @@ export class DeliveriesApiService {
     return this.http.delete(this.restaurantApi + "module-deliveries/delivery/" + sessionStorage.getItem('restaurant_delivery_id'));
   }
 
+  // dashboard
+
+  public getDeliveryCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-deliveries/dashboard/delivery-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
+  public getDeliveryAnnotate(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-deliveries/dashboard/delivery-annotate?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

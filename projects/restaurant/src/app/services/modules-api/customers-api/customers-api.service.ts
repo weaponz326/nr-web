@@ -41,4 +41,10 @@ export class CustomersApiService {
     return this.http.delete(this.restaurantApi + "module-customers/customer/" + sessionStorage.getItem('restaurant_customer_id'));
   }
 
+  // dashboard
+
+  public getCustomerCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-customers/dashboard/customer-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

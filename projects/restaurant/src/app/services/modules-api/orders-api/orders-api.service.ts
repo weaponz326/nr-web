@@ -67,4 +67,14 @@ export class OrdersApiService {
     return this.http.delete(this.restaurantApi + "module-orders/order-item/" + itemId);
   }
 
+  // dashboard
+
+  public getOrderCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-orders/dashboard/order-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
+  public getOrderAnnotate(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-orders/dashboard/order-annotate?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

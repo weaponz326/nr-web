@@ -117,4 +117,10 @@ export class RosterApiService {
     return this.http.post(this.restaurantApi + "module-roster/roster-sheet/", sheet);
   }
 
+  // dashboard
+
+  public getRosterCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-roster/dashboard/roster-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

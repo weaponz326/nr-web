@@ -55,4 +55,14 @@ export class ReservationsApiService {
     return this.http.delete(this.restaurantApi + "module-reservations/reservation-table/" + id);
   }
 
+  // dashboard
+
+  public getReservationCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-reservations/dashboard/reservation-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
+  public getReservationAnnotate(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-reservations/dashboard/reservation-annotate?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

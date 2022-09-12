@@ -39,4 +39,18 @@ export class PaymentsApiService {
     return this.http.delete(this.restaurantApi + "module-payments/payment/" + sessionStorage.getItem('restaurant_payment_id'));
   }
 
+  // dashboard
+
+  public getPaymentCount(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-payments/dashboard/payment-count?account=" + localStorage.getItem('restaurant_id'));
+  }
+
+  public getPaymentTotal(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-payments/dashboard/payment-total?account=" + localStorage.getItem('restaurant_id'));
+  }
+
+  public getPaymentAnnotate(): Observable<any>{
+    return this.http.get(this.restaurantApi + "module-payments/dashboard/payment-annotate?account=" + localStorage.getItem('restaurant_id'));
+  }
+
 }

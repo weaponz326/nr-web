@@ -1,1 +1,41 @@
 <app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+    
+        <div class="row mb-3">
+
+            <div class="col-md-3 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center">
+                            <div class="col mr-2">
+                                <div class="h6 mb-3">All Menu Groups</div>
+                                <div class="h4 mb-0">{{menuGroupCount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-3 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center">
+                            <div class="col mr-2">
+                                <div class="h6 mb-3">All Menu Items</div>
+                                <div class="h4 mb-0">{{menuItemCount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    
+    </div>
+</main>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
