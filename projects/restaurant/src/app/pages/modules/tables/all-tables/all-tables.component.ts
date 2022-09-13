@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { TablesApiService } from 'projects/restaurant/src/app/services/modules-api/tables-api/tables-api.service';
-// import { TablesPrintService } from 'projects/restaurant/src/app/services/printing/tables-print/tables-print.service';
+import { TablesPrintService } from 'projects/restaurant/src/app/services/modules-printing/tables-print/tables-print.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AllTablesComponent implements OnInit {
   constructor(
     private router: Router,
     private tablesApi: TablesApiService,
-    // private tablesPrint: TablesPrintService
+    private tablesPrint: TablesPrintService
   ) { }
 
   @ViewChild('addTableComponentReference', { read: AddTableComponent, static: false }) addTable!: AddTableComponent;
@@ -156,7 +156,7 @@ export class AllTablesComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.tablesPrint.printAllTables()
+    this.tablesPrint.printAllTables();
   }
 
 }

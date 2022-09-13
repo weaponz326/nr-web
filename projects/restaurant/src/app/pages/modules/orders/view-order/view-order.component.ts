@@ -10,7 +10,7 @@ import { SelectTableComponent } from '../../../../components/select-windows/tabl
 
 import { OrdersApiService } from 'projects/restaurant/src/app/services/modules-api/orders-api/orders-api.service';
 import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
-// import { OrdersPrintService } from 'projects/restaurant/src/app/services/printing/orders-print/orders-print.service';
+import { OrdersPrintService } from 'projects/restaurant/src/app/services/modules-printing/orders-print/orders-print.service';
 
 import { Order } from 'projects/restaurant/src/app/models/modules/orders/orders.model';
 import { Delivery } from 'projects/restaurant/src/app/models/modules/deliveries/deliveries.model';
@@ -27,7 +27,7 @@ export class ViewOrderComponent implements OnInit {
     private router: Router,
     private ordersApi: OrdersApiService,
     private deliveriesApi: DeliveriesApiService,
-    // private ordersPrint: OrdersPrintService
+    private ordersPrint: OrdersPrintService
   ) { }
 
   @ViewChild('existButtonElementReference', { read: ElementRef, static: false }) existButtonElement!: ElementRef;
@@ -239,12 +239,12 @@ export class ViewOrderComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.ordersPrint.printViewOrder();
+    this.ordersPrint.printViewOrder();
   }
 
   onPrintRoll(){
     console.log("lets start printing roll...");
-    // this.ordersPrint.printOrderRoll();
+    this.ordersPrint.printOrderRoll();
   }
 
 }

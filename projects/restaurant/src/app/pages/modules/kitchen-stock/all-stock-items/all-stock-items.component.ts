@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { KitchenStockApiService } from 'projects/restaurant/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
-// import { KitchenStockPrintService } from 'projects/restaurant/src/app/services/printing/kitchen-stock-print/kitchen-stock-print.service';
+import { KitchenStockPrintService } from 'projects/restaurant/src/app/services/modules-printing/kitchen-stock-print/kitchen-stock-print.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class AllStockItemsComponent implements OnInit {
 
   constructor(
     private kitchenStockApi: KitchenStockApiService,
-    // private kitchenStockPrint: KitchenStockPrintService
+    private kitchenStockPrint: KitchenStockPrintService
   ) { }
 
   @ViewChild('addStockItemComponentReference', { read: AddStockItemComponent, static: false }) addStockItem!: AddStockItemComponent;
@@ -158,7 +158,7 @@ export class AllStockItemsComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.kitchenStockPrint.printAllStockItems();
+    this.kitchenStockPrint.printAllStockItems();
   }
 
 }

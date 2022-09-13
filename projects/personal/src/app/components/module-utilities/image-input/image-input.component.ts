@@ -38,7 +38,7 @@ export class ImageInputComponent implements OnInit {
     this.image = e.target.files[0];
     console.log(this.image);
 
-    if (this.image) {
+    if (this.image && this.image.size < 2097152) {
       var reader = new FileReader();
       reader.readAsDataURL(this.image);
       reader.onload = (e: any) => {

@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
-// import { MenuPrintService } from 'projects/restaurant/src/app/services/printing/menu-print/menu-print.service';
+import { MenuPrintService } from 'projects/restaurant/src/app/services/modules-printing/menu-print/menu-print.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class ViewMenuGroupComponent implements OnInit {
   constructor(
     private router: Router,
     private menuApi: MenuApiService,
-    // private menuPrint: MenuPrintService,
+    private menuPrint: MenuPrintService,
   ) { }
 
   @ViewChild('menuItemsComponentReference', { read: MenuItemsComponent, static: false }) menuItems!: MenuItemsComponent;
@@ -120,7 +120,7 @@ export class ViewMenuGroupComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.menuPrint.printViewMenuGroup();
+    this.menuPrint.printViewMenuGroup();
   }
 
 }

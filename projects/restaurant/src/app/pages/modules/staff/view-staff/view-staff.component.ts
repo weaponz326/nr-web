@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { StaffApiService } from 'projects/restaurant/src/app/services/modules-api/staff-api/staff-api.service';
-// import { StaffPrintService } from 'projects/restaurant/src/app/services/printing/staff-print/staff-print.service';
+import { StaffPrintService } from 'projects/restaurant/src/app/services/modules-printing/staff-print/staff-print.service';
 
 import { Staff } from 'projects/restaurant/src/app/models/modules/staff/staff.model';
 import { environment } from 'projects/personal/src/environments/environment';
@@ -23,7 +23,7 @@ export class ViewStaffComponent implements OnInit {
   constructor(
     private router: Router,
     private staffApi: StaffApiService,
-    // private staffPrint: StaffPrintService
+    private staffPrint: StaffPrintService
   ) { }
 
   @ViewChild('staffFormComponentReference', { read: StaffFormComponent, static: false }) staffForm!: StaffFormComponent;
@@ -169,7 +169,7 @@ export class ViewStaffComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.staffPrint.printViewStaff();
+    this.staffPrint.printViewStaff();
   }
 
 }

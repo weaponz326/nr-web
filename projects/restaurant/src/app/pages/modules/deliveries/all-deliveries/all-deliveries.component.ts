@@ -5,7 +5,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
-// import { DeliveriesPrintService } from 'projects/restaurant/src/app/services/printing/deliveries-print/deliveries-print.service';
+import { DeliveriesPrintService } from 'projects/restaurant/src/app/services/modules-printing/deliveries-print/deliveries-print.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class AllDeliveriesComponent implements OnInit {
   constructor(
     private router: Router,
     private deliveriesApi: DeliveriesApiService,
-    // private deliveriesPrint: DeliveriesPrintService,
+    private deliveriesPrint: DeliveriesPrintService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -84,7 +84,7 @@ export class AllDeliveriesComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.deliveriesPrint.printAllDeliveries();
+    this.deliveriesPrint.printAllDeliveries();
   }
 
 }

@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { PaymentsApiService } from 'projects/restaurant/src/app/services/modules-api/payments-api/payments-api.service';
-// import { PaymentsPrintService } from 'projects/restaurant/src/app/services/printing/payments-print/payments-print.service';
+import { PaymentsPrintService } from 'projects/restaurant/src/app/services/modules-printing/payments-print/payments-print.service';
 
 import { Payment } from 'projects/restaurant/src/app/models/modules/payments/payments.model';
 
@@ -21,7 +21,7 @@ export class ViewPaymentComponent implements OnInit {
   constructor(
     private router: Router,
     private paymentsApi: PaymentsApiService,
-    // private paymentsPrint: PaymentsPrintService,
+    private paymentsPrint: PaymentsPrintService,
   ) { }
 
   @ViewChild('paymentFormComponentReference', { read: PaymentFormComponent, static: false }) paymentForm!: PaymentFormComponent;
@@ -124,12 +124,12 @@ export class ViewPaymentComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
-    // this.paymentsPrint.printViewPayment();
+    this.paymentsPrint.printViewPayment();
   }
 
   onPrintRoll(){
     console.log("lets start printing roll...");
-    // this.paymentsPrint.printPaymentRoll();
+    this.paymentsPrint.printPaymentRoll();
   }
 
 }

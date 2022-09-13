@@ -27,7 +27,7 @@ export class TablesApiService {
     return this.http.post(this.restaurantApi + "module-tables/table/", table);
   }
 
-  public getSingleTable(id: any): Observable<any>{
+  public getTable(id: any): Observable<any>{
     return this.http.get(this.restaurantApi + "module-tables/table/" + id);
   }
 
