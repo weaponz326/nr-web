@@ -7,6 +7,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { OrderItemsComponent } from '../order-items/order-items.component';
 import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 import { SelectTableComponent } from '../../../../components/select-windows/tables-windows/select-table/select-table.component';
+import { SelectMenuItemComponent } from '../../../../components/select-windows/menu-windows/select-menu-item/select-menu-item.component';
 
 import { OrdersApiService } from 'projects/restaurant/src/app/services/modules-api/orders-api/orders-api.service';
 import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
@@ -38,6 +39,7 @@ export class ViewOrderComponent implements OnInit {
 
   @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
   @ViewChild('selectTableComponentReference', { read: SelectTableComponent, static: false }) selectTable!: SelectTableComponent;
+  @ViewChild('selectMenuItemComponentReference', { read: SelectMenuItemComponent, static: false }) selectMenuItem!: SelectMenuItemComponent;
 
   navHeading: any[] = [
     { text: "All Orders", url: "/home/orders/all-orders" },
@@ -174,7 +176,7 @@ export class ViewOrderComponent implements OnInit {
     console.log("You are opening select table window")
     this.selectTable.openModal();
   }
-
+  
   onTableSelected(tableData: any){
     console.log(tableData);
 
@@ -246,5 +248,5 @@ export class ViewOrderComponent implements OnInit {
     console.log("lets start printing roll...");
     this.ordersPrint.printOrderRoll();
   }
-
+  
 }

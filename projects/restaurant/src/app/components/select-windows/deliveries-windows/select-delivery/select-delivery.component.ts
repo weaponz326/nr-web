@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
@@ -15,6 +15,7 @@ export class SelectDeliveryComponent implements OnInit {
   constructor(private deliveriesApi: DeliveriesApiService) { }
 
   @Output() rowSelected = new EventEmitter<object>();
+  @Input() closeTarget = "";
 
   @ViewChild('openButtonElementReference', { read: ElementRef, static: false }) openButton!: ElementRef;
   @ViewChild('closeButtonElementReference', { read: ElementRef, static: false }) closeButton!: ElementRef;

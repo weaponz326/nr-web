@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
                 <input formControlName="menuItem" class="form-control">
-                <button type="button" class="btn btn-secondary" (click)="openMenuItemWindow()">
+                <button type="button" class="btn btn-secondary" (click)="openMenuItemWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>
@@ -33,7 +33,3 @@
     </div>
 
 </form>
-
-<!-- select menunitem window component -->
-
-<app-select-menu-item #selectMenuItemComponentReference (rowSelected)="onMenuItemSelected($event)"></app-select-menu-item>

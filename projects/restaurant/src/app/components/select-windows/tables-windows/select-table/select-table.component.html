@@ -8,7 +8,7 @@
 
             <div class="modal-header bg-light">
                 <span class="modal-title" id="selectTableModalLabel">Select Restaurant Table</span>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
             </div>
 
             <div class="modal-body overflow-auto">
@@ -53,7 +53,7 @@
                 </table>
             </div>
 
-            <button [hidden]="true" #closeButtonElementReference data-bs-toggle="modal" data-bs-target="#selectTableModal">
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
                 Launch demo modal
             </button>
 

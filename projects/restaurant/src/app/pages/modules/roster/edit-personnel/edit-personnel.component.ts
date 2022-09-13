@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { PersonnelFormComponent } from '../personnel-form/personnel-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectStaffComponent } from '../../../../components/select-windows/staff-windows/select-staff/select-staff.component';
+import { SelectShiftComponent } from '../../../../components/select-windows/roster-windows/select-shift/select-shift.component';
 
 import { Personnel } from 'projects/restaurant/src/app/models/modules/roster/roster.model';
 
@@ -18,11 +21,21 @@ export class EditPersonnelComponent implements OnInit {
   @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
   @ViewChild('dismssButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
-  @ViewChild('personnelFormComponentReference', { read: PersonnelFormComponent, static: false }) personnelForm!: PersonnelFormComponent;
+  @ViewChild('selectStaffComponentReference', { read: SelectStaffComponent, static: false }) selectStaff!: SelectStaffComponent;
+  @ViewChild('selectShiftComponentReference', { read: SelectShiftComponent, static: false }) selectShift!: SelectShiftComponent;
 
   personnelData: any
 
+  selectedStaffId: any;
+  selectedShftId: any;
+
   isSaving = false;
+
+  personnelForm = new FormGroup({
+    personnelCode: new FormControl({value: "", disabled: true}),
+    personnelName: new FormControl({value: "", disabled: true}),
+    batchSymbol: new FormControl({value: "", disabled: true}),
+  })
 
   ngOnInit(): void {
   }
@@ -30,18 +43,16 @@ export class EditPersonnelComponent implements OnInit {
   openModal(data: any){
     this.personnelData = data;
 
-    this.personnelForm.personnelForm.controls.personnelCode.setValue(data.personnel_code);
-    this.personnelForm.personnelForm.controls.personnelName.setValue(data.personnel_name);
-
-    this.personnelForm.getRosterBatch(data.batch_symbol);
+    this.personnelForm.controls.personnelCode.setValue(data.personnel_code);
+    this.personnelForm.controls.personnelName.setValue(data.personnel_name);
 
     this.editButton.nativeElement.click();
   }
 
   savePersonnel(){
     let data = {
-      batch_symbol: this.personnelForm.personnelForm.controls.batchSymbol.value,
-      staff: this.personnelForm.selectedStaffId,
+      batch_symbol: this.personnelForm.controls.batchSymbol.value,
+      staff: this.selectedStaffId,
     }
 
     let personnel = {
@@ -50,6 +61,20 @@ export class EditPersonnelComponent implements OnInit {
     }
 
     this.savePersonnelEvent.emit(personnel);
+  }
+
+  onStaffSelected(staffData: any){
+    console.log(staffData);
+
+    this.selectedStaffId = staffData.id;
+    this.personnelForm.controls.personnelCode.setValue(staffData.staff_code);
+    this.personnelForm.controls.personnelName.setValue(staffData.first_name + " " + staffData.first_name);
+    this.personnelForm.controls.batchSymbol.setValue(staffData.batch_symbol);
+  }
+
+  openStaffWindow(){
+    console.log("You are opening select staff window")
+    this.selectStaff.openModal();
   }
 
 }

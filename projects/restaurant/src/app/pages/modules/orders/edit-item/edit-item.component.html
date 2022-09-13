@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
 
-                <app-item-form #itemFormComponentReference></app-item-form>
+                <app-item-form #itemFormComponentReference (openMenuItemWindow)="openMenuItemWindow()"></app-item-form>
 
             </div>
 
@@ -27,3 +27,7 @@
         </div>
     </div>
 </div>
+
+<!-- select menunitem window component -->
+
+<app-select-menu-item #selectMenuItemComponentReference [closeTarget]="'#editItemModal'" (rowSelected)="onMenuItemSelected($event)"></app-select-menu-item>

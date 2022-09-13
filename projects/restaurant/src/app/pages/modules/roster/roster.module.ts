@@ -19,7 +19,6 @@ import { EditShiftComponent } from './edit-shift/edit-shift.component';
 import { ManagePersonnelComponent } from './manage-personnel/manage-personnel.component';
 import { AddPersonnelComponent } from './add-personnel/add-personnel.component';
 import { EditPersonnelComponent } from './edit-personnel/edit-personnel.component';
-import { PersonnelFormComponent } from './personnel-form/personnel-form.component';
 import { ManageBatchesComponent } from './manage-batches/manage-batches.component';
 import { AddBatchComponent } from './add-batch/add-batch.component';
 import { EditBatchComponent } from './edit-batch/edit-batch.component';
@@ -39,7 +38,6 @@ import { EditBatchComponent } from './edit-batch/edit-batch.component';
     ManagePersonnelComponent,
     AddPersonnelComponent,
     EditPersonnelComponent,
-    PersonnelFormComponent,
     ManageBatchesComponent,
     AddBatchComponent,
     EditBatchComponent

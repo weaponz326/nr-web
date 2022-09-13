@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-
-import { SelectMenuItemComponent } from '../../../../components/select-windows/menu-windows/select-menu-item/select-menu-item.component';
 
 
 @Component({
@@ -13,7 +11,7 @@ export class ItemFormComponent implements OnInit {
 
   constructor() { }
 
-  @ViewChild('selectMenuItemComponentReference', { read: SelectMenuItemComponent, static: false }) selectMenuItem!: SelectMenuItemComponent;
+  @Output() openMenuItemWindow = new EventEmitter<any>();
 
   selectedMenuItemId = "";
   selectedMenuItemData: any;
@@ -25,20 +23,6 @@ export class ItemFormComponent implements OnInit {
   })
 
   ngOnInit(): void {
-  }
-
-  openMenuItemWindow(){
-    console.log("You are opening select menu item window")
-    this.selectMenuItem.openModal();
-  }
-
-  onMenuItemSelected(itemData: any){
-    console.log(itemData);
-    this.selectedMenuItemId = itemData.id;
-    this.selectedMenuItemData = itemData;
-
-    this.itemForm.controls.menuItem.setValue(itemData.item_name);
-    this.itemForm.controls.price.setValue(itemData.price);
-  }
+  }  
 
 }

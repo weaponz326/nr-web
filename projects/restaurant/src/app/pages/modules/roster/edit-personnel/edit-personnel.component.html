@@ -15,7 +15,45 @@
 
                 <!-- personnel form component -->
 
-                <app-personnel-form #personnelFormComponentReference></app-personnel-form>
+                <form class="page-form" [formGroup]="personnelForm">
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Personnel Code :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="personnelCode" class="form-control">
+                                <button type="button" class="btn btn-secondary" (click)="openStaffWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Personnel Name :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="personnelName" class="form-control">
+                                <button type="button" class="btn btn-secondary" (click)="openStaffWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Batch :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="batchSymbol" class="form-control">
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                </form>
 
             </div>
 
@@ -27,3 +65,7 @@
         </div>
     </div>
 </div>
+
+<!-- select staff window component reference -->
+
+<app-select-staff #selectStaffComponentReference [closeTarget]="'#editPersonnelModal'" (rowSelected)="onStaffSelected($event)"></app-select-staff>
