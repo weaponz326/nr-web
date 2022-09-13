@@ -59,7 +59,7 @@ export class ViewPaymentComponent implements OnInit {
           this.paymentForm.paymentForm.controls.amountPaid.setValue(res.amount_paid);
           this.paymentForm.paymentForm.controls.orderCode.setValue(res.order.order_code);
           this.paymentForm.paymentForm.controls.customerName.setValue(res.order.customer_name);
-          this.paymentForm.paymentForm.controls.totalAmount.setValue(res.order.total_amount);
+          this.paymentForm.paymentForm.controls.totalAmount.setValue(res.order.order_total);
 
           this.paymentForm.selectedOrderId = res.order.id;
           this.paymentForm.selectedOrderData = res.order;

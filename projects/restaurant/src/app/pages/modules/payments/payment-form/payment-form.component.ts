@@ -39,7 +39,7 @@ export class PaymentFormComponent implements OnInit {
 
     this.paymentForm.controls.orderCode.setValue(orderData.order_code);
     this.paymentForm.controls.customerName.setValue(orderData.customer_name);
-    this.paymentForm.controls.totalAmount.setValue(orderData.total_amount);
+    this.paymentForm.controls.totalAmount.setValue(orderData.order_total);
   }
 
   openOrderWindow(){

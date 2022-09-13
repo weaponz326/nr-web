@@ -29,7 +29,7 @@
                             </th>
                             <th width="20%" class="min-width-2">
                                 Total Amount
-                                <app-table-sorting [sortField]="'total_amount'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                <app-table-sorting [sortField]="'order_total'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                         </tr>
                     </thead>
@@ -38,7 +38,7 @@
                             <td>{{data?.order_code}}</td>
                             <td>{{data?.order_date | date}}</td>
                             <td>{{data?.customer_name}}</td>
-                            <td>{{data?.total_amount}}</td>
+                            <td>{{data?.order_total}}</td>
                         </tr>
                         <tr *ngIf="isFetchingGridData || !isDataAvailable">
                             <td colspan="4">

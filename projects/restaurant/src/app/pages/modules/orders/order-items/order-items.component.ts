@@ -58,7 +58,7 @@ export class OrderItemsComponent implements OnInit {
   calculateTotalPrice(){
     this.totalAmount = 0;
     for (let item of this.itemsGridData){
-      this.totalAmount += item.menu_item.data.price * item.quantity;
+      this.totalAmount += item.menu_item.price * item.quantity;
     }
 
     this.patchTotalAmount();
@@ -132,7 +132,7 @@ export class OrderItemsComponent implements OnInit {
   }
 
   patchTotalAmount(){
-    let data = {total_amount: this.totalAmount}
+    let data = { order_total: this.totalAmount }
 
     this.ordersApi.putOrder(data)
       .subscribe({
