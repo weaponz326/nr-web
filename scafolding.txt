@@ -137,7 +137,7 @@
 				+ tasks windows (M)
 					+ select task group (C)
 					+ select task item (C)
-			+ rink details
+			+ rink details (M)
 				+ calendar details (C)
 				+ schedule details (C)
 				+ budget details (C)
@@ -334,7 +334,7 @@
           			+ select order (C)
 				+ kitchen stock windows (M)
           			+ select kitchen stock (C)
-			+ rink details
+			+ rink details (M)
 				+ menu group details (C)
 				+ menu item details (C)
 				+ staff details (C)
@@ -390,7 +390,7 @@
                 + orders (Cm)
                 + kitchen stock (Cm)
 		+ guards
-			- account (G)
+			+ account (G)
             + modules
                 + admin
                     + view user (G)
@@ -401,6 +401,7 @@
 					+ view bill (G)
 				+ menu
                     + view menu group (G)
+                    + view menu item (G)
 				+ staff
                     + view staff (G)
 				+ customers
