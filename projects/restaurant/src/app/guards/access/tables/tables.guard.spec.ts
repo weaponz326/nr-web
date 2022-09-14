@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RosterGuard implements CanActivate, CanActivateChild {
+export class TablesGuard implements CanActivate {
 
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    let rosterAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).roster_access;
+    let tablesAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).tables_access;
 
-    if (rosterAccess){
+    if (tablesAccess){
       return true;
     }
     else{
@@ -22,9 +22,9 @@ export class RosterGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    let rosterAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).roster_access;
+    let tablesAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).tables_access;
 
-    if (rosterAccess){
+    if (tablesAccess){
       return true;
     }
     else{

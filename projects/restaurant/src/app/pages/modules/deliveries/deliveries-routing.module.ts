@@ -7,6 +7,8 @@ import { AllDeliveriesComponent } from './all-deliveries/all-deliveries.componen
 import { EditDeliveryComponent } from './edit-delivery/edit-delivery.component';
 import { NewDeliveryComponent } from './new-delivery/new-delivery.component';
 
+import { ViewDeliveryGuard } from '../../../guards/modules/deliveries/view-delivery/view-delivery.guard';
+
 const routes: Routes = [
   {
     path: "",
@@ -16,7 +18,7 @@ const routes: Routes = [
       { path: "dashboard", component: DashboardComponent },
       { path: "all-deliveries", component: AllDeliveriesComponent },
       { path: "add-delivery", component: NewDeliveryComponent },
-      { path: "view-delivery", component: EditDeliveryComponent },
+      { path: "view-delivery", component: EditDeliveryComponent, canActivate: [ViewDeliveryGuard] },
     ]
   }
 ];

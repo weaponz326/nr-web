@@ -8,6 +8,8 @@ import { ViewUserComponent } from './view-user/view-user.component';
 import { InvitationsComponent } from './invitations/invitations.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 
+import { ViewUserGuard } from '../../../guards/modules/admin/view-user/view-user.guard';
+
 
 const routes: Routes = [
   {
@@ -17,7 +19,7 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'all-users', component: AllUsersComponent },
-      { path: 'view-user', component: ViewUserComponent },
+      { path: 'view-user', component: ViewUserComponent, canActivate: [ViewUserGuard] },
       { path: 'invitations', component: InvitationsComponent },
       { path: 'search', component: UserSearchComponent },
     ]

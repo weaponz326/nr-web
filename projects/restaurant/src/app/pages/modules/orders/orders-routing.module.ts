@@ -6,6 +6,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { ViewOrderComponent } from './view-order/view-order.component';
 
+import { ViewOrderGuard } from '../../../guards/modules/orders/view-order/view-order.guard';
+
 const routes: Routes = [
   {
     path: "",
@@ -14,7 +16,7 @@ const routes: Routes = [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
       { path: "all-orders", component: AllOrdersComponent },
-      { path: "view-order", component: ViewOrderComponent }
+      { path: "view-order", component: ViewOrderComponent, canActivate: [ViewOrderGuard] }
     ]
   }
 ];

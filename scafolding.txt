@@ -391,6 +391,9 @@
                 + kitchen stock (Cm)
 		+ guards
 			+ account (G)
+			+ landing
+				+ guest (G)
+				+ user (G)
             + modules
                 + admin
                     + view user (G)
@@ -428,6 +431,7 @@
 				+ deliveries (G)
 				+ payments (G)
 				+ roster (G)
+				+ tables (G)
 				+ reservations (G)
 				+ orders (G)
 				+ kitchen stock (G)
