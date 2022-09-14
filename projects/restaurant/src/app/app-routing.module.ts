@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from 'projects/personal/src/app/guards/auth/auth.guard';
 import { AccountGuard } from 'projects/restaurant/src/app/guards/account/account.guard';
+import { UserGuard } from './guards/landing/user/user.guard';
+import { GuestGuard } from './guards/landing/guest/guest.guard';
 import { AdminGuard } from 'projects/restaurant/src/app/guards/access/admin/admin.guard';
 import { PortalGuard } from 'projects/restaurant/src/app/guards/access/portal/portal.guard';
 import { SettingsGuard } from 'projects/restaurant/src/app/guards/access/settings/settings.guard';
@@ -20,15 +22,17 @@ import { KitchenStockGuard } from 'projects/restaurant/src/app/guards/access/kit
 const routes: Routes = [  
   {
     path: "",
+    canActivate: [GuestGuard],
     loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
   },
   {
     path: "guest",
+    canActivate: [GuestGuard],
     loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
   },
   {
     path: "user",
-    canActivate: [AuthGuard],
+    canActivate: [UserGuard, AuthGuard],
     loadChildren: () => import("./pages/user-landing/user-landing.module").then(m => m.UserLandingModule)
   },
   {
@@ -37,12 +41,13 @@ const routes: Routes = [
   },
   {
     path: "register",
+    canActivate: [AuthGuard],
     loadChildren: () => import("./pages/register/register.module").then(m => m.RegisterModule)
   },
   {
     path: "home",
-    canActivate: [AccountGuard],
-    canActivateChild: [AccountGuard],
+    canActivate: [AccountGuard, AuthGuard],
+    canActivateChild: [AccountGuard, AuthGuard],
     children: [
       {
         path: "",
