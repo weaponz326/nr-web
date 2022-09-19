@@ -151,7 +151,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/restaurant/src/favicon.ico",
-              "projects/restaurant/src/assets"
+              "projects/restaurant/src/assets",
+              "projects/restaurant/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -163,7 +164,9 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "projects/personal/src/assets/scripts/main.js"
-            ]
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "projects/restaurant/ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -226,7 +229,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/restaurant/src/favicon.ico",
-              "projects/restaurant/src/assets"
+              "projects/restaurant/src/assets",
+              "projects/restaurant/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
