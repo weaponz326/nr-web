@@ -37,7 +37,7 @@ export class ModuleHomePage implements OnInit {
           console.log(res);
 
           this.access = res;
-          localStorage.setItem("restaurantUserAccess", res);
+          localStorage.setItem("restaurantUserAccess", JSON.stringify(res));
 
           this.isAccessLoading = false;
         },

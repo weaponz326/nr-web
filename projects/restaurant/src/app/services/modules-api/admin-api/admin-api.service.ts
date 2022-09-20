@@ -16,76 +16,67 @@ export class AdminApiService {
     private authHeaders: AuthHeadersService
   ) { }
 
-  restaurantApi = environment.restaurantApi;
-  personalApi = environment.personalApi;
-
-  public getSearchResults(input: string): Observable<any>{
-    return this.http.get(this.personalApi + "users/search?search=" + input, this.authHeaders.headers);
-  }
-
-  public getSearchDetail(account: string): Observable<any>{
-    return this.http.get(this.personalApi + "users/search/" + account, this.authHeaders.headers);
-  }
+  adminUrl = environment.apiUrl + 'restaurant-modules/admin/';
 
   // account user
 
   // all users belonging to an account
   public getAccountAccountUsers(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/account-user?account=" + localStorage.getItem('restaurant_id'));
+    return this.http.get(this.adminUrl + "account-user?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
   }
 
   public getAccountUser(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/account-user/" + sessionStorage.getItem('restaurant_account_user_id'));
+    return this.http.get(this.adminUrl + "account-user/" + sessionStorage.getItem('restaurant_account_user_id'), this.authHeaders.headers);
   }
 
   public putAccountUser(accountUser: any): Observable<any>{
-    return this.http.put(this.restaurantApi + "module-admin/account-user/" + sessionStorage.getItem('restaurant_account_user_id'), accountUser);
+    return this.http.put(this.adminUrl + "account-user/" + sessionStorage.getItem('restaurant_account_user_id'), accountUser, this.authHeaders.headers);
   }
 
   public deleteAccountUser(): Observable<any>{
-    return this.http.delete(this.restaurantApi + "module-admin/account-user/" + sessionStorage.getItem('restaurant_account_user_id'));
+    return this.http.delete(this.adminUrl + "account-user/" + sessionStorage.getItem('restaurant_account_user_id'), this.authHeaders.headers);
   }
 
   // all accounts of belonging to a user
   public getAccountUserAccounts(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/account-user-account?" + "&personal_id=" + localStorage.getItem('personal_id'));
+    return this.http.get(this.adminUrl + "account-user-account?" + "&personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
   // user access
 
   public getUserAccess(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/access/" + sessionStorage.getItem('restaurant_account_user_id'));
+    return this.http.get(this.adminUrl + "access/" + sessionStorage.getItem('restaurant_account_user_id'), this.authHeaders.headers);
   }
 
   public putUserAccess(userAccess: any): Observable<any>{
-    return this.http.put(this.restaurantApi + "module-admin/access/" + sessionStorage.getItem('restaurant_account_user_id'), userAccess);
+    return this.http.put(this.adminUrl + "access/" + sessionStorage.getItem('restaurant_account_user_id'), userAccess, this.authHeaders.headers);
   }
 
   public deleteUserAccess(): Observable<any>{
-    return this.http.delete(this.restaurantApi + "module-admin/access/" + sessionStorage.getItem('restaurant_account_user_id'));
+    return this.http.delete(this.adminUrl + "access/" + sessionStorage.getItem('restaurant_account_user_id'), this.authHeaders.headers);
   }
 
   // invitations
 
   public postInvitation(invitation: any): Observable<any>{
-    return this.http.post(this.restaurantApi + "module-admin/invitation/", invitation);
+    return this.http.post(this.adminUrl + "invitation/", invitation, this.authHeaders.headers);
   }
 
   public getInvitation(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/invitation/" + sessionStorage.getItem('restaurant_invitation_id'));
+    return this.http.get(this.adminUrl + "invitation/" + sessionStorage.getItem('restaurant_invitation_id'), this.authHeaders.headers);
   }
 
   public getAccountInvitation(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/invitation?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.adminUrl + "invitation?account=" + localStorage.getItem('restaurant_id')
       + "&page=" + page
       + "&size=" + size
-      + "&ordering=" + sortField);
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
   // dashboard
 
   public getAccountUserCount(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-admin/dashboard/account-user-count?account=" + localStorage.getItem('restaurant_id'));
+    return this.http.get(this.adminUrl + "dashboard/account-user-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
   }
 
 }
