@@ -12,6 +12,9 @@ export const environment = {
   shopUrl: "https://shop.netrink.com/",
   productionUrl: "https://production.netrink.com/",
 
+  apiUrl: "https://api.netrink.com/",
+
+  // TODO: remove
   personalApi: "https://personal.netrink.com/api/",
   restaurantApi: "https://restaurant.netrink.com/api/",
   schoolApi: "https://school.netrink.com/api/",

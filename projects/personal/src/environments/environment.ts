@@ -16,6 +16,9 @@ export const environment = {
   shopUrl: "#",
   productionUrl: "#",
 
+  apiUrl: "http://localhost:8000/",
+
+  // TODO: remove
   personalApi: "http://localhost:8000/",
   restaurantApi: "http://localhost:8001/",
   schoolApi: "http://localhost:8002/",

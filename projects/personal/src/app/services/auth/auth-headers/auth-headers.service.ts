@@ -9,12 +9,8 @@ export class AuthHeadersService {
   constructor() { }
 
   token = new HttpHeaders()
-    .set('Authorization', "Bearer " + localStorage.getItem('auth_token'));
+    .set('Authorization', "Token " + localStorage.getItem('token'));
 
   headers = { 'headers': this.token };
-
-  refreshToken = {
-    refresh: localStorage.getItem('auth_refresh')
-  };
   
 }
