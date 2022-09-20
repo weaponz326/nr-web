@@ -17,6 +17,8 @@ export class AuthApiService {
   ) { }
 
   apiUrl = environment.apiUrl;
+  usersUrl = environment.apiUrl + 'personal-users/';
+
   headers = this.authHeaders.headers;
 
   // auth
@@ -70,11 +72,11 @@ export class AuthApiService {
   // personal search
 
   public getSearchList(search: any): Observable<any>{
-    return this.http.get(this.apiUrl + "users/search-list?search=" + search, this.authHeaders.headers);
+    return this.http.get(this.usersUrl + "search-list?search=" + search, this.authHeaders.headers);
   }
 
   public getSearchDetail(userId: any): Observable<any>{
-    return this.http.get(this.apiUrl + "users/search-detail/" + userId, this.authHeaders.headers);
+    return this.http.get(this.usersUrl + "search-detail/" + userId, this.authHeaders.headers);
   }
 
 }
