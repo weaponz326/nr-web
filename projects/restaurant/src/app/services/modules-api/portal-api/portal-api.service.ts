@@ -16,7 +16,7 @@ export class PortalApiService {
     private authHeaders: AuthHeadersService
   ) { }
 
-  portalUrl = environment.apiUrl + 'retaurant-modules/portal/';
+  portalUrl = environment.apiUrl + 'restaurant-modules/portal/';
 
   // rink
 
