@@ -17,17 +17,6 @@ export const environment = {
   productionUrl: "#",
 
   apiUrl: "http://localhost:8000/",
-
-  // TODO: remove
-  personalApi: "http://localhost:8000/",
-  restaurantApi: "http://localhost:8001/",
-  schoolApi: "http://localhost:8002/",
-  enterpriseApi: "http://localhost:8003/",
-  associationApi: "http://localhost:8004/",
-  hospitalApi: "http://localhost:8005/",
-  hotelApi: "http://localhost:8006/",
-  shopApi: "http://localhost:8007/",
-  productionApi: "http://localhost:8008/",
 };
 
 /*

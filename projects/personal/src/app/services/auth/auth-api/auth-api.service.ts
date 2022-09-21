@@ -45,6 +45,12 @@ export class AuthApiService {
     return this.http.patch(this.apiUrl + "auth/users/me/", updateForm, this.headers);
   }
 
+  public patchProfilePhoto(photo: File): Observable<any>{
+    let formParams = new FormData();
+    formParams.append('photo', photo);
+    return this.http.patch(this.apiUrl + "auth/users/me/", formParams, this.authHeaders.headers)
+  }
+
   public getUser(): Observable<any>{
     return this.http.get(this.apiUrl + "auth/users/me/", this.headers);
   }

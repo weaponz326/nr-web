@@ -75,7 +75,7 @@ export class ViewStaffComponent implements OnInit {
           this.staffForm.staffForm.controls.job.setValue(this.staffFormData.job);
           
           if (this.staffFormData.photo != null)
-            this.staffForm.photo.imgSrc = environment.restaurantApi + this.staffFormData.photo;
+            this.staffForm.photo.imgSrc = environment.apiUrl + 'restaurant-modules/staff/' + this.staffFormData.photo;
           else
             this.staffForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
         },
