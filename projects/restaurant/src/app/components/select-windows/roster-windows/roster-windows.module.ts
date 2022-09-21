@@ -5,13 +5,15 @@ import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/modu
 
 import { SelectRosterComponent } from './select-roster/select-roster.component';
 import { SelectShiftComponent } from './select-shift/select-shift.component';
+import { SelectBatchComponent } from './select-batch/select-batch.component';
 
 
 
 @NgModule({
   declarations: [
     SelectRosterComponent,
-    SelectShiftComponent
+    SelectShiftComponent,
+    SelectBatchComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { SelectShiftComponent } from './select-shift/select-shift.component';
   ],
   exports: [
     SelectRosterComponent,
-    SelectShiftComponent
+    SelectShiftComponent,
+    SelectBatchComponent
   ]
 })
 export class RosterWindowsModule { }

@@ -1,4 +1,4 @@
-<div class="row mb-2">
+<div class="row mb-3">
     <div class="col-md-12">
         <button class="btn btn-secondary float-end nr-standard-font" routerLink="/home/roster/manage-batches">
             <i class="bi bi-arrow-left-right me-2"></i> Manage Batches
@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-12">
 
-        <div class="row mb-2 mt-3">
+        <div class="row mb-2">
             <div class="col-md-12">
                 <button [disabled]="isFetchingSheetData" class="btn btn-light border float-end page-refresh-btn">
                     <i class="bi bi-arrow-clockwise"></i>
@@ -17,26 +17,41 @@
             </div>
         </div>
 
-        <div class="overflow-auto">
+        <div class="overflow-auto sheet-container">
             <table class="table table-bordered table-sm w-100 page-table">
                 <thead>
                     <tr class="bg-light">
-                        <th width="70" class="min-width-3">
+                        <th width="70" class="min-width-3 pinned-column">
                             Shifts
                         </th>
-                        <th *ngFor="let date of sheetDays" width="50" class="min-width-2">
-                            {{date | date: 'short'}}
+                        <th *ngFor="let date of rosterDateRange">
+                            {{date | date: 'shortDate'}}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr *ngFor="let shift of rosterShiftsData">
+                        <td class="bg-light">
+                            {{shift.shift_name}}
+                        </td>
+                        <td class="text-center day-cell" *ngFor="let date of rosterDateRange" (dblclick)="editSheet(shift.id, date)">
+                            <span *ngFor="let data of rosterDaysData">
+                                <span *ngIf="data.shift.id == shift.id && data.day == date">
+                                    {{data.batch.batch_symbol}}
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
 </div>
+
+<!-- select batch component -->
+
+<app-select-batch #selectBatchComponentReference (rowSelected)="postRosterDay($event)"></app-select-batch>
 
 <!-- connection error prompt component -->
 

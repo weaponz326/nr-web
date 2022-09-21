@@ -6,6 +6,7 @@ import { RosterRoutingModule } from './roster-routing.module';
 import { MainNavbarModule } from 'projects/personal/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 import { StaffWindowsModule } from '../../../components/select-windows/staff-windows/staff-windows.module';
+import { RosterWindowsModule } from '../../../components/select-windows/roster-windows/roster-windows.module';
 
 import { RosterPage } from './roster.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -49,7 +50,8 @@ import { EditBatchComponent } from './edit-batch/edit-batch.component';
     RosterRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    StaffWindowsModule
+    StaffWindowsModule,
+    RosterWindowsModule
   ]
 })
 export class RosterModule { }

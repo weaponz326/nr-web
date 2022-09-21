@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 
-import { RosterApiService } from 'projects/restaurant/src/app/services/modules-api/roster-api/roster-api.service';
-
+import { SelectBatchComponent } from 'projects/restaurant/src/app/components/select-windows/roster-windows/select-batch/select-batch.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+
+import { DateRangeService } from 'projects/personal/src/app/services/module-utilities/date-range/date-range.service';
+import { RosterApiService } from 'projects/restaurant/src/app/services/modules-api/roster-api/roster-api.service';
+import { RosterDay } from 'projects/restaurant/src/app/models/modules/roster/roster.model';
 
 
 @Component({
@@ -15,38 +19,38 @@ export class RosterSheetComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private rosterApi: RosterApiService
+    private rosterApi: RosterApiService,
+    private dateRange: DateRangeService,
   ) { }
 
+  @ViewChild('selectBatchComponentReference', { read: SelectBatchComponent, static: false }) selectBatch!: SelectBatchComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-
-  dataSource: any[] = [];
-  sheetColumns: any[] = [];
-  sheetDataFields: any = [];
-  sheetEditDropDownSource: any[] = [];
 
   isFetchingSheetData = false;
   isSheetSaving = false;
 
-  rosterSheetData: any;
+  rosterDateRange: any;
+  rosterDaysData: any;
   rosterShiftsData: any;
-  rosterBatchesData: any;
 
-  sheetDays: any[] = [];
-  sheetShifts: any[] = [];
+  selectedSheetShift: any;
+  selectedSheetBatch: any;
+  selectedSheetDay: any;
 
   ngOnInit(): void {
-    this.getRosterSheet();
+    this.getRoster();
     this.getRosterShift();
-    this.getRosterBatch();
+    this.getRosterRosterDay();
   }
 
-  getRosterSheet(){
-    this.rosterApi.getRosterSheet()
+  getRoster(){
+    this.rosterApi.getRoster()
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.sheetDays = res.days;
+          
+          this.rosterDateRange = this.dateRange.getDateRange(new Date(res.from_date), new Date(res.to_date));
+          console.log(this.rosterDateRange);
         },
         error: (err) => {
           console.log(err);
@@ -69,12 +73,12 @@ export class RosterSheetComponent implements OnInit {
       })
   }
 
-  getRosterBatch(){
-    this.rosterApi.getRosterBatch()
+  getRosterRosterDay(){
+    this.rosterApi.getRosterRosterDay()
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.rosterBatchesData = res;
+          this.rosterDaysData = res;
         },
         error: (err) => {
           console.log(err);
@@ -83,36 +87,39 @@ export class RosterSheetComponent implements OnInit {
       })
   }
 
-  // TODO: needs extensive review
+  postRosterDay(e: any){
+    console.log(e);
+    this.selectedSheetBatch = e.id;
 
-  setRosterColumns(shiftDays: any){
-    // set datafields
-    this.sheetDataFields = [];
-    this.sheetDataFields.push('id: string');
-    this.sheetDataFields.push('shift_id: string');
-    this.sheetDataFields.push('shift_name: string');
+    let rosterDay: RosterDay = {
+      roster: sessionStorage.getItem('restaurant_roster_id') as string,
+      batch: this.selectedSheetBatch,
+      shift: this.selectedSheetShift,
+      day: formatDate(this.selectedSheetDay, 'yyyy-MM-dd', 'en-US')
+    } 
 
-    // set columns
-    this.sheetColumns = [];
-    this.sheetColumns.push({ label: "Shift Name", dataField: "shift_name", width: "18%" });
+    console.log(rosterDay);
 
-    shiftDays.forEach((day: { id: any; day: any; }) => {
-      // datafields
-      this.sheetDataFields.push({ name: day.id, type: 'string' });
+    this.rosterApi.postRosterDay(rosterDay)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-      // columns
-      var dayColumn = { label: day.day, dataField: day.id, editable: "true", width: 100 };
-      this.sheetColumns.push(dayColumn);
-    });
+          this.rosterDaysData = res;
+          this.getRosterRosterDay();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  populateSheetShifts(shiftData: any){
-    shiftData.forEach((shift: { id: any; shift_name: any; }) => {
-      let data = { id: shift.id, shift_id: shift.id, shift_name: shift.shift_name };
-      this.dataSource.push(data);
-    });
+  editSheet(shift: any, date: any){
+    this.selectedSheetShift = shift;
+    this.selectedSheetDay = date;
 
-    console.log(this.dataSource);
+    this.selectBatch.openModal();
   }
 
 }

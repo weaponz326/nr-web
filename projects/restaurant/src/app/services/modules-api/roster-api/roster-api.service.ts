@@ -97,26 +97,22 @@ export class RosterApiService {
     return this.http.delete(this.rosterUrl + "personnel/" + personnelId, this.authHeaders.headers);
   }
 
-  public refreshPersonnel(): Observable<any>{
-    return this.http.get(this.rosterUrl + "refresh-personnel?roster=" + sessionStorage.getItem('restaurant_roster_id'), this.authHeaders.headers);
-  }
+  // roster day
 
-  // sheet
-
-  public refreshSheet(): Observable<any>{
-    return this.http.get(this.rosterUrl + "refresh-sheet?roster=" + sessionStorage.getItem('restaurant_roster_id'), this.authHeaders.headers);
-  }
-
-  public getRosterDays(): Observable<any>{
+  public getRosterRosterDay(): Observable<any>{
     return this.http.get(this.rosterUrl + "roster-day?roster=" + sessionStorage.getItem('restaurant_roster_id'), this.authHeaders.headers);
   }
 
-  public getRosterSheet(): Observable<any>{
-    return this.http.get(this.rosterUrl + "roster-sheet?roster=" + sessionStorage.getItem('restaurant_roster_id'), this.authHeaders.headers);
+  public postRosterDay(rosterDay: any): Observable<any>{
+    return this.http.post(this.rosterUrl + "roster-day/", rosterDay, this.authHeaders.headers);
   }
 
-  public postRosterSheet(sheet: any): Observable<any>{
-    return this.http.post(this.rosterUrl + "roster-sheet/", sheet, this.authHeaders.headers);
+  public putRosterDay(id: any, data: any): Observable<any>{
+    return this.http.put(this.rosterUrl + "roster-day/" + id, data, this.authHeaders.headers);
+  }
+
+  public deleteRosterDay(id: any): Observable<any>{
+    return this.http.delete(this.rosterUrl + "roster-day/" + id, this.authHeaders.headers);
   }
 
   // dashboard
