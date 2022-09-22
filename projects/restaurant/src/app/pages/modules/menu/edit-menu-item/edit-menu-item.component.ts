@@ -41,7 +41,7 @@ export class EditMenuItemComponent implements OnInit {
     this.menuItemForm.menuItemForm.controls.description.setValue(data.description);
 
     if (data.image != null)
-      this.menuItemForm.image.imgSrc = environment.apiUrl + 'restaurant-modules/menu/' + data.image;
+      this.menuItemForm.image.imgSrc = environment.apiUrl + data.image;
     else
       this.menuItemForm.image.imgSrc = 'assets/images/utilities/logo-placeholder.jpg';
 

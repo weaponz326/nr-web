@@ -75,7 +75,7 @@ export class ViewStaffComponent implements OnInit {
           this.staffForm.staffForm.controls.job.setValue(this.staffFormData.job);
           
           if (this.staffFormData.photo != null)
-            this.staffForm.photo.imgSrc = environment.apiUrl + 'restaurant-modules/staff/' + this.staffFormData.photo;
+            this.staffForm.photo.imgSrc = environment.apiUrl + this.staffFormData.photo;
           else
             this.staffForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
         },
@@ -91,21 +91,22 @@ export class ViewStaffComponent implements OnInit {
     console.log('u are saving a new staff');
 
     var data = {
-      first_name: this.staffForm.staffForm.controls.firstName.value,
-      last_name: this.staffForm.staffForm.controls.lastName.value,
-      sex: this.staffForm.staffForm.controls.sex.value,
+      account: localStorage.getItem('restaurant_id') as string,
+      first_name: this.staffForm.staffForm.controls.firstName.value as string,
+      last_name: this.staffForm.staffForm.controls.lastName.value as string,
+      sex: this.staffForm.staffForm.controls.sex.value as string,
       date_of_birth: this.staffForm.bday.getValue(),
-      nationality: this.staffForm.staffForm.controls.nationality.value,
-      religion: this.staffForm.staffForm.controls.religion.value,
-      phone: this.staffForm.staffForm.controls.phone.value,
-      email: this.staffForm.staffForm.controls.email.value,
-      address: this.staffForm.staffForm.controls.address.value,
-      state: this.staffForm.staffForm.controls.state.value,
-      city: this.staffForm.staffForm.controls.city.value,
-      post_code: this.staffForm.staffForm.controls.postCode.value,
-      staff_code: this.staffForm.staffForm.controls.staffCode.value,
-      department: this.staffForm.staffForm.controls.department.value,
-      job: this.staffForm.staffForm.controls.job.value,
+      nationality: this.staffForm.staffForm.controls.nationality.value as string,
+      religion: this.staffForm.staffForm.controls.religion.value as string,
+      phone: this.staffForm.staffForm.controls.phone.value as string,
+      email: this.staffForm.staffForm.controls.email.value as string,
+      address: this.staffForm.staffForm.controls.address.value as string,
+      state: this.staffForm.staffForm.controls.state.value as string,
+      city: this.staffForm.staffForm.controls.city.value as string,
+      post_code: this.staffForm.staffForm.controls.postCode.value as string,
+      staff_code: this.staffForm.staffForm.controls.staffCode.value as string,
+      department: this.staffForm.staffForm.controls.department.value as string,
+      job: this.staffForm.staffForm.controls.job.value as string,
     }
 
     console.log(data);
