@@ -14,10 +14,16 @@
                         <img *ngIf="result?.photo == null" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="Company" width="40" height="40" class="rounded-circle" />
                     </div>
                     <div class="col-md-6">
-                        <p class="pt-2"><strong>{{result?.first_name}} {{result?.last_name}}</strong></p>
+                        <p class="pt-2">
+                            <i class="bi bi-person-fill me-2 text-muted"></i>
+                            <strong>{{result?.first_name}} {{result?.last_name}}</strong>
+                        </p>
                     </div>
                     <div class="col-md-5">
-                        <p class="pt-2">{{result?.location}}</p>
+                        <p class="pt-2">
+                            <i class="bi bi-geo-alt-fill me-2 text-muted"></i>
+                            {{result?.location}}
+                        </p>
                     </div>
                 </div>
             </td>

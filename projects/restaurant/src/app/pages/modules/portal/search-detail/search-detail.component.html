@@ -5,16 +5,31 @@
     </div>
     <div class="col-md-8">
         <div class="row mb-2">
-            <div class="col-md-4"><em><small class="float-end">Restaurant Name :</small></em></div>
-            <div class="col-md-8"><strong>{{searchDetail?.name}}</strong></div>
+            <div class="col-md-4">
+                <i class="bi bi-building me-2 text-muted"></i>
+                <em><small>Name :</small></em>
+            </div>
+            <div class="col-md-8">
+                <strong>{{searchDetail?.name}}</strong>
+            </div>
         </div>
         <div class="row mb-2">
-            <div class="col-md-4"><em><small class="float-end">Location :</small></em></div>
-            <div class="col-md-8">{{searchDetail?.location}}</div>
+            <div class="col-md-4">
+                <i class="bi bi-geo-alt-fill me-2 text-muted"></i>
+                <em><small>Location :</small></em>
+            </div>
+            <div class="col-md-8">
+                {{searchDetail?.location}}
+            </div>
         </div>
         <div class="row mb-2">
-            <div class="col-md-4"><em><small class="float-end">About :</small></em></div>
-            <div class="col-md-8">{{searchDetail?.about}}</div>
+            <div class="col-md-4">
+                <i class="bi bi-file-text-fill me-2 text-muted"></i>
+                <em><small>About :</small></em>
+            </div>
+            <div class="col-md-8">
+                {{searchDetail?.about}}
+            </div>
         </div>
     </div>
 </div>

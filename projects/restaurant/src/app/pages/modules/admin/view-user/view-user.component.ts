@@ -44,7 +44,7 @@ export class ViewUserComponent implements OnInit {
   isUserDeleting: boolean = false;
 
   userForm = new FormGroup({
-    personalName: new FormControl(''),
+    personalName: new FormControl({value: '', disabled: true}),
     accessLevel: new FormControl(''),
   })
 
@@ -81,7 +81,7 @@ export class ViewUserComponent implements OnInit {
           this.userFormData = res;
 
           this.AccountUserPersonalId = res.id;
-          this.userForm.controls.personalName.setValue(res.personal_name);
+          this.userForm.controls.personalName.setValue(res.personal_user.first_name + " " + res.personal_user.last_name);
           this.userForm.controls.accessLevel.setValue(res.access_level);
 
           this.isUserLoading = false;

@@ -27,7 +27,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of usersGridData" (dblclick)="viewUser(data.id)" class="table-pointer">
-                                <td>{{data?.personal_name}}</td>
+                                <td>{{data?.personal_user.first_name}} {{data?.personal_user.last_name}}</td>
                                 <td>{{data?.access_level}}</td>
                             </tr>
                         </tbody>
