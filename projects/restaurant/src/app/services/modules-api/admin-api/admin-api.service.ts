@@ -56,6 +56,11 @@ export class AdminApiService {
     return this.http.delete(this.adminUrl + "access/" + sessionStorage.getItem('restaurant_account_user_id'), this.authHeaders.headers);
   }
 
+  // user for home guard access
+  public getAccessAccess(): Observable<any>{
+    return this.http.get(this.adminUrl + "access/" + sessionStorage.getItem('restaurant_user_access_id'), this.authHeaders.headers);
+  }
+
   // invitations
 
   public postInvitation(invitation: any): Observable<any>{

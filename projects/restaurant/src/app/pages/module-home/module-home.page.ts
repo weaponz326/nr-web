@@ -25,13 +25,13 @@ export class ModuleHomePage implements OnInit {
   isAccessLoading = false;
 
   ngOnInit(): void {
-    this.getUserAccess();
+    this.getAccessAccess();
   }
 
-  getUserAccess() {
+  getAccessAccess() {
     this.isAccessLoading = true;
 
-    this.adminApi.getUserAccess()
+    this.adminApi.getAccessAccess()
       .subscribe({
         next: (res) => {
           console.log(res);

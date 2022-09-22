@@ -21,6 +21,7 @@ export class AccessFormComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   accessForm: UserAccess = {
+    account: localStorage.getItem('restaurant_id') as string,
     admin_access: false,
     customers_access: false,
     deliveries_access: false,
@@ -69,6 +70,7 @@ export class AccessFormComponent implements OnInit {
 
   updateUserAccess(){
     let access: UserAccess = {
+      account: localStorage.getItem('restaurant_id') as string,
       admin_access: this.accessForm.admin_access,
       customers_access: this.accessForm.customers_access,
       deliveries_access: this.accessForm.deliveries_access,
