@@ -1,1 +1,41 @@
-<p>scheduler-view works!</p>
+<div class="row mb-3">
+    <div class="col">
+
+        <div class="card">
+            <div class="p-3 text-center">
+                <button type="button" class="btn btn-outline-secondary btn-sm" (click)="setMonth(-1)">
+                    <i class="bi bi-caret-left-fill"></i>
+                </button>
+                <span class="h4 mx-3 calendar-month-header">{{calendarMonthYear}}</span>
+                <button type="button" class="btn btn-outline-secondary btn-sm" (click)="setMonth(1)">
+                    <i class="bi bi-caret-right-fill"></i>
+                </button>
+            </div>
+
+            <table class="table table-bordered table-responsive-sm mb-0 scheduler-table" id="calendar">
+                <thead>
+                    <tr class="bg-light"><th *ngFor="let day of days" class="text-center">{{day}}</th></tr>
+                </thead>
+    
+                <tbody id="calendar-body">
+                    <tr *ngFor="let a of array(math.ceil(dates.length/7)); let i = index">
+                        <td *ngFor="let date of dates.slice(7*i, 7*i + 7);" (dblclick)="addSchedule.openModal(date)" class="px-1 py-0">
+                            <span class="float-end d-block" [ngClass]="{'text-muted': date.getMonth() != currentDate.getMonth()}">
+                                <small>{{date | date:'d'}}</small>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- add schedule item component -->
+
+<app-add-schedule #addScheduleComponentReference></app-add-schedule>
+
+<!-- edit schedule item component -->
+
+<app-edit-schedule #addScheduleComponentReference></app-edit-schedule>

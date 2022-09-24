@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
 
 import { environment } from 'projects/personal/src/environments/environment'
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 
 
 @Injectable({
@@ -12,57 +13,58 @@ export class ReservationsApiService {
 
   constructor(
     private http: HttpClient,
+    private authHeaders: AuthHeadersService
   ) { }
 
-  restaurantApi = environment.restaurantApi;
+  reservationsUrl = environment.apiUrl + 'restaurant-modules/reservations/';
 
   // reservations
     
   public getAccountReservation(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-reservations/reservation?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.reservationsUrl + "reservation?account=" + localStorage.getItem('restaurant_id')
       + "&page=" + page
       + "&size=" + size
-      + "&ordering=" + sortField);
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
   public postReservation(reservation: any): Observable<any>{
-    return this.http.post(this.restaurantApi + "module-reservations/reservation/", reservation);
+    return this.http.post(this.reservationsUrl + "reservation/", reservation, this.authHeaders.headers);
   }
 
   public getReservation(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-reservations/reservation/" + sessionStorage.getItem("restaurant_reservation_id"));
+    return this.http.get(this.reservationsUrl + "reservation/" + sessionStorage.getItem("restaurant_reservation_id"), this.authHeaders.headers);
   }
 
   public putReservation(reservationData: any): Observable<any>{
-    return this.http.put(this.restaurantApi + "module-reservations/reservation/" + sessionStorage.getItem("restaurant_reservation_id"), reservationData);
+    return this.http.put(this.reservationsUrl + "reservation/" + sessionStorage.getItem("restaurant_reservation_id"), reservationData, this.authHeaders.headers);
   }
 
   public deleteReservation(): Observable<any>{
-    return this.http.delete(this.restaurantApi + "module-reservations/reservation/" + sessionStorage.getItem("restaurant_reservation_id"));
+    return this.http.delete(this.reservationsUrl + "reservation/" + sessionStorage.getItem("restaurant_reservation_id"), this.authHeaders.headers);
   }
 
   // reservation tables
     
   public getReservationReservationTable(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-reservations/reservation-table?account=" + sessionStorage.getItem('restaurant_reservation_id'));
+    return this.http.get(this.reservationsUrl + "reservation-table?account=" + sessionStorage.getItem('restaurant_reservation_id'), this.authHeaders.headers);
   }
 
   public postReservationTable(table: any): Observable<any>{
-    return this.http.post(this.restaurantApi + "module-reservations/reservation-table/", table);
+    return this.http.post(this.reservationsUrl + "reservation-table/", table, this.authHeaders.headers);
   }
 
   public deleteReservationTable(id: any): Observable<any>{
-    return this.http.delete(this.restaurantApi + "module-reservations/reservation-table/" + id);
+    return this.http.delete(this.reservationsUrl + "reservation-table/" + id, this.authHeaders.headers);
   }
 
   // dashboard
 
   public getReservationCount(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-reservations/dashboard/reservation-count?account=" + localStorage.getItem('restaurant_id'));
+    return this.http.get(this.reservationsUrl + "dashboard/reservation-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
   }
 
   public getReservationAnnotate(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-reservations/dashboard/reservation-annotate?account=" + localStorage.getItem('restaurant_id'));
+    return this.http.get(this.reservationsUrl + "dashboard/reservation-annotate?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
   }
 
 }

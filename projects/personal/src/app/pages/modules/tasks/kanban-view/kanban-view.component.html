@@ -1,1 +1,99 @@
-<p>kanban-view works!</p>
+<div class="row mb-3">
+    <div class="col-md-9">
+
+        <div class="row mb-3">
+            <div class="col">
+                <button class="btn btn-secondary page-add-btn" (click)="addTask.openModal()">Add Task Item</button>
+                <button class="btn btn-sm btn-light border float-end page-refresh-btn">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-3">
+
+            <div class="col border bg-light shadow-sm px-2 mx-2 pb-4 kanban-block">
+                <p class="h5 p-3 m-0">To Do</p>
+                <div class="overflow-auto">
+                    <div class="card">
+                        <div class="card-body p-2">
+                            <p class="task-card-title mb-1">Task title</p>
+                            <p class="mb-2">
+                                <span class="badge rounded-pill text-bg-secondary">Priority</span>
+                            </p>
+                            <p class="task-card-body mb-2">A lot of lorem stuff for task description</p>
+                            <div class="task-card-btn">
+                                <hr class="my-2">
+                                <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <i class="bi bi-pen"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col border bg-light shadow-sm px-2 mx-2 pb-4 kanban-block">
+                <p class="h5 p-3 m-0">Doing</p>
+                <div class="overflow-auto">
+                    <div class="card">
+                        <div class="card-body p-2">
+                            <p class="task-card-title mb-1">Task title</p>
+                            <p class="mb-2">
+                                <span class="badge rounded-pill text-bg-secondary">Priority</span>
+                            </p>
+                            <p class="task-card-body mb-2">A lot of lorem stuff for task description</p>
+                            <div class="task-card-btn">
+                                <hr class="my-2">
+                                <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <i class="bi bi-pen"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col border bg-light shadow-sm px-2 mx-2 pb-4 kanban-block">
+                <p class="h5 p-3 m-0">To Do</p>
+                <div class="overflow-auto">
+                    <div class="card">
+                        <div class="card-body p-2">
+                            <p class="task-card-title mb-1">Done</p>
+                            <p class="mb-2">
+                                <span class="badge rounded-pill text-bg-secondary">Priority</span>
+                            </p>
+                            <p class="task-card-body mb-2">A lot of lorem stuff for task description</p>
+                            <div class="task-card-btn">
+                                <hr class="my-2">
+                                <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <i class="bi bi-pen"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<!-- add task item component -->
+
+<app-add-task #addTaskComponentReference></app-add-task>
+
+<!-- edit task item component -->
+
+<app-edit-task #addTaskComponentReference></app-edit-task>

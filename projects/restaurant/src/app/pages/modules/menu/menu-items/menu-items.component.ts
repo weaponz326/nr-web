@@ -112,9 +112,15 @@ export class MenuItemsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
+          
+          this.addMenuItem.dismissButton.nativeElement.click();
+          this.addMenuItem.isMenuItemSaving = false;
+          this.addMenuItem.menuItemForm.image.setPlaceholderImage();
+
           this.editMenuItem.dismissButton.nativeElement.click();
           this.editMenuItem.isMenuItemSaving = false;
           this.editMenuItem.menuItemForm.image.setPlaceholderImage();
+
           this.getMenuGroupMenuItem();
         },
         error: (err) => {

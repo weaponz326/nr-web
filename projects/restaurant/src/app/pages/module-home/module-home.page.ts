@@ -25,19 +25,19 @@ export class ModuleHomePage implements OnInit {
   isAccessLoading = false;
 
   ngOnInit(): void {
-    this.getUserAccess();
+    this.getAccessAccess();
   }
 
-  getUserAccess() {
+  getAccessAccess() {
     this.isAccessLoading = true;
 
-    this.adminApi.getUserAccess()
+    this.adminApi.getAccessAccess()
       .subscribe({
         next: (res) => {
           console.log(res);
 
           this.access = res;
-          localStorage.setItem("restaurantUserAccess", res);
+          localStorage.setItem("restaurantUserAccess", JSON.stringify(res));
 
           this.isAccessLoading = false;
         },

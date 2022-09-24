@@ -53,6 +53,7 @@
 					+ scheduler view (C)
 					+ add schedule (C)
 					+ edit schedule (C)
+					+ schedule form (C)
 					+ all schedules (C)
 				+ budget (Mr)(Cp)
 					+ dashboard (C)
@@ -151,9 +152,8 @@
 				+ auth api (S)
 				+ auth headers (S)
 			+ module utilities
-				+ sorting switch (S)
             	+ pdf print (S)
-				+ datetime formatter (S)
+				+ date range (S)
 			+ modules api
 				+ portal api (S)
 				+ settings api (S)
@@ -328,6 +328,7 @@
 				+ roster windows (M)
           			+ select roster (C)
 					+ select shift (C)
+					+ select batch (C)
 				+ reservations windows (M)
           			+ select reservation (C)
 				+ orders windows (M)

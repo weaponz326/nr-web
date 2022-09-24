@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 import { FormHeaderComponent } from './form-header/form-header.component';
 import { FormFooterComponent } from './form-footer/form-footer.component';

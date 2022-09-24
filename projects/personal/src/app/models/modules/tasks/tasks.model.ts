@@ -4,11 +4,9 @@ export class TaskGroup {
 }
 
 export class TaskItem {
-  task_group!: any;
+  task_group!: string;
   task_item!: string;
   description!: string;
   priority!: string;
-  start_date!: Date;
-  end_date!: Date;
   status!: string;
 }

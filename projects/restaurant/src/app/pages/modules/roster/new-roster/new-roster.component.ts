@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 
 import { RosterApiService } from 'projects/restaurant/src/app/services/modules-api/roster-api/roster-api.service';
 
-import { Roster, RosterSheet } from 'projects/restaurant/src/app/models/modules/roster/roster.model';
+import { Roster } from 'projects/restaurant/src/app/models/modules/roster/roster.model';
 
 
 @Component({
@@ -39,6 +39,9 @@ export class NewRosterComponent implements OnInit {
 
   openModal(){
     this.newButton.nativeElement.click();
+
+    this.rosterForm.controls.fromDate.setValue(new Date().toISOString().slice(0, 16))
+    this.rosterForm.controls.toDate.setValue(new Date().toISOString().slice(0, 16))
   }
 
   createRoster(){
@@ -62,9 +65,6 @@ export class NewRosterComponent implements OnInit {
             this.dismissButton.nativeElement.click();
             this.router.navigateByUrl('/home/roster/view-roster');
             this.isRosterSaving = false;
-
-            // this.createSheet();
-            // TODO: imolement on django backend
           }
         },
         error: (err) => {

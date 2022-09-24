@@ -47,20 +47,22 @@ export class LoginFormComponent implements OnInit {
         next: (res) => {
           console.log(res);
           
-          if (res.access){
-            localStorage.setItem('auth_token', res.access);
-            localStorage.setItem('auth_refresh', res.refresh);
+          if (res.auth_token){
+            localStorage.setItem('token', res.auth_token);
 
             // TODO: can't get auth_token if angular router is used
-            if(this.suiteRegistrationType == "nR Personal" || this.suiteRegistrationType == "netRink"){
+            if(this.suiteRegistrationType == "netRink"){
               window.location.href = "/";
+            }
+            else if(this.suiteRegistrationType == "nR Personal"){
+              window.location.href = "/home";
             }
             else{
               if(sessionStorage.getItem("is_suite_registration") == "OK"){
                 this.showPrompt = true;
               }
               else{
-                window.location.href = "/";
+                window.location.href = "/user";
               }
 
               sessionStorage.removeItem("is_suite_registration");

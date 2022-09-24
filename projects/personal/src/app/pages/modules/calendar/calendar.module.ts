@@ -15,6 +15,7 @@ import { SchedulerViewComponent } from './scheduler-view/scheduler-view.componen
 import { AllSchedulesComponent } from './all-schedules/all-schedules.component';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
 import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
+import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
     SchedulerViewComponent,
     AllSchedulesComponent,
     AddScheduleComponent,
-    EditScheduleComponent
+    EditScheduleComponent,
+    ScheduleFormComponent
   ],
   imports: [
     CommonModule,

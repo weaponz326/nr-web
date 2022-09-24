@@ -11,21 +11,21 @@ export class AccountGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (!!localStorage.getItem('restaurant_id')){
+    if (!!localStorage.getItem('restaurant_id') && sessionStorage.getItem('restaurant_user_access_id')){
       return true;
     }
     else{
-      this.router.navigateByUrl('/register');
+      this.router.navigateByUrl('/user');
       return false;
     }
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    if (!!localStorage.getItem('restaurant_id')){
+    if (!!localStorage.getItem('restaurant_id') && sessionStorage.getItem('restaurant_user_access_id')){
       return true;
     }
     else{
-      this.router.navigateByUrl('/register');
+      this.router.navigateByUrl('/user');
       return false;
     }
   }

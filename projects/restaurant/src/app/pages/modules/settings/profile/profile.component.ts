@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
           this.basic.basicForm.controls.name.setValue(res.name);
           this.basic.basicForm.controls.about.setValue(res.about);
           this.location.locationForm.controls.location.setValue(res.location);
-          if(res.logo != null) this.logo.imageInput.imgSrc = environment.restaurantApi + res.logo;
+          if(res.logo != null) this.logo.imageInput.imgSrc = environment.apiUrl + 'restaurant-accounts' + res.logo;
 
           this.basic.isAccountLoading = false;
           this.logo.isAccountLoading = false;

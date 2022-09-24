@@ -44,7 +44,7 @@
                                 <a class="dropdown-item" [routerLink]="'/user-settings'"><i class="bi bi-gear me-2"></i>User settings</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#" (click)="logout($event)"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+                                <a class="dropdown-item" href="#" (click)="postLogout($event)"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -57,6 +57,13 @@
     </div>
 </nav>
 
-<!-- connection error toast component -->
+<!-- connection error toast -->
 
-<!-- <app-connection-toast #connectionToastComponentReference></app-connection-toast> -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div [ngClass]="isShowToast ? 'show' : 'hide'" id="liveToast" class="toast text-white bg-danger border-0 connection-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body p-3">
+            <i class="h4 bi bi-x-circle me-3"></i>
+            Could not connect.
+        </div>
+    </div>
+</div>

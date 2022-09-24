@@ -44,11 +44,12 @@ export class ViewUserComponent implements OnInit {
   isUserDeleting: boolean = false;
 
   userForm = new FormGroup({
-    personalName: new FormControl(''),
+    personalName: new FormControl({ value: '', disabled: true }),
     accessLevel: new FormControl(''),
   })
 
   ngOnInit(): void {
+    this.getAccount();
     this.getAccountUser();
   }
 
@@ -56,7 +57,7 @@ export class ViewUserComponent implements OnInit {
     this.accessFormComponent.getUserAccess();
   }
 
-  getAccount(){
+  getAccount() {
     this.accountApi.getAccount()
       .subscribe({
         next: (res) => {
@@ -70,7 +71,6 @@ export class ViewUserComponent implements OnInit {
       })
   }
 
-
   getAccountUser() {
     this.isUserLoading = true;
 
@@ -80,8 +80,8 @@ export class ViewUserComponent implements OnInit {
           console.log(res);
           this.userFormData = res;
 
-          this.AccountUserPersonalId = res.id;
-          this.userForm.controls.personalName.setValue(res.personal_name);
+          this.AccountUserPersonalId = res.personal_user.id;
+          this.userForm.controls.personalName.setValue(res.personal_user.first_name + " " + res.personal_user.last_name);
           this.userForm.controls.accessLevel.setValue(res.access_level);
 
           this.isUserLoading = false;
@@ -94,49 +94,46 @@ export class ViewUserComponent implements OnInit {
       })
   }
 
-  updateAdminUser(){
+  updateAdminUser() {
     // sends both user access details
 
     this.isUserSaving = true;
 
     let data = {
+      account: localStorage.getItem('restaurant_id'),
       access_level: this.userForm.controls.accessLevel.value,
+      personal_user: sessionStorage.getItem('restaurant_account_user_id')
     }
 
-    if (this.accountData.created_by != this.AccountUserPersonalId){
-      this.adminApi.putAccountUser(data)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            this.isUserSaving = false;
-          },
-          error: (err) => {
-            console.log(err);
-            this.isUserSaving = false;
-            this.connectionToast.openToast();
-          }
-        })
-    }
-    else{
-      this.buttonElement.nativeElement.click();
-    }
+    this.adminApi.putAccountUser(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isUserSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isUserSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
-    // this.accessFormComponent.updateUserAccess();
+    this.accessFormComponent.updateUserAccess();
   }
 
-  changeLevel(event: any)  {
+  changeLevel(event: any) {
     console.log(event.target.value);
     this.accessFormComponent.setLevelAccess(event.target.value);
   }
 
-  confirmDelete(){
+  confirmDelete() {
     this.deleteModal.openModal();
   }
 
-  deleteAdminUser(){
+  deleteAdminUser() {
     this.isUserDeleting = true;
 
-    if (this.accountData.created_by != this.AccountUserPersonalId){
+    if (this.accountData.creator.id != this.AccountUserPersonalId) {
       this.adminApi.deleteAccountUser()
         .subscribe({
           next: (res) => {
@@ -152,7 +149,7 @@ export class ViewUserComponent implements OnInit {
           }
         })
     }
-    else{
+    else {
       this.buttonElement.nativeElement.click();
     }
   }

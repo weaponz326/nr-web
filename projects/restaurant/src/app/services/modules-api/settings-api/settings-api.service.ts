@@ -16,35 +16,34 @@ export class SettingsApiService {
     private authHeaders: AuthHeadersService
   ) { }
 
-  restaurantApi = environment.restaurantApi;
-  personalApi = environment.personalApi;
+  settingsUrl = environment.apiUrl + 'restaurant-modules/settings/';
 
   // extended profile
 
   public getExtendedProfile(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-settings/extended-profile/" + localStorage.getItem('restaurant_id'));
+    return this.http.get(this.settingsUrl + "extended-profile/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
   }
 
   public putExtendedProfile(extended: any): Observable<any>{
-    return this.http.put(this.restaurantApi + "module-settings/extended-profile/" + localStorage.getItem('restaurant_id'), extended);
+    return this.http.put(this.settingsUrl + "extended-profile/" + localStorage.getItem('restaurant_id'), extended, this.authHeaders.headers);
   }
 
   public patchExtendedProfile(extended: any): Observable<any>{
-    return this.http.patch(this.restaurantApi + "module-settings/extended-profile/" + localStorage.getItem('restaurant_id'), extended);
+    return this.http.patch(this.settingsUrl + "extended-profile/" + localStorage.getItem('restaurant_id'), extended, this.authHeaders.headers);
   }
 
   // subscriptions
 
   public getSubscription(): Observable<any>{
-    return this.http.get(this.restaurantApi + "module-settings/subscription/" + localStorage.getItem('restaurant_id'));
+    return this.http.get(this.settingsUrl + "subscription/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
   }
 
   public putSubscription(subscription: any): Observable<any>{
-    return this.http.put(this.restaurantApi + "module-settings/subscription/" + localStorage.getItem('restaurant_id'), subscription);
+    return this.http.put(this.settingsUrl + "subscription/" + localStorage.getItem('restaurant_id'), subscription, this.authHeaders.headers);
   }
 
   public patchSubscription(subscription: any): Observable<any>{
-    return this.http.patch(this.restaurantApi + "module-settings/subscription/" + localStorage.getItem('restaurant_id'), subscription);
+    return this.http.patch(this.settingsUrl + "subscription/" + localStorage.getItem('restaurant_id'), subscription, this.authHeaders.headers);
   }
 
 }

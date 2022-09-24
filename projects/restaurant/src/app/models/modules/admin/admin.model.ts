@@ -11,6 +11,7 @@ export class Invitation {
 }
 
 export class UserAccess {
+  account!: string;
   admin_access!: boolean;
   customers_access!: boolean;
   deliveries_access!: boolean;

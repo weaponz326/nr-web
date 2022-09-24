@@ -27,9 +27,9 @@ export class Personnel {
   batch_symbol!: string;
 }
 
-export class RosterSheet {
+export class RosterDay {
   roster!: string;
-  shifts!: any[];
-  days!: any[];
-  sheet!: any[][];
+  shift!: string;
+  batch!: string;
+  day!: any;
 }
