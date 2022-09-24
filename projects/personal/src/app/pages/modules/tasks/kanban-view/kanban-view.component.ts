@@ -24,6 +24,7 @@ export class KanbanViewComponent implements OnInit {
 
   tasksData: any;
   isFetchingTasksData = false;
+  isTaskDeleting = false;
 
   deleteIndex: any;
   
@@ -47,6 +48,23 @@ export class KanbanViewComponent implements OnInit {
 
           this.connectionToast.openToast();
           this.isFetchingTasksData = false;
+        }
+      })
+  }
+
+  deleteTaskItem(){
+    this.isTaskDeleting = true;
+
+    this.tasksApi.deleteTaskItem(this.deleteIndex)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.getTaskGroupTaskItems();
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isTaskDeleting = false;
+          console.log(err);
         }
       })
   }

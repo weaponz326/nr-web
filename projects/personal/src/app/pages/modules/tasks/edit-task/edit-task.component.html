@@ -21,7 +21,7 @@
 
             <div class="modal-footer">
                 <button [disabled]="isTaskItemSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveTask()">Save</button>
-                <button [disabled]="isTaskItemDeleting" class="btn btn-sm btn-secondary modal-form-btn">Delete</button>
+                <button [disabled]="isTaskItemDeleting" class="btn btn-sm btn-secondary modal-form-btn" (click)="deleteModal.openModal()">Delete</button>
                 <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
 

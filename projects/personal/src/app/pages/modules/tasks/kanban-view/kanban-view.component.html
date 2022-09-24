@@ -10,13 +10,13 @@
             </div>
         </div>
 
-        <div class="row g-2">
+        <div class="row gx-1">
 
-            <div class="col border bg-light shadow-sm px-2 mx-1 pb-4 kanban-block">
+            <div class="col-md-4 border bg-light shadow-sm px-2 pb-4 kanban-block">
                 <p class="h5 p-3 m-0">To Do</p>
-                <div class="overflow-auto">
-                    <div  *ngFor="let data of tasksData">
-                        <div *ngIf="data.status == 'To Do'" class="card mb-2">
+                <div class="cards-div overflow-auto border-top border-bottom">
+                    <div *ngFor="let data of tasksData; index as i">
+                        <div *ngIf="data.status == 'To Do'" class="card my-2">
                             <div class="card-body p-2">
                                 <p class="task-card-title mb-1">{{data.task_item}}</p>
                                 <p class="mb-2">
@@ -25,10 +25,10 @@
                                 <p class="task-card-body mb-2">{{data.description}}</p>
                                 <div class="task-card-btn">
                                     <hr class="my-2">
-                                    <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openDeleteConfirm(i)">
                                         <i class="bi bi-trash"></i>
                                     </button>
-                                    <button class="btn btn-light btn-sm border mx-1 float-end" >
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openEditModal(i)">
                                         <i class="bi bi-pen"></i>
                                     </button>
                                 </div>
@@ -38,11 +38,11 @@
                 </div>
             </div>
 
-            <div class="col border bg-light shadow-sm px-2 mx-1 pb-4 kanban-block">
+            <div class="col-md-4 border bg-light shadow-sm px-2 pb-4 kanban-block">
                 <p class="h5 p-3 m-0">Doing</p>
-                <div class="overflow-auto">
-                    <div  *ngFor="let data of tasksData">
-                        <div *ngIf="data.status == 'Doing'" class="card mb-2">
+                <div class="cards-div overflow-auto border-top border-bottom">
+                    <div *ngFor="let data of tasksData; index as i">
+                        <div *ngIf="data.status == 'Doing'" class="card my-2">
                             <div class="card-body p-2">
                                 <p class="task-card-title mb-1">{{data.task_item}}</p>
                                 <p class="mb-2">
@@ -51,10 +51,10 @@
                                 <p class="task-card-body mb-2">{{data.description}}</p>
                                 <div class="task-card-btn">
                                     <hr class="my-2">
-                                    <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openDeleteConfirm(i)">
                                         <i class="bi bi-trash"></i>
                                     </button>
-                                    <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openEditModal(i)">
                                         <i class="bi bi-pen"></i>
                                     </button>
                                 </div>
@@ -64,11 +64,11 @@
                 </div>
             </div>
 
-            <div class="col border bg-light shadow-sm px-2 mx-1 pb-4 kanban-block">
+            <div class="col-md-4 border bg-light shadow-sm px-2 pb-4 kanban-block">
                 <p class="h5 p-3 m-0">Done</p>
-                <div class="overflow-auto">
-                    <div  *ngFor="let data of tasksData">
-                        <div *ngIf="data.status == 'Done'" class="card mb-2">
+                <div class="cards-div overflow-auto border-top border-bottom">
+                    <div *ngFor="let data of tasksData; index as i">
+                        <div *ngIf="data.status == 'Done'" class="card my-2">
                             <div class="card-body p-2">
                                 <p class="task-card-title mb-1">{{data.task_item}}</p>
                                 <p class="mb-2">
@@ -77,10 +77,10 @@
                                 <p class="task-card-body mb-2">{{data.description}}</p>
                                 <div class="task-card-btn">
                                     <hr class="my-2">
-                                    <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openDeleteConfirm(i)">
                                         <i class="bi bi-trash"></i>
                                     </button>
-                                    <button class="btn btn-light btn-sm border mx-1 float-end">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openEditModal(i)">
                                         <i class="bi bi-pen"></i>
                                     </button>
                                 </div>
@@ -89,7 +89,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -102,4 +101,12 @@
 
 <!-- edit task item component -->
 
-<app-edit-task #addTaskComponentReference></app-edit-task>
+<app-edit-task #editTaskComponentReference (reloadTasksEvent)="getTaskGroupTaskItems()"></app-edit-task>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteTaskItem()"></app-delete-modal-one>

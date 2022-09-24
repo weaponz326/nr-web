@@ -54,13 +54,8 @@ export class EditTaskComponent implements OnInit {
       status: this.taskForm.taskForm.controls.status.value as string,
     }
 
-    let task = {
-      id: this.taskFormData.id,
-      data: data
-    }
-
     console.log(data);
-
+    
     this.isTaskItemSaving = true;
 
     this.tasksApi.putTaskItem(data, this.taskFormData.id)
