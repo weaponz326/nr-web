@@ -1,1 +1,30 @@
-<p>edit-schedule works!</p>
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editScheduleModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="editScheduleModal" tabindex="-1" aria-labelledby="editScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="editScheduleModalLabel">Edit Schedule</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- schedule form component -->
+
+                <app-schedule-form #scheduleFormComponentReference></app-schedule-form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button [disabled]="isSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveSchedule()">Save</button>
+                <button [disabled]="isDeleting" class="btn btn-sm btn-secondary modal-form-btn">Delete</button>
+                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>

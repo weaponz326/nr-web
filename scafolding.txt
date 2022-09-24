@@ -53,6 +53,7 @@
 					+ scheduler view (C)
 					+ add schedule (C)
 					+ edit schedule (C)
+					+ schedule form (C)
 					+ all schedules (C)
 				+ budget (Mr)(Cp)
 					+ dashboard (C)
