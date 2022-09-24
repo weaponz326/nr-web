@@ -69,7 +69,7 @@ export class MainNavbarComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
-          this.openToast();
+          // this.openToast();
 
           this.isLoggedIn = false;
           this.isAuthLoading = false;
