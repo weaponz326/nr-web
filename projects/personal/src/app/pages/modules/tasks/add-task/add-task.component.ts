@@ -1,6 +1,9 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
+
+import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
 import { TaskItem } from 'projects/personal/src/app/models/modules/tasks/tasks.model';
 
 
@@ -11,25 +14,29 @@ import { TaskItem } from 'projects/personal/src/app/models/modules/tasks/tasks.m
 })
 export class AddTaskComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tasksApi: TasksApiService) { }
 
-  @Output() saveTaskEvent = new EventEmitter<any>();
+  @Output() reloadTasksEvent = new EventEmitter<any>();
 
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('taskFormComponentReference', { read: TaskFormComponent, static: false }) taskForm!: TaskFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  isSaving = false;
+  isTaskSaving = false;
 
   ngOnInit(): void {
   }
 
   openModal(){
     this.addButton.nativeElement.click();
+
+    this.taskForm.taskForm.controls.priority.setValue("Mid priority");
+    this.taskForm.taskForm.controls.status.setValue("To Do");
   }
 
-  saveTask(){
+  postTask(){
     let data: TaskItem = {
       task_group: sessionStorage.getItem('personal_task_group_id') as string,
       task_item: this.taskForm.taskForm.controls.taskItem.value as string,
@@ -38,7 +45,31 @@ export class AddTaskComponent implements OnInit {
       status: this.taskForm.taskForm.controls.status.value as string,
     }
 
-    this.saveTaskEvent.emit(data);
+    console.log(data);
+
+    this.isTaskSaving = true;
+
+    this.tasksApi.postTaskItem(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('personal_note_id', res.id);
+            this.reloadTasksEvent.emit();
+            this.dismissButton.nativeElement.click();
+          }
+
+          this.isTaskSaving = false;
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isTaskSaving = false;
+          console.log(err);
+        }
+      })
+
+    this.reloadTasksEvent.emit();
   }
 
   resetForm(){
