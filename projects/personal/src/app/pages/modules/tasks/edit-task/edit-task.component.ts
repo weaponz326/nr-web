@@ -36,8 +36,6 @@ export class EditTaskComponent implements OnInit {
     this.taskForm.taskForm.controls.taskItem.setValue(this.taskFormData.task_item);
     this.taskForm.taskForm.controls.description.setValue(this.taskFormData.description);
     this.taskForm.taskForm.controls.priority.setValue(this.taskFormData.priority);
-    this.taskForm.taskForm.controls.startDate.setValue(new Date(this.taskFormData.start_date).toISOString().slice(0, 16));
-    this.taskForm.taskForm.controls.endDate.setValue(new Date(this.taskFormData.end_date).toISOString().slice(0, 16));
     this.taskForm.taskForm.controls.status.setValue(this.taskFormData.status);
   }
 
@@ -47,8 +45,6 @@ export class EditTaskComponent implements OnInit {
       task_item: this.taskForm.taskForm.controls.taskItem.value as string,
       description: this.taskForm.taskForm.controls.description.value as string,
       priority: this.taskForm.taskForm.controls.priority.value as string,
-      start_date: this.taskForm.taskForm.controls.startDate.value,
-      end_date: this.taskForm.taskForm.controls.startDate.value,
       status: this.taskForm.taskForm.controls.status.value as string,
     }
 

@@ -35,8 +35,6 @@ export class AddTaskComponent implements OnInit {
       task_item: this.taskForm.taskForm.controls.taskItem.value as string,
       description: this.taskForm.taskForm.controls.description.value as string,
       priority: this.taskForm.taskForm.controls.priority.value as string,
-      start_date: this.taskForm.taskForm.controls.startDate.value,
-      end_date: this.taskForm.taskForm.controls.startDate.value,
       status: this.taskForm.taskForm.controls.status.value as string,
     }
 
@@ -47,8 +45,6 @@ export class AddTaskComponent implements OnInit {
     this.taskForm.taskForm.controls.taskItem.setValue('');
     this.taskForm.taskForm.controls.description.setValue('');
     this.taskForm.taskForm.controls.priority.setValue('');
-    this.taskForm.taskForm.controls.startDate.setValue(null);
-    this.taskForm.taskForm.controls.endDate.setValue(null);
     this.taskForm.taskForm.controls.status.setValue('');
   }
 

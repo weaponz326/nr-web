@@ -8,7 +8,5 @@ export class TaskItem {
   task_item!: string;
   description!: string;
   priority!: string;
-  start_date!: Date;
-  end_date!: Date;
   status!: string;
 }
