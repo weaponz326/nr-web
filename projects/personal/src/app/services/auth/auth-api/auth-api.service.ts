@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
@@ -52,7 +52,12 @@ export class AuthApiService {
   }
 
   public getUser(): Observable<any>{
-    return this.http.get(this.apiUrl + "auth/users/me/", this.headers);
+    let token = new HttpHeaders()
+      .set('Authorization', "Token " + localStorage.getItem('token'));    // for getting user after login without reloading page
+
+    let headers = { 'headers': token };
+
+    return this.http.get(this.apiUrl + "auth/users/me/", headers);
   }
 
   public deleteUser(deleteForm: any): Observable<any>{

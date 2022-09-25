@@ -49,28 +49,8 @@ export class LoginFormComponent implements OnInit {
           
           if (res.auth_token){
             localStorage.setItem('token', res.auth_token);
-
-            // TODO: can't get auth_token if angular router is used
-            if(this.suiteRegistrationType == "netRink"){
-              window.location.href = "/";
-            }
-            else if(this.suiteRegistrationType == "nR Personal"){
-              localStorage.setItem('personal_id', 'x');   // for trigering user guard
-              window.location.href = "/guest";
-            }
-            else{
-              if(sessionStorage.getItem("is_suite_registration") == "OK"){
-                this.showPrompt = true;
-              }
-              else{
-                window.location.href = "/user";
-              }
-
-              sessionStorage.removeItem("is_suite_registration");
-            }
+            this.getUser();
           }
-
-          this.isSending = false;
         },
         error: (err) => {
           console.log(err);
@@ -84,16 +64,38 @@ export class LoginFormComponent implements OnInit {
       })
   }
 
+  getUser(){
+    this.authApi.getUser()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.id) {            
+            localStorage.setItem('personal_id', res.id);
+            this.registrationType();
+          }
+
+          this.isSending = false;
+        },
+        error: (err) => {
+          console.log(err);          
+        }
+      })
+  }
+
   registrationType(){
-    if (this.suiteRegistrationType == "nR Personal" || this.suiteRegistrationType == "netRink"){
+    if(this.suiteRegistrationType == "netRink"){
       window.location.href = "/";
     }
+    else if(this.suiteRegistrationType == "nR Personal"){
+      window.location.href = "/guest";
+    }
     else{
-      if (sessionStorage.getItem("isSuiteRegistration") == "OK"){
+      if(sessionStorage.getItem("isSuiteRegistration") == "OK"){
         this.showPrompt = true;
       }
       else{
-        window.location.href = "/";
+        window.location.href = "/user";
       }
 
       sessionStorage.removeItem("isSuiteRegistration");

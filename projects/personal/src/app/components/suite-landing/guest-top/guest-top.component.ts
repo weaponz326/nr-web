@@ -34,7 +34,7 @@ export class GuestTopComponent implements OnInit {
         this.router.navigateByUrl("/auth/login");
     }
     else{
-      sessionStorage.setItem("isSuiteRegistration", "");
+      sessionStorage.removeItem("isSuiteRegistration");
       this.router.navigateByUrl("/auth/register");
     }
   }
