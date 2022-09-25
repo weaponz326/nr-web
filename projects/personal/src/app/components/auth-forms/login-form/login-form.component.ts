@@ -55,7 +55,8 @@ export class LoginFormComponent implements OnInit {
               window.location.href = "/";
             }
             else if(this.suiteRegistrationType == "nR Personal"){
-              window.location.href = "/home";
+              localStorage.setItem('personal_id', 'x');   // for trigering user guard
+              window.location.href = "/guest";
             }
             else{
               if(sessionStorage.getItem("is_suite_registration") == "OK"){

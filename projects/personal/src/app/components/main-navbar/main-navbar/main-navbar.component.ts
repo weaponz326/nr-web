@@ -12,7 +12,10 @@ import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service
 })
 export class MainNavbarComponent implements OnInit {
 
-  constructor(private authApi: AuthApiService) { }
+  constructor(
+    private router: Router,
+    private authApi: AuthApiService
+  ) { }
 
   @Input() source: string = "netRink";
   @Input() navBrand: string = "netRink";
@@ -39,9 +42,7 @@ export class MainNavbarComponent implements OnInit {
       this.setSource();
     }
 
-    if(this.source == "Personal"){
-      this.navBrandLink = "/guest";
-    }
+    this.setNavbrandLink();
   }
 
   setSource(){
@@ -98,13 +99,29 @@ export class MainNavbarComponent implements OnInit {
           localStorage.removeItem("shop_id");
           localStorage.removeItem("production_id");
 
-          window.location.href = "/";  
+          if(this.navBrand == "nR Personal"){
+            window.location.href = "/guest";
+          }
+          else{
+            window.location.href = "/";
+          }  
         },
         error: (err) => {
           console.log(err);
           this.openToast();
         }
       })
+  }
+
+  setNavbrandLink(){
+    console.log(this.source);
+
+    if(this.source == "Personal" || this.navBrand == "nR Personal"){
+      this.navBrandLink = "/guest";
+    }
+    else{
+      this.navBrandLink = "/";
+    }
   }
 
   openToast(){
