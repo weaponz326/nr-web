@@ -55,7 +55,7 @@ export class KanbanViewComponent implements OnInit {
   deleteTaskItem(){
     this.isTaskDeleting = true;
 
-    this.tasksApi.deleteTaskItem(this.deleteIndex)
+    this.tasksApi.deleteTaskItem(this.tasksData[this.deleteIndex].id)
       .subscribe({
         next: (res) => {
           console.log(res);
