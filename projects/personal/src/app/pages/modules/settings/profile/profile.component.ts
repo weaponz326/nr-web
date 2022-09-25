@@ -141,7 +141,7 @@ export class ProfileComponent implements OnInit {
     this.location.isExtendedProfileSaving = true;
     this.contact.isExtendedProfileSaving = true;
 
-    this.settingsApi.patchExtendedProfile(data)
+    this.settingsApi.putExtendedProfile(data)
       .subscribe({
         next: (res) => {
           console.log(res);
