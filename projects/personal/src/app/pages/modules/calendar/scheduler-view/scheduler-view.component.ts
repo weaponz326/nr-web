@@ -2,6 +2,10 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 
 import { AddScheduleComponent } from '../add-schedule/add-schedule.component';
 import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+
+import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
+import { DateRangeService } from 'projects/personal/src/app/services/module-utilities/date-range/date-range.service';
 
 
 const DAY_MS = 60 * 60 * 24 * 1000;
@@ -13,12 +17,19 @@ const DAY_MS = 60 * 60 * 24 * 1000;
 })
 export class SchedulerViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private calendarApi: CalendarApiService,
+    private dateRange: DateRangeService,
+  ) { }
 
   @Output() selected = new EventEmitter();
 
   @ViewChild('addScheduleComponentReference', { read: AddScheduleComponent, static: false }) addSchedule!: AddScheduleComponent;
   @ViewChild('editScheduleComponentReference', { read: EditScheduleComponent, static: false }) editSchedule!: EditScheduleComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  schedulesData: any;
+  scheduleDatesData: any = [];
 
   array = Array;
   math = Math;
@@ -32,6 +43,31 @@ export class SchedulerViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCalendarDays(this.currentDate);
+    this.getCalendarSchedules();
+  }
+
+  getCalendarSchedules(){
+    this.calendarApi.getCalendarSchedules()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.schedulesData = res;
+          this.setScheduleDateData();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  setScheduleDateData(){
+    for(let data of this.schedulesData){
+      let dates = this.dateRange.getDateRange(new Date(data.start_date), new Date(data.end_date));
+      this.scheduleDatesData.push(dates);
+    }
+
+    console.log(this.scheduleDatesData);
   }
 
   setMonth(inc: any) {

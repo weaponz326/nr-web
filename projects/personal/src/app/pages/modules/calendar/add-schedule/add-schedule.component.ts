@@ -1,6 +1,9 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { ScheduleFormComponent } from '../schedule-form/schedule-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+
+import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
 import { Schedule } from 'projects/personal/src/app/models/modules/calendar/calendar.model';
 
 
@@ -11,14 +14,15 @@ import { Schedule } from 'projects/personal/src/app/models/modules/calendar/cale
 })
 export class AddScheduleComponent implements OnInit {
 
-  constructor() { }
+  constructor(private calendarApi: CalendarApiService) { }
 
-  @Output() saveScheduleEvent = new EventEmitter<any>();
+  @Output() reloadScheduleEvent = new EventEmitter<any>();
 
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('scheduleFormComponentReference', { read: ScheduleFormComponent, static: false }) scheduleForm!: ScheduleFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   isSaving = false;
 
@@ -32,7 +36,7 @@ export class AddScheduleComponent implements OnInit {
     this.scheduleForm.scheduleForm.controls.endDate.setValue(new Date(date).toISOString().slice(0, 16));
   }
 
-  saveSchedule(){
+  postSchedule(){
     let data: Schedule = {
       calendar: sessionStorage.getItem('personal_calendar_id') as string,
       schedule_name: this.scheduleForm.scheduleForm.controls.scheduleName.value as string,
@@ -43,7 +47,32 @@ export class AddScheduleComponent implements OnInit {
       status: this.scheduleForm.scheduleForm.controls.status.value as string,
     }
 
-    this.saveScheduleEvent.emit(data);
+    console.log(data);
+
+    this.isSaving = true;
+
+    this.calendarApi.postSchedule(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('personal_schedule_id', res.id);
+            this.reloadScheduleEvent.emit();
+            this.dismissButton.nativeElement.click();
+            this.resetForm();
+          }
+
+          this.isSaving = false;
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isSaving = false;
+          console.log(err);
+        }
+      })
+
+    this.reloadScheduleEvent.emit();
   }
 
   resetForm(){

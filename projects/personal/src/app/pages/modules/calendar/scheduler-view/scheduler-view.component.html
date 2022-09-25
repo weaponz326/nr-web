@@ -12,16 +12,28 @@
                 </button>
             </div>
 
-            <table class="table table-bordered table-responsive-sm mb-0 scheduler-table" id="calendar">
+            <table class="table table-bordered table-responsive-sm mb-0 scheduler-table">
                 <thead>
-                    <tr class="bg-light"><th *ngFor="let day of days" class="text-center">{{day}}</th></tr>
+                    <tr class="bg-light">
+                        <th *ngFor="let day of days" class="text-center">{{day}}</th>
+                    </tr>
                 </thead>
     
                 <tbody id="calendar-body">
                     <tr *ngFor="let a of array(math.ceil(dates.length/7)); let i = index">
-                        <td *ngFor="let date of dates.slice(7*i, 7*i + 7);" (dblclick)="addSchedule.openModal(date)" class="px-1 py-0">
-                            <span class="float-end d-block" [ngClass]="{'text-muted': date.getMonth() != currentDate.getMonth()}">
+                        <td *ngFor="let date of dates.slice(7*i, 7*i + 7);" (dblclick)="addSchedule.openModal(date)" class="p-0">
+                            <span class="float-end d-block px-1" [ngClass]="{'text-muted': date.getMonth() != currentDate.getMonth()}">
+
                                 <small>{{date | date:'d'}}</small>
+
+                                <!-- <span *ngFor="let scheduleDateRange of scheduleDatesData">
+                                    <span *ngFor="let scheduleDate of scheduleDateRange">
+                                        <span *ngIf="date == scheduleDate" [ngClass]="{'bg-light': date == scheduleDate}">
+                                            ...
+                                        </span>
+                                    </span>
+                                </span> -->
+
                             </span>
                         </td>
                     </tr>
@@ -32,10 +44,12 @@
     </div>
 </div>
 
-<!-- add schedule item component -->
+<!-- add and edit schedule item components -->
 
-<app-add-schedule #addScheduleComponentReference></app-add-schedule>
-
-<!-- edit schedule item component -->
+<app-add-schedule #addScheduleComponentReference (reloadScheduleEvent)="getCalendarSchedules()"></app-add-schedule>
 
 <app-edit-schedule #addScheduleComponentReference></app-edit-schedule>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

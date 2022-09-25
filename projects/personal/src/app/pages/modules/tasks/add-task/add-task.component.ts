@@ -55,9 +55,10 @@ export class AddTaskComponent implements OnInit {
           console.log(res);
 
           if(res.id){
-            sessionStorage.setItem('personal_note_id', res.id);
+            sessionStorage.setItem('personal_task_item_id', res.id);
             this.reloadTasksEvent.emit();
             this.dismissButton.nativeElement.click();
+            this.resetForm();
           }
 
           this.isTaskSaving = false;
