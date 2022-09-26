@@ -32,7 +32,7 @@ export class PortalApiService {
   }
 
   public postRink(rink: any): Observable<any>{
-    return this.http.post(this.portalUrl + "rink/", rink);
+    return this.http.post(this.portalUrl + "rink/", rink, this.authHeaders.headers);
   }
 
   public putRink(rink: any): Observable<any>{

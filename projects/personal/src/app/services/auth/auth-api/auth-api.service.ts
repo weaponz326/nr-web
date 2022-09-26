@@ -83,7 +83,7 @@ export class AuthApiService {
   // personal search
 
   public getSearchList(search: any, page: any, size: any): Observable<any>{
-    return this.http.get(this.usersUrl + "search-list?search=" + search
+    return this.http.get(this.usersUrl + "search-list?user=" + localStorage.getItem('personal_id') + "&search=" + search
       + "&page=" + page
       + "&size=" + size,
       this.authHeaders.headers);

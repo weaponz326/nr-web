@@ -33,7 +33,7 @@
 
 <div class="row mt-4">
     <div class="col text-center">
-        <button [disabled]="isPrevDisabled" class="btn btn-light mx-2">Prev</button>
-        <button [disabled]="isNextDisabled" class="btn btn-light mx-2">Next</button>
+        <button [disabled]="isPrevDisabled" (click)="prevPageEvent.emit()" class="btn btn-light mx-2">Prev</button>
+        <button [disabled]="isNextDisabled" (click)="nextPageEvent.emit()" class="btn btn-light mx-2">Next</button>
     </div>
 </div>
