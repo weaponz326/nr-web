@@ -84,6 +84,7 @@ export class EditDeliveryComponent implements OnInit {
     console.log('u are saving a new delivery');
 
     let data = {
+      account: localStorage.getItem('restaurant_id') as string,
       date_delivered: this.deliveryForm.controls.dateDelivered.value,
       delivery_location: this.deliveryForm.controls.deliveryLocation.value,
       delivery_status: this.deliveryForm.controls.deliveryStatus.value,

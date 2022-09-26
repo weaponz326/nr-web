@@ -15,7 +15,7 @@ export class PaymentFormComponent implements OnInit {
 
   @ViewChild('selectOrderComponentReference', { read: SelectOrderComponent, static: false }) selectOrder!: SelectOrderComponent;
 
-  selectedOrderId: any;
+  selectedOrderId = "";
   selectedOrderData: any;
 
   paymentForm = new FormGroup({

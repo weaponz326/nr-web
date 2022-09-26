@@ -49,23 +49,26 @@ export class NewPaymentComponent implements OnInit {
     }
 
     console.log(data);
-    this.isPaymentSaving = true;
 
-    this.paymentsApi.postPayment(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.isPaymentSaving = false;
+    if(this.paymentForm.selectedOrderId != ""){
+      this.isPaymentSaving = true;
 
-          sessionStorage.setItem('restaurant_payment_id', res.id);
-          this.router.navigateByUrl('/home/payments/view-payment');
-        },
-        error: (err) => {
-          console.log(err);
-          this.isPaymentSaving = false;
-          this.connectionToast.openToast();
-        }
-      })
+      this.paymentsApi.postPayment(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.isPaymentSaving = false;
+
+            sessionStorage.setItem('restaurant_payment_id', res.id);
+            this.router.navigateByUrl('/home/payments/view-payment');
+          },
+          error: (err) => {
+            console.log(err);
+            this.isPaymentSaving = false;
+            this.connectionToast.openToast();
+          }
+        })
+    }
   }
 
 }
