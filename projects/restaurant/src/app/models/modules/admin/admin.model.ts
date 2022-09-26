@@ -5,9 +5,11 @@ export class AccountUser {
 }
 
 export class Invitation {
-  account!: string;
   user!: string;
+  account!: string;
+  account_type!: string;
   invitation_status!: string;
+  date_confirmed!: any;
 }
 
 export class UserAccess {

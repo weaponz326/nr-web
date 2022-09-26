@@ -14,30 +14,28 @@
             <div class="modal-body text-center">
 
                 <div class="row mb-4">
-                    <div class="col text-muted">
+                    <div class="col">
                         <label><em>Invitation Date :</em></label>
-                        {{invitationData?.created_at | date: 'MMMM d, y, hh:mm:ss a'}}
+                        {{invitationData?.created_at | date: 'short'}}
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="col">
-                        <img *ngIf="invitationData?.user.photo != null" [src]="invitationData?.user.photo" alt="" width="90" height="90" class="rounded-circle" />
-                        <img *ngIf="invitationData?.user.photo == null" src="../../../../../assets/images/utilities/photo-avatar.jpg" alt="" width="90" height="90" class="rounded-circle" />
+                        <img *ngIf="invitationData?.account.logo != ''" [src]="invitationData?.account.logo" alt="" width="70" height="60" class="rounded" />
+                        <img *ngIf="invitationData?.account.logo == ''" src="../../../../../assets/images/utilities/logo-placeholder.jpg" alt="Company" width="70" height="60" class="rounded" />
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="col">
-                        <i class="bi bi-person-fill me-2 text-muted"></i>
-                        <strong>{{invitationData?.user.first_name}} {{invitationData?.user.last_name}}</strong>
+                        <strong>{{invitationData?.account.name}}</strong>
                     </div>
                 </div>
 
                 <div class="row mb-4">
-                    <div class="col text-muted">
-                        <i class="bi bi-geo-alt-fill me-2 text-muted"></i>
-                        {{invitationData?.user.location}}
+                    <div class="col">
+                        {{invitationData?.account.location}}
                     </div>
                 </div>
 
@@ -48,11 +46,12 @@
                     </div>
                 </div>
 
-                <!-- <div *ngIf="invitationData?.invitation_status == 'Awaiting'" class="row">
-                    <div class="offset-md-3 col">
-                        <button class="btn btn-secondary page-add-btn">Cancel Invitation</button>
+                <div class="row">
+                    <div *ngIf="invitationData?.invitation_status == 'Awaiting'" class="col">
+                        <button class="btn btn-sm btn-secondary page-add-btn m-1" (click)="updateInvitation('Accepted')">Accept</button>
+                        <button class="btn btn-sm btn-secondary page-add-btn m-1" (click)="updateInvitation('Declined')">Decline</button>
                     </div>
-                </div> -->
+                </div>
 
             </div>
 

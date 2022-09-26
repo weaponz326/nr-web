@@ -12,8 +12,7 @@ import { AdminApiService } from 'projects/restaurant/src/app/services/modules-ap
 import { SettingsApiService as RestaurantSettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
 import { SettingsApiService as PersonalSettingsApiService } from 'projects/personal/src/app/services/modules-api/settings-api/settings-api.service';
 
-import { Invitation as RestaurantInvitation } from 'projects/restaurant/src/app/models/modules/admin/admin.model';
-import { Invitation as PersonalInvitation } from 'projects/personal/src/app/models/modules/settings/settings.model';
+import { Invitation } from 'projects/restaurant/src/app/models/modules/admin/admin.model';
 
 
 @Component({
@@ -48,21 +47,23 @@ export class UserSearchComponent implements OnInit {
   searchDetailData: any;
   searchQuery: any;
 
-  sortParams = {
-    field: "access_level",
-    direction: "asc"
-  }
+  currentPage = 0;
+  totalPages = 0;
+  totalItems = 0;
+  
+  isNextDisabled = false;
+  isPrevDisabled = false;
 
   ngOnInit(): void {
     console.log(sessionStorage.getItem('restaurantAdminSearchInput'));
 
     if(sessionStorage.getItem('restaurantAdminSearchInput')){
       this.searchQuery = sessionStorage.getItem('restaurantAdminSearchInput');
-      this.doSearch();
+      this.doSearch(1);
     }
   }
 
-  doSearch(){
+  doSearch(page: any){
     if (this.searchInput.trim() != ""){
       // put search input in url
       this.router.navigate(['/home/admin/search/', { input: this.searchInput }]);
@@ -70,20 +71,30 @@ export class UserSearchComponent implements OnInit {
       sessionStorage.setItem('restaurantAdminSearchInput', this.searchInput);
       this.searchQuery = this.searchInput;
 
-      this.getSearchResult();
+      this.getSearchResult(page);
     }
   }
 
-  getSearchResult(){
+  getSearchResult(page: any){
     // TODO: make page size dynamic
-    this.authApi.getSearchList(this.searchInput, 1, 15)
+    this.authApi.getSearchList(this.searchInput, page, 15)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.searchResultsData = res;
+          this.searchResultsData = res.results;
 
           this.isSearchResultsReady = true;
           this.isSearchDetailReady = false;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+          
+          if(this.currentPage == 1)
+            this.isPrevDisabled = true;
+
+          if(this.currentPage == this.totalPages)
+            this.isNextDisabled = true;
         },
         error: (err) => {
           console.log(err);
@@ -132,10 +143,12 @@ export class UserSearchComponent implements OnInit {
   }
 
   createAccountInvitation() {
-    let data: RestaurantInvitation = {
-      account: localStorage.getItem('restaurant_id') as string,
-      invitation_status: 'Awaiting',
+    let data: Invitation = {
       user: this.searchDetailData.id,
+      account: localStorage.getItem('restaurant_id') as string,
+      account_type: 'Restaurant',
+      invitation_status: 'Awaiting',
+      date_confirmed: null
     }
 
     console.log(data);
@@ -146,43 +159,14 @@ export class UserSearchComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.createUserInvitation(res.id);
           this.searchDetail.isSending = false;
 
-          this.router.navigateByUrl('/home/admin/invitations');
+          if(res.id)
+            this.router.navigateByUrl('/home/admin/invitations');
         },
         error: (err) => {
           console.log(err);
           this.searchDetail.isSending = false;
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
-  async createUserInvitation(invitation_id: any){
-    const accountResults$ = this.accountsApi.getAccount();
-    const accountData: any = await lastValueFrom(accountResults$)
-      .then((res: any) => console.log(res));
-
-    let data: PersonalInvitation = {
-      user: this.searchDetailData.id,
-      invitation_status: 'Awaiting',
-      inviter_type: "Restaurant",
-      inviter_invitation_id: invitation_id,
-      inviter_id: accountData.id,
-      inviter_name: accountData.name,
-      inviter_location: accountData.location,
-    }
-
-    console.log(data);
-
-    this.personalSettingsApi.postInvitation(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (err) => {
-          console.log(err);
           this.connectionToast.openToast();
         }
       })

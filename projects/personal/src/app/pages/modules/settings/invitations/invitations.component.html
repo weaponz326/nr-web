@@ -3,7 +3,75 @@
 <main>
     <div class="container-fluid px-4">
     
-        <p>invitations works!</p>
+        <div class="row">
+            <div class="col-md-9">
+        
+                <div class="row mb-3">
+                    <div class="col">
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getUserInvitation(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+    
+                <div class="overflow-auto">
+                    <table class="table table-bordered table w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="20%" class="min-width-3">
+                                    Invitation Date
+                                    <app-table-sorting [sortField]="'created_at'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="40%" class="min-width-4">
+                                    Account Name
+                                    <app-table-sorting [sortField]="'name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Account Type
+                                    <app-table-sorting [sortField]="'account_type'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Invitation Status
+                                    <app-table-sorting [sortField]="'invitation_status'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of invitationsGridData" (dblclick)="openInvitation(data)"
+                            class="table-pointer">
+                                <td>{{data?.created_at | date: "short"}}</td>
+                                <td>{{data?.account.name}}</td>
+                                <td>{{data?.account_type}}</td>
+                                <td>{{data?.invitation_status}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="4">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="4">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getUserInvitation($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+    
+            </div>
+        </div>
 
     </div>
 </main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- view invitation component -->
+
+<app-view-invitation #viewInvitationComponentReference (updatedEvent)="getUserInvitation(1, 20, '')"></app-view-invitation>

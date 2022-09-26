@@ -36,7 +36,7 @@
                         <tbody>
                             <tr *ngFor="let data of invitationsGridData" (dblclick)="openInvitation(data)" class="table-pointer">
                                 <td>{{data?.created_at | date:'short'}}</td>
-                                <td>{{data?.invitee_name}}</td>
+                                <td>{{data?.user.first_name}} {{data?.user.last_name}}</td>
                                 <td>{{data?.invitation_status}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

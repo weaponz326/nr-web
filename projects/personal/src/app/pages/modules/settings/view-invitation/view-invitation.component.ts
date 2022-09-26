@@ -1,0 +1,93 @@
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+
+import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
+import { SettingsApiService } from 'projects/personal/src/app/services/modules-api/settings-api/settings-api.service';
+
+
+@Component({
+  selector: 'app-view-invitation',
+  templateUrl: './view-invitation.component.html',
+  styleUrls: ['./view-invitation.component.scss']
+})
+export class ViewInvitationComponent implements OnInit {
+
+  constructor(
+    private authApi: AuthApiService,
+    private settingsApi: SettingsApiService,
+  ) { }
+
+  @Output() updatedEvent = new EventEmitter<any>();
+
+  @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
+  @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
+
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  thisUser: any;
+
+  invitationData: any;
+  isUpdating = false;
+
+  ngOnInit(): void {
+  }
+
+  openModal(data: any){
+    console.log(data);
+    this.invitationData = data;
+
+    this.editButton.nativeElement.click();
+  }
+
+  updateInvitation(choice: any){
+    this.isUpdating = true;
+
+    let data = { invitation_status: choice }
+
+    this.settingsApi.putInvitation(this.invitationData.id, data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.updatedEvent.emit();
+          this.editButton.nativeElement.click();
+          this.isUpdating = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isUpdating = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  // createUserAccess(accountUserId: any){
+  //   let accessData: UserAccess = {
+  //     admin_access: false,
+  //     customers_access: false,
+  //     deliveries_access: false,
+  //     kitchen_stock_access: false,
+  //     menu_access: false,
+  //     orders_access: false,
+  //     payments_access: false,
+  //     portal_access: false,
+  //     roster_access: false,
+  //     settings_access: false,
+  //     staff_access: false,
+  //     reservations_access: false,
+  //     tables_access: false,
+  //   }
+
+  //   this.restaurantAdminApi.createUserAccess(accountUserId, accessData)
+  //     .then(
+  //       (res: any) => {
+  //         console.log(res);
+  //       },
+  //       (err: any) => {
+  //         console.log(err)
+  //         this.connectionToast.openToast();
+  //       }
+  //     )
+  // }
+
+}

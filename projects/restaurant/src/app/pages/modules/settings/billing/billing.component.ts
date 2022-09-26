@@ -52,7 +52,7 @@ export class BillingComponent implements OnInit {
   isFrequencyDisabled = false;
   isnumberUsersDisabled = false;
 
-  isEmailValid = false;
+  isEmailValid = true;
   isSubscriptionValid = true;
   isFrequencyValid = true;
   isNumberUsersValid = true;
@@ -94,11 +94,12 @@ export class BillingComponent implements OnInit {
           this.subscriptionTypeValue = this.subscriptionData.subscription_type;
           this.billingFrequencyValue = this.subscriptionData.billing_frequency;
           this.numberUsersValue = this.subscriptionData.number_users;
+          this.emailValue = this.subscriptionData.email;
 
           this.isSubscriptionLoading = false;
           this.selectedSubscription = this.subscriptionTypeValue;
+          this.selectedFrequency = this.billingFrequencyValue;
           this.setFormFields();
-          this.setOptions();
         },
         error: (err) => {
           console.log(err);
@@ -109,13 +110,15 @@ export class BillingComponent implements OnInit {
   }
 
   updateSubscription(){
-    let data = {
+    let data: Subscription = {
       subscription_type: this.subscriptionTypeValue,
       billing_frequency: this.billingFrequencyValue,
       number_users: this.numberUsersValue,
+      email: this.emailValue,
+      status: "Active"
     }
 
-    this.settingsApi.patchSubscription(data)
+    this.settingsApi.putSubscription(data)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -131,7 +134,7 @@ export class BillingComponent implements OnInit {
     this.selectedSubscription = event.target.value;
     console.log(this.selectedSubscription);
 
-    if(this.selectedFrequency == ""){
+    if(this.selectedFrequency == "" || this.selectedFrequency == null){
       this.billingFrequencyValue = "Monthly";
       this.selectedFrequency = "Monthly";
     }
@@ -139,7 +142,16 @@ export class BillingComponent implements OnInit {
     this.setFormFields();
   }
 
+  setFrequency(event: any){
+    this.selectedFrequency = event.target.value;
+    console.log(this.selectedFrequency);
+
+    this.setFormFields();
+  }
+
   setFormFields(){
+    console.log(this.selectedSubscription);
+
     // sunscription type field
     if (this.selectedSubscription == "Individual"){
       this.billingFrequencyValue = "";
@@ -179,14 +191,9 @@ export class BillingComponent implements OnInit {
     this.setOptions();
   }
 
-  setFrequency(event: any){
-    this.selectedFrequency = event.target.value;
-    console.log(this.selectedFrequency);
-
-    this.setFormFields();
-  }
-
   setOptions(){
+    console.log("setting options...");
+
     var plan = "";
     var quantity = "";
 
@@ -221,7 +228,12 @@ export class BillingComponent implements OnInit {
   validateSubcriptionForm(f: NgForm) {
     if (f.controls['email'].invalid){
       console.log("email invalid");
+      this.isEmailValid = false;
       return false;
+    }
+    else{
+      console.log("email valid");
+      this.isEmailValid = true;
     }
 
     if ((this.subscriptionTypeValue == "Small Team" || this.subscriptionTypeValue == "Large Team") && this.billingFrequencyValue == ""){
@@ -248,8 +260,10 @@ export class BillingComponent implements OnInit {
       this.isNumberUsersValid = true;
     }
 
+    this.updateSubscription();
+
     console.log("opening paystack!");
-    this.paystackButton.nativeElement.click();
+    // this.paystackButton.nativeElement.click();
     return true;
   }
 

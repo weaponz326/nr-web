@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-8 mx-auto">
 
-                        <form (ngSubmit)="doSearch()">
+                        <form (ngSubmit)="doSearch(1)">
                             <div class="input-group">
                                 <input [(ngModel)]="searchInput" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Search for users" aria-label="Search for users" aria-describedby="button-addon2">
                                 <div class="input-group-append">
@@ -18,7 +18,7 @@
                                     </button>
                                 </div>
                             </div>
-                    </form>
+                        </form>
 
                     </div>
                 </div>
@@ -31,9 +31,13 @@
 
                 <div *ngIf="isSearchResultsReady">
                     <app-search-results #searchResultsComponentReference
-                        (viewDetailEvent)="gotoSearchDetail($event)"
-                        [searchQuery]="searchQuery"
-                        [searchResults]="searchResultsData"
+                    (viewDetailEvent)="gotoSearchDetail($event)"
+                    (nextPageEvent)="doSearch(currentPage + 1)"
+                    (prevPageEvent)="doSearch(currentPage - 1)"
+                    [searchQuery]="searchQuery"
+                    [searchResults]="searchResultsData"
+                    [isNextDisabled]="isNextDisabled"
+                    [isPrevDisabled]="isPrevDisabled"
                     ></app-search-results>
                 </div>
 
