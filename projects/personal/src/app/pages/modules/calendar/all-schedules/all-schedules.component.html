@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
 
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
 
                 <div class="row mb-3">
                     <div class="col">
@@ -17,40 +17,45 @@
                 <table class="table table-bordered w-100 page-table">
                     <thead>
                         <tr class="bg-light">
-                            <th width="35%">
+                            <th width="30%">
                                 Schedule
                                 <app-table-sorting [sortField]="'schedule_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
-                            <th width="23%">
+                            <th width="18%">
                                 Start Date
                                 <app-table-sorting [sortField]="'start_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
-                            <th width="23%">
+                            <th width="18%">
                                 End Date
                                 <app-table-sorting [sortField]="'end_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
-                            <th width="19%">
+                            <th width="14%">
                                 Status
                                 <app-table-sorting [sortField]="'status'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="20%">
+                                Calendar
+                                <app-table-sorting [sortField]="'calendar_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of schedulesGridData">
                             <td>{{data?.schedule_name}}</td>
-                            <td>{{data?.start_date | date}}</td>
-                            <td>{{data?.end_date | date}}</td>
+                            <td>{{data?.start_date | date: 'short'}}</td>
+                            <td>{{data?.end_date | date: 'short'}}</td>
                             <td>{{data?.status}}</td>
+                            <td>{{data?.calendar.calendar_name}}</td>
                         </tr>
                         <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                            <td colspan="4">
+                            <td colspan="5">
                                 <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr class="bg-light">
-                            <td colspan="4">
+                            <td colspan="5">
                                 <app-table-paginator
                                 [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getUserSchedules($event, 20, '')"
                                 ></app-table-paginator>

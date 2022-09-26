@@ -42,13 +42,16 @@ export class AddItemComponent implements OnInit {
       menu_item: this.itemForm.selectedMenuItemId,
     }
 
-    this.saveItemEvent.emit(data);
+    if(this.itemForm.selectedMenuItemId != "")
+      this.saveItemEvent.emit(data);
   }
 
   resetForm(){
     this.itemForm.itemForm.controls.menuItem.setValue('');
     this.itemForm.itemForm.controls.price.setValue(0.00);
     this.itemForm.itemForm.controls.quantity.setValue(1);
+    this.itemForm.selectedMenuItemId = "";
+    this.itemForm.selectedMenuItemData = null;
   }
 
   openMenuItemWindow(){

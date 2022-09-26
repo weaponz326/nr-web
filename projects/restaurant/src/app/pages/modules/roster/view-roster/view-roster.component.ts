@@ -76,11 +76,12 @@ export class ViewRosterComponent implements OnInit {
   }
 
   postRoster(){
-    let data = {
-      roster_name: this.rosterForm.controls.rosterName.value,
-      roster_code: this.rosterForm.controls.rosterCode.value,
-      from_date: this.rosterForm.controls.fromDate.value,
-      to_date: this.rosterForm.controls.toDate.value,
+    let data: Roster = {
+      account: localStorage.getItem('restaurant_id') as string,
+      roster_code: this.rosterForm.controls.rosterCode.value as string,
+      roster_name: this.rosterForm.controls.rosterName.value as string,
+      from_date: this.rosterForm.controls.fromDate.value as Date,
+      to_date: this.rosterForm.controls.toDate.value as Date,
     }
 
     this.isRosterSaving = true;

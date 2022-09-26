@@ -1,6 +1,15 @@
-.kanban-block{
-    height: 35rem !important;
+.cards-div{
+    height: 28rem !important;
 }
+
+.cards-div::-webkit-scrollbar {
+    display: none;
+}
+  
+.cards-div {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+} 
 
 .task-card-title{
     font-size: 1.2rem;

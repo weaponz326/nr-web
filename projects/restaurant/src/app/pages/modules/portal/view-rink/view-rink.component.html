@@ -19,7 +19,7 @@
                 <ng-template #senderBlock>
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <i class="bi bi-arrow-up-fill me-2 rinkout-icon"></i>
+                            <i class="bi bi-arrow-up-circle-fill me-2 rinkout-icon"></i>
                             <small><strong>RinkOut</strong> - {{rinkData?.created_at | date: 'MMMM d, y, hh:mm:ss a'}}</small>
                         </div>
                     </div>
@@ -29,10 +29,12 @@
                             <img src="../../../../../assets/images/utilities/logo-placeholder.jpg" alt="" width="80" height="80" class="rounded" />
                         </div>
                         <div class="col-md-5 mt-2">
+                            <i class="bi bi-building me-2 text-muted"></i>
                             <em><small>Recipient's Name :</small></em><br>
                             <strong>{{rinkData?.recipient.name}}</strong>
                         </div>
                         <div class="col-md-5 mt-2">
+                            <i class="bi bi-geo-alt-fill me-2 text-muted"></i>
                             <em><small>Recipient's Location :</small></em><br>
                             {{rinkData?.recipient.location}}
                         </div>
@@ -40,7 +42,8 @@
 
                     <div class="row mt-2 mb-3">
                         <div class="offset-md-2 col-md-5">
-                            <em><small>Rink type :  </small></em><br>
+                            <i class="bi bi-menu-button-fill me-2 text-muted"></i>
+                            <em><small>Rink type :</small></em><br>
                             Restaurant - {{rinkData?.rink_type}}
                             <img *ngIf="rinkData?.rink_type == 'Menu Group' || rinkData?.rink_type == 'Menu Item'" src="../../../../../assets/images/modules/menu.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Staff'" src="../../../../../assets/images/modules/staff.png" alt="" width="25" height="25" class="ms-2" />
@@ -48,7 +51,7 @@
                             <img *ngIf="rinkData?.rink_type == 'Delivery'" src="../../../../../assets/images/modules/deliveries.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Customer'" src="../../../../../assets/images/modules/customers.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Reservation'" src="../../../../../assets/images/modules/reservations.png" alt="" width="25" height="25" class="ms-2" />
-                            <img *ngIf="rinkData?.rink_type == 'Stock Item'" src="../../../../../assets/images/modules/kitchen_stock.png" alt="" width="25" height="25" class="ms-2" />
+                            <img *ngIf="rinkData?.rink_type == 'Kitchen Stock Item'" src="../../../../../assets/images/modules/kitchen_stock.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Payment'" src="../../../../../assets/images/modules/payments.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Roster'" src="../../../../../assets/images/modules/roster.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Table'" src="../../../../../assets/images/modules/tables.png" alt="" width="25" height="25" class="ms-2" />
@@ -57,6 +60,7 @@
 
                     <div class="row">
                         <div class="offset-md-2 col-md-7">
+                            <i class="bi bi-chat-left-fill me-2 text-muted"></i>
                             <em><small>Comment :</small></em><br>
                             {{rinkData?.comment}}
                         </div>
@@ -66,7 +70,7 @@
                 <ng-template #recipientBlock>
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <i class="bi bi-arrow-down-fill me-2 rinkin-icon"></i>
+                            <i class="bi bi-arrow-down-circle-fill me-2 rinkin-icon"></i>
                             <small><strong>RinkIn</strong> - {{rinkData?.created_at | date: 'MMMM d, y, hh:mm:ss a'}}</small>
                         </div>
                     </div>
@@ -76,10 +80,12 @@
                             <img src="../../../../../assets/images/utilities/logo-placeholder.jpg" alt="" width="80" height="80" class="rounded" />
                         </div>
                         <div class="col-md-5 mt-2">
+                            <i class="bi bi-building me-2 text-muted"></i>
                             <em><small>Sender's Name :</small></em><br>
                             <strong>{{rinkData?.sender.name}} {{rinkData?.sender.last_name}}</strong>
                         </div>
                         <div class="col-md-5 mt-2">
+                            <i class="bi bi-geo-alt-fill me-2 text-muted"></i>
                             <em><small>Sender's Location :</small></em><br>
                             {{rinkData?.sender.location}}
                         </div>
@@ -87,7 +93,8 @@
 
                     <div class="row mt-2 mb-3">
                         <div class="offset-md-2 col-md-5">
-                            <em><small>Rink type :  </small></em><br>
+                            <i class="bi bi-menu-button-fill me-2 text-muted"></i>
+                            <em><small>Rink type :</small></em><br>
                             Restaurant - {{rinkData?.rink_type}}
                             <img *ngIf="rinkData?.rink_type == 'Menu Group' || rinkData?.rink_type == 'Menu Item'" src="../../../../../assets/images/modules/menu.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Staff'" src="../../../../../assets/images/modules/staff.png" alt="" width="25" height="25" class="ms-2" />
@@ -95,7 +102,7 @@
                             <img *ngIf="rinkData?.rink_type == 'Delivery'" src="../../../../../assets/images/modules/deliveries.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Customer'" src="../../../../../assets/images/modules/customers.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Reservation'" src="../../../../../assets/images/modules/reservations.png" alt="" width="25" height="25" class="ms-2" />
-                            <img *ngIf="rinkData?.rink_type == 'Stock Item'" src="../../../../../assets/images/modules/kitchen_stock.png" alt="" width="25" height="25" class="ms-2" />
+                            <img *ngIf="rinkData?.rink_type == 'Kitchen Stock Item'" src="../../../../../assets/images/modules/kitchen_stock.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Payment'" src="../../../../../assets/images/modules/payments.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Roster'" src="../../../../../assets/images/modules/roster.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Table'" src="../../../../../assets/images/modules/tables.png" alt="" width="25" height="25" class="ms-2" />
@@ -104,6 +111,7 @@
 
                     <div class="row">
                         <div class="offset-md-2 col-md-7">
+                            <i class="bi bi-chat-left-fill me-2 text-muted"></i>
                             <em><small>Comment :</small></em><br>
                             {{rinkData?.comment}}
                         </div>

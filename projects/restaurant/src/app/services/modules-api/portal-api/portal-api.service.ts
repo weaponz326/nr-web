@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from 'projects/personal/src/environments/environment';
+import { environment } from 'projects/restaurant/src/environments/environment';
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 
 
@@ -32,7 +32,7 @@ export class PortalApiService {
   }
 
   public postRink(rink: any): Observable<any>{
-    return this.http.post(this.portalUrl + "rink/", rink);
+    return this.http.post(this.portalUrl + "rink/", rink, this.authHeaders.headers);
   }
 
   public putRink(rink: any): Observable<any>{

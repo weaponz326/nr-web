@@ -81,8 +81,8 @@
 
 <!-- select customer window component -->
 
-<app-select-customer #selectCustomerComponentReference (rowSelected)="onCustomerSelected($event)"></app-select-customer>
+<app-select-customer #selectCustomerComponentReference [closeTarget]="'#addOrderModal'" (rowSelected)="onCustomerSelected($event)"></app-select-customer>
 
 <!-- select table window component -->
 
-<app-select-table #selectTableComponentReference (rowSelected)="onTableSelected($event)"></app-select-table>
+<app-select-table #selectTableComponentReference [closeTarget]="'#addOrderModal'" (rowSelected)="onTableSelected($event)"></app-select-table>

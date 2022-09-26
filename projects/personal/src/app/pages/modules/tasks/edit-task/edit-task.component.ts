@@ -1,6 +1,10 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
+
+import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
 import { TaskItem } from 'projects/personal/src/app/models/modules/tasks/tasks.model';
 
 
@@ -11,19 +15,21 @@ import { TaskItem } from 'projects/personal/src/app/models/modules/tasks/tasks.m
 })
 export class EditTaskComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tasksApi: TasksApiService) { }
 
-  @Output() saveTaskEvent = new EventEmitter<any>();
+  @Output() reloadTasksEvent = new EventEmitter<any>();
 
   @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('taskFormComponentReference', { read: TaskFormComponent, static: false }) taskForm!: TaskFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
 
   taskFormData: any;
 
-  isSaving = false;
-  isDeleting = false;
+  isTaskItemSaving = false;
+  isTaskItemDeleting = false;
 
   ngOnInit(): void {
   }
@@ -48,12 +54,49 @@ export class EditTaskComponent implements OnInit {
       status: this.taskForm.taskForm.controls.status.value as string,
     }
 
-    let task = {
-      id: this.taskFormData.id,
-      data: data
-    }
+    console.log(data);
+    
+    this.isTaskItemSaving = true;
 
-    this.saveTaskEvent.emit(task);
+    this.tasksApi.putTaskItem(data, this.taskFormData.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.id){
+            sessionStorage.setItem('personal_note_id', res.id);
+            this.reloadTasksEvent.emit();
+            this.dismissButton.nativeElement.click();
+          }
+
+          this.isTaskItemSaving = false;
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isTaskItemSaving = false;
+          console.log(err);
+        }
+      })
+  }
+
+  deleteTaskItem(){
+    this.isTaskItemDeleting = true;
+
+    this.tasksApi.deleteTaskItem(this.taskFormData.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.reloadTasksEvent.emit();
+          this.dismissButton.nativeElement.click();
+          this.isTaskItemDeleting = false;
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isTaskItemDeleting = false;
+          console.log(err);
+        }
+      })
   }
 
 }

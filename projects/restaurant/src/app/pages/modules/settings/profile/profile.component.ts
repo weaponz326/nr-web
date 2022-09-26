@@ -6,7 +6,7 @@ import { ContactComponent } from '../profile-content/contact/contact.component';
 import { LocationComponent } from '../profile-content/location/location.component';
 import { LogoComponent } from '../profile-content/logo/logo.component';
 
-import { environment } from 'projects/personal/src/environments/environment';
+import { environment } from 'projects/restaurant/src/environments/environment';
 import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
 import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
 

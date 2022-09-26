@@ -10,80 +10,85 @@
             </div>
         </div>
 
-        <div class="row g-3">
+        <div class="row gx-1">
 
-            <div class="col border bg-light shadow-sm px-2 mx-2 pb-4 kanban-block">
+            <div class="col-md-4 border bg-light shadow-sm px-2 pb-4 kanban-block">
                 <p class="h5 p-3 m-0">To Do</p>
-                <div class="overflow-auto">
-                    <div class="card">
-                        <div class="card-body p-2">
-                            <p class="task-card-title mb-1">Task title</p>
-                            <p class="mb-2">
-                                <span class="badge rounded-pill text-bg-secondary">Priority</span>
-                            </p>
-                            <p class="task-card-body mb-2">A lot of lorem stuff for task description</p>
-                            <div class="task-card-btn">
-                                <hr class="my-2">
-                                <button class="btn btn-light btn-sm border mx-1 float-end">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                                <button class="btn btn-light btn-sm border mx-1 float-end">
-                                    <i class="bi bi-pen"></i>
-                                </button>
+                <div class="cards-div overflow-auto border-top border-bottom">
+                    <div *ngFor="let data of tasksData; index as i">
+                        <div *ngIf="data.status == 'To Do'" class="card my-2">
+                            <div class="card-body p-2">
+                                <p class="task-card-title mb-1">{{data.task_item}}</p>
+                                <p class="mb-2">
+                                    <span class="badge rounded-pill text-bg-secondary">{{data.priority}}</span>
+                                </p>
+                                <p class="task-card-body mb-2">{{data.description}}</p>
+                                <div class="task-card-btn">
+                                    <hr class="my-2">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openDeleteConfirm(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openEditModal(i)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col border bg-light shadow-sm px-2 mx-2 pb-4 kanban-block">
+            <div class="col-md-4 border bg-light shadow-sm px-2 pb-4 kanban-block">
                 <p class="h5 p-3 m-0">Doing</p>
-                <div class="overflow-auto">
-                    <div class="card">
-                        <div class="card-body p-2">
-                            <p class="task-card-title mb-1">Task title</p>
-                            <p class="mb-2">
-                                <span class="badge rounded-pill text-bg-secondary">Priority</span>
-                            </p>
-                            <p class="task-card-body mb-2">A lot of lorem stuff for task description</p>
-                            <div class="task-card-btn">
-                                <hr class="my-2">
-                                <button class="btn btn-light btn-sm border mx-1 float-end">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                                <button class="btn btn-light btn-sm border mx-1 float-end">
-                                    <i class="bi bi-pen"></i>
-                                </button>
+                <div class="cards-div overflow-auto border-top border-bottom">
+                    <div *ngFor="let data of tasksData; index as i">
+                        <div *ngIf="data.status == 'Doing'" class="card my-2">
+                            <div class="card-body p-2">
+                                <p class="task-card-title mb-1">{{data.task_item}}</p>
+                                <p class="mb-2">
+                                    <span class="badge rounded-pill text-bg-secondary">{{data.priority}}</span>
+                                </p>
+                                <p class="task-card-body mb-2">{{data.description}}</p>
+                                <div class="task-card-btn">
+                                    <hr class="my-2">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openDeleteConfirm(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openEditModal(i)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col border bg-light shadow-sm px-2 mx-2 pb-4 kanban-block">
-                <p class="h5 p-3 m-0">To Do</p>
-                <div class="overflow-auto">
-                    <div class="card">
-                        <div class="card-body p-2">
-                            <p class="task-card-title mb-1">Done</p>
-                            <p class="mb-2">
-                                <span class="badge rounded-pill text-bg-secondary">Priority</span>
-                            </p>
-                            <p class="task-card-body mb-2">A lot of lorem stuff for task description</p>
-                            <div class="task-card-btn">
-                                <hr class="my-2">
-                                <button class="btn btn-light btn-sm border mx-1 float-end">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                                <button class="btn btn-light btn-sm border mx-1 float-end">
-                                    <i class="bi bi-pen"></i>
-                                </button>
+            <div class="col-md-4 border bg-light shadow-sm px-2 pb-4 kanban-block">
+                <p class="h5 p-3 m-0">Done</p>
+                <div class="cards-div overflow-auto border-top border-bottom">
+                    <div *ngFor="let data of tasksData; index as i">
+                        <div *ngIf="data.status == 'Done'" class="card my-2">
+                            <div class="card-body p-2">
+                                <p class="task-card-title mb-1">{{data.task_item}}</p>
+                                <p class="mb-2">
+                                    <span class="badge rounded-pill text-bg-secondary">{{data.priority}}</span>
+                                </p>
+                                <p class="task-card-body mb-2">{{data.description}}</p>
+                                <div class="task-card-btn">
+                                    <hr class="my-2">
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openDeleteConfirm(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button class="btn btn-light btn-sm border mx-1 float-end" (click)="openEditModal(i)">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -92,8 +97,16 @@
 
 <!-- add task item component -->
 
-<app-add-task #addTaskComponentReference></app-add-task>
+<app-add-task #addTaskComponentReference (reloadTasksEvent)="getTaskGroupTaskItems()"></app-add-task>
 
 <!-- edit task item component -->
 
-<app-edit-task #addTaskComponentReference></app-edit-task>
+<app-edit-task #editTaskComponentReference (reloadTasksEvent)="getTaskGroupTaskItems()"></app-edit-task>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteTaskItem()"></app-delete-modal-one>

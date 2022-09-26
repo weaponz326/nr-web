@@ -75,7 +75,8 @@ export class UserSearchComponent implements OnInit {
   }
 
   getSearchResult(){
-    this.authApi.getSearchList(this.searchInput)
+    // TODO: make page size dynamic
+    this.authApi.getSearchList(this.searchInput, 1, 15)
       .subscribe({
         next: (res) => {
           console.log(res);

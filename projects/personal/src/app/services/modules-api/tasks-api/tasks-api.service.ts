@@ -54,23 +54,23 @@ export class TasksApiService {
       this.authHeaders.headers);
   }
 
-  public getTaskGroupSchedules(): Observable<any>{
-    return this.http.get(this.tasksUrl + "task-item?calendar=" + sessionStorage.getItem('personal_task_group_id'), this.authHeaders.headers);
+  public getTaskGroupTaskItems(): Observable<any>{
+    return this.http.get(this.tasksUrl + "task-item?task_group=" + sessionStorage.getItem('personal_task_group_id'), this.authHeaders.headers);
   }
 
-  public getSchedule(taskItemId: any): Observable<any>{
+  public getTaskItem(taskItemId: any): Observable<any>{
     return this.http.get(this.tasksUrl + "task-item/=" + taskItemId, this.authHeaders.headers);
   }
 
-  public postSchedule(schedule: any): Observable<any>{
-    return this.http.post(this.tasksUrl + "task-item/", schedule, this.authHeaders.headers);
+  public postTaskItem(taskItem: any): Observable<any>{
+    return this.http.post(this.tasksUrl + "task-item/", taskItem, this.authHeaders.headers);
   }
 
-  public putSchedule(schedule: any, taskItemId: any): Observable<any>{
-    return this.http.put(this.tasksUrl + "task-item/" + taskItemId, schedule, this.authHeaders.headers);
+  public putTaskItem(taskItem: any, taskItemId: any): Observable<any>{
+    return this.http.put(this.tasksUrl + "task-item/" + taskItemId, taskItem, this.authHeaders.headers);
   }
 
-  public deleteSchedule(taskItemId: any): Observable<any>{
+  public deleteTaskItem(taskItemId: any): Observable<any>{
     return this.http.delete(this.tasksUrl + "task-item/" + taskItemId, this.authHeaders.headers);
   }
 

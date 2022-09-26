@@ -22,8 +22,8 @@ export class EditShiftComponent implements OnInit {
 
   shiftForm = new FormGroup({
     shiftName: new FormControl(''),
-    startTime: new FormControl(''),
-    endTime: new FormControl(''),
+    startTime: new FormControl(),
+    endTime: new FormControl(),
   })
 
   ngOnInit(): void {
@@ -40,8 +40,9 @@ export class EditShiftComponent implements OnInit {
   }
 
   saveShift(){
-    let data = {
-      shift_name: this.shiftForm.controls.shiftName.value,
+    let data: Shift = {
+      roster: sessionStorage.getItem('restaurant_roster_id') as string,
+      shift_name: this.shiftForm.controls.shiftName.value as string,
       start_time: this.shiftForm.controls.startTime.value,
       end_time: this.shiftForm.controls.endTime.value,
     }

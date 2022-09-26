@@ -40,8 +40,8 @@ export class NewRosterComponent implements OnInit {
   openModal(){
     this.newButton.nativeElement.click();
 
-    this.rosterForm.controls.fromDate.setValue(new Date().toISOString().slice(0, 16))
-    this.rosterForm.controls.toDate.setValue(new Date().toISOString().slice(0, 16))
+    this.rosterForm.controls.fromDate.setValue(new Date().toISOString().slice(0, 10))
+    this.rosterForm.controls.toDate.setValue(new Date().toISOString().slice(0, 10))
   }
 
   createRoster(){

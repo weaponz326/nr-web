@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { SearchDetailComponent } from '../search-detail/search-detail.component';
+import { SearchResultsComponent } from '../search-results/search-results.component';
 
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { PortalApiService } from 'projects/personal/src/app/services/modules-api/portal-api/portal-api.service';
@@ -21,6 +23,8 @@ export class SearchViewComponent implements OnInit {
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('searchResultsComponentReference', { read: SearchResultsComponent, static: false }) searchResults!: SearchResultsComponent;
+  @ViewChild('searchDetailComponentReference', { read: SearchDetailComponent, static: false }) searchDetail!: SearchDetailComponent;
 
   navHeading: any[] = [
     { text: "New Rink", url: "/home/portal/search" },
@@ -33,9 +37,16 @@ export class SearchViewComponent implements OnInit {
 
   isSearchResultsReady = false;
   isSearchDetailReady = false;
-  searchResults: any;
-  searchDetail: any;
+  searchResultsData: any;
+  searchDetailData: any;
   searchQuery: any;
+
+  currentPage = 0;
+  totalPages = 0;
+  totalItems = 0;
+  
+  isNextDisabled = false;
+  isPrevDisabled = false;
 
   ngOnInit(): void {
     console.log(sessionStorage.getItem('personalSearchInput'));
@@ -45,11 +56,11 @@ export class SearchViewComponent implements OnInit {
       this.searchFilter = String(sessionStorage.getItem('personalSearchFilter') || 'Personal');
       this.searchQuery = sessionStorage.getItem('personalSearchInput');
 
-      this.doSearch();
+      this.doSearch(1);
     }
   }
 
-  doSearch(){
+  doSearch(page: any){
     if(this.searchInput.trim() != ""){
       // put search input in url just for the looks
       this.router.navigate(['/home/portal/search', { input: this.searchInput, filter: this.searchFilter }]);
@@ -58,7 +69,7 @@ export class SearchViewComponent implements OnInit {
       sessionStorage.setItem('personalSearchFilter', this.searchFilter);
       this.searchQuery = this.searchInput;
 
-      this.getSearchResults();
+      this.getSearchResults(page);
     }
   }
 
@@ -67,15 +78,25 @@ export class SearchViewComponent implements OnInit {
     this.searchFilter = value;
   }
 
-  getSearchResults(){
-    this.authApi.getSearchList(this.searchInput)
+  getSearchResults(page: any){
+    this.authApi.getSearchList(this.searchInput, page, 15)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.searchResults = res;
+          this.searchResultsData = res.results;
 
           this.isSearchResultsReady = true;
           this.isSearchDetailReady = false;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+          
+          if(this.currentPage == 1)
+            this.isPrevDisabled = true;
+
+          if(this.currentPage == this.totalPages)
+            this.isNextDisabled = true;
         },
         error: (err) => {
           console.log(err);
@@ -91,7 +112,7 @@ export class SearchViewComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.searchDetail = res;
+          this.searchDetailData = res;
 
           this.isSearchResultsReady = false;
           this.isSearchDetailReady = true;

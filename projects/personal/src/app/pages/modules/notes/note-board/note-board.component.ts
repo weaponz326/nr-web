@@ -75,7 +75,7 @@ export class NoteBoardComponent implements OnInit {
   deleteNote(){
     this.isNoteDeleting = true;
 
-    this.notesApi.deleteNote(this.deleteIndex)
+    this.notesApi.deleteNote(this.noteBoardData[this.deleteIndex].id)
       .subscribe({
         next: (res) => {
           console.log(res);

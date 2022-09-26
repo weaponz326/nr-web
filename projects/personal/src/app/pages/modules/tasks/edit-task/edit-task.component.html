@@ -20,11 +20,19 @@
             </div>
 
             <div class="modal-footer">
-                <button [disabled]="isSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveTask()">Save</button>
-                <button [disabled]="isDeleting" class="btn btn-sm btn-secondary modal-form-btn">Delete</button>
+                <button [disabled]="isTaskItemSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveTask()">Save</button>
+                <button [disabled]="isTaskItemDeleting" class="btn btn-sm btn-secondary modal-form-btn" (click)="deleteModal.openModal()">Delete</button>
                 <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteTaskItem()"></app-delete-modal-two>

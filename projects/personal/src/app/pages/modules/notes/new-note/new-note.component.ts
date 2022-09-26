@@ -56,6 +56,7 @@ export class NewNoteComponent implements OnInit {
             sessionStorage.setItem('personal_note_id', res.id);
             this.reloadEvent.emit();
             this.dismissButton.nativeElement.click();
+            this.resetForm();
           }
 
           this.isNoteSaving = false;
@@ -66,6 +67,11 @@ export class NewNoteComponent implements OnInit {
           console.log(err);
         }
       })
+  }
+
+  resetForm(){
+    this.noteForm.controls.title.setValue('');
+    this.noteForm.controls.body.setValue('');
   }
   
 }

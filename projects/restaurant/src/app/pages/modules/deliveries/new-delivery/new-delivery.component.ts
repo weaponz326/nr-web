@@ -32,7 +32,7 @@ export class NewDeliveryComponent implements OnInit {
     { text: "Add Delivery", url: "/home/deliveries/add-delivery" },
   ];
 
-  selectedOrderId: any;
+  selectedOrderId = "";
 
   isDeliverySaving = false;
 
@@ -61,27 +61,30 @@ export class NewDeliveryComponent implements OnInit {
     }
 
     console.log(data);
-    this.isDeliverySaving = true;
 
-    this.deliveriesApi.postDelivery(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          if(res == "exists"){
-            this.existButtonElement.nativeElement.click();
-          }
-          else if (res.id){
-            sessionStorage.setItem('restaurant_delivery_id', res.id);
-            this.router.navigateByUrl('/home/deliveries/view-delivery');
+    if(this.selectedOrderId != ""){
+      this.isDeliverySaving = true;
+
+      this.deliveriesApi.postDelivery(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            if(res == "exists"){
+              this.existButtonElement.nativeElement.click();
+            }
+            else if (res.id){
+              sessionStorage.setItem('restaurant_delivery_id', res.id);
+              this.router.navigateByUrl('/home/deliveries/view-delivery');
+              this.isDeliverySaving = false;
+            }
+          },
+          error: (err) => {
+            console.log(err);
             this.isDeliverySaving = false;
+            this.connectionToast.openToast();
           }
-        },
-        error: (err) => {
-          console.log(err);
-          this.isDeliverySaving = false;
-          this.connectionToast.openToast();
-        }
-      })
+        })
+    }
   }
 
   onOrderSelected(orderData: any){

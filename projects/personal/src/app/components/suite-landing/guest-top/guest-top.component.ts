@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-guest-top',
   templateUrl: './guest-top.component.html',
@@ -33,8 +34,8 @@ export class GuestTopComponent implements OnInit {
         this.router.navigateByUrl("/auth/login");
     }
     else{
-      sessionStorage.setItem("isSuiteRegistration", "");
-      this.router.navigateByUrl("/auth/login");
+      sessionStorage.removeItem("isSuiteRegistration");
+      this.router.navigateByUrl("/auth/register");
     }
   }
 

@@ -31,9 +31,16 @@ export class SearchViewComponent implements OnInit {
 
   isSearchResultsReady = false;
   isSearchDetailReady = false;
-  searchResults: any;
-  searchDetail: any;
+  searchResultsData: any;
+  searchDetailData: any;
   searchQuery: any;
+
+  currentPage = 0;
+  totalPages = 0;
+  totalItems = 0;
+  
+  isNextDisabled = false;
+  isPrevDisabled = false;
 
   ngOnInit(): void {
     console.log(sessionStorage.getItem('restaurantSearchInput'));
@@ -43,11 +50,11 @@ export class SearchViewComponent implements OnInit {
       this.searchFilter = String(sessionStorage.getItem('restaurantSearchFilter') || 'Personal');
       this.searchQuery = sessionStorage.getItem('restaurantSearchInput');
 
-      this.doSearch();
+      this.doSearch(1);
     }
   }
 
-  doSearch(){
+  doSearch(page: any){
     if(this.searchInput.trim() != ""){
       // put search input in url just for the looks
       this.router.navigate(['/home/portal/search', { input: this.searchInput, filter: this.searchFilter }]);
@@ -56,7 +63,7 @@ export class SearchViewComponent implements OnInit {
       sessionStorage.setItem('restaurantSearchFilter', this.searchFilter);
       this.searchQuery = this.searchInput;
 
-      this.getSearchResults();
+      this.getSearchResults(page);
     }
   }
 
@@ -65,15 +72,25 @@ export class SearchViewComponent implements OnInit {
     this.searchFilter = value;
   }
 
-  getSearchResults(){
-    this.accountApi.getSearchResults(this.searchInput)
+  getSearchResults(page: any){
+    this.accountApi.getSearchResults(this.searchInput, page, 15)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.searchResults = res;
+          this.searchResultsData = res.results;
 
           this.isSearchResultsReady = true;
           this.isSearchDetailReady = false;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+          
+          if(this.currentPage == 1)
+            this.isPrevDisabled = true;
+
+          if(this.currentPage == this.totalPages)
+            this.isNextDisabled = true;
         },
         error: (err) => {
           console.log(err);
@@ -89,7 +106,7 @@ export class SearchViewComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.searchDetail = res;
+          this.searchDetailData = res;
 
           this.isSearchResultsReady = false;
           this.isSearchDetailReady = true;

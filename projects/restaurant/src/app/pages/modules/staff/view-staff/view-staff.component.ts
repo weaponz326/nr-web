@@ -10,7 +10,7 @@ import { StaffApiService } from 'projects/restaurant/src/app/services/modules-ap
 import { StaffPrintService } from 'projects/restaurant/src/app/services/modules-printing/staff-print/staff-print.service';
 
 import { Staff } from 'projects/restaurant/src/app/models/modules/staff/staff.model';
-import { environment } from 'projects/personal/src/environments/environment';
+import { environment } from 'projects/restaurant/src/environments/environment';
 
 
 @Component({

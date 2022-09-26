@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
@@ -52,7 +52,12 @@ export class AuthApiService {
   }
 
   public getUser(): Observable<any>{
-    return this.http.get(this.apiUrl + "auth/users/me/", this.headers);
+    let token = new HttpHeaders()
+      .set('Authorization', "Token " + localStorage.getItem('token'));    // for getting user after login without reloading page
+
+    let headers = { 'headers': token };
+
+    return this.http.get(this.apiUrl + "auth/users/me/", headers);
   }
 
   public deleteUser(deleteForm: any): Observable<any>{
@@ -77,8 +82,11 @@ export class AuthApiService {
 
   // personal search
 
-  public getSearchList(search: any): Observable<any>{
-    return this.http.get(this.usersUrl + "search-list?search=" + search, this.authHeaders.headers);
+  public getSearchList(search: any, page: any, size: any): Observable<any>{
+    return this.http.get(this.usersUrl + "search-list?user=" + localStorage.getItem('personal_id') + "&search=" + search
+      + "&page=" + page
+      + "&size=" + size,
+      this.authHeaders.headers);
   }
 
   public getSearchDetail(userId: any): Observable<any>{

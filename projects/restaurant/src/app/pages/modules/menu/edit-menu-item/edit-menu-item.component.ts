@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 import { MenuItemFormComponent } from '../menu-item-form/menu-item-form.component'
 
 import { MenuItem } from 'projects/restaurant/src/app/models/modules/menu/menu.model';
-import { environment } from 'projects/personal/src/environments/environment';
+import { environment } from 'projects/restaurant/src/environments/environment';
 
 
 @Component({
