@@ -22,8 +22,8 @@
 
                 <div class="row mb-2">
                     <div class="col">
-                        <img *ngIf="invitationData?.account.logo != ''" [src]="invitationData?.account.logo" alt="" width="70" height="60" class="rounded" />
-                        <img *ngIf="invitationData?.account.logo == ''" src="../../../../../assets/images/utilities/logo-placeholder.jpg" alt="Company" width="70" height="60" class="rounded" />
+                        <img *ngIf="invitationData?.account.logo != null" [src]="invitationData?.account.logo" alt="" width="70" height="60" class="rounded" />
+                        <img *ngIf="invitationData?.account.logo == null" src="../../../../../assets/images/utilities/logo-placeholder.jpg" alt="Company" width="70" height="60" class="rounded border" />
                     </div>
                 </div>
 
@@ -48,8 +48,8 @@
 
                 <div class="row">
                     <div *ngIf="invitationData?.invitation_status == 'Awaiting'" class="col">
-                        <button class="btn btn-sm btn-secondary page-add-btn m-1" (click)="updateInvitation('Accepted')">Accept</button>
-                        <button class="btn btn-sm btn-secondary page-add-btn m-1" (click)="updateInvitation('Declined')">Decline</button>
+                        <button [disabled]="isUpdating" class="btn btn-sm btn-secondary page-add-btn m-1" (click)="updateInvitation('Accepted')">Accept</button>
+                        <button [disabled]="isUpdating" class="btn btn-sm btn-secondary page-add-btn m-1" (click)="updateInvitation('Declined')">Decline</button>
                     </div>
                 </div>
 

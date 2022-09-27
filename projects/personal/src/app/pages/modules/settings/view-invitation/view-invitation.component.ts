@@ -60,34 +60,5 @@ export class ViewInvitationComponent implements OnInit {
         }
       })
   }
-
-  // createUserAccess(accountUserId: any){
-  //   let accessData: UserAccess = {
-  //     admin_access: false,
-  //     customers_access: false,
-  //     deliveries_access: false,
-  //     kitchen_stock_access: false,
-  //     menu_access: false,
-  //     orders_access: false,
-  //     payments_access: false,
-  //     portal_access: false,
-  //     roster_access: false,
-  //     settings_access: false,
-  //     staff_access: false,
-  //     reservations_access: false,
-  //     tables_access: false,
-  //   }
-
-  //   this.restaurantAdminApi.createUserAccess(accountUserId, accessData)
-  //     .then(
-  //       (res: any) => {
-  //         console.log(res);
-  //       },
-  //       (err: any) => {
-  //         console.log(err)
-  //         this.connectionToast.openToast();
-  //       }
-  //     )
-  // }
-
+  
 }

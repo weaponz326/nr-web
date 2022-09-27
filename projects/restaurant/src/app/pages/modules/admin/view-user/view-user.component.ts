@@ -81,10 +81,10 @@ export class ViewUserComponent implements OnInit {
           this.userForm.controls.personalName.setValue(res.personal_user.first_name + " " + res.personal_user.last_name);
           this.userForm.controls.accessLevel.setValue(res.access_level);
 
-          if (this.accountData.creator.id == res.personal_user.id){
-            this.isCreator = true;
+          this.isCreator = res.is_creator;
+
+          if (res.is_creator)
             this.userForm.controls.accessLevel.disable();
-          }
 
           this.isUserLoading = false;
         },

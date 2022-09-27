@@ -23,17 +23,17 @@ export class DashboardComponent implements OnInit {
     { text: "Dashboard", url: "/home/calendar/dashboard" },
   ];
 
-  allAccountDataSets: any[] = [1, 0, 0, 0, 0, 0, 0, 0, 0];
+  allAccountDataSets: any[] = [1];
   allAccountLabels: any[] = [
     "Personal",
     "Restaurant",
-    "School",
-    "Enterprise",
-    "Association",
-    "Hospital",
-    "Hotel",
-    "Shop",
-    "Production",
+    // "School",
+    // "Enterprise",
+    // "Association",
+    // "Hospital",
+    // "Hotel",
+    // "Shop",
+    // "Production",
   ];
 
   allAccountCount: number = 1;
@@ -41,11 +41,47 @@ export class DashboardComponent implements OnInit {
   accountBarChartConfig: any;
 
   ngOnInit(): void {
+    this.getAllUserAccountCount();
+    this.getAllAccountShare();
   }
 
   ngAfterViewInit(): void {
     this.initAccountBarChart();
   }
+
+  getAllUserAccountCount(){
+    this.settingsApi.getAllUserAccountCount()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.allAccountCount = res.count + 1;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getAllAccountShare(){
+    this.settingsApi.getUserAccountShare()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          this.allAccountDataSets[1] = res.restaurant;
+          // this.allAccountDataSets[2] = res.school;
+
+          this.accountBarChartConfig.destroy();
+          this.initAccountBarChart();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
 
   initAccountBarChart(){
     let accountBarChartElement = this.elementRef.nativeElement.querySelector('#accountBarChart')

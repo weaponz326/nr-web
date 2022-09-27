@@ -56,4 +56,20 @@ export class SettingsApiService {
     return this.http.delete(this.settingsUrl + "invitation/" + invitationId, this.authHeaders.headers);
   }
 
+  // all user suite accounts
+
+  public getAllUserSuiteAccount(): Observable<any>{
+    return this.http.get(this.settingsUrl + "all-user-suite-account?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  // dashboard
+
+  public getAllUserAccountCount(): Observable<any>{
+    return this.http.get(this.settingsUrl + "dashboard/all-user-suite-account-count?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getUserAccountShare(): Observable<any>{
+    return this.http.get(this.settingsUrl + "dashboard/user-suite-account-share?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
 }

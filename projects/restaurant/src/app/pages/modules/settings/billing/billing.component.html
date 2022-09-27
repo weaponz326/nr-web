@@ -200,8 +200,11 @@
 
                         <div>
                             <p class="m-0"><i class="bi bi-person m-1"></i>Total Users :</p>
-                            <p class="h4 mt-0">
+                            <p *ngIf="selectedSubscription != 'Comprehensive'" class="h4 mt-0">
                                 {{numberUsersValue}}
+                            </p>
+                            <p *ngIf="selectedSubscription == 'Comprehensive'" class="h4 mt-0">
+                                Unlimited
                             </p>
                         </div>
 
