@@ -18,6 +18,8 @@ import { AdditionalComponent } from './profile-content/additional/additional.com
 import { PhotoComponent } from './profile-content/photo/photo.component';
 import { ContactComponent } from './profile-content/contact/contact.component';
 import { LocationComponent } from './profile-content/location/location.component';
+import { ViewInvitationComponent } from './view-invitation/view-invitation.component';
+import { ViewAccountComponent } from './view-account/view-account.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { LocationComponent } from './profile-content/location/location.component
     AdditionalComponent,
     PhotoComponent,
     ContactComponent,
-    LocationComponent
+    LocationComponent,
+    ViewInvitationComponent,
+    ViewAccountComponent
   ],
   imports: [
     CommonModule,

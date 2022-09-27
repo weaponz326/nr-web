@@ -1,6 +1,8 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+
+import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { SettingsApiService } from 'projects/personal/src/app/services/modules-api/settings-api/settings-api.service';
 
 
@@ -11,7 +13,10 @@ import { SettingsApiService } from 'projects/personal/src/app/services/modules-a
 })
 export class ViewInvitationComponent implements OnInit {
 
-  constructor(private settingsApi: SettingsApiService) { }
+  constructor(
+    private authApi: AuthApiService,
+    private settingsApi: SettingsApiService,
+  ) { }
 
   @Output() updatedEvent = new EventEmitter<any>();
 
@@ -19,6 +24,8 @@ export class ViewInvitationComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  thisUser: any;
 
   invitationData: any;
   isUpdating = false;
@@ -53,5 +60,5 @@ export class ViewInvitationComponent implements OnInit {
         }
       })
   }
-
+  
 }

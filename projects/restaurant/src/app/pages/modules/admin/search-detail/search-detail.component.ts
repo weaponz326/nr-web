@@ -20,12 +20,12 @@ export class SearchDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sendInvitation(){
-    this.sendInvitationEvent.emit();
-  }
-
   openModal(){
     this.buttonElement.nativeElement.click();
   }
 
+  sendInvitation(){
+    this.sendInvitationEvent.emit();
+  }
+  
 }

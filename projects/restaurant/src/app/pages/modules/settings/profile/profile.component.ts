@@ -108,7 +108,7 @@ export class ProfileComponent implements OnInit {
 
     this.basic.isAccountSaving = true;
 
-    this.accountApi.patchAccount(data)
+    this.accountApi.putAccount(data)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -148,7 +148,7 @@ export class ProfileComponent implements OnInit {
     this.location.isExtendedProfileSaving = true;
     this.contact.isExtendedProfileSaving = true;
 
-    this.settingsApi.patchExtendedProfile(data)
+    this.settingsApi.putExtendedProfile(data)
       .subscribe({
         next: (res) => {
           console.log(res);

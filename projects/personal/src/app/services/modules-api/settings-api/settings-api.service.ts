@@ -32,24 +32,44 @@ export class SettingsApiService {
 
   // invitation
 
-  public getUserInvitation(): Observable<any>{
-    return this.http.get(this.settingsUrl + "invitation?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  public getUserInvitation(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.settingsUrl + "invitation?user=" + localStorage.getItem('personal_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField,
+      this.authHeaders.headers);
   }
 
   public postInvitation(invitation: any): Observable<any>{
     return this.http.post(this.settingsUrl + "invitation/", invitation, this.authHeaders.headers);
   }
 
-  public getInvitation(): Observable<any>{
-    return this.http.get(this.settingsUrl + "invitation/" + sessionStorage.getItem('personal_invitation_id'), this.authHeaders.headers);
+  public getInvitation(invitationId: any): Observable<any>{
+    return this.http.get(this.settingsUrl + "invitation/" + invitationId, this.authHeaders.headers);
   }
 
-  public putInvitation(invitation: any): Observable<any>{
-    return this.http.put(this.settingsUrl + "invitation/" + sessionStorage.getItem('personal_invitation_id'), invitation, this.authHeaders.headers);
+  public putInvitation(invitationId: any, invitationData: any): Observable<any>{
+    return this.http.put(this.settingsUrl + "invitation/" + invitationId, invitationData, this.authHeaders.headers);
   }
 
-  public deleteInvitation(): Observable<any>{
-    return this.http.delete(this.settingsUrl + "invitation/" + sessionStorage.getItem('personal_invitation_id'), this.authHeaders.headers);
+  public deleteInvitation(invitationId: any): Observable<any>{
+    return this.http.delete(this.settingsUrl + "invitation/" + invitationId, this.authHeaders.headers);
+  }
+
+  // all user suite accounts
+
+  public getAllUserSuiteAccount(): Observable<any>{
+    return this.http.get(this.settingsUrl + "all-user-suite-account?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  // dashboard
+
+  public getAllUserAccountCount(): Observable<any>{
+    return this.http.get(this.settingsUrl + "dashboard/all-user-suite-account-count?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+  }
+
+  public getUserAccountShare(): Observable<any>{
+    return this.http.get(this.settingsUrl + "dashboard/user-suite-account-share?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
 }

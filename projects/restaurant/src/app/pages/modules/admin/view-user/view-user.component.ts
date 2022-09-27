@@ -23,8 +23,6 @@ export class ViewUserComponent implements OnInit {
     private adminApi: AdminApiService
   ) { }
 
-  @ViewChild('buttonElementReference', { read: ElementRef, static: false }) buttonElement!: ElementRef;
-
   @ViewChild('accessFormComponentReference', { read: AccessFormComponent, static: false }) accessFormComponent!: AccessFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
@@ -36,8 +34,8 @@ export class ViewUserComponent implements OnInit {
 
   userFormData: any;
 
-  AccountUserPersonalId: any;
   accountData: any;
+  isCreator = false;
 
   isUserLoading: boolean = false;
   isUserSaving: boolean = false;
@@ -80,9 +78,13 @@ export class ViewUserComponent implements OnInit {
           console.log(res);
           this.userFormData = res;
 
-          this.AccountUserPersonalId = res.personal_user.id;
           this.userForm.controls.personalName.setValue(res.personal_user.first_name + " " + res.personal_user.last_name);
           this.userForm.controls.accessLevel.setValue(res.access_level);
+
+          this.isCreator = res.is_creator;
+
+          if (res.is_creator)
+            this.userForm.controls.accessLevel.disable();
 
           this.isUserLoading = false;
         },
@@ -133,25 +135,20 @@ export class ViewUserComponent implements OnInit {
   deleteAdminUser() {
     this.isUserDeleting = true;
 
-    if (this.accountData.creator.id != this.AccountUserPersonalId) {
-      this.adminApi.deleteAccountUser()
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            this.isUserDeleting = false;
+    this.adminApi.deleteAccountUser()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isUserDeleting = false;
 
-            this.router.navigateByUrl('/home/admin/all-users');
-          },
-          error: (err) => {
-            console.log(err);
-            this.isUserDeleting = false;
-            this.connectionToast.openToast();
-          }
-        })
-    }
-    else {
-      this.buttonElement.nativeElement.click();
-    }
+          this.router.navigateByUrl('/home/admin/all-users');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isUserDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

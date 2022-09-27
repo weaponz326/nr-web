@@ -1,20 +1,35 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TablesGuard implements CanActivate, CanActivateChild {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+  
+  constructor(private router: Router) { }
+
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    let tablesAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).tables_access;
+
+    if (tablesAccess){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+
+  canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
+    let tablesAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).tables_access;
+
+    if (tablesAccess){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
+
   
 }

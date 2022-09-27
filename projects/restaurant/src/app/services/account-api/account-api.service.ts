@@ -22,6 +22,10 @@ export class AccountApiService {
     return this.http.post(this.accountUrl + "account/", account, this.authHeaders.headers);
   }
 
+  public putAccount(account: any): Observable<any>{
+    return this.http.put(this.accountUrl + "account/" + localStorage.getItem('restaurant_id'), account, this.authHeaders.headers);
+  }
+
   public patchAccount(account: any): Observable<any>{
     return this.http.patch(this.accountUrl + "account/" + localStorage.getItem('restaurant_id'), account, this.authHeaders.headers);
   }

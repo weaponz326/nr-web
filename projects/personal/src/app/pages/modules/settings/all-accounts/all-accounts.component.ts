@@ -24,36 +24,17 @@ export class AllAccountsComponent implements OnInit {
   ];
 
   userData: any;
-
-  restaurantData: any[] = [];
-  schoolData: any[] = [];
-  enterpriseData: any[] = [];
-  associationData: any[] = [];
-  hospitalData: any[] = [];
-  hotelData: any[] = [];
-  shopData: any[] = [];
-  productionData: any[] = [];
-
-  suiteData = [
-    this.restaurantData,
-    this.schoolData,
-    this.enterpriseData,
-    this.associationData,
-    this.hospitalData,
-    this.hotelData,
-    this.shopData,
-    this.productionData,
-  ]
+  suiteData: any = [];
 
   suiteNames = [
     'Restaurant',
-    'School',
-    'Enterprise',
-    'Association',
-    'Hospital',
-    'Hotel',
-    'Shop',
-    'Production',
+    // 'School',
+    // 'Enterprise',
+    // 'Association',
+    // 'Hospital',
+    // 'Hotel',
+    // 'Shop',
+    // 'Production',
   ]
 
   ngOnInit(): void {
@@ -61,7 +42,7 @@ export class AllAccountsComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.getAuth();
-    this.getSuiteAccounts();
+    this.getAllUserSuiteAccount();
   }
 
   getAuth(){
@@ -78,23 +59,22 @@ export class AllAccountsComponent implements OnInit {
     })
   }
 
-  // TODO:
-  getSuiteAccounts(){
-    // this.suiteUrls.forEach((url, index) => {
-    //   this.settingsApi.getUserAccounts(url)
-    //     .subscribe({
-    //       next: (res) => {
-    //         console.log(res);
-    //         this.suiteData[index] = res;
-    //       },
-    //       error: (err) => {
-    //         console.log(err);
-    //         this.connectionToast.openToast();
-    //       }
-    //     })
-    // });
+  getAllUserSuiteAccount(){
+    this.settingsApi.getAllUserSuiteAccount()
+      .subscribe({
+        next: (res) => {
+          console.log(res)
 
-    // this.suiteData.forEach((suite) => console.log(suite));
+          this.suiteData[0] = res.restaurant;
+          // this.schoolData = res.school;
+
+          console.log(this.suiteData);
+        },
+        error: (err) => {
+          console.log(err)
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }
