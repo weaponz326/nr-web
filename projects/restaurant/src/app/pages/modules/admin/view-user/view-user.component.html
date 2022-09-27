@@ -23,6 +23,7 @@
                                 <option>Manager</option>
                                 <option>Staff</option>
                             </select>
+                            <span *ngIf="isCreator" class="small">You cannot edit the access of the creator of account.</span>
                         </div>
                     </div>
 
@@ -43,7 +44,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <app-access-form #accessFormComponentReference></app-access-form>
+                <app-access-form [isCreator]="isCreator" #accessFormComponentReference></app-access-form>
             </div>
         </div>
 
@@ -66,29 +67,6 @@
 
     </div>
 </main>
-
-<!-- subscription check modal -->
-
-<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#creatorDeleteErrorModal">
-    Launch demo modal
-</button>
-
-<div class="modal fade form-modal" id="creatorDeleteErrorModal" tabindex="-1" aria-labelledby="creatorDeleteErrorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content text-center">
-
-            <div class="modal-header bg-light">
-                <span class="modal-title" id="creatorDeleteErrorModalLabel">Delete Restricted</span>
-                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <p class="my-4">You cannot delete or change the access level of the creator of the account</p>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 <!-- connection error prompt component -->
 
