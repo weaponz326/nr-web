@@ -1,9 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-// import { PaystackPop } from '@paystack/inline-js';
-
-import * as connectionToastComponent from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { environment } from 'projects/restaurant/src/environments/environment';
 import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
@@ -22,7 +20,7 @@ export class BillingComponent implements OnInit {
 
   @ViewChild('paystackButtonElementReference', { read: ElementRef, static: false }) paystackButton!: ElementRef;
 
-  @ViewChild('connectionToastComponentReference', { read: connectionToastComponent.ConnectionToastComponent, static: false }) connectionToast!: connectionToastComponent.ConnectionToastComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   navHeading: any[] = [
     { text: "Subscription", url: "/home/settings/billing" },
@@ -57,11 +55,20 @@ export class BillingComponent implements OnInit {
   isFrequencyValid = true;
   isNumberUsersValid = true;
 
-  plans = {
+  plans: any;
+
+  livePlans = {
     smallTeamMonthly: "PLN_scww6u5e6ocqtw6",
     smallTeamYearly: "PLN_qxq74hmegjdag94",
     largeTeamMonthly: "PLN_ts2kk0j0cek0sky",
     largeTeamYearly: "PLN_3p7epe1wgthaie7",
+  }
+
+  testPlans = {
+    smallTeamMonthly: "PLN_p12s1849sda2sqf",
+    smallTeamYearly: "PLN_am1r0xh2rztul6z",
+    largeTeamMonthly: "PLN_se4st8msr9i1h21",
+    largeTeamYearly: "PLN_l54q1rmtnbfyg7n",
   }
 
   paystackOptions = {
@@ -79,7 +86,9 @@ export class BillingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSubscription();    
+    // change plan for test or live deployment
+    this.plans = this.testPlans;  
+    this.getSubscription();  
   }
 
   getSubscription(){
@@ -260,10 +269,9 @@ export class BillingComponent implements OnInit {
       this.isNumberUsersValid = true;
     }
 
-    this.updateSubscription();
+    this.paystackButton.nativeElement.click();
+    console.log("opening paystack!...");
 
-    console.log("opening paystack!");
-    // this.paystackButton.nativeElement.click();
     return true;
   }
 
@@ -275,11 +283,12 @@ export class BillingComponent implements OnInit {
 
   paymentDone(ref: any) {
     console.log('Payment done');
+    console.log(ref);
+    this.updateSubscription();
   }
 
   paymentCancel() {
     console.log('payment failed');
-    this.paystackOptions.ref = `${Math.ceil(Math.random() * 10e10)}`;
   }
 
 }

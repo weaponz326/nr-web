@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { Angular4PaystackModule } from 'angular4-paystack';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { MainNavbarModule } from 'projects/personal/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { environment } from 'projects/restaurant/src/environments/environment';
 
 import { SettingsPage } from './settings.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -39,6 +41,7 @@ import { PaymentsHistoryComponent } from './payments-history/payments-history.co
     SettingsRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    Angular4PaystackModule.forRoot(environment.paystackTestPublicKey),
   ]
 })
 export class SettingsModule { }
