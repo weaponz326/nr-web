@@ -37,8 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of invitationsGridData" (dblclick)="openInvitation(data)"
-                            class="table-pointer">
+                            <tr *ngFor="let data of invitationsGridData" (dblclick)="openInvitation(data)" class="table-pointer">
                                 <td>{{data?.created_at | date: "short"}}</td>
                                 <td>{{data?.account.name}}</td>
                                 <td>{{data?.account_type}}</td>

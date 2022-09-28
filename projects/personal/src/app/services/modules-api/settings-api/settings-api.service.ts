@@ -62,6 +62,10 @@ export class SettingsApiService {
     return this.http.get(this.settingsUrl + "all-user-suite-account?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
+  public deleteAccountUser(userAccountId: any, accountType: any): Observable<any>{
+    return this.http.delete(this.settingsUrl + "all-user-suite-account?acount_type=" + accountType + "/" + userAccountId, this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getAllUserAccountCount(): Observable<any>{

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { ViewAccountComponent } from '../view-account/view-account.component';
 
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { SettingsApiService } from 'projects/personal/src/app/services/modules-api/settings-api/settings-api.service';
@@ -18,6 +19,7 @@ export class AllAccountsComponent implements OnInit {
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('viewAccountComponentReference', { read: ViewAccountComponent, static: false }) viewAccount!: ViewAccountComponent;
 
   navHeading: any[] = [
     { text: "All Accounts", url: "/home/profile/all-accounts" },
@@ -75,6 +77,10 @@ export class AllAccountsComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openAccount(data: any, suiteName: any){
+    this.viewAccount.openModal(data, suiteName.toLowerCase());
   }
 
 }
