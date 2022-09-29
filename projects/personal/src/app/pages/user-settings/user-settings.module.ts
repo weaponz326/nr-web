@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserSettingsRoutingModule } from './user-settings-routing.module';
-import { MainNavbarModule } from '../../components/main-navbar/main-navbar.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 
 import { UserSettingsPage } from './user-settings.page';
 import { ChangePasswordComponent } from './change-password/change-password.component';

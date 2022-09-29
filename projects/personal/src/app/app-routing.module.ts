@@ -8,15 +8,13 @@ import { UserGuard } from './guards/user/user.guard';
 const routes: Routes = [
   {
     path: "",
-    loadChildren: () => import("./pages/main-landing/main-landing.module").then(m => m.MainLandingModule)
+    canActivate: [UserGuard],
+    loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
   },
   {
-    path: "terms",
-    loadChildren: () => import("./pages/legalities/legalities.module").then(m => m.LegalitiesModule)
-  },
-  {
-    path: "help",
-    loadChildren: () => import("./pages/help-info/help-info.module").then(m => m.HelpInfoModule)
+    path: "guest",
+    canActivate: [UserGuard],
+    loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
   },
   {
     path: "auth",
@@ -26,11 +24,6 @@ const routes: Routes = [
     path: "user-settings",
     canActivate: [AuthGuard],
     loadChildren: () => import("./pages/user-settings/user-settings.module").then(m => m.UserSettingsModule)
-  },
-  {
-    path: "guest",
-    canActivate: [UserGuard],
-    loadChildren: () => import("./pages/guest-landing/guest-landing.module").then(m => m.GuestLandingModule)
   },
   {
     path: "home",

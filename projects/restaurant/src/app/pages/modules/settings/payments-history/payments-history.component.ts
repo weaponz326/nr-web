@@ -18,19 +18,28 @@ export class PaymentsHistoryComponent implements OnInit {
 
   navHeading: any[] = [
     { text: "Subscription", url: "/home/settings/billing" },
-    { text: "Billing History", url: "/home/settings/payments-history" },
+    { text: "Subscription History", url: "/home/settings/payments-history" },
   ];
 
   historyData: any;
+
+  isFetchingGridData: boolean =  false;
+  isDataAvailable: boolean =  true;
+
+  currentPage = 0;
+  totalPages = 0;
+  totalItems = 0;
+
+  currentSortColumn = "";
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.getHistory();
+    this.getHistory(1, 20, "-created_at");
   }
 
-  getHistory(){
+  getHistory(page: any, size: any, sortField: any){
     // this.settingsApi.getHistory()
     //   .subscribe(
     //     res => {
@@ -42,6 +51,13 @@ export class PaymentsHistoryComponent implements OnInit {
     //       this.connectionToast.openToast();
     //     }
     //   )
+  }
+
+  sortTable(column: any){
+    console.log(column);
+    this.getHistory(1, 20, column);
+
+    this.currentSortColumn = column;
   }
 
 }

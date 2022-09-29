@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from 'projects/personal/src/environments/environment';
-import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
+import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 
 
 @Component({
@@ -99,12 +99,7 @@ export class MainNavbarComponent implements OnInit {
           localStorage.removeItem("shop_id");
           localStorage.removeItem("production_id");
 
-          if(this.navBrand == "nR Personal"){
-            window.location.href = "/guest";
-          }
-          else{
-            window.location.href = "/";
-          }  
+          window.location.href = "/";
         },
         error: (err) => {
           console.log(err);

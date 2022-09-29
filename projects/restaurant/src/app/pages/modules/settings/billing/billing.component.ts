@@ -1,9 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-// import { PaystackPop } from '@paystack/inline-js';
-
-import * as connectionToastComponent from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { environment } from 'projects/restaurant/src/environments/environment';
 import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
@@ -20,9 +18,9 @@ export class BillingComponent implements OnInit {
 
   constructor(private settingsApi: SettingsApiService) { }
 
-  @ViewChild('paystackButtonElementReference', { read: ElementRef, static: false }) paystackButton!: ElementRef;
+  // @ViewChild('paystackButtonElementReference', { read: ElementRef, static: false }) paystackButton!: ElementRef;
 
-  @ViewChild('connectionToastComponentReference', { read: connectionToastComponent.ConnectionToastComponent, static: false }) connectionToast!: connectionToastComponent.ConnectionToastComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   navHeading: any[] = [
     { text: "Subscription", url: "/home/settings/billing" },
@@ -40,6 +38,7 @@ export class BillingComponent implements OnInit {
   subscriptionTypeValue = "";
   billingFrequencyValue = "";
   numberUsersValue = 0;
+  subscriptionStatusValue = "";
 
   selectedSubscription = '';
   selectedFrequency = '';
@@ -57,29 +56,41 @@ export class BillingComponent implements OnInit {
   isFrequencyValid = true;
   isNumberUsersValid = true;
 
-  plans = {
+  plans: any;
+
+  livePlans = {
     smallTeamMonthly: "PLN_scww6u5e6ocqtw6",
     smallTeamYearly: "PLN_qxq74hmegjdag94",
     largeTeamMonthly: "PLN_ts2kk0j0cek0sky",
     largeTeamYearly: "PLN_3p7epe1wgthaie7",
   }
 
-  paystackOptions = {
-    ref: `${Math.ceil(Math.random() * 10e10)}`,
-    plan: "",
-    quantity: "",
-  };
-
-  metadata = {
-    account: localStorage.getItem('restaurant_id'),
-    suite: "Restaurant",
-    subscription_type: "",
-    billing_frequency: "",
-    number_users: 0,
+  testPlans = {
+    smallTeamMonthly: "PLN_p12s1849sda2sqf",
+    smallTeamYearly: "PLN_am1r0xh2rztul6z",
+    largeTeamMonthly: "PLN_se4st8msr9i1h21",
+    largeTeamYearly: "PLN_l54q1rmtnbfyg7n",
   }
 
+  paystackOptions = {
+    // ref: `${Math.ceil(Math.random() * 10e10)}`,
+    plan: "",
+    quantity: 1,
+  };
+
+  // metadata = {
+  //   account: localStorage.getItem('restaurant_id'),
+  //   suite: "Restaurant",
+  //   subscription_type: "",
+  //   billing_frequency: "",
+  //   number_users: 0,
+  // }
+
   ngOnInit(): void {
-    this.getSubscription();    
+    // change plan for test or live deployment
+    this.plans = this.testPlans;  
+
+    this.getSubscription();  
   }
 
   getSubscription(){
@@ -91,10 +102,11 @@ export class BillingComponent implements OnInit {
           console.log(res);
           this.subscriptionData = res;
 
+          this.emailValue = this.subscriptionData.email;
           this.subscriptionTypeValue = this.subscriptionData.subscription_type;
           this.billingFrequencyValue = this.subscriptionData.billing_frequency;
           this.numberUsersValue = this.subscriptionData.number_users;
-          this.emailValue = this.subscriptionData.email;
+          this.subscriptionStatusValue = this.subscriptionData.status;
 
           this.isSubscriptionLoading = false;
           this.selectedSubscription = this.subscriptionTypeValue;
@@ -115,13 +127,27 @@ export class BillingComponent implements OnInit {
       billing_frequency: this.billingFrequencyValue,
       number_users: this.numberUsersValue,
       email: this.emailValue,
-      status: "Active"
+      plan: this.paystackOptions.plan,
+      quantity: this.paystackOptions.quantity,
+      status: "Pending"
     }
+
+    console.log(data);
 
     this.settingsApi.putSubscription(data)
       .subscribe({
         next: (res) => {
           console.log(res);
+          console.log(res.payment_data[0]);
+
+          let result = res.payment_data[0];
+          var authorization_url = result.substring(
+            result.indexOf('url":"') + 6, 
+            result.lastIndexOf('"')
+          );
+
+          console.log(authorization_url);
+          window.open(authorization_url, '_blank');
         },
         error: (err) => {
           console.log(err);
@@ -195,7 +221,7 @@ export class BillingComponent implements OnInit {
     console.log("setting options...");
 
     var plan = "";
-    var quantity = "";
+    var quantity = 1;
 
     if (this.subscriptionTypeValue == "Small Team"){
       if (this.billingFrequencyValue == "Monthly")
@@ -211,18 +237,18 @@ export class BillingComponent implements OnInit {
     }
 
     if (this.subscriptionTypeValue == "Small Team"){
-      quantity = String(this.numberUsersValue / 10);
+      quantity = this.numberUsersValue / 10;
     }
     else if (this.subscriptionTypeValue == "Large Team"){
-      quantity = String(this.numberUsersValue / 50);
+      quantity = this.numberUsersValue / 50;
     }
 
     this.paystackOptions.plan = plan;
     this.paystackOptions.quantity = quantity;
 
-    this.metadata.subscription_type = this.subscriptionTypeValue;
-    this.metadata.billing_frequency = this.billingFrequencyValue;
-    this.metadata.number_users = this.numberUsersValue;
+    // this.metadata.subscription_type = this.subscriptionTypeValue;
+    // this.metadata.billing_frequency = this.billingFrequencyValue;
+    // this.metadata.number_users = this.numberUsersValue;
   }
 
   validateSubcriptionForm(f: NgForm) {
@@ -260,10 +286,11 @@ export class BillingComponent implements OnInit {
       this.isNumberUsersValid = true;
     }
 
+    // this.paystackButton.nativeElement.click();
+    // console.log("opening paystack!...");
+
     this.updateSubscription();
 
-    console.log("opening paystack!");
-    // this.paystackButton.nativeElement.click();
     return true;
   }
 
@@ -275,11 +302,12 @@ export class BillingComponent implements OnInit {
 
   paymentDone(ref: any) {
     console.log('Payment done');
+    console.log(ref);
+    this.updateSubscription();
   }
 
   paymentCancel() {
     console.log('payment failed');
-    this.paystackOptions.ref = `${Math.ceil(Math.random() * 10e10)}`;
   }
 
 }

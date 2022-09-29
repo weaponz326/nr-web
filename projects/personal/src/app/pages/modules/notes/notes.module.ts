@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NotesRoutingModule } from './notes-routing.module';
-import { MainNavbarModule } from '../../../components/main-navbar/main-navbar.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from '../../../components/module-utilities/module-utilities.module';
 
 import { NotesPage } from './notes.page';

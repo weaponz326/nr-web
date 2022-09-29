@@ -38,7 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let account of data">
+                                <tr *ngFor="let account of data" (dblclick)="openAccount(account, suiteNames[i])">
                                     <td>{{account?.account.name}}</td>
                                     <td>{{account?.account.location}}</td>
                                 </tr>
@@ -56,3 +56,7 @@
 <!-- connection error prompt component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- view account component -->
+
+<app-view-account #viewAccountComponentReference (updatedEvent)="getAllUserSuiteAccount()"></app-view-account>

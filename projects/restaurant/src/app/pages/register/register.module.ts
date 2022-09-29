@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
 import { RegisterRoutingModule } from './register-routing.module';
-import { MainNavbarModule } from 'projects/personal/src/app/components/main-navbar/main-navbar.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { AuthFormsModule } from 'projects/personal/src/app/components/auth-forms/auth-forms.module';
 
 import { RegisterPage } from './register.page';

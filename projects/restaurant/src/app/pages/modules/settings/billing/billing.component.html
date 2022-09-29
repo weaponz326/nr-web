@@ -35,7 +35,7 @@
 
                             <div class="row mb-2">
                                 <div class="col-md-4"><label>No. of Users :</label></div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <input [(ngModel)]="numberUsersValue" name="users" type="number" [step]="numberUsersStep" [disabled]="isnumberUsersDisabled" min="0" [max]="numberUsersStep * 4" (change)="setOptions()"
                                     class="form-control form-control-sm w-100" [ngClass]="!isNumberUsersValid ? 'is-invalid' : ''">
 
@@ -43,6 +43,14 @@
                                         <small *ngIf="subscriptionTypeValue == 'Small Team'">Should be multiples of 10</small>
                                         <small *ngIf="subscriptionTypeValue == 'Large Team'">Should be multiples of 50</small>
                                     </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-4"><label>Subscription Status :</label></div>
+                                <div class="col-md-8">
+                                    <input [(ngModel)]="subscriptionStatusValue" type="text" name="status"  
+                                    class="form-control form-control-sm w-100" disabled="true">
                                 </div>
                             </div>
 
@@ -80,22 +88,6 @@
                     </div>
                 </div>
 
-                <!-- <button [hidden]="true" #paystackButtonElementReference
-                    angular4-paystack
-                    [email]="emailValue"
-                    [amount]="200"
-                    [currency]="'GHS'"
-                    [ref]="paystackOptions.ref"
-                    [plan]="paystackOptions.plan"
-                    [quantity]="paystackOptions.quantity"
-                    [metadata]="metadata"
-                    (paymentInit)="paymentInit()"
-                    (onClose)="paymentCancel()"
-                    (callback)="paymentDone($event)"
-                >
-                    Subscribe
-                </button> -->
-
             </div>
 
             <div class="col-md-4">
@@ -103,7 +95,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <button class="btn btn-secondary float-end nr-standard-font" routerLink="/home/settings/payments-history">
-                            <i class="bi bi-arrow-left-right me-2"></i> Billing History
+                            <i class="bi bi-arrow-left-right me-2"></i> Subscripton History
                         </button>
                     </div>
                 </div>
