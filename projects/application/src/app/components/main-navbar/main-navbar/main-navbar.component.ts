@@ -99,12 +99,7 @@ export class MainNavbarComponent implements OnInit {
           localStorage.removeItem("shop_id");
           localStorage.removeItem("production_id");
 
-          if(this.navBrand == "nR Personal"){
-            window.location.href = "/guest";
-          }
-          else{
-            window.location.href = "/";
-          }  
+          window.location.href = "/";
         },
         error: (err) => {
           console.log(err);

@@ -84,22 +84,14 @@ export class LoginFormComponent implements OnInit {
   }
 
   registrationType(){
-    if(this.suiteRegistrationType == "netRink"){
-      window.location.href = "/";
-    }
-    else if(this.suiteRegistrationType == "nR Personal"){
-      window.location.href = "/guest";
+    if(sessionStorage.getItem("isSuiteRegistration") == "OK"){
+      this.showPrompt = true;
     }
     else{
-      if(sessionStorage.getItem("isSuiteRegistration") == "OK"){
-        this.showPrompt = true;
-      }
-      else{
-        window.location.href = "/user";
-      }
-
-      sessionStorage.removeItem("isSuiteRegistration");
+      window.location.href = "/user";
     }
+
+    sessionStorage.removeItem("isSuiteRegistration");
   }
 
   registrationRedirect(){
