@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { MainNavbarModule } from '../../components/main-navbar/main-navbar.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { AuthFormsModule } from '../../components/auth-forms/auth-forms.module';
 
 import { AuthPage } from './auth.page';

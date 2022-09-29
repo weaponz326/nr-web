@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from 'projects/personal/src/environments/environment';
-import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
+import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 
 
 @Component({
