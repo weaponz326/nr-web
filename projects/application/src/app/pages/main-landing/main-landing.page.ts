@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'projects/personal/src/environments/environment';
+import { environment } from 'projects/application/src/environments/environment';
 
 
 @Component({
