@@ -1,0 +1,39 @@
+<div class="row my-3">
+    <div class="col-md-12">
+        <h5>User Modules' Access</h5>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+
+        <table class="table table-sm page-table">
+            <thead>
+                <tr>
+                    <th width="70%">Module</th>
+                    <th width="30%">Access</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Admin</td>
+                    <td><input [(ngModel)]="accessForm.admin_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Portal</td>
+                    <td><input [(ngModel)]="accessForm.portal_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Settings</td>
+                    <td><input [(ngModel)]="accessForm.settings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

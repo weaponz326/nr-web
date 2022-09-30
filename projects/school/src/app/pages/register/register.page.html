@@ -1,0 +1,8 @@
+<app-main-navbar
+    [navBrand]="'nR School'"
+    [isForms]="true"
+></app-main-navbar>
+
+<app-register-form (submitEvent)="onSubmit($event)"
+[suiteName]="'School'" [showPrompt]="showPrompt" [isSending]="isSending" [errors]="errors" 
+></app-register-form>

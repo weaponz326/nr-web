@@ -1,0 +1,216 @@
+<app-main-navbar [navBrand]="'nR School'" [source]="'School'"></app-main-navbar>
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar d-block mb-4 static-top shadow-sm">
+    <div class="text-center module-heading">
+        <a routerLink="./">
+            <p class="lead mt-2">
+                <i *ngIf="!isAccessLoading" class="bi bi-house-fill me-2"></i>
+                <span *ngIf="isAccessLoading" class="spinner-grow spinner-grow-sm me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                Home
+            </p>
+        </a>
+    </div>
+</nav>
+
+<div class="container home-div">
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="portal" routerLink="/home/portal/dashboard" (click)="checkAccess('portal')"
+            data-bs-toggle="tooltip" title="Interact with customers through netRink portal">
+                <figure>
+                    <img src="assets/images/modules/portal.png" class="home-icons" />
+                    <figcaption>Portal</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="parents" routerLink="/home/parents/dashboard" (click)="checkAccess('parents')"
+            data-bs-toggle="tooltip" title="Manage relations with parents">
+                <figure>
+                    <img src="assets/images/modules/parents.png" class="home-icons" />
+                    <figcaption>Parents</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="assessment" routerLink="/home/assessment/dashboard" (click)="checkAccess('assessment')"
+            data-bs-toggle="tooltip" title="Record and process assessments">
+                <figure>
+                    <img src="assets/images/modules/assessment.png" class="home-icons" />
+                    <figcaption>Assessment</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="subjects" routerLink="/home/subjects/dashboard" (click)="checkAccess('subjects')"
+            data-bs-toggle="tooltip" title="Manage and organize subjects or courses">
+                <figure>
+                    <img src="assets/images/modules/subjects.png" class="home-icons" />
+                    <figcaption>Subjects</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="attendance" routerLink="/home/attendance/dashboard" (click)="checkAccess('attendance')"
+            data-bs-toggle="tooltip" title="Take attendance of students and teachers">
+                <figure>
+                    <img src="assets/images/modules/attendance.png" class="home-icons" />
+                    <figcaption>Attendance</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="students" routerLink="/home/students/dashboard" (click)="checkAccess('students')"
+            data-bs-toggle="tooltip" title="Manage student profile">
+                <figure>
+                    <img src="assets/images/modules/students.png" class="home-icons" />
+                    <figcaption>Students</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ----------------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="admin" routerLink="/home/admin/dashboard" (click)="checkAccess('admin')"
+            data-bs-toggle="tooltip" title="Manage users and access levels">
+                <figure>
+                    <img src="assets/images/modules/admin.png" class="home-icons" />
+                    <figcaption>Admin</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="lessonPlan" routerLink="/home/lesson-plan/dashboard" (click)="checkAccess('lesson_plan')"
+            data-bs-toggle="tooltip" title="Prepare and supervise lesson plans">
+                <figure>
+                    <img src="assets/images/modules/lesson-plan.png" class="home-icons" />
+                    <figcaption>Lesson Plan</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="reports" routerLink="/home/reports/dashboard" (click)="checkAccess('reports')"
+            data-bs-toggle="tooltip" title="Generate students' academic reports">
+                <figure>
+                    <img src="assets/images/modules/reports.png" class="home-icons" />
+                    <figcaption>Reports</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="payments" routerLink="/home/payments/dashboard" (click)="checkAccess('payments')"
+            data-bs-toggle="tooltip" title="Receive payment of fees">
+                <figure>
+                    <img src="assets/images/modules/payments.png" class="home-icons" />
+                    <figcaption>Payments</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="terms" routerLink="/home/terms/dashboard" (click)="checkAccess('terms')"
+            data-bs-toggle="tooltip" title="Plan and organize terms or semesters">
+                <figure>
+                    <img src="assets/images/modules/terms.png" class="home-icons" />
+                    <figcaption>Terms</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="classes" routerLink="/home/classes/dashboard" (click)="checkAccess('classes')"
+            data-bs-toggle="tooltip" title="Manage classes and class activities">
+                <figure>
+                    <img src="assets/images/modules/classes.png" class="home-icons" />
+                    <figcaption>Classes</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="settings" routerLink="/home/settings/dashboard" (click)="checkAccess('settings')"
+            data-bs-toggle="tooltip" title="Set configuarations for your modules">
+                <figure>
+                    <img src="assets/images/modules/settings.png" class="home-icons" />
+                    <figcaption>Settings</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="fees" routerLink="/home/fees/dashboard" (click)="checkAccess('fees')"
+            data-bs-toggle="tooltip" title="Generate students' bills">
+                <figure>
+                    <img src="assets/images/modules/fees.png" class="home-icons" />
+                    <figcaption>Fees</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="timetable" routerLink="/home/timetable/dashboard" (click)="checkAccess('timetable')"
+            data-bs-toggle="tooltip" title="Plan and manage academic timetables">
+                <figure>
+                    <img src="assets/images/modules/timetable.png" class="home-icons" />
+                    <figcaption>Timetable</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="teachers" routerLink="/home/teachers/dashboard" (click)="checkAccess('teachers')"
+            data-bs-toggle="tooltip" title="Manage all teaching staff">
+                <figure>
+                    <img src="assets/images/modules/teachers.png" class="home-icons" />
+                    <figcaption>Teachers</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="sections" routerLink="/home/sections/dashboard" (click)="checkAccess('sections')"
+            data-bs-toggle="tooltip" title="Manage sections or houses">
+                <figure>
+                    <img src="assets/images/modules/sections.png" class="home-icons" />
+                    <figcaption>Sections</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- access denied prompt component -->
+
+<app-access-toast #accessToastComponentReference></app-access-toast>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
