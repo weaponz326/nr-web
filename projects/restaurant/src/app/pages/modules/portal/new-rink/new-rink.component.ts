@@ -41,6 +41,7 @@ export class NewRinkComponent implements OnInit {
     'Order',
     'Kitchen Stock Item',
     'Roster',
+    'Roster Batch',
     'Table',
     'Delivery',
     'Reservation',

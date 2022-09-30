@@ -9,8 +9,7 @@ import { SearchDetailComponent } from '../search-detail/search-detail.component'
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
 import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
-import { SettingsApiService as RestaurantSettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
-import { SettingsApiService as PersonalSettingsApiService } from 'projects/personal/src/app/services/modules-api/settings-api/settings-api.service';
+import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
 
 import { Invitation } from 'projects/restaurant/src/app/models/modules/admin/admin.model';
 
@@ -27,8 +26,7 @@ export class UserSearchComponent implements OnInit {
     private authApi: AuthApiService,
     private accountsApi: AccountsApiService,
     private adminApi: AdminApiService,
-    private restaurantSettingsApi: RestaurantSettingsApiService,
-    private personalSettingsApi: PersonalSettingsApiService
+    private settingsApi: SettingsApiService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -124,7 +122,7 @@ export class UserSearchComponent implements OnInit {
     this.searchDetail.isSending = true;
 
     const accountUsersResults$ = this.adminApi.getAccountAccountUsers();
-    const subscriptionResults$ = this.restaurantSettingsApi.getSubscription();
+    const subscriptionResults$ = this.settingsApi.getSubscription();
 
     const accountUsersData: any = await firstValueFrom(accountUsersResults$);
     const subscriptionData: any = await firstValueFrom(subscriptionResults$);
