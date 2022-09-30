@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { environment } from '../environments/environment';
+import { environment } from 'projects/school/src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'application';
+  title = 'school';
 
   constructor() {
     if (environment.production) {
