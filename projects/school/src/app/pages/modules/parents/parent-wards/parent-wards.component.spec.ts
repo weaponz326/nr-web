@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ParentWardsComponent } from './parent-wards.component';
+
+describe('ParentWardsComponent', () => {
+  let component: ParentWardsComponent;
+  let fixture: ComponentFixture<ParentWardsComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ ParentWardsComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ParentWardsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

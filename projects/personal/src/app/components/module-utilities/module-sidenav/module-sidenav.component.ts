@@ -10,6 +10,7 @@ export class ModuleSidenavComponent implements OnInit {
   constructor() { }
 
   @Input() heading: any;
+  @Input() showConf: any = false;
   @Input() navLinks: any[] = [];
   
   ngOnInit(): void {

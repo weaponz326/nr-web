@@ -88,7 +88,7 @@ export class LoginFormComponent implements OnInit {
       this.showPrompt = true;
     }
     else{
-      window.location.href = "/user";
+      window.location.href = "/";
     }
 
     sessionStorage.removeItem("isSuiteRegistration");

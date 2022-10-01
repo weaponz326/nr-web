@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'projects/application/src/environments/environment';
+
 
 @Component({
   selector: 'app-main-footer',
@@ -9,16 +11,16 @@ export class MainFooterComponent implements OnInit {
 
   constructor() { }
 
-  baseUrl: string = "#";
-  personalUrl: string = "#";
-  restaurantUrl: string = "#";
-  schoolUrl: string = "#";
-  enterpriseUrl: string = "#";
-  associationUrl: string = "#";
-  hospitalUrl: string = "#";
-  hotelUrl: string = "#";
-  shopUrl: string = "#";
-  productionUrl: string = "#";
+  baseUrl: string = environment.baseUrl;
+  personalUrl: string = environment.personalUrl;
+  restaurantUrl: string = environment.restaurantUrl;
+  schoolUrl: string = environment.schoolUrl;
+  enterpriseUrl: string = environment.enterpriseUrl;
+  associationUrl: string = environment.associationUrl;
+  hospitalUrl: string = environment.hospitalUrl;
+  hotelUrl: string = environment.hotelUrl;
+  shopUrl: string = environment.shopUrl;
+  productionUrl: string = environment.productionUrl;
 
   ngOnInit(): void {
   }

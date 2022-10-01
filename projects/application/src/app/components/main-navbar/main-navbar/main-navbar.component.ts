@@ -26,8 +26,6 @@ export class MainNavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
   isAuthLoading: boolean = false;
 
-  navBrandLink = "/"
-
   name: string = "";
   email: string = "";
   photo: string = "../../../../assets/images/utilities/photo-avatar.jpg";
@@ -110,13 +108,6 @@ export class MainNavbarComponent implements OnInit {
 
   setNavbrandLink(){
     console.log(this.source);
-
-    if(this.source == "Personal" || this.navBrand == "nR Personal"){
-      this.navBrandLink = "/guest";
-    }
-    else{
-      this.navBrandLink = "/";
-    }
   }
 
   openToast(){

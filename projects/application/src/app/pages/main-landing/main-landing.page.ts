@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'projects/personal/src/environments/environment';
+import { environment } from 'projects/application/src/environments/environment';
 
 
 @Component({
@@ -11,7 +11,7 @@ export class MainLandingPage implements OnInit {
 
   constructor() { }
   
-  personalUrl = environment.personalUrl + "guest";
+  personalUrl = environment.personalUrl;
   hospitalUrl = environment.hospitalUrl;
   restaurantUrl = environment.restaurantUrl;
   schoolUrl = environment.schoolUrl;

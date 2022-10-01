@@ -1,0 +1,214 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="row billing-form">
+                    <div class="col-md-9">
+
+                        <h3 class="mb-3">Subscription Plan</h3>
+
+                        <form #f="ngForm" (ngSubmit)="validateSubcriptionForm(f)">
+
+                            <div class="row mb-2">
+                                <div class="col-md-4"><label>Subscription Type :</label></div>
+                                <div class="col-md-8">
+                                    <select [(ngModel)]="subscriptionTypeValue" name="subscription" class="form-control form-control-sm w-100" (change)="setSubscription($event)"
+                                    [ngClass]="!isSubscriptionValid ? 'is-invalid' : ''">
+                                        <option *ngFor="let subscription of subscriptionSource">{{subscription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-4"><label>Billing Frequency :</label></div>
+                                <div class="col-md-8">
+                                    <select [(ngModel)]="billingFrequencyValue" name="frequency" [disabled]="isFrequencyDisabled" class="form-control form-control-sm w-100" (change)="setFrequency($event)"
+                                    [ngClass]="!isFrequencyValid ? 'is-invalid' : ''">
+                                        <option *ngFor="let frequency of frequencySource">{{frequency}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-4"><label>No. of Users :</label></div>
+                                <div class="col-md-5">
+                                    <input [(ngModel)]="numberUsersValue" name="users" type="number" [step]="numberUsersStep" [disabled]="isnumberUsersDisabled" min="0" [max]="numberUsersStep * 4" (change)="setOptions()"
+                                    class="form-control form-control-sm w-100" [ngClass]="!isNumberUsersValid ? 'is-invalid' : ''">
+
+                                    <p *ngIf="!isNumberUsersValid" class="text-danger m-0">
+                                        <small *ngIf="subscriptionTypeValue == 'Small Team'">Should be multiples of 10</small>
+                                        <small *ngIf="subscriptionTypeValue == 'Large Team'">Should be multiples of 50</small>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-4"><label>Subscription Status :</label></div>
+                                <div class="col-md-8">
+                                    <input [(ngModel)]="subscriptionStatusValue" type="text" name="status"  
+                                    class="form-control form-control-sm w-100" disabled="true">
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="row mb-2">
+                                <div class="col-md-4"><label>Email :</label></div>
+                                <div class="col-md-8">
+                                    <input [(ngModel)]="emailValue" type="email" name="email"  #emailReference="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
+                                    class="form-control form-control-sm w-100" [ngClass]="!isEmailValid || emailReference.touched && emailReference.errors ? 'is-invalid' : ''">
+                                </div>
+                            </div>
+
+                            <div *ngIf="!isSubscriptionLoading" class="row my-3 page-form">
+                                <div class="col-md-12">
+                                    <button class="btn btn-secondary float-end"
+                                    [disabled]="isSubscriptionSaving || subscriptionTypeValue == 'Individual' || subscriptionTypeValue == 'Comprehensive'">
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div *ngIf="isSubscriptionLoading" class="row my-3 page-form">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn float-end ms-1 btn-light">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <button class="btn btn-secondary float-end nr-standard-font" routerLink="/home/settings/payments-history">
+                            <i class="bi bi-arrow-left-right me-2"></i> Subscripton History
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card shadow">
+                    <div class="card-body">
+
+                        <p class="h4">Subscription Summary</p>
+
+                        <hr />
+
+                        <div *ngIf="selectedSubscription == 'Individual'">
+                            <p class="h5 mb-2">Individual Subscription</p>
+                            <p class="m-0">Single User</p>
+                            <p class="m-0">Free Upgrades</p>
+                            <!-- <p class="m-0">1GB Storage</p> -->
+                        </div>
+                        <div *ngIf="selectedSubscription == 'Small Team'">
+                            <p class="h5 mb-2">Small Team Subscription</p>
+                            <p class="m-0">10 Users</p>
+                            <p class="m-0">Free Upgrades</p>
+                            <p class="m-0">Technical Support</p>
+                            <!-- <p class="m-0">50GB Storage</p> -->
+                        </div>
+                        <div *ngIf="selectedSubscription == 'Large Team'">
+                            <p class="h5 mb-2">Large Team Subscription</p>
+                            <p class="m-0">50 Users</p>
+                            <p class="m-0">Free Upgrades</p>
+                            <p class="m-0">Technical Support</p>
+                            <!-- <p class="m-0">2TB Storage</p> -->
+                        </div>
+                        <div *ngIf="selectedSubscription == 'Comprehensive'">
+                            <p class="h5 mb-2">Comprehensive Subscription</p>
+                            <p class="m-0">Single User</p>
+                            <p class="m-0">Free Upgrades</p>
+                            <p class="m-0">Technical Support</p>
+                            <!-- <p class="m-0">Unlimited Storage</p> -->
+                            <p class="m-0">Customized Functions</p>
+                        </div>
+
+                        <br />
+
+                        <div *ngIf="selectedSubscription == 'Individual'">
+                            <p class="h5"><strong>Free</strong></p>
+                        </div>
+                        <div *ngIf="selectedSubscription == 'Small Team'">
+                            <div *ngIf="selectedFrequency=='Monthly'">
+                                <p class="h5 mb-2">Monthly Plan</p>
+                                <p class="h4 m-0"><strong>GHS 150</strong></p>
+                            </div>
+                            <div *ngIf="selectedFrequency == 'Yearly'">
+                                <p class="h5 mb-2">Yearly Plan</p>
+                                <p class="h4 m-0"><strong>GHS 1,500</strong></p>
+                                <p class="m-0">Save GHS 300 per 10 Users</p>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedSubscription == 'Large Team'">
+                            <div *ngIf="selectedFrequency=='Monthly'">
+                                <p class="h5 mb-2">Monthly Plan</p>
+                                <p class="h4 m-0"><strong>GHS 500</strong></p>
+                            </div>
+                            <div *ngIf="selectedFrequency == 'Yearly'">
+                                <p class="h5 mb-2">Yearly Plan</p>
+                                <p class="h4 m-0"><strong>GHS 5,000</strong></p>
+                                <p class="m-0">Save GHS 1,000 per 50 Users</p>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedSubscription == 'Comprehensive'">
+                            <a href="mailto:sales@netrink.com">
+                                <button class="btn btn-primary">Contact Us</button>
+                            </a>
+                        </div>
+
+                        <br />
+
+                        <div *ngIf="selectedSubscription == 'Small Team'">
+                            <p class="m-0"><i class="bi bi-cash m-1"></i>Total Bill :</p>
+                            <p *ngIf="selectedFrequency=='Monthly'" class="h3 mt-0">
+                                GHS {{150 * (numberUsersValue / 10)}} / month
+                            </p>
+                            <p *ngIf="selectedFrequency=='Yearly'" class="h3 mt-0">
+                                GHS {{1500 * (numberUsersValue / 10)}} / year
+                            </p>
+                        </div>
+                        <div *ngIf="selectedSubscription == 'Large Team'">
+                            <p class="m-0"><i class="bi bi-cash m-1"></i>Total Bill :</p>
+                            <p *ngIf="selectedFrequency=='Monthly'" class="h3 mt-0">
+                                GHS {{500 * (numberUsersValue / 50)}} / month
+                            </p>
+                            <p *ngIf="selectedFrequency == 'Yearly'" class="h3 mt-0">
+                                GHS {{5000 * (numberUsersValue / 50)}} / year
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="m-0"><i class="bi bi-person m-1"></i>Total Users :</p>
+                            <p *ngIf="selectedSubscription != 'Comprehensive'" class="h4 mt-0">
+                                {{numberUsersValue}}
+                            </p>
+                            <p *ngIf="selectedSubscription == 'Comprehensive'" class="h4 mt-0">
+                                Unlimited
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

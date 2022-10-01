@@ -1,19 +1,19 @@
-<div class="text-center" id="homeTopDiv">
+<div class="text-center py-3" id="homeTopDiv">
     <div class="container">
 
-        <div class="row pt-5">
+        <div class="row py-2 mt-5">
             <div class="col-md-12">
-                <h1 class="display-2 text-muted">Do more with ease!</h1>
+                <h1 class="text-muted">Do more with ease!</h1>
             </div>
         </div>
 
-        <div class="row py-3">
+        <div class="row py-2">
             <div class="col-md-6 offset-md-3">
-                <p class="lead text-muted">{{secondaryCaption}}</p>
+                <h5 class="text-muted">{{secondaryCaption}}</h5>
             </div>
         </div>
 
-        <div class="row pb-5">
+        <div class="row py-5 mb-3">
             <div class="col-md-12">
                 <button class="create-btn btn btn-lg btn-danger mb-3" (click)="createAccount($event)">
                     create {{ suiteName }} account
@@ -28,8 +28,8 @@
     </div>
 </div>
 
-<div class="bg-light py-5" id="homeBottomDiv">
-    <div class="container py-3">
+<div class="bg-light py-3" id="homeBottomDiv">
+    <div class="container py-5">
 
         <div class="row mb-3">
             <div class="col-md-3" *ngFor="let feature of features">
