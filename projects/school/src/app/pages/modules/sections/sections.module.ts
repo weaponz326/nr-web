@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SectionsRoutingModule } from './sections-routing.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SectionsPage } from './sections.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -23,7 +27,11 @@ import { SectionStudentsComponent } from './section-students/section-students.co
   ],
   imports: [
     CommonModule,
-    SectionsRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    SectionsRoutingModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class SectionsModule { }
