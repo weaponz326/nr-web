@@ -1,1 +1,182 @@
-<p>parent-form works!</p>
+<form class="page-form" [formGroup]="parentForm">
+
+    <!-- ---------------------------------------------------------------------------------------------
+    personal details -->
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="form-heading">Personal Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Parent ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="parentCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Term :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="term" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openTermWindow()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">First Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="firstName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Last Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="lastName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Sex :</label></div>
+                <div class="col-md-8">
+                    <select formControlName="sex" class="form-control form-control-sm w-100">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Nationality :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="nationality" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Religion :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="religion" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Occupation :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="occupation" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+    <!-- --------------------------------------------------------------------------------------------
+    photo -->
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="row mb-1 mb-1">
+
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Photo :</label></div>
+                <div class="col-md-8">
+                    <app-image-input #imageInputComponentReference [width]="140" [height]="160" [imgType]="'photo'"></app-image-input>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <hr />
+
+    <!-- --------------------------------------------------------------------------------------------------
+    contact details -->
+
+    <div class="row mb-1 page-form-div">
+
+        <div class="col-md-12">
+            <h4 class="form-heading">Contact Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Phone No. :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="phone" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Email :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="email" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Address :</label></div>
+                <div class="col-md-8">
+                    <textarea formControlName="address" rows="3" class="form-control form-control-sm w-100"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Country :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="country" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">State/Region :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="state" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">City/Town :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="city" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Post Code :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="postCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+</form>
+
+<!-- select term window component -->
+
+<!-- <app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term> -->
