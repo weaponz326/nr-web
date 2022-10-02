@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { environment } from 'projects/personal/src/environments/environment';
+import { SupportApiService } from '../../../services/support-api/support-api.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { environment } from 'projects/personal/src/environments/environment';
 })
 export class ContactComponent implements OnInit {
 
-  constructor() { }
+  constructor(private supportApi: SupportApiService) { }
 
   @Input() suiteName: string = "";
 
@@ -40,8 +41,19 @@ export class ContactComponent implements OnInit {
       this.isFieldEmpty = false;
       this.isSending = true;
 
-      // TODO:
-      // post form
+      this.supportApi.postSupport(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.isSubmitted = true;
+            this.isSending = false;
+          },
+          error: (err) => {
+            this.isFieldEmpty = true;
+            this.isSending = false;
+            console.log(err);
+          }
+        })
     }
   }
 
