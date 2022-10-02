@@ -4,7 +4,7 @@
         <h1 class="display-4 pb-3">{{suiteName}}</h1>
 
         <div class="row g-5">
-            <div class="col-md-6 suite-details">
+            <div class="col-md-6 order-xs-last suite-details">
                 <p class="h4 my-4">{{suiteDescription}}</p>
                 <ul>
                     <li class="suite-uses" *ngFor="let use of suiteUses">
@@ -16,7 +16,7 @@
                 </a>
             </div>
 
-            <div class="col-md-6 bg-white rounded">
+            <div class="col-md-6 order-xs-first bg-white rounded">
                 <img src={{suiteImageSrc}} class="img-fluid my-auto border border-2 rounded">
             </div>
         </div>

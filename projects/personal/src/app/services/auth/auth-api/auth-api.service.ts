@@ -41,6 +41,10 @@ export class AuthApiService {
     return this.http.put(this.apiUrl + "auth/users/me/", updateForm, this.headers);
   }
 
+  public deleteUser(deleteForm: any): Observable<any>{
+    return this.http.delete(this.apiUrl + "auth/users/me/", deleteForm);
+  }
+
   public patchUser(updateForm: any): Observable<any>{
     return this.http.patch(this.apiUrl + "auth/users/me/", updateForm, this.headers);
   }
@@ -60,8 +64,8 @@ export class AuthApiService {
     return this.http.get(this.apiUrl + "auth/users/me/", headers);
   }
 
-  public deleteUser(deleteForm: any): Observable<any>{
-    return this.http.delete(this.apiUrl + "auth/users/me/", deleteForm);
+  public postActivateAccount(token: any): Observable<any>{
+    return this.http.post(this.apiUrl + "auth/users/activation/", token);
   }
 
   public postRecoveryEmail(email: any): Observable<any>{

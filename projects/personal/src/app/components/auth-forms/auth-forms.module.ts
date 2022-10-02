@@ -17,6 +17,8 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RecoveryFormComponent } from './recovery-form/recovery-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import { ActivateFormComponent } from './activate-form/activate-form.component';
+import { ResetFormComponent } from './reset-form/reset-form.component';
 
 
 
@@ -28,6 +30,8 @@ import { RegisterFormComponent } from './register-form/register-form.component';
     LoginFormComponent,
     RecoveryFormComponent,
     RegisterFormComponent,
+    ActivateFormComponent,
+    ResetFormComponent,
   ],
   imports: [
     CommonModule,
