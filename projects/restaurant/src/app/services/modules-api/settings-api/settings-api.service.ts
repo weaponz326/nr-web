@@ -42,8 +42,8 @@ export class SettingsApiService {
     return this.http.put(this.settingsUrl + "subscription/" + localStorage.getItem('restaurant_id'), subscription, this.authHeaders.headers);
   }
 
-  public patchSubscription(subscription: any): Observable<any>{
-    return this.http.patch(this.settingsUrl + "subscription/" + localStorage.getItem('restaurant_id'), subscription, this.authHeaders.headers);
+  public changeSubscription(subscription: any): Observable<any>{
+    return this.http.put(this.settingsUrl + "subscription-change/" + localStorage.getItem('restaurant_id'), subscription, this.authHeaders.headers);
   }
 
 }

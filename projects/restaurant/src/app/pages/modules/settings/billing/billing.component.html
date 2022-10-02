@@ -209,6 +209,30 @@
     </div>
 </main>
 
+<!-- subscription check modal -->
+
+<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#planChangeModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="planChangeModal" tabindex="-1" aria-labelledby="planChangeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-header bg-light">
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="mt-3 mb-4">There is an existing subscripttion on your account</p>
+                <p class="mt-3 mb-4">Cancel the existing subscription before proceeding</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 <!-- connection error prompt component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
