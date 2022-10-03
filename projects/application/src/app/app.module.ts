@@ -20,8 +20,8 @@ import { AppComponent } from './app.component';
     RouterModule,
     AppRoutingModule,
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   // providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
