@@ -8,6 +8,7 @@ import { AllTaskItemsComponent } from './all-task-items/all-task-items.component
 import { ChecklistViewComponent } from './checklist-view/checklist-view.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { KanbanViewComponent } from './kanban-view/kanban-view.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 import { ViewTaskGroupGuard } from '../../../guards/modules/tasks/view-task-group/view-task-group.guard';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
+      { path: "configuration", component: ConfigurationComponent },
       { path: "all-task-groups", component: AllTaskGroupsComponent },
       {
         path: "view-task-group",

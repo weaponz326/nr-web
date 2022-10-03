@@ -16,6 +16,7 @@ import { AllSchedulesComponent } from './all-schedules/all-schedules.component';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
 import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
     AllSchedulesComponent,
     AddScheduleComponent,
     EditScheduleComponent,
-    ScheduleFormComponent
+    ScheduleFormComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

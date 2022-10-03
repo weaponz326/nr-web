@@ -5,6 +5,7 @@ import { BudgetPage } from './budget.page';
 import { AllBudgetComponent } from './all-budget/all-budget.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewBudgetComponent } from './view-budget/view-budget.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 import { ViewBudgetGuard } from '../../../guards/modules/budget/view-budget/view-budget.guard';
 
@@ -16,6 +17,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
+      { path: "configuration", component: ConfigurationComponent },
       { path: "all-budget", component: AllBudgetComponent },
       { path: "view-budget", component: ViewBudgetComponent, canActivate: [ViewBudgetGuard] },
     ]

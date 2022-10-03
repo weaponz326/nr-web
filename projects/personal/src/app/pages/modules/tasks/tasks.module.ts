@@ -17,6 +17,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { AllTaskItemsComponent } from './all-task-items/all-task-items.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AllTaskItemsComponent } from './all-task-items/all-task-items.component
     AddTaskComponent,
     EditTaskComponent,
     TaskFormComponent,
-    AllTaskItemsComponent
+    AllTaskItemsComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,
