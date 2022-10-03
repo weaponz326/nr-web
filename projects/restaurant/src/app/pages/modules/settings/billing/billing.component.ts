@@ -18,7 +18,7 @@ export class BillingComponent implements OnInit {
 
   constructor(private settingsApi: SettingsApiService) { }
 
-  // @ViewChild('paystackButtonElementReference', { read: ElementRef, static: false }) paystackButton!: ElementRef;
+  @ViewChild('buttonElementReference', { read: ElementRef, static: false }) changePlanButtonElement!: ElementRef;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
@@ -26,11 +26,12 @@ export class BillingComponent implements OnInit {
     { text: "Subscription", url: "/home/settings/billing" },
   ];
 
-  // paystackPublicKey = environment.paystackLivePublicKey;
-  paystackPublicKey = "";
+  paystackPublicKey = environment.paystackLivePublicKey;
 
   isSubscriptionLoading = false;
   isSubscriptionSaving = false;
+
+  hasExistingSubscription = false;
 
   subscriptionData: any;
 
@@ -73,18 +74,9 @@ export class BillingComponent implements OnInit {
   }
 
   paystackOptions = {
-    // ref: `${Math.ceil(Math.random() * 10e10)}`,
     plan: "",
     quantity: 1,
   };
-
-  // metadata = {
-  //   account: localStorage.getItem('restaurant_id'),
-  //   suite: "Restaurant",
-  //   subscription_type: "",
-  //   billing_frequency: "",
-  //   number_users: 0,
-  // }
 
   ngOnInit(): void {
     // change plan for test or live deployment
@@ -100,6 +92,10 @@ export class BillingComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
+
+          if(res.subscription_type != "Individual")
+            this.hasExistingSubscription = true;
+
           this.subscriptionData = res;
 
           this.emailValue = this.subscriptionData.email;
@@ -123,37 +119,39 @@ export class BillingComponent implements OnInit {
 
   updateSubscription(){
     let data: Subscription = {
+      customer_code: "",
+      subscription_code: "",
       subscription_type: this.subscriptionTypeValue,
       billing_frequency: this.billingFrequencyValue,
       number_users: this.numberUsersValue,
       email: this.emailValue,
       plan: this.paystackOptions.plan,
       quantity: this.paystackOptions.quantity,
-      status: "Pending"
+      status: "Active"
     }
 
     console.log(data);
+    this.isSubscriptionSaving = true;
 
     this.settingsApi.putSubscription(data)
       .subscribe({
         next: (res) => {
           console.log(res);
-          console.log(res.payment_data[0]);
-
-          let result = res.payment_data[0];
-          var authorization_url = result.substring(
-            result.indexOf('url":"') + 6, 
-            result.lastIndexOf('"')
-          );
-
-          console.log(authorization_url);
-          window.open(authorization_url, '_blank');
+          this.isSubscriptionSaving = false;
+          
+          if(res.status == true)
+          window.open(res.data.authorization_url, '_blank');
         },
         error: (err) => {
           console.log(err);
+          this.isSubscriptionSaving = false;
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openChangePlanModal(){
+    this.changePlanButtonElement.nativeElement.click();
   }
 
   setSubscription(event: any){
@@ -245,10 +243,6 @@ export class BillingComponent implements OnInit {
 
     this.paystackOptions.plan = plan;
     this.paystackOptions.quantity = quantity;
-
-    // this.metadata.subscription_type = this.subscriptionTypeValue;
-    // this.metadata.billing_frequency = this.billingFrequencyValue;
-    // this.metadata.number_users = this.numberUsersValue;
   }
 
   validateSubcriptionForm(f: NgForm) {
@@ -286,28 +280,12 @@ export class BillingComponent implements OnInit {
       this.isNumberUsersValid = true;
     }
 
-    // this.paystackButton.nativeElement.click();
-    // console.log("opening paystack!...");
-
-    this.updateSubscription();
+    if(this.hasExistingSubscription = true) 
+      this.updateSubscription();
+    else
+      this.openChangePlanModal();
 
     return true;
-  }
-
-  paymentInit() {
-    console.log('Payment initialized');
-    console.log(this.emailValue);
-    console.log(this.paystackOptions);
-  }
-
-  paymentDone(ref: any) {
-    console.log('Payment done');
-    console.log(ref);
-    this.updateSubscription();
-  }
-
-  paymentCancel() {
-    console.log('payment failed');
   }
 
 }

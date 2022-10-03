@@ -54,6 +54,7 @@ export class DashboardComponent implements OnInit {
         labels: this.ioeMonthDataLabels,
         datasets: [{
           data: this.ioeMonthDataSets,
+          backgroundColor: ["#ff000088", "#0000ff88"]
         }]
       },
       options: {},

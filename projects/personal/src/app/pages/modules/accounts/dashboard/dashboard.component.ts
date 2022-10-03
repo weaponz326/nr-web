@@ -58,11 +58,15 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.cndMonthLineLabels,
         datasets: [{
+          label: "Credit",
           data: this.cndMonthLineCreditDataSets,
-          fill: true
+          fill: true,
+          borderColor: "#ff000088"
         },{
+          label: "Debit",
           data: this.cndMonthLineDebitDataSets,
-          fill: true
+          fill: true,
+          borderColor: "#0000ff88"          
         }]
       },
       options: {
@@ -84,6 +88,7 @@ export class DashboardComponent implements OnInit {
         labels: this.cndMonthPieLabels,
         datasets: [{
           data: this.cndMonthPieDataSets,
+          backgroundColor: ["#ff000088", "#0000ff88"]
         }]
       },
       options: {},

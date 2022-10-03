@@ -16,6 +16,7 @@ import { AddIncomeComponent } from './add-income/add-income.component';
 import { AddExpenditureComponent } from './add-expenditure/add-expenditure.component';
 import { EditIncomeComponent } from './edit-income/edit-income.component';
 import { EditExpenditureComponent } from './edit-expenditure/edit-expenditure.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { EditExpenditureComponent } from './edit-expenditure/edit-expenditure.co
     AddIncomeComponent,
     AddExpenditureComponent,
     EditIncomeComponent,
-    EditExpenditureComponent
+    EditExpenditureComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

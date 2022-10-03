@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FeesRoutingModule } from './fees-routing.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { FeesPage } from './fees.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -35,7 +39,11 @@ import { StudentBillComponent } from './student-bill/student-bill.component';
   ],
   imports: [
     CommonModule,
-    FeesRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    FeesRoutingModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class FeesModule { }

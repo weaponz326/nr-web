@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { lastValueFrom } from 'rxjs';
 
 import { PdfPrintService } from 'projects/personal/src/app/services/module-utilities/pdf-print/pdf-print.service';
@@ -89,7 +90,7 @@ export class OrdersPrintService {
           ],
           [
             { text: 'Order Type: ' + formData.order_type },
-            { text: 'Order Status: ' + formData.order_tatus },
+            { text: 'Order Status: ' + formData.order_status },
           ]
         ]
       },
@@ -116,9 +117,19 @@ export class OrdersPrintService {
     const orderFormData = await lastValueFrom(orderFormResults$);
     const orderItemsGridData = await lastValueFrom(orderItemsGridResults$);
 
+    // order
     let formData: any = orderFormData;
 
-    var body = [['Menu Item', 'Item Price', 'Quantity', 'Total Price']];
+    var orderBody = [];
+
+    orderBody.push(['Order ID :',  formData.order_code]);
+    orderBody.push(['Order Date :',  formatDate(formData.order_date, 'yyyy-MM-dd hh:mm:ss', 'en-US')]);
+    orderBody.push(['Customer Name :',  formData.customer_name]);
+    orderBody.push(['Order Type :',  formData.order_type]);
+    orderBody.push(['Order Status :',  formData.order_status]);
+
+    // items
+    var itemsBody = [['Menu Item', 'Item Price', 'Quantity', 'Total Price']];
 
     for (let data of orderItemsGridData){
       var row = [];
@@ -128,7 +139,7 @@ export class OrdersPrintService {
       row.push(rowData.quantity);
       row.push(rowData.menu_item.price * rowData.quantity);
 
-      body.push(row);
+      itemsBody.push(row);
     }
 
     var totalAmount = 0;
@@ -137,19 +148,16 @@ export class OrdersPrintService {
       totalAmount += rowData.menu_item.price * rowData.quantity;
     }
 
-    body.push(['', '', '', totalAmount.toString()])
+    itemsBody.push(['', '', '', totalAmount.toString()])
 
     let content = [
       {
-        columns: [
-          [
-            { text: 'Order ID: ' + formData.order_code },
-            { text: 'Order Date: ' + formData.order_date },
-            { text: 'Customer Name: ' + formData.customer.customer_name },
-            { text: 'Order Type: ' + formData.order_type },
-            { text: 'Order Status: ' + formData.order_tatus },
-          ]
-        ]
+        layout: 'noBorders',
+        table: {
+          headerRows: 1,
+          widths: ['25%', '55%'],
+          body: orderBody
+        }
       },
       { text: 'Order Items', bold: true, margin: [0, 20, 0, 10] },
       {
@@ -157,7 +165,7 @@ export class OrdersPrintService {
         table: {
           headerRows: 1,
           widths: ['35%', '20%', '15%', '20%'],
-          body: body
+          body: itemsBody
         }
       }
     ]

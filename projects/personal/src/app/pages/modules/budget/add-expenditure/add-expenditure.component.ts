@@ -23,7 +23,7 @@ export class AddExpenditureComponent implements OnInit {
   isSaving = false;
 
   addExpenditureForm = new FormGroup({
-    itemNumber: new FormControl(''),
+    itemNumber: new FormControl({value: '', disabled: true}),
     itemDescription: new FormControl(''),
     amount: new FormControl(0)
   })
@@ -31,7 +31,8 @@ export class AddExpenditureComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openModal(){
+  openModal(lastId: any){
+    this.addExpenditureForm.controls.itemNumber.setValue(lastId + 1);
     this.addExpenditureForm.controls.amount.setValue(0.00);
     this.addButton.nativeElement.click();
   }

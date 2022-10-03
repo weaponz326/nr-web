@@ -91,7 +91,9 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.allAccountLabels,
         datasets: [{
+          label: "Accounts",
           data: this.allAccountDataSets,
+          backgroundColor: "#0000ff88"
         }]
       },
       options: {

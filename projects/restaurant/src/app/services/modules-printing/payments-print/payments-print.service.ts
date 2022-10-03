@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { lastValueFrom } from 'rxjs';
 
 import { PdfPrintService } from 'projects/personal/src/app/services/module-utilities/pdf-print/pdf-print.service';
@@ -79,25 +80,30 @@ export class PaymentsPrintService {
 
   async printPaymentRoll(){
     const results$ = this.paymentsApi.getPayment();
-    const paymentFormDate = await lastValueFrom(results$);
+    const paymentForm = await lastValueFrom(results$);
 
-    let formData: any = paymentFormDate;
+    let formData: any = paymentForm;
+
+    var body = [];
+
+    body.push(['Payment ID :', formData.payment_code]);
+    body.push(['Payment Date :', formatDate(formData.payment_date, 'yyyy-MM-dd hh:mm:ss', 'en-US')]);
+    body.push(['Order ID :', formData.order.order_code]);
+    body.push(['Customer Name :', formData.order.customer_name]);
+    body.push(['Amount Due :', formData.order.order_total]);
+    body.push(['Amount Paid :', formData.amount_paid]);
+    body.push(['Balance :', Number(formData.order.order_total) - Number(formData.amount_paid)]);
 
     let content = [
       {
-        columns: [
-          [
-            { text: 'Payment ID: ' + formData.payment_code },
-            { text: 'Payment Date: ' + formData.payment_date },
-            { text: 'Order ID: ' + formData.order.order_code },
-            { text: 'Customer Name: ' + formData.order.customer_name },
-            { text: 'Amount Due: ' + formData.order.total_amount },
-            { text: 'Amount Paid: ' + formData.amount_paid },
-            { text: 'Balance: ' + (+formData.order.total_amount - +formData.amount_paid) },
-          ],
-          []
-        ]
-      },
+        header: 'netRink Restaurant - Payment',
+        layout: 'noBorders',
+        table: {
+          headerRows: 1,
+          widths: ['30%', '70%'],
+          body: body
+        }
+      }    
     ];
 
     this.pdfPrint.printRoll(content);

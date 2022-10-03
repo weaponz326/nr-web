@@ -12,6 +12,7 @@ import { NewNoteComponent } from './new-note/new-note.component';
 import { NoteBoardComponent } from './note-board/note-board.component';
 import { NoteCardComponent } from './note-card/note-card.component';
 import { EditNoteComponent } from './edit-note/edit-note.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { EditNoteComponent } from './edit-note/edit-note.component';
     NoteBoardComponent,
     NoteCardComponent,
     EditNoteComponent,
+    ConfigurationComponent,
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,22 @@
-<p>new-parent works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- parent page form -->
+
+        <app-parent-form #parentFormComponentReference></app-parent-form>
+
+        <div class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/parents/all-parents">Cancel</button>
+                <button [disabled]="isParentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="createParent()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
