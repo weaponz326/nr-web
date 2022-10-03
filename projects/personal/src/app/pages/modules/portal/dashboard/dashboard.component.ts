@@ -52,11 +52,15 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.rinkMonthLabels,
         datasets: [{
+          label: "Rink Ins",
           data: this.rinkInMonthDataSets,
-          fill: true
+          fill: true,
+          borderColor: "#ff000088"
         },{
+          label: "Rink Outs",
           data: this.rinkOutMonthDataSets,
-          fill: true
+          fill: true,
+          borderColor: "#0000ff88"          
         }]
       },
       options: {

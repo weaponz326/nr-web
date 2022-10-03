@@ -50,7 +50,9 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.noteMonthLabels,
         datasets: [{
+          label: "Notes",
           data: this.noteMonthDataSets,
+          borderColor: "#0000ff88"
         }]
       },
       options: {

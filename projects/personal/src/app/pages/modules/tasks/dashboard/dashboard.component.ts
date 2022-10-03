@@ -56,7 +56,9 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.taskGroupMonthLabels,
         datasets: [{
+          label: "Task Groups",
           data: this.taskGroupMonthDataSets,
+          borderColor: "#0000ff88"
         }]
       },
       options: {
@@ -80,7 +82,9 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.taskItemMonthLabels,
         datasets: [{
+          label: "Task Items",
           data: this.taskItemMonthDataSets,
+          borderColor: "#0000ff88"
         }]
       },
       options: {

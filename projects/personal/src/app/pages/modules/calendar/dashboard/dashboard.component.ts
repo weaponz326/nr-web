@@ -57,7 +57,9 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.scheduleMonthLabels,
         datasets: [{
+          label: "Schedules",
           data: this.scheduleMonthDataSets,
+          borderColor: "#0000ff88"
         }]
       },
       options: {
@@ -81,7 +83,9 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.calendarMonthLabels,
         datasets: [{
+          label: "Calendars",
           data: this.calendarMonthDataSets,
+          borderColor: "#0000ff88"
         }]
       },
       options: {
