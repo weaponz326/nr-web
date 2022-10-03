@@ -15,7 +15,7 @@ export const environment = {
   // hotelUrl: "#",
   // shopUrl: "#",
   // productionUrl: "#",
-
+  
   baseUrl: "https://www.netrink.com/",
   personalUrl: "https://personal.netrink.com/",
   restaurantUrl: "https://restaurant.netrink.com/",
