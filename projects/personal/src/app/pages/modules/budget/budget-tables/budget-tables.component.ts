@@ -1,12 +1,15 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
-import { BudgetApiService } from 'projects/personal/src/app/services/modules-api/budget-api/budget-api.service';
 import { AddExpenditureComponent } from '../add-expenditure/add-expenditure.component';
 import { AddIncomeComponent } from '../add-income/add-income.component';
 import { EditExpenditureComponent } from '../edit-expenditure/edit-expenditure.component';
 import { EditIncomeComponent } from '../edit-income/edit-income.component';
+
+import { BudgetApiService } from 'projects/personal/src/app/services/modules-api/budget-api/budget-api.service';
+
 
 @Component({
   selector: 'app-budget-tables',
@@ -44,6 +47,9 @@ export class BudgetTablesComponent implements OnInit {
   deleteType = "";
   deleteId = "";
 
+  lastIncomeId = 0;
+  lastExpenditureId = 0;
+
   ngOnInit(): void {
     this.getBudgetIncome();
     this.getBudgetExpenditure();
@@ -76,6 +82,9 @@ export class BudgetTablesComponent implements OnInit {
           console.log(res);
           this.incomeGridData = res;
           this.isFetchingIncomeGridData = false;
+
+          try { this.lastIncomeId = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastIncomeId = 0 }
 
           this.calculateTotalIncome();
         },
@@ -175,6 +184,9 @@ export class BudgetTablesComponent implements OnInit {
           console.log(res);
           this.expenditureGridData = res;
           this.isFetchingExpenditureGridData = false;
+
+          try { this.lastExpenditureId = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastExpenditureId = 0 }
 
           this.calculateTotalExpenditure();
         },

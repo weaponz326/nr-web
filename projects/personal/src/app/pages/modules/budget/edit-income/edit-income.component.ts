@@ -24,7 +24,7 @@ export class EditIncomeComponent implements OnInit {
   budgetData: any;
 
   editIncomeForm = new FormGroup({
-    itemNumber: new FormControl(),
+    itemNumber: new FormControl({value: '', disabled: true}),
     itemDescription: new FormControl(''),
     amount: new FormControl(0)
   })

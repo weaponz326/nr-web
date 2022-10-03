@@ -23,7 +23,7 @@ export class AddIncomeComponent implements OnInit {
   isSaving = false;
 
   addIncomeForm = new FormGroup({
-    itemNumber: new FormControl(''),
+    itemNumber: new FormControl({value: '', disabled: true}),
     itemDescription: new FormControl(''),
     amount: new FormControl(0)
   })
@@ -31,7 +31,8 @@ export class AddIncomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openModal(){
+  openModal(lastId: any){
+    this.addIncomeForm.controls.itemNumber.setValue(lastId + 1);
     this.addIncomeForm.controls.amount.setValue(0.00);
     this.addButton.nativeElement.click();
   }

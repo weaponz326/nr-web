@@ -18,7 +18,7 @@
                             <th width="55%" class="min-width-3">Item</th>
                             <th width="20%" class="min-width-2">Amount</th>
                             <th width="15%" class="p-0 min-width-2">
-                                <button class="btn btn-secondary btn-sm w-100" (click)="addIncome.openModal()">
+                                <button class="btn btn-secondary btn-sm w-100" (click)="addIncome.openModal(lastIncomeId)">
                                     <i class="bi bi-plus"></i>
                                 </button>
                             </th>
@@ -62,7 +62,7 @@
                                 <th width="55%" class="min-width-3">Item</th>
                                 <th width="20%" class="min-width-2">Amount</th>
                                 <th width="15%" class="p-0 min-width-2">
-                                    <button class="btn btn-secondary btn-sm w-100" (click)="addExpenditure.openModal()">
+                                    <button class="btn btn-secondary btn-sm w-100" (click)="addExpenditure.openModal(lastExpenditureId)">
                                         <i class="bi bi-plus"></i>
                                     </button>
                                 </th>
