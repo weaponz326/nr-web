@@ -34,6 +34,7 @@ export class NewPaymentComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.getNewpaymentCodeConfig();
     this.paymentForm.paymentForm.controls.paymentDate.setValue(new Date().toISOString().slice(0, 16))
   }
 
@@ -69,6 +70,26 @@ export class NewPaymentComponent implements OnInit {
           }
         })
     }
+  }
+
+  getNewpaymentCodeConfig(){
+    this.paymentForm.paymentForm.controls.paymentCode.disable();
+
+    this.paymentsApi.getNewPaymentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.paymentForm.paymentForm.controls.paymentCode.setValue(res.code);
+          else
+            this.paymentForm.paymentForm.controls.paymentCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

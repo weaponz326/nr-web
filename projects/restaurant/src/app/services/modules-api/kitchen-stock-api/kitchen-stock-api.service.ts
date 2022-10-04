@@ -39,6 +39,20 @@ export class KitchenStockApiService {
     return this.http.delete(this.kitchenStockUrl + "stock-item/" + id, this.authHeaders.headers);
   }
 
+  // config
+
+  public getStockItemCodeConfig(): Observable<any>{
+    return this.http.get(this.kitchenStockUrl + "config/stock-item-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putStockItemCodeConfig(data: any): Observable<any>{
+    return this.http.put(this.kitchenStockUrl + "config/stock-item-code/" + localStorage.getItem('restaurant_id'), data, this.authHeaders.headers);
+  }
+
+  public getNewStockItemCodeConfig(): Observable<any>{
+    return this.http.get(this.kitchenStockUrl + "config/new-stock-item-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getStockItemCount(): Observable<any>{

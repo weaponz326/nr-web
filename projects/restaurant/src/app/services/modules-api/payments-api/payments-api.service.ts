@@ -41,6 +41,20 @@ export class PaymentsApiService {
     return this.http.delete(this.paymentsUrl + "payment/" + sessionStorage.getItem('restaurant_payment_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getPaymentCodeConfig(): Observable<any>{
+    return this.http.get(this.paymentsUrl + "config/payment-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putPaymentCodeConfig(payment: any): Observable<any>{
+    return this.http.put(this.paymentsUrl + "config/payment-code/" + localStorage.getItem('restaurant_id'), payment, this.authHeaders.headers);
+  }
+
+  public getNewPaymentCodeConfig(): Observable<any>{
+    return this.http.get(this.paymentsUrl + "config/new-payment-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getPaymentCount(): Observable<any>{

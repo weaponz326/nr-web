@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { KitchenStockApiService } from 'projects/restaurant/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
 import { StockItem } from 'projects/restaurant/src/app/models/modules/kitchen-stock/kitchen-stock.model';
 
 
@@ -12,7 +14,7 @@ import { StockItem } from 'projects/restaurant/src/app/models/modules/kitchen-st
 })
 export class AddStockItemComponent implements OnInit {
 
-  constructor() { }
+  constructor(private kitchenStockApi: KitchenStockApiService) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
 
@@ -20,14 +22,36 @@ export class AddStockItemComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('stockItemFormComponentReference', { read: StockItemFormComponent, static: false }) stockItemForm!: StockItemFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   isItemSaving = false;
 
   ngOnInit(): void {
   }
 
+  getNewStockItemCodeConfig(){
+    this.stockItemForm.stockItemForm.controls.itemCode.disable();
+
+    this.kitchenStockApi.getNewStockItemCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.stockItemForm.stockItemForm.controls.itemCode.setValue(res.code);
+          else
+            this.stockItemForm.stockItemForm.controls.itemCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   openModal(){
     this.addButton.nativeElement.click();
+    this.getNewStockItemCodeConfig();
   }
 
   saveItem(){

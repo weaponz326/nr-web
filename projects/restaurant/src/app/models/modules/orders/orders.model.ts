@@ -15,3 +15,10 @@ export class OrderItem {
   order!: string;
   quantity!: number;
 }
+
+export class OrderCodeConfig {
+  entry_mode!: string;
+  prefix!: string;
+  last_code!: string;
+  suffix!: string;
+}
