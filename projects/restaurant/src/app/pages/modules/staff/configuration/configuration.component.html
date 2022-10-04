@@ -44,15 +44,15 @@
                 <div class="row mb-1">
                     <div class="offset-md-4 col-md-8">
                         <div class="form-check">
-                            <input [(ngModel)]="addYear" class="form-check-input" type="checkbox" value="" id="addYear" (change)="addYearChange($event)">
+                            <input [(ngModel)]="addYear" [disabled]="entryMode == 'Manual'" class="form-check-input" type="checkbox" value="" id="addYear" (change)="addYearChange($event)">
                             <label class="form-check-label" for="addYear">Add year</label>
                         </div>
                         <div class="form-check">
-                            <input [(ngModel)]="yearLength" [disabled]="addYear == false" class="form-check-input" type="radio" value="two" id="yearDigits" name="yearDigits" (change)="setSampleId()">
+                            <input [(ngModel)]="yearLength" [disabled]="addYear == false || entryMode == 'Manual'" class="form-check-input" type="radio" [value]="2" id="yearDigits" name="yearDigits" (change)="setSampleId()">
                             <label class="form-check-label" for="yearDigits">2 year digits</label>
                         </div>
                         <div class="form-check">
-                            <input [(ngModel)]="yearLength" [disabled]="addYear == false" class="form-check-input" type="radio" value="four" id="yearDigits" name="yearDigits" (change)="setSampleId()">
+                            <input [(ngModel)]="yearLength" [disabled]="addYear == false || entryMode == 'Manual'" class="form-check-input" type="radio" [value]="4" id="yearDigits" name="yearDigits" (change)="setSampleId()">
                             <label class="form-check-label" for="yearDigits">4 year digits</label>
                         </div>
                     </div>
@@ -76,7 +76,19 @@
                 </div>
 
             </div>
-        </div>        
+        </div>  
+        
+        <div class="row mt-3 page-form">
+            <div class="col-md-12">
+                <button [disabled]="isConfigSaving || isConfigLoading" type="submit" class="btn btn-secondary btn-sm page-form-btn" (click)="putStaffCodeConfig()">
+                    Save
+                </button>
+            </div>
+        </div>
         
     </div>
 </main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
