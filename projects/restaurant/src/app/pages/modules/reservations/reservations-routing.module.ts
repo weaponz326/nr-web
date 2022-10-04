@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ReservationsPage } from './reservations.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 import { AllReservationsComponent } from './all-reservations/all-reservations.component';
 import { ViewReservationComponent } from './view-reservation/view-reservation.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
+      { path: "configuration", component: ConfigurationComponent },
       { path: "all-reservations", component: AllReservationsComponent },
       { path: "view-reservation", component: ViewReservationComponent, canActivate: [ViewReservationGuard] },
     ]

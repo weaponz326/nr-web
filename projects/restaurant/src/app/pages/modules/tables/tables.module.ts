@@ -12,6 +12,7 @@ import { AllTablesComponent } from './all-tables/all-tables.component';
 import { AddTableComponent } from './add-table/add-table.component';
 import { ViewTableComponent } from './view-table/view-table.component';
 import { TableFormComponent } from './table-form/table-form.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TableFormComponent } from './table-form/table-form.component';
     AllTablesComponent,
     AddTableComponent,
     ViewTableComponent,
-    TableFormComponent
+    TableFormComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

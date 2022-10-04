@@ -18,6 +18,7 @@ import { OrderItemsComponent } from './order-items/order-items.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ItemFormComponent } from './item-form/item-form.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ItemFormComponent } from './item-form/item-form.component';
     OrderItemsComponent,
     AddItemComponent,
     EditItemComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

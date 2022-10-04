@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { KitchenStockPage } from './kitchen-stock.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 import { AllStockItemsComponent } from './all-stock-items/all-stock-items.component';
 
 
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
+      { path: "configuration", component: ConfigurationComponent },
       { path: "all-stock-items", component: AllStockItemsComponent },
     ]
   }

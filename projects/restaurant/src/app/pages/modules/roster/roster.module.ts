@@ -23,6 +23,7 @@ import { EditPersonnelComponent } from './edit-personnel/edit-personnel.componen
 import { ManageBatchesComponent } from './manage-batches/manage-batches.component';
 import { AddBatchComponent } from './add-batch/add-batch.component';
 import { EditBatchComponent } from './edit-batch/edit-batch.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { EditBatchComponent } from './edit-batch/edit-batch.component';
     EditPersonnelComponent,
     ManageBatchesComponent,
     AddBatchComponent,
-    EditBatchComponent
+    EditBatchComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

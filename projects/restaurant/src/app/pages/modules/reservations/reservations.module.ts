@@ -14,6 +14,7 @@ import { AllReservationsComponent } from './all-reservations/all-reservations.co
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
 import { ViewReservationComponent } from './view-reservation/view-reservation.component';
 import { ReservationTablesComponent } from './reservation-tables/reservation-tables.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ReservationTablesComponent } from './reservation-tables/reservation-tab
     AllReservationsComponent,
     NewReservationComponent,
     ViewReservationComponent,
-    ReservationTablesComponent
+    ReservationTablesComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,
