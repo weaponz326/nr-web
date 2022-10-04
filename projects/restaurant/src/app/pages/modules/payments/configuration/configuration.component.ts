@@ -13,7 +13,40 @@ export class ConfigurationComponent implements OnInit {
     { text: "Configuration", url: "/home/payments/configuration" },
   ];
 
+  entryMode = "Auto";
+
+  prefix = "";
+  codeLength = 5;
+  suffix = "PA"
+
+  sampleID = "";
+
   ngOnInit(): void {
+    this.setSampleId();
+  }
+
+  entryModeChange(e: any){
+    console.log(e.target.value);
+
+    if(e.target.value == "Manual"){
+      this.prefix = "";
+      this.codeLength = 0;
+      this.suffix = ""
+
+      this.sampleID = "";
+    }
+    else if(e.target.value == "Auto"){
+      this.prefix = "";
+      this.codeLength = 5;
+      this.suffix = "MN"
+
+      this.setSampleId();
+    }
+  }
+
+  setSampleId(){
+    var code = "1".padStart(this.codeLength, "0");
+    this.sampleID = this.prefix + code + this.suffix;
   }
 
 }
