@@ -435,7 +435,8 @@
                     + view order (G)
 				+ kitchen stock
 					+ view kitchen stock (G)
-			+ access
+			+ config acess
+			+ modules access
 				+ admin (G)
 				+ portal (G)
 				+ settings (G)
@@ -744,7 +745,8 @@
 					+ view fees (G)
 				+ sections
 					+ view section (G)
-			+ access
+			+ config acess
+			+ modules access
 				+ admin (G)
 				+ portal (G)
 				+ settings (G)

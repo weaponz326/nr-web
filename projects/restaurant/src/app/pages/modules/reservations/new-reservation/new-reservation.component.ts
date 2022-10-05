@@ -46,7 +46,8 @@ export class NewReservationComponent implements OnInit {
 
   openModal(){
     this.addButton.nativeElement.click();
-    this.reservationForm.controls.reservationDate.setValue(new Date().toISOString().slice(0, 16))
+    this.reservationForm.controls.reservationDate.setValue(new Date().toISOString().slice(0, 16));
+    this.getNewreservationCodeConfig();
   }
 
   createReservation(){
@@ -76,6 +77,26 @@ export class NewReservationComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.isReservationSaving = true;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNewreservationCodeConfig(){
+    this.reservationForm.controls.reservationCode.disable();
+
+    this.reservationsApi.getNewReservationCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.reservationForm.controls.reservationCode.setValue(res.code);
+          else
+            this.reservationForm.controls.reservationCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

@@ -57,6 +57,20 @@ export class ReservationsApiService {
     return this.http.delete(this.reservationsUrl + "reservation-table/" + id, this.authHeaders.headers);
   }
 
+  // config
+
+  public getReservationCodeConfig(): Observable<any>{
+    return this.http.get(this.reservationsUrl + "config/reservation-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putReservationCodeConfig(reservation: any): Observable<any>{
+    return this.http.put(this.reservationsUrl + "config/reservation-code/" + localStorage.getItem('restaurant_id'), reservation, this.authHeaders.headers);
+  }
+
+  public getNewReservationCodeConfig(): Observable<any>{
+    return this.http.get(this.reservationsUrl + "config/new-reservation-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+  
   // dashboard
 
   public getReservationCount(): Observable<any>{
