@@ -158,6 +158,13 @@ th.min-width-5{
   width: 120px;
 }
 
+.search-row-cell{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 /* settings module */
 
 .active-panel .subscription-panel{
