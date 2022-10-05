@@ -5,19 +5,19 @@ import { AuthGuard } from 'projects/personal/src/app/guards/auth/auth.guard';
 import { AccountGuard } from 'projects/restaurant/src/app/guards/account/account.guard';
 import { UserGuard } from './guards/landing/user/user.guard';
 import { GuestGuard } from './guards/landing/guest/guest.guard';
-import { AdminGuard } from 'projects/restaurant/src/app/guards/access/admin/admin.guard';
-import { PortalGuard } from 'projects/restaurant/src/app/guards/access/portal/portal.guard';
-import { SettingsGuard } from 'projects/restaurant/src/app/guards/access/settings/settings.guard';
-import { MenuGuard } from 'projects/restaurant/src/app/guards/access/menu/menu.guard';
-import { StaffGuard } from 'projects/restaurant/src/app/guards/access/staff/staff.guard';
-import { TablesGuard } from 'projects/restaurant/src/app/guards/access/tables/tables.guard';
-import { CustomersGuard } from 'projects/restaurant/src/app/guards/access/customers/customers.guard';
-import { DeliveriesGuard } from 'projects/restaurant/src/app/guards/access/deliveries/deliveries.guard';
-import { PaymentsGuard } from 'projects/restaurant/src/app/guards/access/payments/payments.guard';
-import { RosterGuard } from 'projects/restaurant/src/app/guards/access/roster/roster.guard';
-import { ReservationsGuard } from 'projects/restaurant/src/app/guards/access/reservations/reservations.guard';
-import { OrdersGuard } from 'projects/restaurant/src/app/guards/access/orders/orders.guard';
-import { KitchenStockGuard } from 'projects/restaurant/src/app/guards/access/kitchen-stock/kitchen-stock.guard';
+import { AdminGuard } from 'projects/restaurant/src/app/guards/access/modules-access/admin/admin.guard';
+import { PortalGuard } from 'projects/restaurant/src/app/guards/access/modules-access/portal/portal.guard';
+import { SettingsGuard } from 'projects/restaurant/src/app/guards/access/modules-access/settings/settings.guard';
+import { MenuGuard } from 'projects/restaurant/src/app/guards/access/modules-access/menu/menu.guard';
+import { StaffGuard } from 'projects/restaurant/src/app/guards/access/modules-access/staff/staff.guard';
+import { TablesGuard } from 'projects/restaurant/src/app/guards/access/modules-access/tables/tables.guard';
+import { CustomersGuard } from 'projects/restaurant/src/app/guards/access/modules-access/customers/customers.guard';
+import { DeliveriesGuard } from 'projects/restaurant/src/app/guards/access/modules-access/deliveries/deliveries.guard';
+import { PaymentsGuard } from 'projects/restaurant/src/app/guards/access/modules-access/payments/payments.guard';
+import { RosterGuard } from 'projects/restaurant/src/app/guards/access/modules-access/roster/roster.guard';
+import { ReservationsGuard } from 'projects/restaurant/src/app/guards/access/modules-access/reservations/reservations.guard';
+import { OrdersGuard } from 'projects/restaurant/src/app/guards/access/modules-access/orders/orders.guard';
+import { KitchenStockGuard } from 'projects/restaurant/src/app/guards/access/modules-access/kitchen-stock/kitchen-stock.guard';
 
 const routes: Routes = [  
   {

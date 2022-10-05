@@ -25,7 +25,22 @@ export class ModuleHomePage implements OnInit {
   isAccessLoading = false;
 
   ngOnInit(): void {
+    this.getAccountUserLevel();
     this.getAccessAccess();
+  }
+
+  getAccountUserLevel() {
+    this.adminApi.getAccountUserLevel()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          localStorage.setItem("restaurantUserLevel", JSON.stringify(res));
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getAccessAccess() {
