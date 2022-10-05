@@ -48,6 +48,17 @@
 
                 </div>
 
+                <div class="row mt-4">
+                    <div class="col text-center">
+                        <button [disabled]="currentPage == 1" class="btn btn-secondary btn-lg mx-2" (click)="getUserNotes(currentPage - 1, 8, '')">
+                            <i class="bi bi-arrow-left-square"></i>
+                        </button>
+                        <button [disabled]="currentPage == totalPages" class="btn btn-secondary btn-lg mx-2" (click)="getUserNotes(currentPage + 1, 8, '')">
+                            <i class="bi bi-arrow-right-square"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <div *ngIf="isFetchingBoardData" class="row g-4 note-card-div">
                     <div *ngFor="let x of [1,1,1,1,1,1]" class="col-md-4">
                         <div *ngIf="isFetchingBoardData" class="card bg-note-card shadow-sm p-3">
