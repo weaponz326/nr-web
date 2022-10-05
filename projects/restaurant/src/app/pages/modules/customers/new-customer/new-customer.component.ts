@@ -33,6 +33,10 @@ export class NewCustomerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.getNewcustomerCodeConfig();
+  }
+
   createCustomer(){
     console.log('u are saving a new customer');
 
@@ -65,6 +69,26 @@ export class NewCustomerComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.isCustomerSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNewcustomerCodeConfig(){
+    this.customerForm.customerForm.controls.customerCode.disable();
+
+    this.customersApi.getNewCustomerCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.customerForm.customerForm.controls.customerCode.setValue(res.code);
+          else
+            this.customerForm.customerForm.controls.customerCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

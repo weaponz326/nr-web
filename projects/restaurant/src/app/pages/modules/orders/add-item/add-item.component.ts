@@ -28,7 +28,8 @@ export class AddItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openModal(){
+  openModal(lastId: any){
+    this.itemForm.itemForm.controls.itemNumber.setValue(lastId + 1);
     this.itemForm.itemForm.controls.price.setValue(0.00);
     this.itemForm.itemForm.controls.quantity.setValue(1);
 
@@ -37,6 +38,7 @@ export class AddItemComponent implements OnInit {
 
   saveItem(){
     let data: OrderItem = {
+      item_number: this.itemForm.itemForm.controls.itemNumber.value as number,
       order: sessionStorage.getItem('restaurant_order_id') as string,
       quantity: this.itemForm.itemForm.controls.quantity.value as number,
       menu_item: this.itemForm.selectedMenuItemId,
@@ -47,6 +49,7 @@ export class AddItemComponent implements OnInit {
   }
 
   resetForm(){
+    this.itemForm.itemForm.controls.itemNumber.setValue(null);
     this.itemForm.itemForm.controls.menuItem.setValue('');
     this.itemForm.itemForm.controls.price.setValue(0.00);
     this.itemForm.itemForm.controls.quantity.setValue(1);

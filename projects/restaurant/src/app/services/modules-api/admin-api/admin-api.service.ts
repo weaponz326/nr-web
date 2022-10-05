@@ -42,6 +42,11 @@ export class AdminApiService {
     return this.http.get(this.adminUrl + "account-user-account?" + "&personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
   }
 
+  // user level for modules config access
+  public getAccountUserLevel(): Observable<any>{
+    return this.http.get(this.adminUrl + "account-user/" + sessionStorage.getItem('restaurant_user_access_id'), this.authHeaders.headers);
+  }
+
   // user access
 
   public getUserAccess(): Observable<any>{

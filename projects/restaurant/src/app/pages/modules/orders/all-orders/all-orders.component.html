@@ -44,7 +44,7 @@
                         <tbody>
                             <tr *ngFor="let data of ordersGridData" (dblclick)="viewOrder(data.id)" class="table-pointer">
                                 <td>{{data?.order_code}}</td>
-                                <td>{{data?.order_date | date}}</td>
+                                <td>{{data?.order_date | date: 'short'}}</td>
                                 <td>{{data?.customer_name}}</td>
                                 <td>{{data?.order_type}}</td>
                                 <td>{{data?.order_total}}</td>

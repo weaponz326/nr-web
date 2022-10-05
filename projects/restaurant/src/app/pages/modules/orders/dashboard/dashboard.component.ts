@@ -50,8 +50,10 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.ordersMonthLineLabels,
         datasets: [{
+          label: "Orders",
           data: this.ordersMonthLineDataSets,
-          fill: true
+          fill: true,
+          borderColor: "#0000ff88"
         }]
       },
       options: {

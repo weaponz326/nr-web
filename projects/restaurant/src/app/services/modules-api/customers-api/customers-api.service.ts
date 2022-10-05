@@ -43,6 +43,20 @@ export class CustomersApiService {
     return this.http.delete(this.customersUrl + "customer/" + sessionStorage.getItem('restaurant_customer_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getCustomerCodeConfig(): Observable<any>{
+    return this.http.get(this.customersUrl + "config/customer-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putCustomerCodeConfig(customer: any): Observable<any>{
+    return this.http.put(this.customersUrl + "config/customer-code/" + localStorage.getItem('restaurant_id'), customer, this.authHeaders.headers);
+  }
+
+  public getNewCustomerCodeConfig(): Observable<any>{
+    return this.http.get(this.customersUrl + "config/new-customer-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+  
   // dashboard
 
   public getCustomerCount(): Observable<any>{

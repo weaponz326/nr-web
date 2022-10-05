@@ -69,6 +69,20 @@ export class OrdersApiService {
     return this.http.delete(this.ordersUrl + "order-item/" + itemId, this.authHeaders.headers);
   }
 
+  // config
+
+  public getOrderCodeConfig(): Observable<any>{
+    return this.http.get(this.ordersUrl + "config/order-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putOrderCodeConfig(order: any): Observable<any>{
+    return this.http.put(this.ordersUrl + "config/order-code/" + localStorage.getItem('restaurant_id'), order, this.authHeaders.headers);
+  }
+
+  public getNewOrderCodeConfig(): Observable<any>{
+    return this.http.get(this.ordersUrl + "config/new-order-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getOrderCount(): Observable<any>{

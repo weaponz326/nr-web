@@ -13,6 +13,7 @@ import { AllStockItemsComponent } from './all-stock-items/all-stock-items.compon
 import { AddStockItemComponent } from './add-stock-item/add-stock-item.component';
 import { EditStockItemComponent } from './edit-stock-item/edit-stock-item.component';
 import { StockItemFormComponent } from './stock-item-form/stock-item-form.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { StockItemFormComponent } from './stock-item-form/stock-item-form.compon
     AllStockItemsComponent,
     AddStockItemComponent,
     EditStockItemComponent,
-    StockItemFormComponent
+    StockItemFormComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

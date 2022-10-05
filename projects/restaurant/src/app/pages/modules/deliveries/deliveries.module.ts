@@ -13,6 +13,7 @@ import { AllDeliveriesComponent } from './all-deliveries/all-deliveries.componen
 import { NewDeliveryComponent } from './new-delivery/new-delivery.component';
 import { EditDeliveryComponent } from './edit-delivery/edit-delivery.component';
 import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
     AllDeliveriesComponent,
     NewDeliveryComponent,
     EditDeliveryComponent,
-    DeliveryFormComponent
+    DeliveryFormComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

@@ -39,6 +39,7 @@ export class NewRosterComponent implements OnInit {
 
   openModal(){
     this.newButton.nativeElement.click();
+    this.getNewrosterCodeConfig();
 
     this.rosterForm.controls.fromDate.setValue(new Date().toISOString().slice(0, 10))
     this.rosterForm.controls.toDate.setValue(new Date().toISOString().slice(0, 10))
@@ -77,4 +78,24 @@ export class NewRosterComponent implements OnInit {
     console.log(data);
   }
 
+  getNewrosterCodeConfig(){
+    this.rosterForm.controls.rosterCode.disable();
+
+    this.rosterApi.getNewRosterCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.rosterForm.controls.rosterCode.setValue(res.code);
+          else
+            this.rosterForm.controls.rosterCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

@@ -50,8 +50,10 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.reservationsMonthLineLabels,
         datasets: [{
+          label: "Reservations",
           data: this.reservationsMonthLineDataSets,
-          fill: true
+          fill: true,
+          borderColor: "#0000ff88"
         }]
       },
       options: {
