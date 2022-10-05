@@ -9,6 +9,7 @@ import { ViewRosterComponent } from './view-roster/view-roster.component';
 import { ManageBatchesComponent } from './manage-batches/manage-batches.component';
 
 import { ViewRosterGuard } from '../../../guards/modules/roster/view-roster/view-roster.guard';
+import { ConfigAccessGuard } from '../../../guards/access/config-access/config-access.guard';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
-      { path: "configuration", component: ConfigurationComponent },
+      { path: "configuration", component: ConfigurationComponent, canActivate: [ConfigAccessGuard] },
       { path: "all-roster", component: AllRosterComponent },
       { path: "view-roster", component: ViewRosterComponent, canActivate: [ViewRosterGuard] },
       { path: "manage-batches", component: ManageBatchesComponent, canActivate: [ViewRosterGuard] },

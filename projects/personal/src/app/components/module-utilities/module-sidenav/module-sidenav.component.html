@@ -14,14 +14,14 @@
             </li>
 
             <li *ngFor="let link of navLinks" class="nav-item">
-                <a routerLink={{link.url}} class="nav-link align-middle px-0 mb-3">
+                <a href="#" class="nav-link align-middle px-0 mb-3">
                     <i class={{link.icon}}></i>
                     <span class="ms-2 d-none d-sm-inline">{{link.text}}</span>
                 </a>
             </li>
 
             <li *ngIf="showConf" class="nav-item">
-                <a routerLink="configuration" class="nav-link align-middle px-0 mb-3">
+                <a routerLink="configuration" class="nav-link align-middle px-0 mb-3" (click)="gotoConfig($event)">
                     <i class="bi bi-gear"></i>
                     <span class="ms-2 d-none d-sm-inline">Configuration</span>
                 </a>

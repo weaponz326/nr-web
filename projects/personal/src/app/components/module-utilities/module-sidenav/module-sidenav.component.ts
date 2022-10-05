@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-module-sidenav',
@@ -12,8 +12,14 @@ export class ModuleSidenavComponent implements OnInit {
   @Input() heading: any;
   @Input() showConf: any = false;
   @Input() navLinks: any[] = [];
+  @Output() checkConfigAccess = new EventEmitter<number>();
   
   ngOnInit(): void {
+  }
+
+  gotoConfig(e: any){
+    e.preventDefault();
+    this.checkConfigAccess.emit();
   }
 
 }

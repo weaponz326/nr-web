@@ -5,6 +5,8 @@ import { AuthGuard } from 'projects/personal/src/app/guards/auth/auth.guard';
 import { AccountGuard } from 'projects/restaurant/src/app/guards/account/account.guard';
 import { UserGuard } from './guards/landing/user/user.guard';
 import { GuestGuard } from './guards/landing/guest/guest.guard';
+import { ConfigAccessGuard } from './guards/access/config-access/config-access.guard';
+
 import { AdminGuard } from 'projects/restaurant/src/app/guards/access/modules-access/admin/admin.guard';
 import { PortalGuard } from 'projects/restaurant/src/app/guards/access/modules-access/portal/portal.guard';
 import { SettingsGuard } from 'projects/restaurant/src/app/guards/access/modules-access/settings/settings.guard';
@@ -55,20 +57,20 @@ const routes: Routes = [
       },
       {
         path: "admin",
-        canActivate: [AdminGuard],
-        canActivateChild: [AdminGuard],
+        canActivate: [AdminGuard, ConfigAccessGuard],
+        canActivateChild: [AdminGuard, ConfigAccessGuard],
         loadChildren: () => import("./pages/modules/admin/admin.module").then(m => m.AdminModule)
       },
       {
         path: "portal",
-        canActivate: [PortalGuard],
-        canActivateChild: [PortalGuard],
+        canActivate: [PortalGuard, ConfigAccessGuard],
+        canActivateChild: [PortalGuard, ConfigAccessGuard],
         loadChildren: () => import("./pages/modules/portal/portal.module").then(m => m.PortalModule)
       },
       {
         path: "settings",
-        canActivate: [SettingsGuard],
-        canActivateChild: [SettingsGuard],
+        canActivate: [SettingsGuard, ConfigAccessGuard],
+        canActivateChild: [SettingsGuard, ConfigAccessGuard],
         loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
       },
       {

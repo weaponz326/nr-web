@@ -9,6 +9,7 @@ import { ViewMenuGroupComponent } from './view-menu-group/view-menu-group.compon
 import { AllMenuItemsComponent } from './all-menu-items/all-menu-items.component';
 
 import { ViewMenuGroupGuard } from '../../../guards/modules/menu/view-menu-group/view-menu-group.guard';
+import { ConfigAccessGuard } from '../../../guards/access/config-access/config-access.guard';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
-      { path: "configuration", component: ConfigurationComponent },
+      { path: "configuration", component: ConfigurationComponent, canActivate: [ConfigAccessGuard] },
       { path: "all-menu-groups", component: AllMenuGroupsComponent },
       { path: "view-menu-group", component: ViewMenuGroupComponent, canActivate: [ViewMenuGroupGuard] },
       { path: "all-menu-items", component: AllMenuItemsComponent },

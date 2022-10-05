@@ -8,6 +8,7 @@ import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { ViewOrderComponent } from './view-order/view-order.component';
 
 import { ViewOrderGuard } from '../../../guards/modules/orders/view-order/view-order.guard';
+import { ConfigAccessGuard } from '../../../guards/access/config-access/config-access.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
-      { path: "configuration", component: ConfigurationComponent },
+      { path: "configuration", component: ConfigurationComponent, canActivate: [ConfigAccessGuard] },
       { path: "all-orders", component: AllOrdersComponent },
       { path: "view-order", component: ViewOrderComponent, canActivate: [ViewOrderGuard] }
     ]

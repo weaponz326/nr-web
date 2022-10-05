@@ -6,6 +6,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AllStockItemsComponent } from './all-stock-items/all-stock-items.component';
 
+import { ConfigAccessGuard } from '../../../guards/access/config-access/config-access.guard';
+
 
 const routes: Routes = [
   {
@@ -14,7 +16,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
-      { path: "configuration", component: ConfigurationComponent },
+      { path: "configuration", component: ConfigurationComponent, canActivate: [ConfigAccessGuard] },
       { path: "all-stock-items", component: AllStockItemsComponent },
     ]
   }

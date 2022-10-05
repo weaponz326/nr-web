@@ -9,6 +9,7 @@ import { NewStaffComponent } from './new-staff/new-staff.component';
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 
 import { ViewStaffGuard } from '../../../guards/modules/staff/view-staff/view-staff.guard';
+import { ConfigAccessGuard } from '../../../guards/access/config-access/config-access.guard';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "dashboard", component: DashboardComponent },
-      { path: "configuration", component: ConfigurationComponent },
+      { path: "configuration", component: ConfigurationComponent, canActivate: [ConfigAccessGuard] },
       { path: "all-staff", component: AllStaffComponent },
       { path: "new-staff", component: NewStaffComponent },
       { path: "view-staff", component: ViewStaffComponent, canActivate: [ViewStaffGuard] }
