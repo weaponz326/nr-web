@@ -11,6 +11,7 @@ export class Order {
 }
 
 export class OrderItem {
+  item_number!: number;
   menu_item!: string;
   order!: string;
   quantity!: number;

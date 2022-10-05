@@ -7,12 +7,13 @@
             <table class="table table-bordered table-sm w-100 page-table">
                 <thead>
                     <tr class="bg-light">
-                        <th width="40%" class="min-width-3">Menu Item</th>
+                        <th width="5%" class="min-width-1">No.</th>
+                        <th width="35%" class="min-width-3">Menu Item</th>
                         <th width="15%" class="min-width-2">Item Price</th>
                         <th width="10%" class="min-width-2">Quantity</th>
                         <th width="15%" class="min-width-2">Total Price</th>
                         <th width="10%" class="p-0 min-width-2">
-                            <button class="btn btn-secondary btn-sm w-100" (click)="addItem.openModal()">
+                            <button class="btn btn-secondary btn-sm w-100" (click)="addItem.openModal(lastItem)">
                                 <i class="bi bi-plus"></i>
                             </button>
                         </th>
@@ -20,6 +21,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of itemsGridData; index as i" (dblClick)="openEditItem(i)">
+                        <td>{{data?.item_number}}</td>
                         <td>{{data?.menu_item.item_name}}</td>
                         <td>{{data?.menu_item.price}}</td>
                         <td>{{data?.quantity}}</td>
@@ -32,14 +34,14 @@
                         </td>
                     </tr>
                     <tr *ngIf="isFetchingGridData" class="text-center">
-                        <td colspan="5">
+                        <td colspan="6">
                             <div class="spinner-grow m-2" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </td>
                     </tr>
                     <tr class="bg-light">
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                         <td>{{totalAmount}}</td>
                         <td></td>
                     </tr>

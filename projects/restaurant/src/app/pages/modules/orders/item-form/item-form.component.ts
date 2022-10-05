@@ -17,6 +17,7 @@ export class ItemFormComponent implements OnInit {
   selectedMenuItemData: any;
 
   itemForm = new FormGroup({
+    itemNumber: new FormControl(),
     menuItem: new FormControl({value: "", disabled: true}),
     price: new FormControl({value: 0, disabled: true}),
     quantity: new FormControl(1)

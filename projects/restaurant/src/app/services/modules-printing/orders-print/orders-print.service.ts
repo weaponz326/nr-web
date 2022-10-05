@@ -129,11 +129,12 @@ export class OrdersPrintService {
     orderBody.push(['Order Status :',  formData.order_status]);
 
     // items
-    var itemsBody = [['Menu Item', 'Item Price', 'Quantity', 'Total Price']];
+    var itemsBody = [['No.', 'Menu Item', 'Item Price', 'Quantity', 'Total Price']];
 
     for (let data of orderItemsGridData){
       var row = [];
       let rowData: any = data;
+      row.push(rowData.item_number);
       row.push(rowData.menu_item.item_name);
       row.push(rowData.menu_item.price);
       row.push(rowData.quantity);
@@ -148,7 +149,7 @@ export class OrdersPrintService {
       totalAmount += rowData.menu_item.price * rowData.quantity;
     }
 
-    itemsBody.push(['', '', '', totalAmount.toString()])
+    itemsBody.push(['', '', '', '', totalAmount.toString()])
 
     let content = [
       {
@@ -161,10 +162,10 @@ export class OrdersPrintService {
       },
       { text: 'Order Items', bold: true, margin: [0, 20, 0, 10] },
       {
-        layout: 'lightHorizontalLines',
+        layout: 'noBorders',
         table: {
           headerRows: 1,
-          widths: ['35%', '20%', '15%', '20%'],
+          widths: ['5%', '35%', '20%', '10%', '20%'],
           body: itemsBody
         }
       }

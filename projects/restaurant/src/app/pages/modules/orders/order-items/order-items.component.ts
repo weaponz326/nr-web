@@ -25,6 +25,7 @@ export class OrderItemsComponent implements OnInit {
   itemsGridData: any[] = [];
 
   totalAmount = 0;
+  lastItem = 0;
 
   deleteId = "";
   isItemDeleting = false;
@@ -44,6 +45,9 @@ export class OrderItemsComponent implements OnInit {
           console.log(res);
           this.itemsGridData = res;
           this.calculateTotalPrice();
+
+          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastItem = 0 }
 
           this.isFetchingGridData = false;
         },
