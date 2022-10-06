@@ -40,17 +40,17 @@ export class PaymentsHistoryComponent implements OnInit {
   }
 
   getHistory(page: any, size: any, sortField: any){
-    // this.settingsApi.getHistory()
-    //   .subscribe(
-    //     res => {
-    //       console.log(res);
-    //       this.historyData = res;
-    //     },
-    //     err => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.settingsApi.getAccountSubscriptionEvent(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.historyData = res;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
