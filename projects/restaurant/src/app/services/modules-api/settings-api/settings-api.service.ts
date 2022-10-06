@@ -46,4 +46,13 @@ export class SettingsApiService {
     return this.http.put(this.settingsUrl + "subscription-change/" + localStorage.getItem('restaurant_id'), subscription, this.authHeaders.headers);
   }
 
+  // subscription events
+
+  public getAccountSubscriptionEvent(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.settingsUrl + "roster?account=" + localStorage.getItem('restaurant_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField, this.authHeaders.headers);
+  }
+
 }

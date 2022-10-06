@@ -79,6 +79,20 @@ export class MenuApiService {
     return this.http.put(this.menuUrl + "menu-item/" + id, formParams, this.authHeaders.headers)
   }
 
+  // config
+
+  public getMenuItemCodeConfig(): Observable<any>{
+    return this.http.get(this.menuUrl + "config/menu-item-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putMenuItemCodeConfig(data: any): Observable<any>{
+    return this.http.put(this.menuUrl + "config/menu-item-code/" + localStorage.getItem('restaurant_id'), data, this.authHeaders.headers);
+  }
+
+  public getNewMenuItemCodeConfig(): Observable<any>{
+    return this.http.get(this.menuUrl + "config/new-menu-item-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getMenuGroupCount(): Observable<any>{

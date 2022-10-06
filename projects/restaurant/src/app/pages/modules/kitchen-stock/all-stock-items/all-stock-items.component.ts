@@ -135,7 +135,6 @@ export class AllStockItemsComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.editStockItem.isItemDeleting = false;
-          this.editStockItem.editButton.nativeElement.click();
           this.getAccountStockItem(1, 20, '-created_at');
         },
         error: (err) => {

@@ -115,6 +115,20 @@ export class RosterApiService {
     return this.http.delete(this.rosterUrl + "roster-day/" + id, this.authHeaders.headers);
   }
 
+  // config
+
+  public getRosterCodeConfig(): Observable<any>{
+    return this.http.get(this.rosterUrl + "config/roster-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putRosterCodeConfig(roster: any): Observable<any>{
+    return this.http.put(this.rosterUrl + "config/roster-code/" + localStorage.getItem('restaurant_id'), roster, this.authHeaders.headers);
+  }
+
+  public getNewRosterCodeConfig(): Observable<any>{
+    return this.http.get(this.rosterUrl + "config/new-roster-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getRosterCount(): Observable<any>{

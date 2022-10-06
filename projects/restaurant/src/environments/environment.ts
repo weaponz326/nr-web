@@ -5,11 +5,17 @@
 export const environment = {
   production: false,
 
-  baseUrl: "#",
-  personalUrl: "#",
-  restaurantUrl: "#",
+  // baseUrl: "#",
+  // personalUrl: "#",
+  // restaurantUrl: "#",
 
-  apiUrl: "http://localhost:8000/",
+  // apiUrl: "http://localhost:8000/",
+
+  baseUrl: "https://www.netrink.com/",
+  personalUrl: "https://personal.netrink.com/",
+  restaurantUrl: "https://restaurant.netrink.com/",
+
+  apiUrl: "https://api.netrink.com/",
 
   paystackTestPublicKey: "pk_test_275f8f544fab9c9c78a1e8789d8c883f0102f708",
   paystackLivePublicKey: "pk_live_921d89f7a824979fe69d35154cce546431f15d7b",

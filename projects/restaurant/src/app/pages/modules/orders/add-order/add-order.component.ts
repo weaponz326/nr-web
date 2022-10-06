@@ -54,7 +54,8 @@ export class AddOrderComponent implements OnInit {
 
   openModal(){
     this.newButton.nativeElement.click();
-    this.orderForm.controls.orderDate.setValue(new Date().toISOString().slice(0, 16))
+    this.orderForm.controls.orderDate.setValue(new Date().toISOString().slice(0, 16));
+    this.getNewOrderCodeConfig();
   }
 
   createOrder(){
@@ -110,6 +111,26 @@ export class AddOrderComponent implements OnInit {
     console.log(data);
   }
 
+  getNewOrderCodeConfig(){
+    this.orderForm.controls.orderCode.disable();
+
+    this.ordersApi.getNewOrderCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.orderForm.controls.orderCode.setValue(res.code);
+          else
+            this.orderForm.controls.orderCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   openCustomerWindow(){
     console.log("You are opening select customer window")
     this.selectCustomer.openModal();

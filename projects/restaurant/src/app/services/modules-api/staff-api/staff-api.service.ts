@@ -50,6 +50,20 @@ export class StaffApiService {
     return this.http.put(this.staffUrl + "staff/" + sessionStorage.getItem('restaurant_staff_id'), formParams, this.authHeaders.headers)
   }
 
+  // config
+
+  public getStaffCodeConfig(): Observable<any>{
+    return this.http.get(this.staffUrl + "config/staff-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putStaffCodeConfig(staff: any): Observable<any>{
+    return this.http.put(this.staffUrl + "config/staff-code/" + localStorage.getItem('restaurant_id'), staff, this.authHeaders.headers);
+  }
+
+  public getNewStaffCodeConfig(): Observable<any>{
+    return this.http.get(this.staffUrl + "config/new-staff-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getStaffCount(): Observable<any>{

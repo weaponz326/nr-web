@@ -16,6 +16,7 @@ import { MenuItemFormComponent } from './menu-item-form/menu-item-form.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewMenuGroupComponent } from './view-menu-group/view-menu-group.component';
 import { EditMenuItemComponent } from './edit-menu-item/edit-menu-item.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { EditMenuItemComponent } from './edit-menu-item/edit-menu-item.component
     MenuItemFormComponent,
     DashboardComponent,
     ViewMenuGroupComponent,
-    EditMenuItemComponent
+    EditMenuItemComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

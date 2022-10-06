@@ -33,6 +33,10 @@ export class NewStaffComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.getNewStaffCodeConfig();
+  }
+
   createStaff(){
     console.log('u are saving a new staff');
 
@@ -89,6 +93,26 @@ export class NewStaffComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNewStaffCodeConfig(){
+    this.staffForm.staffForm.controls.staffCode.disable();
+
+    this.staffApi.getNewStaffCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.staffForm.staffForm.controls.staffCode.setValue(res.code);
+          else
+            this.staffForm.staffForm.controls.staffCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

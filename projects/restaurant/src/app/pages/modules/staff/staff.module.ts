@@ -12,6 +12,7 @@ import { AllStaffComponent } from './all-staff/all-staff.component';
 import { NewStaffComponent } from './new-staff/new-staff.component';
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 import { StaffFormComponent } from './staff-form/staff-form.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { StaffFormComponent } from './staff-form/staff-form.component';
     AllStaffComponent,
     NewStaffComponent,
     ViewStaffComponent,
-    StaffFormComponent
+    StaffFormComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

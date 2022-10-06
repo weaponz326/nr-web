@@ -13,6 +13,7 @@ import { AllPaymentsComponent } from './all-payments/all-payments.component';
 import { NewPaymentComponent } from './new-payment/new-payment.component';
 import { ViewPaymentComponent } from './view-payment/view-payment.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
     AllPaymentsComponent,
     NewPaymentComponent,
     ViewPaymentComponent,
-    PaymentFormComponent
+    PaymentFormComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,
