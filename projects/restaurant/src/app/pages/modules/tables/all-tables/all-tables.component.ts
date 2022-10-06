@@ -143,7 +143,6 @@ export class AllTablesComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.viewTable.isTableDeleting = false;
-          this.viewTable.editButton.nativeElement.click();
           this.getAccountTable(1, 20, "-created_at");
         },
         error: (err) => {
