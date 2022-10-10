@@ -1,1 +1,82 @@
-<p>all-plans works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-10">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" routerLink="/home/lesson-plan/new-plan">New Plan</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountLessonPlan()">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="10%" class="min-width-2">
+                                    Plan ID
+                                    <app-table-sorting [sortField]="'plan_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="35%" class="min-width-4">
+                                    Plan Name
+                                    <app-table-sorting [sortField]="'plan_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-3">
+                                    Plan Date
+                                    <app-table-sorting [sortField]="'plan_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Teacher
+                                    <app-table-sorting [sortField]="'teacher'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Subject
+                                    <app-table-sorting [sortField]="'subject'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of lessonPlanGridData" (dblclick)="viewLessonPlan(data.id)" class="table-pointer">
+                                <td>{{data?.plan_code}}</td>
+                                <td>{{data?.plan_name}}</td>
+                                <td>{{data?.plan_date}}</td>
+                                <td>{{data?.teacher.teacher_name}}</td>
+                                <td>{{data?.subject.subject_name}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="5">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="5">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountLessonPlan()"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select term window component -->
+
+<!-- <app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term> -->

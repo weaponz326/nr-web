@@ -9,6 +9,11 @@ export class LessonPlanPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Plans", url: "/home/lesson-plan/all-plans", icon: "bi bi-list-ul" },
+    { text: "New Plan", url: "/home/lesson-plan/new-plan", icon: "bi bi-plus-square" },
+  ]
+  
   ngOnInit(): void {
   }
 
