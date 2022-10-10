@@ -503,6 +503,7 @@
 					+ view assessment (C)
 					+ assessment form (C)
 					+ assessment table (C)
+					+ assessment classes (C)
 				+ subjects (Mr)(Mp)
 					+ dashboard (C)
 					+ configuration (C)
