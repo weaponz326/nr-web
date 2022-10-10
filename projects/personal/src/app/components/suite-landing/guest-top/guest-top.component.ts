@@ -15,8 +15,7 @@ export class GuestTopComponent implements OnInit {
   @Input() primaryCaption: string = "";
   @Input() secondaryCaption: string = "";
   @Input() features: any;
-
-  @Output() watchDemo = new EventEmitter<any>();
+  @Input() demoVideoUrl: any;
 
   ngOnInit(): void {
   }

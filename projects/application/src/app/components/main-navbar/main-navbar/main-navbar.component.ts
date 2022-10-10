@@ -85,17 +85,8 @@ export class MainNavbarComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          localStorage.removeItem("token");
-
-          localStorage.removeItem("personal_id");
-          localStorage.removeItem("hospital_id");
-          localStorage.removeItem("restaurant_id");
-          localStorage.removeItem("school_id");
-          localStorage.removeItem("enterprise_id");
-          localStorage.removeItem("association_id");
-          localStorage.removeItem("hotel_id");
-          localStorage.removeItem("shop_id");
-          localStorage.removeItem("production_id");
+          localStorage.clear();
+          sessionStorage.clear();
 
           window.location.href = "/";
         },
