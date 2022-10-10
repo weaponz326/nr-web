@@ -27,7 +27,7 @@ import { AssessmentClassesComponent } from './assessment-classes/assessment-clas
     ViewAssessmentComponent,
     AssessmentFormComponent,
     AssessmentSheetComponent,
-    AssessmentClassesComponent
+    AssessmentClassesComponent,
   ],
   imports: [
     CommonModule,
