@@ -37,7 +37,6 @@ export class AllSubjectsComponent implements OnInit {
   isFetchingGridData: boolean =  false;
   isDataAvailable: boolean =  true;
 
-  firstInResponse: any = [];
   currentPage = 0;
   totalPages = 0;
   totalItems = 0;

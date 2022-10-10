@@ -1,1 +1,36 @@
-<p>view-student works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- student page form -->
+
+        <app-student-form #studentFormComponentReference></app-student-form>
+
+        <div *ngIf="!isStudentLoading" class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/students/all-students">Cancel</button>
+                <button [disabled]="isStudentDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isStudentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateStudent()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isStudentLoading" class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteStudent()"></app-delete-modal> -->
