@@ -9,6 +9,12 @@ export class StudentReportComponent implements OnInit {
 
   constructor() { }
 
+  navHeading: any[] = [
+    { text: "All Report", url: "/home/report/all-report" },
+    { text: "Class Report", url: "/home/report/class-report" },
+    { text: "Student Report", url: "/home/report/student-report" },
+  ];
+
   ngOnInit(): void {
   }
 
