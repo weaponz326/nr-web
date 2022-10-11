@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   navHeading: any[] = [
-    { text: "Dashboard", url: "/home/admin/dashboard" },
+    { text: "Dashboard", url: "/home/parents/dashboard" },
   ];
 
   ngOnInit(): void {
