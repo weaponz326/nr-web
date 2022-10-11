@@ -577,6 +577,7 @@
                     + all departments (C)
                     + add department (C)
                     + edit department (C)
+                    + department form (C)
 				+ timetable (Mr)(Mp)
 					+ dashboard (C)
 					+ configuration (C)

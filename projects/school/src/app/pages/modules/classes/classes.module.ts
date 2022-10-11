@@ -18,6 +18,7 @@ import { ClassSubjectsComponent } from './class-subjects/class-subjects.componen
 import { AllDepartmentsComponent } from './all-departments/all-departments.component';
 import { AddDepartmentComponent } from './add-department/add-department.component';
 import { EditDepartmentComponent } from './edit-department/edit-department.component';
+import { DepartmentFormComponent } from './department-form/department-form.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { EditDepartmentComponent } from './edit-department/edit-department.compo
     ClassSubjectsComponent,
     AllDepartmentsComponent,
     AddDepartmentComponent,
-    EditDepartmentComponent
+    EditDepartmentComponent,
+    DepartmentFormComponent
   ],
   imports: [
     CommonModule,
