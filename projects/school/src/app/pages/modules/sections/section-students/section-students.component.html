@@ -1,1 +1,71 @@
-<p>section-students works!</p>
+<div class="row">
+    <div class="col-md-7">
+
+        <h4>Section Students</h4>
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="25%" class="min-width-2">Student ID</th>
+                        <th width="60%" class="min-width-2">Student Name</th>
+                        <th width="15%" class="p-0 min-width-1">
+                            <!-- <button class="btn btn-secondary btn-sm w-100" (click)="selectStudent.openModal()"> -->
+                            <button class="btn btn-secondary btn-sm w-100">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of classStudentsGridData; index as i">
+                        <td>{{data?.data().student.data.student_code}}</td>
+                        <td>{{data?.data().student.data.frist_name}} {{data?.data().student.data.last_name}}</td>
+                        <td class="p-0">
+                            <button class="btn btn-sm border w-100" (click)="gotoStudent(data.id)"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData" class="text-center">
+                        <td colspan="3">
+                            <div class="spinner-grow m-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- delete confirmation modal -->
+
+<button [hidden]="true" #modalButtonElementReference data-bs-toggle="modal" data-bs-target="#pageDeleteConfirmationModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="pageDeleteConfirmationModal" tabindex="-1" aria-labelledby="pageDeleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body">
+                <p class="pt-4">Are you sure you want to delete this item?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-secondary  modal-form-btn" data-bs-dismiss="modal" (click)="deleteSectionStudent()">Yes</button>
+                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select table window component -->
+
+<!-- <app-select-student #selectStudentComponentReference (rowSelected)="createSectionStudent($event)"></app-select-student> -->

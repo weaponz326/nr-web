@@ -606,6 +606,7 @@
 					+ all sections (C)
 					+ new section (C)
 					+ view section (C)
+					+ section form (C)
 					+ section students (C)
 		+ components
 			+ select windows
