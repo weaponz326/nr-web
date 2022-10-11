@@ -1,1 +1,82 @@
-<p>all-terms works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="row">
+                    <div class="active-term-label-col"><label class="mt-1">Active Term :</label></div>
+                    <div class="active-term-form-control-col">
+                        <div class="input-group input-group-sm w-100">
+                            <input [(ngModel)]="activeTermName" class="form-control" disabled>
+                            <button type="button" class="btn btn-secondary" [disabled]="isLoadingActiveTerm" (click)="gotoActiveTerm()">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" routerLink="/home/terms/new-term">New Term</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountTerm()">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="20%" class="min-width-2">
+                                    Term ID
+                                    <app-table-sorting [sortField]="'subject_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="45%" class="min-width-4">
+                                    Term Name
+                                    <app-table-sorting [sortField]="'subject_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="35%" class="min-width-2">
+                                    Academic Year
+                                    <app-table-sorting [sortField]="'subject_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of termsGridData" (dblclick)="viewTerm(data.id)" class="table-pointer">
+                                <td>{{data?.term_code}}</td>
+                                <td>{{data?.term_name}}</td>
+                                <td>{{data?.academic_year}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="3">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="3">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountTerm()"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
