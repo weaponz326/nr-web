@@ -19,16 +19,10 @@ const routes: Routes = [
       { path: "", component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'configuration', component: ConfigurationComponent },
+      { path: "class-bills", component: ClassBillsComponent },
       { path: "student-bill", component: StudentBillComponent },
       { path: "all-fees", component: AllFeesComponent },
-      { path: "view-fees",
-        component: ViewFeesComponent ,
-        children: [
-          { path: "", component: FeesItemsComponent },
-          { path: "fees-items", component: FeesItemsComponent },
-          { path: "class-bills", component: ClassBillsComponent },
-        ]
-      }
+      { path: "view-fees", component: ViewFeesComponent }
     ]
   }
 ];

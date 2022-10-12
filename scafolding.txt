@@ -593,6 +593,7 @@
 					+ all fees (C)
 					+ create fees (C)
 					+ view fees (C)
+					+ fees target (C)
 					+ fees form (C)
 					+ fees items (C)
 					+ add item (C)
