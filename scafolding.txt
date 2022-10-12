@@ -20,7 +20,9 @@
 		+ components
 			+ main navbar (M)
 				+ main navbar (C)
-				+ main footer (C)	
+				+ main footer (C)
+		+ services
+			+ custom cookie (S)
 	+ personal (A)
 		+ pages
 		    + guest landing (Mr)(Cp)
