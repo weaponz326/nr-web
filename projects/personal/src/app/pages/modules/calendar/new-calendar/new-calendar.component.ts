@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
+
 import { Calendar } from 'projects/personal/src/app/models/modules/calendar/calendar.model';
 
 
@@ -17,6 +19,7 @@ export class NewCalendarComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private calendarApi: CalendarApiService
   ) { }
 
@@ -39,7 +42,7 @@ export class NewCalendarComponent implements OnInit {
 
   createCalendar(){
     let data: Calendar = {
-      user: localStorage.getItem('personal_id') as string,
+      user: this.customCookie.getCookie('personal_id') as string,
       calendar_name: this.calendarForm.controls.calendarName.value as string
     }
 

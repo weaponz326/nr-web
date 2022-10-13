@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import * as Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 
 @Injectable({
@@ -12,28 +12,28 @@ export class CustomCookieService {
 
   setCookie(name: any, value: any){
     // dev
-    Cookie.set(name, value);
+    Cookies.set(name, value);
 
     // // prod
-    // Cookie.set(name, value, { domain: 'netrink.com' });
+    // Cookies.set(name, value, { domain: 'netrink.com' });
   }
 
   getCookie(name: any){
-    return Cookie.get(name);
+    return Cookies.get(name);
   }
 
   removeCookies(){
     // dev
-    Cookie.remove('token');
-    Cookie.remove('personal_id');
-    Cookie.remove('restaurant_id');
-    Cookie.remove('school_id');
+    Cookies.remove('token');
+    Cookies.remove('personal_id');
+    Cookies.remove('restaurant_id');
+    Cookies.remove('school_id');
 
     // // prod
-    // Cookie.remove('token', { domain: 'netrink.com' });
-    // Cookie.remove('personal_id', { domain: 'netrink.com' });
-    // Cookie.remove('restaurant_id', { domain: 'netrink.com' });
-    // Cookie.remove('school_id', { domain: 'netrink.com' });
+    // Cookies.remove('token', { domain: 'netrink.com' });
+    // Cookies.remove('personal_id', { domain: 'netrink.com' });
+    // Cookies.remove('restaurant_id', { domain: 'netrink.com' });
+    // Cookies.remove('school_id', { domain: 'netrink.com' });
   }
 
 }

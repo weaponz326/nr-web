@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from '../../auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class PortalApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   portalUrl = environment.apiUrl + 'personal-modules/portal/';
@@ -21,7 +23,7 @@ export class PortalApiService {
   // rink
 
   public getAllRinks(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.portalUrl + "rink-list?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.portalUrl + "rink-list?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size" + size
       + "&ordering=" + sortField,
@@ -47,11 +49,11 @@ export class PortalApiService {
   // dashboard
 
   public getRinkShareCount(): Observable<any>{
-    return this.http.get(this.portalUrl + "dashboard/rink-share-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.portalUrl + "dashboard/rink-share-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getRinkShareAnnotate(): Observable<any>{
-    return this.http.get(this.portalUrl + "dashboard/rink-share-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.portalUrl + "dashboard/rink-share-annotate?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
 }

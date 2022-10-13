@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from '../../auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class BudgetApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   budgetUrl = environment.apiUrl + 'personal-modules/budget/';
@@ -21,7 +23,7 @@ export class BudgetApiService {
   // budget
 
   public getUserBudgets(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.budgetUrl + "budget?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.budgetUrl + "budget?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -91,15 +93,15 @@ export class BudgetApiService {
   // dashboard
 
   public getBudgetCount(): Observable<any>{
-    return this.http.get(this.budgetUrl + "dashboard/budget-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.budgetUrl + "dashboard/budget-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getIncomeTotal(): Observable<any>{
-    return this.http.get(this.budgetUrl + "dashboard/income-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.budgetUrl + "dashboard/income-total?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getExpenditureTotal(): Observable<any>{
-    return this.http.get(this.budgetUrl + "dashboard/expenditure-total?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.budgetUrl + "dashboard/expenditure-total?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
 }

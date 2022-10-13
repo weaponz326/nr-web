@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from 'projects/personal/src/environments/environment';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 
 
@@ -14,6 +15,7 @@ export class MainNavbarComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private authApi: AuthApiService
   ) { }
 
@@ -58,7 +60,8 @@ export class MainNavbarComponent implements OnInit {
             this.email = res.email;
             if(res.photo != null) this.photo = environment.apiUrl + res.photo;
 
-            localStorage.setItem('personal_id', res.id);
+            this.customCookie.setCookie('personal_id', res.id);
+            // localStorage.setItem('personal_id', res.id);
 
             this.isLoggedIn = true;
             this.isAuthLoading = false;
@@ -83,6 +86,7 @@ export class MainNavbarComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
+          this.customCookie.removeCookies();
           localStorage.clear();
           sessionStorage.clear();
 

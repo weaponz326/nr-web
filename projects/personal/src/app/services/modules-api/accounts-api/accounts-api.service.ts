@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from '../../auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class AccountsApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   accountsUrl = environment.apiUrl + 'personal-modules/accounts/';
@@ -20,7 +23,7 @@ export class AccountsApiService {
   // accounts
 
   public getUserAccounts(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.accountsUrl + "account?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.accountsUrl + "account?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -46,7 +49,7 @@ export class AccountsApiService {
   // transactions
 
   public getUserTransactions(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.accountsUrl + "all-transaction?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.accountsUrl + "all-transaction?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -76,15 +79,15 @@ export class AccountsApiService {
   // dashboard
 
   public getAllAccountCount(): Observable<any>{
-    return this.http.get(this.accountsUrl + "dashboard/all-account-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.accountsUrl + "dashboard/all-account-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getTransactionShare(): Observable<any>{
-    return this.http.get(this.accountsUrl + "dashboard/transaction-share?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.accountsUrl + "dashboard/transaction-share?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getTransactionAnnotate(): Observable<any>{
-    return this.http.get(this.accountsUrl + "dashboard/transaction-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.accountsUrl + "dashboard/transaction-annotate?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
 }

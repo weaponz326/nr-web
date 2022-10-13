@@ -6,8 +6,10 @@ import { AccountTransactionsComponent } from '../account-transactions/account-tr
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
 import { AccountsPrintService } from 'projects/personal/src/app/services/modules-printing/accounts-print/accounts-print.service';
+
 import { Account } from 'projects/personal/src/app/models/modules/accounts/accounts.model';
 
 
@@ -20,6 +22,7 @@ export class ViewAccountComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private accountsApi: AccountsApiService,
     private accountsPrint: AccountsPrintService
   ) { }
@@ -81,7 +84,7 @@ export class ViewAccountComponent implements OnInit {
 
   updateAccount(){
     let data: Account = {
-      user: localStorage.getItem('personal_id') as string,
+      user: this.customCookie.getCookie('personal_id') as string,
       account_name: this.accountForm.controls.accountName.value as string,
       account_number: this.accountForm.controls.accountNumber.value as string,
       bank_name: this.accountForm.controls.bankName.value as string,

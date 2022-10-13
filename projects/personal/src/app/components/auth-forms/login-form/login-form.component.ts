@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
 
 
@@ -11,7 +12,10 @@ import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private authApi: AuthApiService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private authApi: AuthApiService
+  ) { }
 
   saved: boolean = false;
   isSending: boolean = false;
@@ -48,7 +52,9 @@ export class LoginFormComponent implements OnInit {
           console.log(res);
           
           if (res.auth_token){
-            localStorage.setItem('token', res.auth_token);
+            this.customCookie.setCookie('token', res.auth_token);
+            // localStorage.setItem('token', res.auth_token);
+
             this.getUser();
           }
         },
@@ -71,7 +77,8 @@ export class LoginFormComponent implements OnInit {
           console.log(res);
 
           if(res.id) {            
-            localStorage.setItem('personal_id', res.id);
+            // localStorage.setItem('personal_id', res.id);
+            this.customCookie.setCookie('personal_id', res.id);
             this.registrationType();
           }
 

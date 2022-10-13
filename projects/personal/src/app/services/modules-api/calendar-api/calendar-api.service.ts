@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from '../../auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class CalendarApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   calendarUrl = environment.apiUrl + 'personal-modules/calendar/';
@@ -21,7 +23,7 @@ export class CalendarApiService {
   // calendar
 
   public getUserCalendars(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.calendarUrl + "calendar?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.calendarUrl + "calendar?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -47,7 +49,7 @@ export class CalendarApiService {
   // schedules
 
   public getUserSchedules(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.calendarUrl + "all-schedule?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.calendarUrl + "all-schedule?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -77,19 +79,19 @@ export class CalendarApiService {
   // dashboard
 
   public getCalendarCount(): Observable<any>{
-    return this.http.get(this.calendarUrl + "dashboard/calendar-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.calendarUrl + "dashboard/calendar-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getScheduleCount(): Observable<any>{
-    return this.http.get(this.calendarUrl + "dashboard/schedule-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.calendarUrl + "dashboard/schedule-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getCalendarAnnotate(): Observable<any>{
-    return this.http.get(this.calendarUrl + "dashboard/calendar-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.calendarUrl + "dashboard/calendar-annotate?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getScheduleAnnotate(): Observable<any>{
-    return this.http.get(this.calendarUrl + "dashboard/schedule-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.calendarUrl + "dashboard/schedule-annotate?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
 }

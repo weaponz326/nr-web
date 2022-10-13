@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from '../../auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,27 +14,28 @@ export class SettingsApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   settingsUrl = environment.apiUrl + 'personal-modules/settings/';
 
   public getExtendedProfile(): Observable<any>{
-    return this.http.get(this.settingsUrl + "extended-profile/" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public putExtendedProfile(extended: any): Observable<any>{
-    return this.http.put(this.settingsUrl + "extended-profile/" + localStorage.getItem('personal_id'), extended, this.authHeaders.headers);
+    return this.http.put(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('personal_id'), extended, this.authHeaders.headers);
   }
 
   public patchExtendedProfile(extended: any): Observable<any>{
-    return this.http.patch(this.settingsUrl + "extended-profile/" + localStorage.getItem('personal_id'), extended, this.authHeaders.headers);
+    return this.http.patch(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('personal_id'), extended, this.authHeaders.headers);
   }
 
   // invitation
 
   public getUserInvitation(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.settingsUrl + "invitation?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.settingsUrl + "invitation?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -59,7 +61,7 @@ export class SettingsApiService {
   // all user suite accounts
 
   public getAllUserSuiteAccount(): Observable<any>{
-    return this.http.get(this.settingsUrl + "all-user-suite-account?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "all-user-suite-account?personal_id=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public deleteAccountUser(userAccountId: any, accountType: any): Observable<any>{
@@ -69,11 +71,11 @@ export class SettingsApiService {
   // dashboard
 
   public getAllUserAccountCount(): Observable<any>{
-    return this.http.get(this.settingsUrl + "dashboard/all-user-suite-account-count?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "dashboard/all-user-suite-account-count?personal_id=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getUserAccountShare(): Observable<any>{
-    return this.http.get(this.settingsUrl + "dashboard/user-suite-account-share?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "dashboard/user-suite-account-share?personal_id=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
 }

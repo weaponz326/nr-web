@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { BudgetTablesComponent } from '../budget-tables/budget-tables.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { BudgetApiService } from 'projects/personal/src/app/services/modules-api/budget-api/budget-api.service';
 import { BudgetPrintService } from 'projects/personal/src/app/services/modules-printing/budget-print/budget-print.service';
+
 import { Budget } from 'projects/personal/src/app/models/modules/budget/budget.model';
 
 
@@ -19,6 +21,7 @@ export class ViewBudgetComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private budgetApi: BudgetApiService,
     private budgetPrint: BudgetPrintService
   ) { }
@@ -78,7 +81,7 @@ export class ViewBudgetComponent implements OnInit {
 
   updateBudget(){
     let data: Budget = {
-      user: localStorage.getItem('personal_id') as string,
+      user: this.customCookie.getCookie('personal_id') as string,
       budget_name: this.budgetForm.controls.budgetName.value as string,
       budget_type: this.budgetForm.controls.budgetType.value as string
     }
