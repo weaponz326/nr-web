@@ -3,7 +3,9 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { KitchenStockApiService } from 'projects/restaurant/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
+
 import { StockItem } from 'projects/restaurant/src/app/models/modules/kitchen-stock/kitchen-stock.model';
 
 
@@ -14,7 +16,10 @@ import { StockItem } from 'projects/restaurant/src/app/models/modules/kitchen-st
 })
 export class AddStockItemComponent implements OnInit {
 
-  constructor(private kitchenStockApi: KitchenStockApiService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private kitchenStockApi: KitchenStockApiService
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
 
@@ -56,7 +61,7 @@ export class AddStockItemComponent implements OnInit {
 
   saveItem(){
     let data: StockItem = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       item_code: this.stockItemForm.stockItemForm.controls.itemCode.value as string,
       item_name: this.stockItemForm.stockItemForm.controls.itemName.value as string,
       category: this.stockItemForm.stockItemForm.controls.category.value as string,

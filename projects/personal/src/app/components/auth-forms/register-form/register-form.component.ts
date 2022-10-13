@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+
 
 @Component({
   selector: 'app-register-form',
@@ -9,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customCookie: CustomCookieService) { }
 
   @Input() suiteName: any;
   @Input() showPrompt: any;
@@ -31,7 +33,7 @@ export class RegisterFormComponent implements OnInit {
 
   onSubmit(){
     let personalData: any = {
-      creator: localStorage.getItem('personal_id'),
+      creator: this.customCookie.getCookie('personal_id'),
     }
 
     let mergedData = Object.assign(this.accountForm.value, personalData);

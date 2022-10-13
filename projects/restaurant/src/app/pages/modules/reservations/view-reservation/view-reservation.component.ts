@@ -7,6 +7,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { ReservationTablesComponent } from '../reservation-tables/reservation-tables.component';
 import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { ReservationsApiService } from 'projects/restaurant/src/app/services/modules-api/reservations-api/reservations-api.service';
 // import { ReservationsPrintService } from 'projects/restaurant/src/app/services/printing/reservations-print/reservations-print.service';
 
@@ -22,6 +23,7 @@ export class ViewReservationComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private reservationsApi: ReservationsApiService,
     // private reservationsPrint: ReservationsPrintService
   ) { }
@@ -94,7 +96,7 @@ export class ViewReservationComponent implements OnInit {
 
   updateReservation(){
     let data: Reservation = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       customer: this.selectedCustomerId,
       customer_name: this.reservationForm.controls.customerName.value as string,
       reservation_code: this.reservationForm.controls.reservationCode.value as string,

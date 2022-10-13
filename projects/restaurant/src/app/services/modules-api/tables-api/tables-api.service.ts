@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'projects/personal/src/environments/environment'
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,13 +14,14 @@ export class TablesApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   tablesUrl = environment.apiUrl + 'restaurant-modules/tables/';
 
   public getAccountTable(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.tablesUrl + "table?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.tablesUrl + "table?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -44,7 +46,7 @@ export class TablesApiService {
   // dashboard
 
   public getTableCount(): Observable<any>{
-    return this.http.get(this.tablesUrl + "dashboard/table-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.tablesUrl + "dashboard/table-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

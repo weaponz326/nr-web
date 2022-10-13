@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
 
 import { UserAccess } from 'projects/restaurant/src/app/models/modules/admin/admin.model';
@@ -15,6 +16,7 @@ import { UserAccess } from 'projects/restaurant/src/app/models/modules/admin/adm
 export class AccessFormComponent implements OnInit {
 
   constructor(
+    private customCookie: CustomCookieService,
     private adminApi: AdminApiService,
   ) { }
 
@@ -23,7 +25,7 @@ export class AccessFormComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   accessForm: UserAccess = {
-    account: localStorage.getItem('restaurant_id') as string,
+    account: this.customCookie.getCookie('restaurant_id') as string,
     admin_access: false,
     customers_access: false,
     deliveries_access: false,
@@ -72,7 +74,7 @@ export class AccessFormComponent implements OnInit {
 
   updateUserAccess(){
     let access: UserAccess = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       admin_access: this.accessForm.admin_access,
       customers_access: this.accessForm.customers_access,
       deliveries_access: this.accessForm.deliveries_access,

@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { RosterApiService } from 'projects/restaurant/src/app/services/modules-api/roster-api/roster-api.service';
 
 import { Roster } from 'projects/restaurant/src/app/models/modules/roster/roster.model';
@@ -18,6 +19,7 @@ export class NewRosterComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private rosterApi: RosterApiService
   ) { }
 
@@ -47,7 +49,7 @@ export class NewRosterComponent implements OnInit {
 
   createRoster(){
     let data: Roster = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       roster_code: this.rosterForm.controls.rosterCode.value as string,
       roster_name: this.rosterForm.controls.rosterName.value as string,
       from_date: this.rosterForm.controls.fromDate.value as Date,

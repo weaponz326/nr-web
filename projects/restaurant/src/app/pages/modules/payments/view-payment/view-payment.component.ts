@@ -5,6 +5,7 @@ import { PaymentFormComponent } from '../payment-form/payment-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { PaymentsApiService } from 'projects/restaurant/src/app/services/modules-api/payments-api/payments-api.service';
 import { PaymentsPrintService } from 'projects/restaurant/src/app/services/modules-printing/payments-print/payments-print.service';
 
@@ -20,6 +21,7 @@ export class ViewPaymentComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private paymentsApi: PaymentsApiService,
     private paymentsPrint: PaymentsPrintService,
   ) { }
@@ -77,7 +79,7 @@ export class ViewPaymentComponent implements OnInit {
     console.log('u are saving a new payment');
 
     var data: Payment = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
       payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,
       amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as number,

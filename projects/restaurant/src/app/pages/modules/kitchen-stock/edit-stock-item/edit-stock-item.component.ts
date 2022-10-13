@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { StockItem } from 'projects/restaurant/src/app/models/modules/kitchen-stock/kitchen-stock.model';
 
 
@@ -12,7 +13,7 @@ import { StockItem } from 'projects/restaurant/src/app/models/modules/kitchen-st
 })
 export class EditStockItemComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customCookie: CustomCookieService) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
@@ -50,7 +51,7 @@ export class EditStockItemComponent implements OnInit {
 
   saveItem(){
     let data = {
-      account: localStorage.getItem('restaurant_id'),
+      account: this.customCookie.getCookie('restaurant_id'),
       item_code: this.stockItemForm.stockItemForm.controls.itemCode.value,
       item_name: this.stockItemForm.stockItemForm.controls.itemName.value,
       category: this.stockItemForm.stockItemForm.controls.category.value,

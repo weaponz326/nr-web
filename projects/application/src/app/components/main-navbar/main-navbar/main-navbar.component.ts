@@ -86,7 +86,11 @@ export class MainNavbarComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.customCookie.removeCookies();
+          this.customCookie.removeCookie('token');
+          this.customCookie.removeCookie('personal_id');
+          this.customCookie.removeCookie('restaurant_id');
+          this.customCookie.removeCookie('school_id');
+
           localStorage.clear();
           sessionStorage.clear();
 

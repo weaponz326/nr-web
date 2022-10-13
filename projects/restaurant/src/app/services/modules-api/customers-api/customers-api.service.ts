@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'projects/restaurant/src/environments/environment'
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class CustomersApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   customersUrl = environment.apiUrl + 'restaurant-modules/customers/';
@@ -21,7 +23,7 @@ export class CustomersApiService {
   // customers
 
   public getAccountCustomer(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.customersUrl + "customer?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.customersUrl + "customer?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -46,21 +48,21 @@ export class CustomersApiService {
   // config
 
   public getCustomerCodeConfig(): Observable<any>{
-    return this.http.get(this.customersUrl + "config/customer-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.customersUrl + "config/customer-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public putCustomerCodeConfig(customer: any): Observable<any>{
-    return this.http.put(this.customersUrl + "config/customer-code/" + localStorage.getItem('restaurant_id'), customer, this.authHeaders.headers);
+    return this.http.put(this.customersUrl + "config/customer-code/" + this.customCookie.getCookie('restaurant_id'), customer, this.authHeaders.headers);
   }
 
   public getNewCustomerCodeConfig(): Observable<any>{
-    return this.http.get(this.customersUrl + "config/new-customer-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.customersUrl + "config/new-customer-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
   
   // dashboard
 
   public getCustomerCount(): Observable<any>{
-    return this.http.get(this.customersUrl + "dashboard/customer-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.customersUrl + "dashboard/customer-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

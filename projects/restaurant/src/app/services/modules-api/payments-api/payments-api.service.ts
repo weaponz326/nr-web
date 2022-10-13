@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { environment } from 'projects/restaurant/src/environments/environment';
-import { Observable } from 'rxjs';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,8 @@ export class PaymentsApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   paymentsUrl = environment.apiUrl + 'restaurant-modules/payments/';
@@ -19,7 +23,7 @@ export class PaymentsApiService {
   // payments
 
   public getAccountPayment(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.paymentsUrl + "payment?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.paymentsUrl + "payment?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -44,29 +48,29 @@ export class PaymentsApiService {
   // config
 
   public getPaymentCodeConfig(): Observable<any>{
-    return this.http.get(this.paymentsUrl + "config/payment-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.paymentsUrl + "config/payment-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public putPaymentCodeConfig(payment: any): Observable<any>{
-    return this.http.put(this.paymentsUrl + "config/payment-code/" + localStorage.getItem('restaurant_id'), payment, this.authHeaders.headers);
+    return this.http.put(this.paymentsUrl + "config/payment-code/" + this.customCookie.getCookie('restaurant_id'), payment, this.authHeaders.headers);
   }
 
   public getNewPaymentCodeConfig(): Observable<any>{
-    return this.http.get(this.paymentsUrl + "config/new-payment-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.paymentsUrl + "config/new-payment-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   // dashboard
 
   public getPaymentCount(): Observable<any>{
-    return this.http.get(this.paymentsUrl + "dashboard/payment-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.paymentsUrl + "dashboard/payment-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public getPaymentTotal(): Observable<any>{
-    return this.http.get(this.paymentsUrl + "dashboard/payment-total?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.paymentsUrl + "dashboard/payment-total?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public getPaymentAnnotate(): Observable<any>{
-    return this.http.get(this.paymentsUrl + "dashboard/payment-annotate?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.paymentsUrl + "dashboard/payment-annotate?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'projects/restaurant/src/environments/environment'
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class ReservationsApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   reservationsUrl = environment.apiUrl + 'restaurant-modules/reservations/';
@@ -21,7 +23,7 @@ export class ReservationsApiService {
   // reservations
     
   public getAccountReservation(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.reservationsUrl + "reservation?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.reservationsUrl + "reservation?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -60,25 +62,25 @@ export class ReservationsApiService {
   // config
 
   public getReservationCodeConfig(): Observable<any>{
-    return this.http.get(this.reservationsUrl + "config/reservation-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.reservationsUrl + "config/reservation-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public putReservationCodeConfig(reservation: any): Observable<any>{
-    return this.http.put(this.reservationsUrl + "config/reservation-code/" + localStorage.getItem('restaurant_id'), reservation, this.authHeaders.headers);
+    return this.http.put(this.reservationsUrl + "config/reservation-code/" + this.customCookie.getCookie('restaurant_id'), reservation, this.authHeaders.headers);
   }
 
   public getNewReservationCodeConfig(): Observable<any>{
-    return this.http.get(this.reservationsUrl + "config/new-reservation-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.reservationsUrl + "config/new-reservation-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
   
   // dashboard
 
   public getReservationCount(): Observable<any>{
-    return this.http.get(this.reservationsUrl + "dashboard/reservation-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.reservationsUrl + "dashboard/reservation-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public getReservationAnnotate(): Observable<any>{
-    return this.http.get(this.reservationsUrl + "dashboard/reservation-annotate?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.reservationsUrl + "dashboard/reservation-annotate?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

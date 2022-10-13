@@ -6,6 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { AccessFormComponent } from '../access-form/access-form.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
 import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
 
@@ -19,6 +20,7 @@ export class ViewUserComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private accountApi: AccountApiService,
     private adminApi: AdminApiService
   ) { }
@@ -102,7 +104,7 @@ export class ViewUserComponent implements OnInit {
     this.isUserSaving = true;
 
     let data = {
-      account: localStorage.getItem('restaurant_id'),
+      account: this.customCookie.getCookie('restaurant_id'),
       access_level: this.userForm.controls.accessLevel.value,
       personal_user: sessionStorage.getItem('restaurant_account_user_id')
     }

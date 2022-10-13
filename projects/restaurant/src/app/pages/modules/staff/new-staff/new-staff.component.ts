@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { StaffFormComponent } from '../staff-form/staff-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { StaffApiService } from 'projects/restaurant/src/app/services/modules-api/staff-api/staff-api.service';
 
 import { Staff } from 'projects/restaurant/src/app/models/modules/staff/staff.model';
@@ -18,6 +19,7 @@ export class NewStaffComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private staffApi: StaffApiService
   ) { }
 
@@ -41,7 +43,7 @@ export class NewStaffComponent implements OnInit {
     console.log('u are saving a new staff');
 
     var data = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       first_name: this.staffForm.staffForm.controls.firstName.value as string,
       last_name: this.staffForm.staffForm.controls.lastName.value as string,
       sex: this.staffForm.staffForm.controls.sex.value as string,

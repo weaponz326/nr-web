@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'projects/restaurant/src/environments/environment'
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class OrdersApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   ordersUrl = environment.apiUrl + 'restaurant-modules/orders/';
@@ -21,7 +23,7 @@ export class OrdersApiService {
   // create and get all order belonging to user
 
   public getAccountOrder(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.ordersUrl + "order?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.ordersUrl + "order?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -72,25 +74,25 @@ export class OrdersApiService {
   // config
 
   public getOrderCodeConfig(): Observable<any>{
-    return this.http.get(this.ordersUrl + "config/order-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.ordersUrl + "config/order-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public putOrderCodeConfig(order: any): Observable<any>{
-    return this.http.put(this.ordersUrl + "config/order-code/" + localStorage.getItem('restaurant_id'), order, this.authHeaders.headers);
+    return this.http.put(this.ordersUrl + "config/order-code/" + this.customCookie.getCookie('restaurant_id'), order, this.authHeaders.headers);
   }
 
   public getNewOrderCodeConfig(): Observable<any>{
-    return this.http.get(this.ordersUrl + "config/new-order-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.ordersUrl + "config/new-order-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   // dashboard
 
   public getOrderCount(): Observable<any>{
-    return this.http.get(this.ordersUrl + "dashboard/order-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.ordersUrl + "dashboard/order-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public getOrderAnnotate(): Observable<any>{
-    return this.http.get(this.ordersUrl + "dashboard/order-annotate?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.ordersUrl + "dashboard/order-annotate?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

@@ -22,18 +22,12 @@ export class CustomCookieService {
     return Cookies.get(name);
   }
 
-  removeCookies(){
+  removeCookie(name: any){
     // dev
-    Cookies.remove('token');
-    Cookies.remove('personal_id');
-    Cookies.remove('restaurant_id');
-    Cookies.remove('school_id');
+    Cookies.remove(name);
 
     // // prod
-    // Cookies.remove('token', { domain: 'netrink.com' });
-    // Cookies.remove('personal_id', { domain: 'netrink.com' });
-    // Cookies.remove('restaurant_id', { domain: 'netrink.com' });
-    // Cookies.remove('school_id', { domain: 'netrink.com' });
+    // Cookies.remove(name, { domain: 'netrink.com' });
   }
 
 }
