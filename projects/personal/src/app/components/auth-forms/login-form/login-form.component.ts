@@ -81,11 +81,10 @@ export class LoginFormComponent implements OnInit {
             this.customCookie.setCookie('personal_id', res.id);
             this.registrationType();
           }
-
-          this.isSending = false;
         },
         error: (err) => {
-          console.log(err);          
+          console.log(err);
+          this.isSending = false;
         }
       })
   }
