@@ -43,12 +43,12 @@ export class AccountApiService {
   }
   
   public hasAccount(): Observable<any>{
-    console.log(localStorage.getItem('personal_id'));
-    return this.http.post(this.accountUrl + "has-account/", { personal_id: localStorage.getItem('personal_id') }, this.authHeaders.headers);
+    console.log(this.customCookie.getCookie('personal_id'));
+    return this.http.post(this.accountUrl + "has-account/", { personal_id: this.customCookie.getCookie('personal_id') }, this.authHeaders.headers);
   }
 
   public getUserAccounts(): Observable<any>{
-    return this.http.get(this.accountUrl + "user-accounts?personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.accountUrl + "user-accounts?personal_id=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   // search

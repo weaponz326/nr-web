@@ -41,7 +41,7 @@ export class AdminApiService {
 
   // all accounts of belonging to a user
   public getAccountUserAccounts(): Observable<any>{
-    return this.http.get(this.adminUrl + "account-user-account?" + "&personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.adminUrl + "account-user-account?" + "&personal_id=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   // user access

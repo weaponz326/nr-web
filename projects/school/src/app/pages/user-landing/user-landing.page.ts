@@ -55,7 +55,7 @@ export class UserLandingPage implements OnInit {
     this.isAccountChecking = true;
     console.log(data);
 
-    localStorage.setItem('school_id', data.account.id);
+    this.customCookie.setCookie('school_id', data.account.id)
 
     this.settingsApi.getSubscription()
       .subscribe({
@@ -68,7 +68,7 @@ export class UserLandingPage implements OnInit {
             this.router.navigateByUrl('/home');
           }
           else {
-            localStorage.removeItem('school_id');
+            this.customCookie.removeCookie('school_id')
             this.userTop.openSubscriptionModal();
           }
         },
