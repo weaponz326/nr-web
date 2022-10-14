@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { StudentFormComponent } from '../student-form/student-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { StudentsApiService } from 'projects/school/src/app/services/modules/students-api/students-api.service';
 // import { ClassesApiService } from 'projects/school/src/app/services/modules/classes-api/classes-api.service';
 
@@ -20,6 +21,7 @@ export class NewStudentComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private studentsApi: StudentsApiService,
     // private classesApi: ClassesApiService
   ) { }
@@ -31,7 +33,7 @@ export class NewStudentComponent implements OnInit {
     { text: "New Student", url: "/home/students/new-student" },
   ];
 
-  storageBasePath = "/school/" + localStorage.getItem('school_id') + "/module_students/";
+  storageBasePath = "/school/" + this.customCookie.getCookie('restaurant_id') + "/module_students/";
 
   isStudentSaving = false;
 
@@ -42,7 +44,7 @@ export class NewStudentComponent implements OnInit {
     console.log('u are saving a new student');
 
     // var data: Student = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   first_name: this.studentForm.studentForm.controls.firstName.value,
     //   last_name: this.studentForm.studentForm.controls.lastName.value,
     //   sex: this.studentForm.studentForm.controls.sex.value,

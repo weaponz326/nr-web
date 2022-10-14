@@ -6,6 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { SearchResultsComponent } from '../search-results/search-results.component';
 import { SearchDetailComponent } from '../search-detail/search-detail.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
 import { AdminApiService } from 'projects/school/src/app/services/modules-api/admin-api/admin-api.service';
@@ -23,6 +24,7 @@ export class UserSearchComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private authApi: AuthApiService,
     private accountsApi: AccountsApiService,
     private adminApi: AdminApiService,
@@ -143,7 +145,7 @@ export class UserSearchComponent implements OnInit {
   createAccountInvitation() {
     let data: Invitation = {
       user: this.searchDetailData.id,
-      account: localStorage.getItem('school_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       account_type: 'School',
       invitation_status: 'Awaiting',
       date_confirmed: null

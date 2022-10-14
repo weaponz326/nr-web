@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ParentFormComponent } from '../parent-form/parent-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { ParentsApiService } from 'projects/school/src/app/services/modules/parents-api/parents-api.service';
 
 // import { Parent } from 'projects/school/src/app/models/modules/parents/parents.model';
@@ -18,6 +19,7 @@ export class NewParentComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private parentsApi: ParentsApiService
   ) { }
 
@@ -28,7 +30,7 @@ export class NewParentComponent implements OnInit {
     { text: "New Parent", url: "/home/parents/new-parent" },
   ];
 
-  storageBasePath = "/school/" + localStorage.getItem('school_id') + "/module_parents/";
+  storageBasePath = "/school/" + this.customCookie.getCookie('restaurant_id') + "/module_parents/";
 
   isParentSaving = false;
 
@@ -40,7 +42,7 @@ export class NewParentComponent implements OnInit {
 
     // var data: Parent = {
     var data = {
-      account: localStorage.getItem('school_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       parent_code: this.parentForm.parentForm.controls.parentCode.value,
       first_name: this.parentForm.parentForm.controls.firstName.value,
       last_name: this.parentForm.parentForm.controls.lastName.value,

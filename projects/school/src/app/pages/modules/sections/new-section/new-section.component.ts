@@ -5,7 +5,9 @@ import { SectionFormComponent } from '../section-form/section-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { SectionsApiService } from 'projects/school/src/app/services/modules/sections-api/sections-api.service';
+
 // import { Section } from 'projects/school/src/app/models/modules/sections/sections.model';
 
 
@@ -18,6 +20,7 @@ export class NewSectionComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private sectionsApi: SectionsApiService
   ) { }
 
@@ -36,7 +39,7 @@ export class NewSectionComponent implements OnInit {
 
   createSection(){
     // let data: Section = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   section_code: this.sectionForm.sectionForm.controls.sectionCode.value,
     //   section_name: this.sectionForm.sectionForm.controls.sectionName.value,
     //   terms: [this.sectionForm.selectedTermId],

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { PortalApiService } from 'projects/restaurant/src/app/services/modules-api/portal-api/portal-api.service';
 
 
@@ -15,6 +16,7 @@ export class TimelineComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private portalApi: PortalApiService,
   ) { }
 
@@ -24,7 +26,7 @@ export class TimelineComponent implements OnInit {
     { text: "Timeline", url: "/home/portal/timeline" },
   ];
 
-  restaurantId = localStorage.getItem('restaurant_id');
+  restaurantId = this.customCookie.getCookie('restaurant_id');
   rinksData: any[] = [];
 
   isRinksLoading = false;

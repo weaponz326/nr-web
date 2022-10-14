@@ -5,7 +5,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { FeesApiService } from 'projects/school/src/app/services/modules/fees-api/fees-api.service';
+
 // import { Fees } from 'projects/school/src/app/models/modules/fees/fees.model';
 
 
@@ -18,6 +20,7 @@ export class CreateFeesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private feesApi: FeesApiService
   ) { }
 
@@ -50,7 +53,7 @@ export class CreateFeesComponent implements OnInit {
 
   createFees(){
     // let data: Fees = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   fees_code: this.feesForm.controls.feesCode.value,
     //   fees_name: this.feesForm.controls.feesName.value,
     //   fees_date: this.feesForm.controls.feesDate.value,

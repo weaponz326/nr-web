@@ -16,7 +16,7 @@ export class UserGuard implements CanActivate {
   ) { }
   
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (!!this.customCookie.getCookie('token')){
+    if (!!this.customCookie.getCookie('personal_id')){
       this.router.navigateByUrl('/home');
       return false;
     }

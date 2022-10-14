@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { TimetableFormComponent } from '../timetable-form/timetable-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { TimetableApiService } from 'projects/school/src/app/services/modules/timetable-api/timetable-api.service';
+
 // import { Timetable } from 'projects/school/src/app/models/modules/timetable/timetable.model';
 
 
@@ -17,6 +19,7 @@ export class NewTimetableComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private timetableApi: TimetableApiService
   ) { }
 
@@ -34,7 +37,7 @@ export class NewTimetableComponent implements OnInit {
 
   createTimetable(){
     // let data: Timetable = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   timetable_code: this.timetableForm.timetableForm.controls.timetableCode.value,
     //   timetable_name: this.timetableForm.timetableForm.controls.timetableName.value,
     //   term: this.timetableForm.selectedTermId,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AccountApiService } from '../../services/account-api/account-api.service';
 
 
@@ -12,6 +13,7 @@ import { AccountApiService } from '../../services/account-api/account-api.servic
 export class RegisterPage implements OnInit {
 
   constructor(
+    private customCookie: CustomCookieService,
     private accountApi: AccountApiService
   ) { }
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PlanFormComponent } from '../plan-form/plan-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 // import { LessonPlanApiService } from 'projects/school/src/app/services/modules/lesson-plan-api/lesson-plan-api.service';
 
@@ -19,6 +20,7 @@ export class NewPlanComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private activeTerm: ActiveTermService,
     // private lessonPlanApi: LessonPlanApiService
   ) { }
@@ -48,7 +50,7 @@ export class NewPlanComponent implements OnInit {
     console.log('u are saving a new plan');
 
     // let data: LessonPlan = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   plan_code: this.planForm.planForm.controls.planCode.value,
     //   plan_name: this.planForm.planForm.controls.planName.value,
     //   plan_date: this.planForm.planForm.controls.planDate.value,

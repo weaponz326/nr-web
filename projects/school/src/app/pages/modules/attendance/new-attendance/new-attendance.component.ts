@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AttendanceFormComponent } from '../attendance-form/attendance-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { AttendanceApiService } from 'projects/school/src/app/services/modules/attendance-api/attendance-api.service';
 // import { ClassesApiService } from 'projects/school/src/app/services/modules/classes-api/classes-api.service';
 
@@ -19,6 +20,7 @@ export class NewAttendanceComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private attendanceApi: AttendanceApiService,
     // private classesApi: ClassesApiService,
   ) { }
@@ -39,7 +41,7 @@ export class NewAttendanceComponent implements OnInit {
 
   createAttendance(){
     // let data: Attendance = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   attendance_code: this.attendanceForm.attendanceForm.controls.attendanceCode.value,
     //   attendance_name: this.attendanceForm.attendanceForm.controls.attendanceName.value,
     //   from_date: this.attendanceForm.attendanceForm.controls.fromDate.value,

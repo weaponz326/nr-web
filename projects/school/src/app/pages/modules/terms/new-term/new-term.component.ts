@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { TermFormComponent } from '../term-form/term-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 // import { TermsApiService } from 'projects/school/src/app/services/modules/terms-api/terms-api.service';
+
 // import { Term } from 'projects/school/src/app/models/modules/terms/terms.model';
 
 
@@ -17,6 +19,7 @@ export class NewTermComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private termsApi: TermsApiService
   ) { }
 
@@ -36,7 +39,7 @@ export class NewTermComponent implements OnInit {
     console.log('u are saving a new term');
 
     // var data: Term = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   term_code: this.termForm.termForm.controls.termCode.value,
     //   term_name: this.termForm.termForm.controls.termName.value,
     //   academic_year: this.termForm.termForm.controls.academicYear.value,

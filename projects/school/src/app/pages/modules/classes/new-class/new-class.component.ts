@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { ClassFormComponent } from '../class-form/class-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
@@ -17,6 +18,7 @@ export class NewClassComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     // private classesApi: ClassesApiService
   ) { }
 
@@ -34,7 +36,7 @@ export class NewClassComponent implements OnInit {
 
   createClass(){
     // let data: Clase = {
-    //   account: localStorage.getItem('school_id') as string,
+    //   account: this.customCookie.getCookie('restaurant_id') as string,
     //   class_code: this.classForm.classForm.controls.classCode.value,
     //   class_name: this.classForm.classForm.controls.className.value,
     //   location: this.classForm.classForm.controls.location.value,
