@@ -46,7 +46,9 @@ Before building a desktop app with electron for a particular project, change the
 
 ## Production deployment checklist
 
-Uncomment prod api url and comment dev api url in `enviroments.ts` files in all suite applications.
+* Uncomment prod api url and comment dev api url in `enviroments.ts` files in all suite applications.
 
-Uncomment prod cookie functions and comment dev cookie function at
-`projects/application/src/app/servics/custom-cookie/custom-cookie.service.ts`
+* Uncomment prod cookie functions and comment dev cookie function at
+```
+projects/application/src/app/servics/custom-cookie/custom-cookie.service.ts
+```
