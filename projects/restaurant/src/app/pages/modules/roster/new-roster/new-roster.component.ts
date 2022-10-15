@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { RosterApiService } from 'projects/restaurant/src/app/services/modules-api/roster-api/roster-api.service';
 
 import { Roster } from 'projects/restaurant/src/app/models/modules/roster/roster.model';

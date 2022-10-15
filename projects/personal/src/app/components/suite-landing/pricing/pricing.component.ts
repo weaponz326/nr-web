@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 
 
 @Component({

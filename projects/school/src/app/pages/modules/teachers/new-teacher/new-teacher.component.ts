@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TeacherFormComponent } from '../teacher-form/teacher-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { TeachersApiService } from 'projects/school/src/app/services/modules/teachers-api/teachers-api.service';
 
 // import { Teacher } from 'projects/school/src/app/models/modules/teachers/teachers.model';

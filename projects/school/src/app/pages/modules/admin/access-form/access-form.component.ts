@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { AdminApiService } from 'projects/school/src/app/services/modules-api/admin-api/admin-api.service';
 
 import { UserAccess } from 'projects/school/src/app/models/modules/admin/admin.model';

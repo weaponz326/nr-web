@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { NotesApiService } from 'projects/personal/src/app/services/modules-api/notes-api/notes-api.service';
 
 import { Note } from 'projects/personal/src/app/models/modules/notes/notes.model';

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 
 import { StockItemFormComponent } from '../stock-item-form/stock-item-form.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { StockItem } from 'projects/restaurant/src/app/models/modules/kitchen-stock/kitchen-stock.model';
 
 

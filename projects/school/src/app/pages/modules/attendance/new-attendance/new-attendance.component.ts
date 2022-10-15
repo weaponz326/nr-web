@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AttendanceFormComponent } from '../attendance-form/attendance-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { AttendanceApiService } from 'projects/school/src/app/services/modules/attendance-api/attendance-api.service';
 // import { ClassesApiService } from 'projects/school/src/app/services/modules/classes-api/classes-api.service';
 

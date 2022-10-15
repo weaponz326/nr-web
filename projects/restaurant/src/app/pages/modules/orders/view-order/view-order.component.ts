@@ -9,7 +9,7 @@ import { SelectCustomerComponent } from '../../../../components/select-windows/c
 import { SelectTableComponent } from '../../../../components/select-windows/tables-windows/select-table/select-table.component';
 import { SelectMenuItemComponent } from '../../../../components/select-windows/menu-windows/select-menu-item/select-menu-item.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { OrdersApiService } from 'projects/restaurant/src/app/services/modules-api/orders-api/orders-api.service';
 import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
 import { OrdersPrintService } from 'projects/restaurant/src/app/services/modules-printing/orders-print/orders-print.service';

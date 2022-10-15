@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { FeesApiService } from 'projects/school/src/app/services/modules/fees-api/fees-api.service';
 
 // import { Fees } from 'projects/school/src/app/models/modules/fees/fees.model';

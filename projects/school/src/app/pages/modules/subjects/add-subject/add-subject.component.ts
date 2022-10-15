@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SubjectFormComponent } from '../subject-form/subject-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { SubjectsApiService } from 'projects/school/src/app/services/modules/subjects-api/subjects-api.service';
 
 // import { Subject } from 'projects/school/src/app/models/modules/subjects/subjects.model';

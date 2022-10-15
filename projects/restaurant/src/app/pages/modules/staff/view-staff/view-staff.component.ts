@@ -6,7 +6,7 @@ import { StaffFormComponent } from '../staff-form/staff-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { StaffApiService } from 'projects/restaurant/src/app/services/modules-api/staff-api/staff-api.service';
 import { StaffPrintService } from 'projects/restaurant/src/app/services/modules-printing/staff-print/staff-print.service';
 

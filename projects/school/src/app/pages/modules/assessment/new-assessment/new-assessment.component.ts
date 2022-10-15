@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AssessmentFormComponent } from '../assessment-form/assessment-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { AssessmentApiService } from 'projects/school/src/app/services/modules/assessment-api/assessment-api.service';
 // import { Assessment } from 'projects/school/src/app/models/modules/assessment/assessment.model';
 

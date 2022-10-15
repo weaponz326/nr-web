@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CustomerFormComponent } from '../customer-form/customer-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { CustomersApiService } from 'projects/restaurant/src/app/services/modules-api/customers-api/customers-api.service';
 
 import { Customer } from 'projects/restaurant/src/app/models/modules/customers/customers.model';

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TimetableFormComponent } from '../timetable-form/timetable-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { TimetableApiService } from 'projects/school/src/app/services/modules/timetable-api/timetable-api.service';
 
 // import { Timetable } from 'projects/school/src/app/models/modules/timetable/timetable.model';

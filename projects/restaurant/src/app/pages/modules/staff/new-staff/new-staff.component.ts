@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { StaffFormComponent } from '../staff-form/staff-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { StaffApiService } from 'projects/restaurant/src/app/services/modules-api/staff-api/staff-api.service';
 
 import { Staff } from 'projects/restaurant/src/app/models/modules/staff/staff.model';

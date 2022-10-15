@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { BudgetTablesComponent } from '../budget-tables/budget-tables.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BudgetApiService } from 'projects/personal/src/app/services/modules-api/budget-api/budget-api.service';
 import { BudgetPrintService } from 'projects/personal/src/app/services/modules-printing/budget-print/budget-print.service';
 
