@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'projects/restaurant/src/environments/environment'
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class RosterApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   rosterUrl = environment.apiUrl + 'restaurant-modules/roster/';
@@ -21,7 +23,7 @@ export class RosterApiService {
   // roster
 
   public getAccountRoster(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.rosterUrl + "roster?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.rosterUrl + "roster?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -118,21 +120,21 @@ export class RosterApiService {
   // config
 
   public getRosterCodeConfig(): Observable<any>{
-    return this.http.get(this.rosterUrl + "config/roster-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.rosterUrl + "config/roster-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public putRosterCodeConfig(roster: any): Observable<any>{
-    return this.http.put(this.rosterUrl + "config/roster-code/" + localStorage.getItem('restaurant_id'), roster, this.authHeaders.headers);
+    return this.http.put(this.rosterUrl + "config/roster-code/" + this.customCookie.getCookie('restaurant_id'), roster, this.authHeaders.headers);
   }
 
   public getNewRosterCodeConfig(): Observable<any>{
-    return this.http.get(this.rosterUrl + "config/new-roster-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.rosterUrl + "config/new-roster-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   // dashboard
 
   public getRosterCount(): Observable<any>{
-    return this.http.get(this.rosterUrl + "dashboard/roster-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.rosterUrl + "dashboard/roster-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

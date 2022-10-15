@@ -5,18 +5,9 @@
 export const environment = {
   production: false,
 
-  // baseUrl: "#",
-  // personalUrl: "#",
-  // restaurantUrl: "#",
-  // schoolUrl: "#",
-  // enterpriseUrl: "#",
-  // associationUrl: "#",
-  // hospitalUrl: "#",
-  // hotelUrl: "#",
-  // shopUrl: "#",
-  // productionUrl: "#",
 
-  // apiUrl: "http://localhost:8000/",
+  apiUrl: "http://localhost:8000/",
+  // apiUrl: "https://api.netrink.com/",
 
   baseUrl: "https://www.netrink.com/",
   personalUrl: "https://personal.netrink.com/",
@@ -28,8 +19,6 @@ export const environment = {
   hotelUrl: "https://hotel.netrink.com/",
   shopUrl: "https://shop.netrink.com/",
   productionUrl: "https://production.netrink.com/",
-
-  apiUrl: "https://api.netrink.com/",
 };
 
 /*

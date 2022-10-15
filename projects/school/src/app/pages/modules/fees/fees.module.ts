@@ -19,6 +19,7 @@ import { EditItemComponent } from './edit-item/edit-item.component';
 import { AddArrearsComponent } from './add-arrears/add-arrears.component';
 import { ClassBillsComponent } from './class-bills/class-bills.component';
 import { StudentBillComponent } from './student-bill/student-bill.component';
+import { FeesTargetComponent } from './fees-target/fees-target.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { StudentBillComponent } from './student-bill/student-bill.component';
     EditItemComponent,
     AddArrearsComponent,
     ClassBillsComponent,
-    StudentBillComponent
+    StudentBillComponent,
+    FeesTargetComponent
   ],
   imports: [
     CommonModule,

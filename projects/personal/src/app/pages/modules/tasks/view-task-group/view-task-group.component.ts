@@ -3,8 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { TaskGroup } from 'projects/personal/src/app/models/modules/tasks/tasks.model';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
+
+import { TaskGroup } from 'projects/personal/src/app/models/modules/tasks/tasks.model';
 
 
 @Component({
@@ -14,7 +16,10 @@ import { TasksApiService } from 'projects/personal/src/app/services/modules-api/
 })
 export class ViewTaskGroupComponent implements OnInit {
 
-  constructor(private tasksApi: TasksApiService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private tasksApi: TasksApiService
+  ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
@@ -57,7 +62,7 @@ export class ViewTaskGroupComponent implements OnInit {
 
   updateTaskGroup(){
     let data: TaskGroup = {
-      user: localStorage.getItem('personal_id') as string,
+      user: this.customCookie.getCookie('personal_id') as string,
       task_group: this.taskGroupForm.controls.taskGroupName.value as string,
     }
 

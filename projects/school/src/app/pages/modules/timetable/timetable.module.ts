@@ -13,6 +13,9 @@ import { ClassTimetableComponent } from './class-timetable/class-timetable.compo
 import { EditTimetableComponent } from './edit-timetable/edit-timetable.component';
 import { FullTimetableComponent } from './full-timetable/full-timetable.component';
 import { AddPeriodComponent } from './add-period/add-period.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { TimetableFormComponent } from './timetable-form/timetable-form.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { AddPeriodComponent } from './add-period/add-period.component';
     ClassTimetableComponent,
     EditTimetableComponent,
     FullTimetableComponent,
-    AddPeriodComponent
+    AddPeriodComponent,
+    DashboardComponent,
+    ConfigurationComponent,
+    TimetableFormComponent
   ],
   imports: [
     CommonModule,

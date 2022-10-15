@@ -4,9 +4,12 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { Rink } from 'projects/personal/src/app/models/modules/portal/portal.model';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { PortalApiService } from 'projects/personal/src/app/services/modules-api/portal-api/portal-api.service';
+
+import { Rink } from 'projects/personal/src/app/models/modules/portal/portal.model';
+
 
 @Component({
   selector: 'app-new-rink',
@@ -17,6 +20,7 @@ export class NewRinkComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private authApi: AuthApiService,
     private portalApi: PortalApiService,
   ) { }
@@ -92,7 +96,7 @@ export class NewRinkComponent implements OnInit {
       rink_type: this.rinkForm.controls.rinkType.value as string,
       rink_source: this.selectedSourceId,
       comment: this.rinkForm.controls.comment.value as string,
-      sender: localStorage.getItem('personal_id') as string,
+      sender: this.customCookie.getCookie('personal_id') as string,
       recipient: sessionStorage.getItem('personal_rink_recipient') as string,
     }
 

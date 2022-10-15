@@ -1,1 +1,14 @@
-<p>terms works!</p>
+<app-main-navbar [navBrand]="'nR School'" [source]="'School'"></app-main-navbar>
+
+<div class="row flex-nowrap g-0">
+    <div class="col-auto col-md-3 col-xl-2">
+
+        <app-module-sidenav [navLinks]="navLinks" [heading]="'Terms'" [showConf]="true"></app-module-sidenav>
+
+    </div>
+    <div class="col">
+        
+        <router-outlet></router-outlet>
+
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class StaffApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   staffUrl = environment.apiUrl + 'restaurant-modules/staff/';
@@ -21,7 +23,7 @@ export class StaffApiService {
   // staff
 
   public getAccountStaff(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.staffUrl + "staff?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.staffUrl + "staff?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -46,28 +48,28 @@ export class StaffApiService {
   public putStaffPhoto(photo: File) {
     let formParams = new FormData();
     formParams.append('photo', photo);
-    formParams.append('account', localStorage.getItem('restaurant_id') as string);
+    formParams.append('account', this.customCookie.getCookie('restaurant_id') as string);
     return this.http.put(this.staffUrl + "staff/" + sessionStorage.getItem('restaurant_staff_id'), formParams, this.authHeaders.headers)
   }
 
   // config
 
   public getStaffCodeConfig(): Observable<any>{
-    return this.http.get(this.staffUrl + "config/staff-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.staffUrl + "config/staff-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public putStaffCodeConfig(staff: any): Observable<any>{
-    return this.http.put(this.staffUrl + "config/staff-code/" + localStorage.getItem('restaurant_id'), staff, this.authHeaders.headers);
+    return this.http.put(this.staffUrl + "config/staff-code/" + this.customCookie.getCookie('restaurant_id'), staff, this.authHeaders.headers);
   }
 
   public getNewStaffCodeConfig(): Observable<any>{
-    return this.http.get(this.staffUrl + "config/new-staff-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.staffUrl + "config/new-staff-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   // dashboard
 
   public getStaffCount(): Observable<any>{
-    return this.http.get(this.staffUrl + "dashboard/staff-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.staffUrl + "dashboard/staff-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

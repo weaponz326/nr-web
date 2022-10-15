@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from '../auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,6 +14,7 @@ export class AuthApiService {
 
   constructor(
     private http: HttpClient,
+    private customCookie: CustomCookieService,
     private authHeaders: AuthHeadersService 
   ) { }
 
@@ -28,7 +30,7 @@ export class AuthApiService {
   }
 
   public postLogout(): Observable<any>{
-    return this.http.post(this.apiUrl + "auth/token/logout/", localStorage.getItem('token'), this.headers);
+    return this.http.post(this.apiUrl + "auth/token/logout/", this.customCookie.getCookie('personal_id'), this.headers);
   }
 
   // user
@@ -57,7 +59,7 @@ export class AuthApiService {
 
   public getUser(): Observable<any>{
     let token = new HttpHeaders()
-      .set('Authorization', "Token " + localStorage.getItem('token'));    // for getting user after login without reloading page
+      .set('Authorization', "Token " + this.customCookie.getCookie('token'));    // for getting user after login without reloading page
 
     let headers = { 'headers': token };
 
@@ -87,7 +89,7 @@ export class AuthApiService {
   // personal search
 
   public getSearchList(search: any, page: any, size: any): Observable<any>{
-    return this.http.get(this.usersUrl + "search-list?user=" + localStorage.getItem('personal_id') 
+    return this.http.get(this.usersUrl + "search-list?user=" + this.customCookie.getCookie('personal_id') 
       + "&search=" + search
       + "&page=" + page
       + "&size=" + size,

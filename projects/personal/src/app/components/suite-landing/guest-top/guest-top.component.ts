@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+
 
 @Component({
   selector: 'app-guest-top',
@@ -9,14 +11,16 @@ import { Router } from '@angular/router';
 })
 export class GuestTopComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private customCookie: CustomCookieService,
+  ) { }
 
   @Input() suiteName: string = "";
   @Input() primaryCaption: string = "";
   @Input() secondaryCaption: string = "";
   @Input() features: any;
-
-  @Output() watchDemo = new EventEmitter<any>();
+  @Input() demoVideoUrl: any;
 
   ngOnInit(): void {
   }
@@ -28,7 +32,7 @@ export class GuestTopComponent implements OnInit {
     if (this.suiteName != "nR Personal"){
       sessionStorage.setItem("isSuiteRegistration", "OK");
 
-      if (localStorage.getItem('personal_id'))
+      if (this.customCookie.getCookie('personal_id'))
         this.router.navigateByUrl("/register");
       else
         this.router.navigateByUrl("/auth/login");

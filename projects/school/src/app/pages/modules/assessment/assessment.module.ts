@@ -14,6 +14,7 @@ import { NewAssessmentComponent } from './new-assessment/new-assessment.componen
 import { ViewAssessmentComponent } from './view-assessment/view-assessment.component';
 import { AssessmentFormComponent } from './assessment-form/assessment-form.component';
 import { AssessmentSheetComponent } from './assessment-sheet/assessment-sheet.component';
+import { AssessmentClassesComponent } from './assessment-classes/assessment-classes.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AssessmentSheetComponent } from './assessment-sheet/assessment-sheet.co
     NewAssessmentComponent,
     ViewAssessmentComponent,
     AssessmentFormComponent,
-    AssessmentSheetComponent
+    AssessmentSheetComponent,
+    AssessmentClassesComponent,
   ],
   imports: [
     CommonModule,

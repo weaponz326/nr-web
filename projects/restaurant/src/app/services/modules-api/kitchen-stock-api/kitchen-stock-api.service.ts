@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'projects/restaurant/src/environments/environment'
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class KitchenStockApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   kitchenStockUrl = environment.apiUrl + 'restaurant-modules/kitchen-stock/';
@@ -21,7 +23,7 @@ export class KitchenStockApiService {
   // items
 
   public getAccountStockItem(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.kitchenStockUrl + "stock-item?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.kitchenStockUrl + "stock-item?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -42,25 +44,25 @@ export class KitchenStockApiService {
   // config
 
   public getStockItemCodeConfig(): Observable<any>{
-    return this.http.get(this.kitchenStockUrl + "config/stock-item-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.kitchenStockUrl + "config/stock-item-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public putStockItemCodeConfig(data: any): Observable<any>{
-    return this.http.put(this.kitchenStockUrl + "config/stock-item-code/" + localStorage.getItem('restaurant_id'), data, this.authHeaders.headers);
+    return this.http.put(this.kitchenStockUrl + "config/stock-item-code/" + this.customCookie.getCookie('restaurant_id'), data, this.authHeaders.headers);
   }
 
   public getNewStockItemCodeConfig(): Observable<any>{
-    return this.http.get(this.kitchenStockUrl + "config/new-stock-item-code/" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.kitchenStockUrl + "config/new-stock-item-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   // dashboard
 
   public getStockItemCount(): Observable<any>{
-    return this.http.get(this.kitchenStockUrl + "dashboard/stock-item-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.kitchenStockUrl + "dashboard/stock-item-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public getOutOfStockCount(): Observable<any>{
-    return this.http.get(this.kitchenStockUrl + "dashboard/out-of-stock-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.kitchenStockUrl + "dashboard/out-of-stock-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

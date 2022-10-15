@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
 import { MenuGroup } from 'projects/restaurant/src/app/models/modules/menu/menu.model';
 
@@ -17,6 +18,7 @@ export class NewMenuGroupComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private menuApi: MenuApiService
   ) { }
 
@@ -40,7 +42,7 @@ export class NewMenuGroupComponent implements OnInit {
 
   createMenuGroup(){
     let data: MenuGroup = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       menu_group: this.menuGroupForm.controls.menuGroup.value as string,
       category: this.menuGroupForm.controls.category.value as string
     }

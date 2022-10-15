@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { UserTopComponent } from 'projects/personal/src/app/components/suite-landing/user-top/user-top.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { AdminApiService } from '../../services/modules-api/admin-api/admin-api.service';
 import { SettingsApiService } from '../../services/modules-api/settings-api/settings-api.service';
 
@@ -16,6 +17,7 @@ export class UserLandingPage implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private adminApi: AdminApiService,
     private settingsApi: SettingsApiService
   ) { }
@@ -53,7 +55,7 @@ export class UserLandingPage implements OnInit {
     this.isAccountChecking = true;
     console.log(data);
 
-    localStorage.setItem('school_id', data.account.id);
+    this.customCookie.setCookie('school_id', data.account.id)
 
     this.settingsApi.getSubscription()
       .subscribe({
@@ -61,12 +63,12 @@ export class UserLandingPage implements OnInit {
           console.log(res);
           this.isAccountChecking = false;
 
-          if (res.status == "Active" || res.status != "Active" && data.account.creator == localStorage.getItem('personal_id')){
+          if (res.status == "Active" || res.status != "Active" && data.account.creator == this.customCookie.getCookie('personal_id')){
             sessionStorage.setItem('school_user_access_id', data.id);
             this.router.navigateByUrl('/home');
           }
           else {
-            localStorage.removeItem('school_id');
+            this.customCookie.removeCookie('school_id')
             this.userTop.openSubscriptionModal();
           }
         },

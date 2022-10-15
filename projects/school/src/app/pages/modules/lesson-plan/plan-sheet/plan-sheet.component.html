@@ -1,1 +1,53 @@
-<p>plan-sheet works!</p>
+<form class="page-form" [formGroup]="sheetForm">
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="row mb-2">
+                <div class="col-md-3"><label class="float-md-end float-sm-start mt-1">Objectives :</label></div>
+                <div class="col-md-9">
+                    <textarea formControlName="objectives" class="form-control form-control-sm w-100" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-3"><label class="float-md-end float-sm-start mt-1">Materials :</label></div>
+                <div class="col-md-9">
+                    <textarea formControlName="materials" class="form-control form-control-sm w-100" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-3"><label class="float-md-end float-sm-start mt-1">Introduction :</label></div>
+                <div class="col-md-9">
+                    <textarea formControlName="introduction" class="form-control form-control-sm w-100" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-3"><label class="float-md-end float-sm-start mt-1">Main Activity :</label></div>
+                <div class="col-md-9">
+                    <textarea formControlName="mainActivity" class="form-control form-control-sm w-100" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-3"><label class="float-md-end float-sm-start mt-1">Closure :</label></div>
+                <div class="col-md-9">
+                    <textarea formControlName="closure" class="form-control form-control-sm w-100" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-3"><label class="float-md-end float-sm-start mt-1">Assessment :</label></div>
+                <div class="col-md-9">
+                    <textarea formControlName="assessment" class="form-control form-control-sm w-100" rows="5"></textarea>
+                </div>
+            </div>
+
+            <hr />
+
+        </div>
+    </div>
+
+</form>

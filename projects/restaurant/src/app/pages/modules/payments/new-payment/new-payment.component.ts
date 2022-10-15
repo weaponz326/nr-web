@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PaymentFormComponent } from '../payment-form/payment-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { PaymentsApiService } from 'projects/restaurant/src/app/services/modules-api/payments-api/payments-api.service';
 
 import { Payment } from 'projects/restaurant/src/app/models/modules/payments/payments.model';
@@ -18,6 +19,7 @@ export class NewPaymentComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private paymentsApi: PaymentsApiService
   ) { }
 
@@ -42,7 +44,7 @@ export class NewPaymentComponent implements OnInit {
     console.log('u are saving a new payment');
 
     var data: Payment = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       order: this.paymentForm.selectedOrderId,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
       payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,

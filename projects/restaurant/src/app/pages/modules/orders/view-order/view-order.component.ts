@@ -9,6 +9,7 @@ import { SelectCustomerComponent } from '../../../../components/select-windows/c
 import { SelectTableComponent } from '../../../../components/select-windows/tables-windows/select-table/select-table.component';
 import { SelectMenuItemComponent } from '../../../../components/select-windows/menu-windows/select-menu-item/select-menu-item.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { OrdersApiService } from 'projects/restaurant/src/app/services/modules-api/orders-api/orders-api.service';
 import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
 import { OrdersPrintService } from 'projects/restaurant/src/app/services/modules-printing/orders-print/orders-print.service';
@@ -26,6 +27,7 @@ export class ViewOrderComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private ordersApi: OrdersApiService,
     private deliveriesApi: DeliveriesApiService,
     private ordersPrint: OrdersPrintService
@@ -111,7 +113,7 @@ export class ViewOrderComponent implements OnInit {
     }
 
     let data: Order = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       table: this.selectedTableId,
       customer: this.selectedCustomerId,
       customer_name: this.orderForm.controls.customerName.value as string,
@@ -211,7 +213,7 @@ export class ViewOrderComponent implements OnInit {
   createDelivery(){
     let data: Delivery = {
       id: sessionStorage.getItem('restaurant_order_id') as string,
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       order: sessionStorage.getItem('restaurant_order_id') as string,
       date_delivered: "",
       delivery_location: "",

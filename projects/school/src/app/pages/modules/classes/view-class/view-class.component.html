@@ -1,1 +1,41 @@
-<p>view-class works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- class page form -->
+
+        <app-class-form #classFormComponentReference></app-class-form>
+
+        <div *ngIf="!isClassLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/classes/all-classes">Cancel</button>
+                <button [disabled]="isClassDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isClassSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateClass()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isClassLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- class students component -->
+
+        <app-class-students #classStudentsComponentReference></app-class-students>
+
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteClass()"></app-delete-modal> -->

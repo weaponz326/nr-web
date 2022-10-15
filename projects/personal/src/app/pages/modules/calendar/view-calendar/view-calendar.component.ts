@@ -3,8 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { Calendar } from 'projects/personal/src/app/models/modules/calendar/calendar.model';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
+
+import { Calendar } from 'projects/personal/src/app/models/modules/calendar/calendar.model';
 
 
 @Component({
@@ -14,7 +16,10 @@ import { CalendarApiService } from 'projects/personal/src/app/services/modules-a
 })
 export class ViewCalendarComponent implements OnInit {
 
-  constructor(private calendarApi: CalendarApiService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private calendarApi: CalendarApiService
+  ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
@@ -57,7 +62,7 @@ export class ViewCalendarComponent implements OnInit {
 
   updateCalendar(){
     let data: Calendar = {
-      user: localStorage.getItem('personal_id') as string,
+      user: this.customCookie.getCookie('personal_id') as string,
       calendar_name: this.calendarForm.controls.calendarName.value as string
     }
 

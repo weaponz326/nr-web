@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'projects/restaurant/src/environments/environment'
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,13 +14,14 @@ export class DeliveriesApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   deliveriesUrl = environment.apiUrl + 'restaurant-modules/deliveries/';
 
   public getAccountDelivery(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.deliveriesUrl + "delivery?account=" + localStorage.getItem('restaurant_id')
+    return this.http.get(this.deliveriesUrl + "delivery?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -44,11 +46,11 @@ export class DeliveriesApiService {
   // dashboard
 
   public getDeliveryCount(): Observable<any>{
-    return this.http.get(this.deliveriesUrl + "dashboard/delivery-count?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.deliveriesUrl + "dashboard/delivery-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public getDeliveryAnnotate(): Observable<any>{
-    return this.http.get(this.deliveriesUrl + "dashboard/delivery-annotate?account=" + localStorage.getItem('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.deliveriesUrl + "dashboard/delivery-annotate?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

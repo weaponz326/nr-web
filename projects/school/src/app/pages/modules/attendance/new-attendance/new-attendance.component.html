@@ -1,1 +1,28 @@
-<p>new-attendance works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row page-form">
+            <div class="col-md-6">
+
+                <!-- attendance form component -->
+
+                <app-attendance-form #attendanceFormComponentReference></app-attendance-form>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/attendance/all-attendance">Cancel</button>
+                        <button [disabled]="isAttendanceSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="createAttendance()">Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

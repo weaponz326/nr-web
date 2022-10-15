@@ -2,16 +2,21 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private customCookie: CustomCookieService,
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (!!localStorage.getItem('personal_id')){
+    if (!!this.customCookie.getCookie('token')){
       return true;
     }
     else{
@@ -21,7 +26,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    if (!!localStorage.getItem('personal_id')){
+    if (!!this.customCookie.getCookie('token')){
       return true;
     }
     else{

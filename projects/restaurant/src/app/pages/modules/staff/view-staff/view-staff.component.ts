@@ -6,6 +6,7 @@ import { StaffFormComponent } from '../staff-form/staff-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { StaffApiService } from 'projects/restaurant/src/app/services/modules-api/staff-api/staff-api.service';
 import { StaffPrintService } from 'projects/restaurant/src/app/services/modules-printing/staff-print/staff-print.service';
 
@@ -22,6 +23,7 @@ export class ViewStaffComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private staffApi: StaffApiService,
     private staffPrint: StaffPrintService
   ) { }
@@ -35,7 +37,7 @@ export class ViewStaffComponent implements OnInit {
     { text: "View Staff", url: "/home/staff/view-staff" },
   ];
 
-  storageBasePath = "/restaurant/" + localStorage.getItem('restaurant_id') + "/module_staff/";
+  storageBasePath = "/restaurant/" + this.customCookie.getCookie('restaurant_id') + "/module_staff/";
 
   staffFormData: any;
 
@@ -75,7 +77,7 @@ export class ViewStaffComponent implements OnInit {
           this.staffForm.staffForm.controls.job.setValue(this.staffFormData.job);
           
           if (this.staffFormData.photo != null)
-            this.staffForm.photo.imgSrc = environment.apiUrl + this.staffFormData.photo;
+            this.staffForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.staffFormData.photo;
           else
             this.staffForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
         },
@@ -91,7 +93,7 @@ export class ViewStaffComponent implements OnInit {
     console.log('u are saving a new staff');
 
     var data = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       first_name: this.staffForm.staffForm.controls.firstName.value as string,
       last_name: this.staffForm.staffForm.controls.lastName.value as string,
       sex: this.staffForm.staffForm.controls.sex.value as string,

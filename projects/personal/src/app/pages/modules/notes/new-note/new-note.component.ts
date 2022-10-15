@@ -3,8 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { Note } from 'projects/personal/src/app/models/modules/notes/notes.model';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { NotesApiService } from 'projects/personal/src/app/services/modules-api/notes-api/notes-api.service';
+
+import { Note } from 'projects/personal/src/app/models/modules/notes/notes.model';
 
 
 @Component({
@@ -14,7 +16,10 @@ import { NotesApiService } from 'projects/personal/src/app/services/modules-api/
 })
 export class NewNoteComponent implements OnInit {
 
-  constructor(private notesApi: NotesApiService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private notesApi: NotesApiService
+  ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
@@ -38,7 +43,7 @@ export class NewNoteComponent implements OnInit {
 
   createNote(){
     let data: Note = {
-      user: localStorage.getItem('personal_id') as string,
+      user: this.customCookie.getCookie('personal_id') as string,
       title: this.noteForm.controls.title.value as string,
       body: this.noteForm.controls.body.value as string,
     }

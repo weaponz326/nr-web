@@ -1,1 +1,61 @@
-<p>assessment-sheet works!</p>
+<div class="row">
+    <div class="col-md-10">
+
+        <h4>Assessment Sheet</h4>
+
+        <div class="row mb-1">
+            <div class="col">
+                <button [disabled]="isTableSaving" class="btn btn-secondary btn-sm border float-end ms-1 page-refresh-btn" (click)="updateAssessmentSheet()">
+                    <i class="bi bi-save"></i>
+                </button>
+                <button class="btn btn-light btn-sm border float-end ms-1 page-refresh-btn">
+                    <i class="bi bi-plus"></i>
+                </button>
+                <button class="btn btn-light btn-sm border float-end ms-1 page-refresh-btn" (click)="getAssessmentAssessmentSheet()">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="15%" class="min-width-2">Student ID</th>
+                        <th width="35%" class="min-width-3">Student Name</th>
+                        <th width="10%" class="min-width-1">Score</th>
+                        <th width="10%" class="min-width-1">Grade</th>
+                        <th width="30%" class="min-width-3">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of assessmentTableGridData; index as i">
+                        <td>{{data?.student.data.student_code}}</td>
+                        <td>{{data?.student.data.first_name}} {{data?.student.data.last_name}}</td>
+                        <td class="p-0">
+                            <input type="number" step="0.01" min="0" value="{{data?.score}}" (change)="onScoreChange($event, i)" class="form-control form-control-sm rounded-0 w-100 h-100">
+                        </td>
+                        <td class="p-0">
+                            <input value="{{data?.grade}}" (change)="onGradeChange($event, i)" class="form-control form-control-sm rounded-0 w-100 h-100">
+                        </td>
+                        <td class="p-0">
+                            <input value="{{data?.remarks}}" (change)="onRemarksChange($event, i)" class="form-control form-control-sm rounded-0 w-100 h-100">
+                        </td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData" class="text-center">
+                        <td colspan="5">
+                            <div class="spinner-grow m-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

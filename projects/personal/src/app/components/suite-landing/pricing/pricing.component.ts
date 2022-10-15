@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+
+
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
@@ -8,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class PricingComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private customCookie: CustomCookieService,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -16,7 +22,7 @@ export class PricingComponent implements OnInit {
   register(e: any){
     e.preventDefault();
 
-    if(!localStorage.getItem('personal_id')){
+    if(!this.customCookie.getCookie('personal_id')){
       this.router.navigateByUrl('/auth/signup')
     }
     else{

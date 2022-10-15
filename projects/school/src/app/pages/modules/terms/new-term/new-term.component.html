@@ -1,1 +1,22 @@
-<p>new-term works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- term page form -->
+
+        <app-term-form #termFormComponentReference></app-term-form>
+
+        <div class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/terms/all-terms">Cancel</button>
+                <button [disabled]="isTermSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="createTerm()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

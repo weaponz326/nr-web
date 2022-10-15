@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CustomerFormComponent } from '../customer-form/customer-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { CustomersApiService } from 'projects/restaurant/src/app/services/modules-api/customers-api/customers-api.service';
 
 import { Customer } from 'projects/restaurant/src/app/models/modules/customers/customers.model';
@@ -18,6 +19,7 @@ export class NewCustomerComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private customersApi: CustomersApiService
   ) { }
 
@@ -41,7 +43,7 @@ export class NewCustomerComponent implements OnInit {
     console.log('u are saving a new customer');
 
     let data: Customer = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       customer_code: this.customerForm.customerForm.controls.customerCode.value as string,
       customer_name: this.customerForm.customerForm.controls.customerName.value as string,
       customer_type: this.customerForm.customerForm.controls.customerType.value as string,

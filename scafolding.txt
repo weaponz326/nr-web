@@ -20,7 +20,9 @@
 		+ components
 			+ main navbar (M)
 				+ main navbar (C)
-				+ main footer (C)	
+				+ main footer (C)
+		+ services
+			+ custom cookie (S)
 	+ personal (A)
 		+ pages
 		    + guest landing (Mr)(Cp)
@@ -503,6 +505,7 @@
 					+ view assessment (C)
 					+ assessment form (C)
 					+ assessment table (C)
+					+ assessment classes (C)
 				+ subjects (Mr)(Mp)
 					+ dashboard (C)
 					+ configuration (C)
@@ -576,6 +579,7 @@
                     + all departments (C)
                     + add department (C)
                     + edit department (C)
+                    + department form (C)
 				+ timetable (Mr)(Mp)
 					+ dashboard (C)
 					+ configuration (C)
@@ -591,6 +595,7 @@
 					+ all fees (C)
 					+ create fees (C)
 					+ view fees (C)
+					+ fees target (C)
 					+ fees form (C)
 					+ fees items (C)
 					+ add item (C)
@@ -604,6 +609,7 @@
 					+ all sections (C)
 					+ new section (C)
 					+ view section (C)
+					+ section form (C)
 					+ section students (C)
 		+ components
 			+ select windows

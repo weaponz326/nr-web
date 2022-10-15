@@ -1,0 +1,42 @@
+<h4 class="mb-3">Assessment Classes</h4>
+
+<div class="overflow-auto max-height-220">
+    <table class="table table-bordered table-sm w-100 page-table">
+        <thead>
+            <tr class="bg-light">
+                <th width="25%" class="min-width-2">Class ID</th>
+                <th width="65%" class="min-width-3">Class Name</th>
+                <th width="10%" class="p-0 min-width-1">
+                    <!-- <button class="btn btn-secondary btn-sm w-100" (click)="selectClass.openModal()"> -->
+                    <button class="btn btn-secondary btn-sm w-100">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of assessmentClassesGridData; index as i">
+                <td>{{data?.clase.class_code}}</td>
+                <td>{{data?.clase.class_name}}</td>
+                <td class="p-0">
+                    <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+            <tr *ngIf="isFetchingGridData" class="text-center">
+                <td colspan="3">
+                    <div class="spinner-grow m-2" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- selec class component -->
+
+<!-- <app-select-class #selectClassComponentReference (rowSelected)="createAssessmentClass($event)"></app-select-class> -->

@@ -5,6 +5,7 @@ import { CustomerFormComponent } from '../customer-form/customer-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { CustomersApiService } from 'projects/restaurant/src/app/services/modules-api/customers-api/customers-api.service';
 import { CustomersPrintService } from 'projects/restaurant/src/app/services/modules-printing/customers-print/customers-print.service';
 
@@ -20,6 +21,7 @@ export class ViewCustomerComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private customersApi: CustomersApiService,
     private customersPrint: CustomersPrintService,
   ) { }
@@ -76,7 +78,7 @@ export class ViewCustomerComponent implements OnInit {
     console.log('u are saving a new customer');
 
     let data: Customer = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       customer_code: this.customerForm.customerForm.controls.customerCode.value as string,
       customer_name: this.customerForm.customerForm.controls.customerName.value as string,
       customer_type: this.customerForm.customerForm.controls.customerType.value as string,

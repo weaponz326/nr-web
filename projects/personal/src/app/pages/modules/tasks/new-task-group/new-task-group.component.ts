@@ -3,9 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
+
 import { TaskGroup } from 'projects/personal/src/app/models/modules/tasks/tasks.model';
 
-import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
 
 @Component({
   selector: 'app-new-task-group',
@@ -16,6 +19,7 @@ export class NewTaskGroupComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private tasksApi: TasksApiService
   ) { }
 
@@ -38,7 +42,7 @@ export class NewTaskGroupComponent implements OnInit {
 
   createTaskGroup(){
     let data: TaskGroup = {
-      user: localStorage.getItem('personal_id') as string,
+      user: this.customCookie.getCookie('personal_id') as string,
       task_group: this.taskGroupForm.controls.taskGroupName.value as string,
     }
 

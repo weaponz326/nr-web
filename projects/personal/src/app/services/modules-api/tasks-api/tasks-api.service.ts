@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/personal/src/environments/environment';
 import { AuthHeadersService } from '../../auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class TasksApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   tasksUrl = environment.apiUrl + 'personal-modules/tasks/';
@@ -21,7 +23,7 @@ export class TasksApiService {
   // task group
 
   public getUserTaskGroups(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.tasksUrl + "task-group?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.tasksUrl + "task-group?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -47,7 +49,7 @@ export class TasksApiService {
   // task items
 
   public getUserTaskItems(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.tasksUrl + "all-task-item?user=" + localStorage.getItem('personal_id')
+    return this.http.get(this.tasksUrl + "all-task-item?user=" + this.customCookie.getCookie('personal_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,
@@ -77,23 +79,23 @@ export class TasksApiService {
   // dashboard
 
   public getTaskGroupCount(): Observable<any>{
-    return this.http.get(this.tasksUrl + "dashboard/task-group-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.tasksUrl + "dashboard/task-group-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getTaskItemCount(): Observable<any>{
-    return this.http.get(this.tasksUrl + "dashboard/task-item-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.tasksUrl + "dashboard/task-item-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getAllToDoCount(): Observable<any>{
-    return this.http.get(this.tasksUrl + "dashboard/all-todo-count?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.tasksUrl + "dashboard/all-todo-count?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getTaskGroupAnnotate(): Observable<any>{
-    return this.http.get(this.tasksUrl + "dashboard/task-group-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.tasksUrl + "dashboard/task-group-annotate?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   public getTaskItemAnnotate(): Observable<any>{
-    return this.http.get(this.tasksUrl + "dashboard/task-item-annotate?user=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.tasksUrl + "dashboard/task-item-annotate?user=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
 }

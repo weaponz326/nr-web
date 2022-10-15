@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { DeliveriesApiService } from 'projects/restaurant/src/app/services/modules-api/deliveries-api/deliveries-api.service';
 import { DeliveriesPrintService } from 'projects/restaurant/src/app/services/modules-printing/deliveries-print/deliveries-print.service';
 
@@ -20,6 +21,7 @@ export class EditDeliveryComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private deliveriesApi: DeliveriesApiService,
     private deliveriesPrint: DeliveriesPrintService,
   ) { }
@@ -84,7 +86,7 @@ export class EditDeliveryComponent implements OnInit {
     console.log('u are saving a new delivery');
 
     let data = {
-      account: localStorage.getItem('restaurant_id') as string,
+      account: this.customCookie.getCookie('restaurant_id') as string,
       date_delivered: this.deliveryForm.controls.dateDelivered.value,
       delivery_location: this.deliveryForm.controls.deliveryLocation.value,
       delivery_status: this.deliveryForm.controls.deliveryStatus.value,

@@ -6,6 +6,7 @@ import { MenuItemsComponent } from '../menu-items/menu-items.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
 import { MenuPrintService } from 'projects/restaurant/src/app/services/modules-printing/menu-print/menu-print.service';
 
@@ -19,6 +20,7 @@ export class ViewMenuGroupComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private menuApi: MenuApiService,
     private menuPrint: MenuPrintService,
   ) { }

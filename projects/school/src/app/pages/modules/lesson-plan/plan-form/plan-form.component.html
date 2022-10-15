@@ -1,1 +1,86 @@
-<p>plan-form works!</p>
+<form class="page-form" [formGroup]="planForm">
+
+    <div class="col-md-12">
+        <h4 class="form-heading">Plan Details</h4>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Plan ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="planCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Plan Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="planName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Plan Date :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="planDate" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Term :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="term" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openTermWindow()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Subject :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="subject" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openSubjectWindow()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Teacher :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="teacher" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openTeacherWindow()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr />
+
+</form>
+
+<!-- select term window component -->
+
+<!-- <app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term> -->
+
+<!-- select subject window component -->
+
+<!-- <app-select-subject #selectSubjectComponentReference (rowSelected)="onSubjectSelected($event)"></app-select-subject> -->
+
+<!-- select teacher window component -->
+
+<!-- <app-select-teacher #selectTeacherComponentReference (rowSelected)="onTeacherSelected($event)"></app-select-teacher> -->

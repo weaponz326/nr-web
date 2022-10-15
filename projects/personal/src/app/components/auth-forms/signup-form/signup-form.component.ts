@@ -4,8 +4,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 import { AuthApiService } from '../../../services/auth/auth-api/auth-api.service';
-// import { User } from '../../../models/user/user.model';
-// import { ExtendedProfile } from '../../../models/modules/settings/settings.model';
 
 
 @Component({
@@ -88,21 +86,6 @@ export class SignupFormComponent implements OnInit {
       })  
 
     console.log(this.signupForm.value);
-  }
-
-  createExtendedProfile(){
-    // let data: ExtendedProfile = {
-    //   date_of_birth: "",
-    //   gender: "",
-    //   phone: "",
-    //   address: "",
-    //   country: "",
-    //   state: "",
-    //   city: "",
-    // }
-
-    // TODO:
-    // post extended profile
   }
 
   onAddressChange(address: any) {

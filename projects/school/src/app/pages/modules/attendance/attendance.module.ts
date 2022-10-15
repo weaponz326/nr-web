@@ -14,6 +14,7 @@ import { NewAttendanceComponent } from './new-attendance/new-attendance.componen
 import { ViewAttendanceComponent } from './view-attendance/view-attendance.component';
 import { SheetViewComponent } from './sheet-view/sheet-view.component';
 import { CheckSheetComponent } from './check-sheet/check-sheet.component';
+import { AttendanceFormComponent } from './attendance-form/attendance-form.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CheckSheetComponent } from './check-sheet/check-sheet.component';
     NewAttendanceComponent,
     ViewAttendanceComponent,
     SheetViewComponent,
-    CheckSheetComponent
+    CheckSheetComponent,
+    AttendanceFormComponent
   ],
   imports: [
     CommonModule,

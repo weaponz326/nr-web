@@ -9,6 +9,11 @@ export class SubjectsPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Subjects", url: "/home/subjects/all-subjects", icon: "bi bi-list-ul" },
+    { text: "Add Subject", url: "/home/subjects/add-subject", icon: "bi bi-plus-square" }
+  ]
+  
   ngOnInit(): void {
   }
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'projects/school/src/environments/environment';
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class AdminApiService {
 
   constructor(
     private http: HttpClient,
-    private authHeaders: AuthHeadersService
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService
   ) { }
 
   adminUrl = environment.apiUrl + 'school-modules/admin/';
@@ -22,7 +24,7 @@ export class AdminApiService {
 
   // all users belonging to an account
   public getAccountAccountUsers(): Observable<any>{
-    return this.http.get(this.adminUrl + "account-user?account=" + localStorage.getItem('school_id'), this.authHeaders.headers);
+    return this.http.get(this.adminUrl + "account-user?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
   public getAccountUser(): Observable<any>{
@@ -39,7 +41,7 @@ export class AdminApiService {
 
   // all accounts of belonging to a user
   public getAccountUserAccounts(): Observable<any>{
-    return this.http.get(this.adminUrl + "account-user-account?" + "&personal_id=" + localStorage.getItem('personal_id'), this.authHeaders.headers);
+    return this.http.get(this.adminUrl + "account-user-account?" + "&personal_id=" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
   }
 
   // user access
@@ -72,7 +74,7 @@ export class AdminApiService {
   }
 
   public getAccountInvitation(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.adminUrl + "invitation?account=" + localStorage.getItem('school_id')
+    return this.http.get(this.adminUrl + "invitation?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -81,7 +83,7 @@ export class AdminApiService {
   // dashboard
 
   public getAccountUserCount(): Observable<any>{
-    return this.http.get(this.adminUrl + "dashboard/account-user-count?account=" + localStorage.getItem('school_id'), this.authHeaders.headers);
+    return this.http.get(this.adminUrl + "dashboard/account-user-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }
 
 }

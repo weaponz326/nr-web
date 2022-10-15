@@ -1,1 +1,101 @@
-<p>view-fees works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <form class="page-form" [formGroup]="feesForm" (ngSubmit)="updateFees()">
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <h4 class="mb-3">Fees Details</h4>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Fees ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="feesCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Fees Name :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="feesName" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Fees Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="date" formControlName="feesDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Term :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="term" class="form-control">
+                                <button type="button" class="btn btn-secondary" (click)="openTermWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Fees Description :</label></div>
+                        <div class="col-md-8">
+                            <textarea formControlName="feesDescription" class="form-control form-control-sm w-100"></textarea>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!isFeesLoading" class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/fees/all-fees">Cancel</button>
+                            <button [disabled]="isFeesDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                            <button [disabled]="isFeesSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn">Save</button>
+                        </div>
+                    </div>
+                    <div *ngIf="isFeesLoading" class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <!-- fees items component -->
+
+                    <app-fees-target #feesTargetComponentReference></app-fees-target>
+
+                </div>
+            </div>
+
+            <hr class="top-divider" />
+            <hr class="bottom-divider" />
+
+        </form>
+
+        <app-fees-items #feesItemsComponentReference></app-fees-items>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteFees()"></app-delete-modal> -->
+
+<!-- select term window component -->
+
+<!-- <app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term> -->
