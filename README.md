@@ -48,7 +48,7 @@ Before building a desktop app with electron for a particular project, change the
 
 * Uncomment prod api url and comment dev api url in `enviroments.ts` files in all suite applications.
 
-* Uncomment prod cookie functions and comment dev cookie function at
+* Uncomment prod cookie functions and comment dev cookie functions at
 ```
 projects/application/src/app/servics/custom-cookie/custom-cookie.service.ts
 ```

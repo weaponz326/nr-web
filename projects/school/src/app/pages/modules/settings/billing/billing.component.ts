@@ -133,21 +133,16 @@ export class BillingComponent implements OnInit {
     }
 
     console.log(data);
+    this.isSubscriptionSaving = true;
 
     this.settingsApi.putSubscription(data)
       .subscribe({
         next: (res) => {
           console.log(res);
-          console.log(res.payment_data[0]);
-
-          let result = res.payment_data[0];
-          var authorization_url = result.substring(
-            result.indexOf('url":"') + 6, 
-            result.lastIndexOf('"')
-          );
-
-          console.log(authorization_url);
-          window.open(authorization_url, '_blank');
+          // this.isSubscriptionSaving = false;
+          
+          if(res.status == true)
+          window.open(res.data.authorization_url, '_blank');
         },
         error: (err) => {
           console.log(err);
