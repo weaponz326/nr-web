@@ -16,3 +16,8 @@ export class TimetableClass {
   timetable!: string;
   clase!: string;
 }
+
+export class TimetableSheet {
+  timetable!: string;
+  clase!: string;
+}

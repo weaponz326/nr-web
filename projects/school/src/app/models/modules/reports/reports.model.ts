@@ -11,3 +11,7 @@ export class ReportAssessment {
   report!: string;
   assessment!: string;
 }
+
+export class ReportSheet {
+  report!: string;
+}

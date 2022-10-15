@@ -16,5 +16,5 @@ export class Teacher {
   city!: string;
   post_code!: string;
   teacher_code!: string;
-  grade!: string;
+  staff_grade!: string;
 }

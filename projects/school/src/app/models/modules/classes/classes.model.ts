@@ -3,8 +3,8 @@ export class Clase {
   class_teacher!: string;
   department!: string;
   terms!: any;
-  class_code!: string;
   class_name!: string;
+  grade!: string;
   location!: string;
 }
 
@@ -17,7 +17,6 @@ export class Department {
   account!: string;
   terms!: any;
   department_head!: string;
-  department_code!: string;
   department_name!: string;
   department_description!: string;
 }
