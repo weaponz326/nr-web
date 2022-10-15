@@ -11,11 +11,11 @@ export class CustomCookieService {
   constructor() { }
 
   setCookie(name: any, value: any){
-    // dev
-    Cookies.set(name, value);
+    // // dev
+    // Cookies.set(name, value);
 
-    // // prod
-    // Cookies.set(name, value, { domain: 'netrink.com' });
+    // prod
+    Cookies.set(name, value, { domain: 'netrink.com' });
   }
 
   getCookie(name: any){
@@ -23,11 +23,11 @@ export class CustomCookieService {
   }
 
   removeCookie(name: any){
-    // dev
-    Cookies.remove(name);
+    // // dev
+    // Cookies.remove(name);
 
-    // // prod
-    // Cookies.remove(name, { domain: 'netrink.com' });
+    // prod
+    Cookies.remove(name, { domain: 'netrink.com' });
   }
 
 }
