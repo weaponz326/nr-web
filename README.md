@@ -42,4 +42,13 @@ ng generate application suite_name --routing
 
 ## Building desktop apps with Electron
 
-Before building a desktop app with electron for a particular project, change the pathname in `main.js` to the path of the project in the `dist` folder. Also change the target of the electron build command in `package.json` to the the respective project name. 
+Before building a desktop app with electron for a particular project, change the pathname in `main.js` to the path of the project in the `dist` folder. Also change the target of the electron build command in `package.json` to the the respective project name.
+
+## Production deployment checklist
+
+* Uncomment prod api url and comment dev api url in `enviroments.ts` files in all suite applications.
+
+* Uncomment prod cookie functions and comment dev cookie functions at
+```
+projects/application/src/app/servics/custom-cookie/custom-cookie.service.ts
+```

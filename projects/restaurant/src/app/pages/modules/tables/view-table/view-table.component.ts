@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TableFormComponent } from '../table-form/table-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { TablesPrintService } from 'projects/restaurant/src/app/services/printing/tables-print/tables-print.service';
 
 import { Table } from 'projects/restaurant/src/app/models/modules/tables/tables.model';

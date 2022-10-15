@@ -5,7 +5,7 @@ import { SectionFormComponent } from '../section-form/section-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { SectionsApiService } from 'projects/school/src/app/services/modules/sections-api/sections-api.service';
 
 // import { Section } from 'projects/school/src/app/models/modules/sections/sections.model';

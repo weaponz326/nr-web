@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { environment } from 'projects/restaurant/src/environments/environment';
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 
 
 @Injectable({

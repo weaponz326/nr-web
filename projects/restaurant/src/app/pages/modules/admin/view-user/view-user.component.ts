@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { AccessFormComponent } from '../access-form/access-form.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
 import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
 

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BudgetApiService } from 'projects/personal/src/app/services/modules-api/budget-api/budget-api.service';
 
 import { Budget } from 'projects/personal/src/app/models/modules/budget/budget.model';

@@ -5,7 +5,7 @@ import { CustomerFormComponent } from '../customer-form/customer-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { CustomersApiService } from 'projects/restaurant/src/app/services/modules-api/customers-api/customers-api.service';
 import { CustomersPrintService } from 'projects/restaurant/src/app/services/modules-printing/customers-print/customers-print.service';
 

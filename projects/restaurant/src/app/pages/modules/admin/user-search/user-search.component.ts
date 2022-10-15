@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { SearchResultsComponent } from '../search-results/search-results.component';
 import { SearchDetailComponent } from '../search-detail/search-detail.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
 import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';

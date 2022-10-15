@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { UserTopComponent } from 'projects/personal/src/app/components/suite-landing/user-top/user-top.component';
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { AdminApiService } from '../../services/modules-api/admin-api/admin-api.service';
 import { SettingsApiService } from '../../services/modules-api/settings-api/settings-api.service';
 

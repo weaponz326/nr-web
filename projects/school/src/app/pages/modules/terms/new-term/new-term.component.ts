@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TermFormComponent } from '../term-form/term-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { TermsApiService } from 'projects/school/src/app/services/modules/terms-api/terms-api.service';
 
 // import { Term } from 'projects/school/src/app/models/modules/terms/terms.model';

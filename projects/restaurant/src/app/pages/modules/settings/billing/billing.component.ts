@@ -127,7 +127,7 @@ export class BillingComponent implements OnInit {
       email: this.emailValue,
       plan: this.paystackOptions.plan,
       quantity: this.paystackOptions.quantity,
-      status: "Active"
+      status: "Pending"
     }
 
     console.log(data);
@@ -137,7 +137,7 @@ export class BillingComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.isSubscriptionSaving = false;
+          // this.isSubscriptionSaving = false;
           
           if(res.status == true)
           window.open(res.data.authorization_url, '_blank');
