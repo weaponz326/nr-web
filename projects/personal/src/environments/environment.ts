@@ -6,8 +6,8 @@ export const environment = {
   production: false,
 
 
-  // apiUrl: "http://localhost:8000/",
-  apiUrl: "https://api.netrink.com/",
+  apiUrl: "http://localhost:8000/",
+  // apiUrl: "https://api.netrink.com/",
 
   baseUrl: "https://www.netrink.com/",
   personalUrl: "https://personal.netrink.com/",

@@ -51,7 +51,7 @@ export class SettingsApiService {
   // subscription events
 
   public getAccountSubscriptionEvent(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.settingsUrl + "roster?account=" + this.customCookie.getCookie('restaurant_id')
+    return this.http.get(this.settingsUrl + "subscription-event?account=" + this.customCookie.getCookie('restaurant_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);

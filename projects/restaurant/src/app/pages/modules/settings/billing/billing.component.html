@@ -149,7 +149,7 @@
                             <div *ngIf="selectedFrequency == 'Yearly'">
                                 <p class="h5 mb-2">Yearly Plan</p>
                                 <p class="h4 m-0"><strong>GHS 2,500</strong></p>
-                                <p class="m-0">Save GHS 300 per 10 Users</p>
+                                <p class="m-0">Save GHS 500 per 10 Users</p>
                             </div>
                         </div>
                         <div *ngIf="selectedSubscription == 'Large Team'">
@@ -160,7 +160,7 @@
                             <div *ngIf="selectedFrequency == 'Yearly'">
                                 <p class="h5 mb-2">Yearly Plan</p>
                                 <p class="h4 m-0"><strong>GHS 8,500</strong></p>
-                                <p class="m-0">Save GHS 1,000 per 50 Users</p>
+                                <p class="m-0">Save GHS 1,700 per 50 Users</p>
                             </div>
                         </div>
                         <div *ngIf="selectedSubscription == 'Comprehensive'">
@@ -174,19 +174,19 @@
                         <div *ngIf="selectedSubscription == 'Small Team'">
                             <p class="m-0"><i class="bi bi-cash m-1"></i>Total Bill :</p>
                             <p *ngIf="selectedFrequency=='Monthly'" class="h3 mt-0">
-                                GHS {{150 * (numberUsersValue / 10)}} / month
+                                GHS {{250 * (numberUsersValue / 10)}} / month
                             </p>
                             <p *ngIf="selectedFrequency=='Yearly'" class="h3 mt-0">
-                                GHS {{1500 * (numberUsersValue / 10)}} / year
+                                GHS {{2500 * (numberUsersValue / 10)}} / year
                             </p>
                         </div>
                         <div *ngIf="selectedSubscription == 'Large Team'">
                             <p class="m-0"><i class="bi bi-cash m-1"></i>Total Bill :</p>
                             <p *ngIf="selectedFrequency=='Monthly'" class="h3 mt-0">
-                                GHS {{500 * (numberUsersValue / 50)}} / month
+                                GHS {{850 * (numberUsersValue / 50)}} / month
                             </p>
                             <p *ngIf="selectedFrequency == 'Yearly'" class="h3 mt-0">
-                                GHS {{5000 * (numberUsersValue / 50)}} / year
+                                GHS {{8500 * (numberUsersValue / 50)}} / year
                             </p>
                         </div>
 
