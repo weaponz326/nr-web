@@ -40,15 +40,19 @@ export class PaymentsHistoryComponent implements OnInit {
   }
 
   getHistory(page: any, size: any, sortField: any){
+    this.isFetchingGridData = true;
+
     this.settingsApi.getAccountSubscriptionEvent(page, size, sortField)
       .subscribe({
         next: (res) => {
           console.log(res);
           this.historyData = res;
+          this.isFetchingGridData = false;
         },
         error: (err) => {
           console.log(err);
           this.connectionToast.openToast();
+          this.isFetchingGridData = false;
         }
       })
   }
