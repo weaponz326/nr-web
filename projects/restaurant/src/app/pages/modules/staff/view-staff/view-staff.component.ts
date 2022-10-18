@@ -120,7 +120,7 @@ export class ViewStaffComponent implements OnInit {
           console.log(res);
 
           if(this.staffForm.photo.isImageChanged){
-            this.putMenuItemImage();
+            this.putStaffImage();
           }
           else{
             this.isStaffSaving = false;
@@ -156,7 +156,7 @@ export class ViewStaffComponent implements OnInit {
       })
   }
 
-  putMenuItemImage(){
+  putStaffImage(){
     this.staffApi.putStaffPhoto(this.staffForm.photo.image)
       .subscribe({
         next: (res) => {

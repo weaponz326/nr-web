@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/parents/all-parents">Cancel</button>
                 <button [disabled]="isParentDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isParentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateParent()">Save</button>
+                <button [disabled]="isParentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putParent()">Save</button>
             </div>
         </div>
         <div *ngIf="isParentLoading" class="row page-form">

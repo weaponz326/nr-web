@@ -1,7 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
@@ -11,99 +15,86 @@ import { ActiveTermService } from 'projects/school/src/app/services/active-term/
 export class ParentsApiService {
 
   constructor(
-    private afs: AngularFirestore,
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
     private activeTerm: ActiveTermService
   ) { }
 
-  parentRef = this.afs.collection('school/module_parents/school_parent');
-  parentWardRef = this.afs.collection('school/module_parents/school_parent_ward');
+  parentsUrl = environment.apiUrl + 'school-modules/parents/';
 
   // parents
 
-  createParent(parent: any){
-    return this.parentRef.add(parent);
+  // create and get all parent belonging to user
+
+  public getAccountParent(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.parentsUrl + "parent?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&parenting=" + sortField, this.authHeaders.headers);
   }
 
-  getParent(){
-    return this.parentRef.doc(String(sessionStorage.getItem('school_parent_id'))).ref.get();
+  public postParent(parent: any): Observable<any>{
+    return this.http.post(this.parentsUrl + "parent/", parent, this.authHeaders.headers);
   }
 
-  updateParent(parent: any){
-    return this.parentRef.doc(String(sessionStorage.getItem('school_parent_id'))).update(parent);
+  public getParent(): Observable<any>{
+    return this.http.get(this.parentsUrl + "parent/" + sessionStorage.getItem('school_parent_id'), this.authHeaders.headers);
   }
 
-  deleteParent(){
-    return this.parentRef.doc(String(sessionStorage.getItem('school_parent_id'))).delete();
+  public putParent(parent: any): Observable<any>{
+    return this.http.put(this.parentsUrl + "parent/" + sessionStorage.getItem('school_parent_id'), parent, this.authHeaders.headers);
   }
 
-  getAccountParent(sorting: any, pageSize: any){
-    return this.parentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteParent(): Observable<any>{
+    return this.http.delete(this.parentsUrl + "parent/" + sessionStorage.getItem('school_parent_id'), this.authHeaders.headers);
   }
 
-  getAccountParentNext(sorting: any, pageSize: any, pageStart: any){
-    return this.parentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountParentPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.parentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAllAccountParent(){
-    return this.parentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public putParentPhoto(photo: File) {
+    let formParams = new FormData();
+    formParams.append('photo', photo);
+    formParams.append('account', this.customCookie.getCookie('school_id') as string);
+    return this.http.put(this.parentsUrl + "parent/" + sessionStorage.getItem('school_parent_id'), formParams, this.authHeaders.headers)
   }
 
   // parent wards
 
-  createParentWard(parent_ward: any){
-    return this.parentWardRef.add(parent_ward);
+  // parent wards
+
+  public getParentParentWard(): Observable<any>{
+    return this.http.get(this.parentsUrl + "parent-ward?parent=" + sessionStorage.getItem('school_parent_id'), this.authHeaders.headers);
   }
 
-  getParentWard(wardId: any){
-    return this.parentWardRef.doc(wardId).ref.get();
+  public postParentWard(ward: any): Observable<any>{
+    return this.http.post(this.parentsUrl + "parent-ward/", ward, this.authHeaders.headers);
   }
 
-  updateParentWard(wardId: any, wardData: any){
-    return this.parentWardRef.doc(wardId).update(wardData);
+  public getParentWard(wardId: any): Observable<any>{
+    return this.http.get(this.parentsUrl + "parent-ward/" + wardId, this.authHeaders.headers);
   }
 
-  deleteParentWard(wardId: any){
-    return this.parentWardRef.doc(wardId).delete();
+  public putParentWard(wardId: any, wardData: any): Observable<any>{
+    return this.http.put(this.parentsUrl + "parent-ward/" + wardId, wardData, this.authHeaders.headers);
   }
 
-  getParentParentWard(){
-    return this.parentWardRef.ref
-      .where("parent", "==", sessionStorage.getItem('school_parent_id'))
-      .orderBy("created_at", "desc")
-      .get();
+  public deleteParentWard(wardId: any): Observable<any>{
+    return this.http.delete(this.parentsUrl + "parent-ward/" + wardId, this.authHeaders.headers);
+  }
+
+  // config
+
+  public getParentCodeConfig(): Observable<any>{
+    return this.http.get(this.parentsUrl + "config/parent-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
+  }
+
+  public putParentCodeConfig(parent: any): Observable<any>{
+    return this.http.put(this.parentsUrl + "config/parent-code/" + this.customCookie.getCookie('school_id'), parent, this.authHeaders.headers);
+  }
+
+  public getNewParentCodeConfig(): Observable<any>{
+    return this.http.get(this.parentsUrl + "config/new-parent-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
   // dashboard
-
-  getWeekParent(startDate: any, endDate: any){
-    return this.parentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("created_at", "<", startDate).where("created_at", ">", endDate)
-      .get();
-  }
 
 }

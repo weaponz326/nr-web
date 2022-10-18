@@ -24,7 +24,7 @@ export class AdminApiService {
 
   // all users belonging to an account
   public getAccountAccountUsers(): Observable<any>{
-    return this.http.get(this.adminUrl + "account-user?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.adminUrl + "account-user?account=" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
   public getAccountUser(): Observable<any>{
@@ -74,7 +74,7 @@ export class AdminApiService {
   }
 
   public getAccountInvitation(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.adminUrl + "invitation?account=" + this.customCookie.getCookie('restaurant_id')
+    return this.http.get(this.adminUrl + "invitation?account=" + this.customCookie.getCookie('school_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
@@ -83,7 +83,7 @@ export class AdminApiService {
   // dashboard
 
   public getAccountUserCount(): Observable<any>{
-    return this.http.get(this.adminUrl + "dashboard/account-user-count?account=" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.adminUrl + "dashboard/account-user-count?account=" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
 }
