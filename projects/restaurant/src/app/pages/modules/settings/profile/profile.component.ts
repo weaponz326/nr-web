@@ -38,16 +38,13 @@ export class ProfileComponent implements OnInit {
   extendedProfileData: any;
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.getAuth();
+    this.getAccount();
     this.getExtendedProfile();
   }
 
-  getAuth(){
-    this.basic.isAccountLoading = true;
-    this.logo.isAccountLoading = true;
+  getAccount(){
+    // this.basic.isAccountLoading = true;
+    // this.logo.isAccountLoading = true;
 
     this.accountApi.getAccount()
       .subscribe({
@@ -74,8 +71,8 @@ export class ProfileComponent implements OnInit {
   }
 
   getExtendedProfile(){
-    this.location.isExtendedProfileLoading = true;
-    this.contact.isExtendedProfileLoading = true;
+    // this.location.isExtendedProfileLoading = true;
+    // this.contact.isExtendedProfileLoading = true;
 
     this.settingsApi.getExtendedProfile()
       .subscribe({
@@ -84,11 +81,11 @@ export class ProfileComponent implements OnInit {
 
           this.extendedProfileData = res;
 
-          this.location.locationForm.controls.country.setValue(this.extendedProfileData.country);
-          this.location.locationForm.controls.state.setValue(this.extendedProfileData.state);
-          this.location.locationForm.controls.city.setValue(this.extendedProfileData.city);
-          this.contact.contactForm.controls.phone.setValue(this.extendedProfileData.phone);
-          this.contact.contactForm.controls.address.setValue(this.extendedProfileData.address);
+          this.location.locationForm.controls.country.setValue(res.country);
+          this.location.locationForm.controls.state.setValue(res.state);
+          this.location.locationForm.controls.city.setValue(res.city);
+          this.contact.contactForm.controls.phone.setValue(res.phone);
+          this.contact.contactForm.controls.address.setValue(res.address);
 
           this.location.isExtendedProfileLoading = false;
           this.contact.isExtendedProfileLoading = false;

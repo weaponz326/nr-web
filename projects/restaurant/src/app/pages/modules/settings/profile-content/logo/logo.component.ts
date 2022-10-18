@@ -15,7 +15,7 @@ export class LogoComponent implements OnInit {
 
   @ViewChild('imageInputComponentReference', { read: ImageInputComponent, static: false }) imageInput!: ImageInputComponent;
 
-  isAccountLoading = false;
+  isAccountLoading = true;
   isAccountSaving = false;
 
   ngOnInit(): void {

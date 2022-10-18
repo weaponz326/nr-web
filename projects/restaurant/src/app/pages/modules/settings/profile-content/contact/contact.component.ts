@@ -17,9 +17,9 @@ export class ContactComponent implements OnInit {
   isExtendedProfileSaving = false;
 
   contactForm = new FormGroup({
-    email: new FormControl(),
-    phone: new FormControl(),
-    address: new FormControl(),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+    address: new FormControl(''),
   })
 
   ngOnInit(): void {

@@ -13,7 +13,7 @@ export class BasicComponent implements OnInit {
 
   @Output() updateAccountEvent = new EventEmitter<any>;
 
-  isAccountLoading = false;
+  isAccountLoading = true;
   isAccountSaving = false;
 
   basicForm = new FormGroup({

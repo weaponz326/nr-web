@@ -19,10 +19,10 @@ export class LocationComponent implements OnInit {
   isExtendedProfileSaving = false;
 
   locationForm = new FormGroup({
-    location: new FormControl(),
-    country: new FormControl(),
-    state: new FormControl(),
-    city: new FormControl(),
+    location: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    city: new FormControl(''),
   })
 
   ngOnInit(): void {
