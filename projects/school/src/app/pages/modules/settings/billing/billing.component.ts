@@ -289,20 +289,4 @@ export class BillingComponent implements OnInit {
     return true;
   }
 
-  paymentInit() {
-    console.log('Payment initialized');
-    console.log(this.emailValue);
-    console.log(this.paystackOptions);
-  }
-
-  paymentDone(ref: any) {
-    console.log('Payment done');
-    console.log(ref);
-    this.updateSubscription();
-  }
-
-  paymentCancel() {
-    console.log('payment failed');
-  }
-
 }
