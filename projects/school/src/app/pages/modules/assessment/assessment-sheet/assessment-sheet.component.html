@@ -5,12 +5,12 @@
 
         <div class="row mb-1">
             <div class="col">
-                <button [disabled]="isTableSaving" class="btn btn-secondary btn-sm border float-end ms-1 page-refresh-btn" (click)="updateAssessmentSheet()">
+                <!-- <button [disabled]="isTableSaving" class="btn btn-secondary btn-sm border float-end ms-1 page-refresh-btn" (click)="updateAssessmentSheet()">
                     <i class="bi bi-save"></i>
-                </button>
-                <button class="btn btn-light btn-sm border float-end ms-1 page-refresh-btn">
+                </button> -->
+                <!-- <button class="btn btn-light btn-sm border float-end ms-1 page-refresh-btn">
                     <i class="bi bi-plus"></i>
-                </button>
+                </button> -->
                 <button class="btn btn-light btn-sm border float-end ms-1 page-refresh-btn" (click)="getAssessmentAssessmentSheet()">
                     <i class="bi bi-arrow-clockwise"></i>
                 </button>
@@ -44,7 +44,7 @@
                     </tr>
                     <tr *ngIf="isFetchingGridData" class="text-center">
                         <td colspan="5">
-                            <div class="spinner-grow m-2" role="status">
+                            <div class="spinner-grow spinner-grow-sm m-2" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </td>

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 // import { SelectSubjectComponent } from '../../../select-windows/subjects-windows/select-subject/select-subject.component';
+// import { SelectClassComponent } from '../../../select-windows/classes-windows/select-class/select-class.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
@@ -22,16 +23,19 @@ export class AssessmentFormComponent implements OnInit {
   // @ViewChild('selectSubjectComponentReference', { read: SelectSubjectComponent, static: false }) selectSubject!: SelectSubjectComponent;
 
   selectedTermId = "";
-  selectedTermData: any = {};
+  selectedTermData: any;
   selectedSubjectId = "";
-  selectedSubjectData: any = { subject_code: "", subject_name: "" };
+  selectedSubjectData: any;
+  selectedClassId = "";
+  selectedClassData: any;
 
   assessmentForm = new FormGroup({
     assessmentCode: new FormControl(''),
-    assessmentDate: new FormControl(''),
+    assessmentDate: new FormControl(),
     assessmentName: new FormControl(''),
     term: new FormControl({value: "", disabled: true}),
     subject: new FormControl({value: "", disabled: true}),
+    clase: new FormControl({value: "", disabled: true}),
   })
 
   ngOnInit(): void {
@@ -70,6 +74,19 @@ export class AssessmentFormComponent implements OnInit {
     this.assessmentForm.controls.subject.setValue(subjectData.data().subject_name);
     this.selectedSubjectId = subjectData.id;
     this.selectedSubjectData = subjectData.data();
+  }
+
+  openClassWindow(){
+    console.log("You are opening select term window")
+    // this.selectClass.openModal();
+  }
+
+  onClassSelected(classData: any){
+    console.log(classData);
+
+    this.assessmentForm.controls.subject.setValue(classData.data().class_name);
+    this.selectedClassId = classData.id;
+    this.selectedClassData = classData.data();
   }
 
 }

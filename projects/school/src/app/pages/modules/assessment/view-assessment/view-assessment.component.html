@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
 
         <div class="row page-form">
-            <div class="col-md-6">
+            <div class="col">
 
                 <!-- assessment form component -->
 
@@ -14,7 +14,7 @@
                     <div class="col-md-12">
                         <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/assessment/all-assessment">Cancel</button>
                         <button [disabled]="isAssessmentDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                        <button [disabled]="isAssessmentSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateAssessment()">Save</button>
+                        <button [disabled]="isAssessmentSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putAssessment()">Save</button>
                     </div>
                 </div>
                 <div *ngIf="isAssessmentLoading" class="row">
@@ -26,14 +26,6 @@
                         </button>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="col-md-6">
-
-                <!-- assessment classes component -->
-
-                <app-assessment-classes #assessmentClassesComponentReference (refreshSheet)="refreshSheet()"></app-assessment-classes>
 
             </div>
         </div>
