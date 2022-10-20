@@ -40,7 +40,7 @@ export class StudentFormComponent implements OnInit {
     studentCode: new FormControl(''),
     term: new FormControl({value: '', disabled: true}),
     clase: new FormControl({value: '', disabled: true}),
-    admissionDate: new FormControl(''),
+    admissionDate: new FormControl(),
     previousSchool: new FormControl(''),
     phone: new FormControl(''),
     email: new FormControl(''),

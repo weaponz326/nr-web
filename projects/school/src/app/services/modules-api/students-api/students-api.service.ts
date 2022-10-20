@@ -1,7 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
@@ -11,64 +15,60 @@ import { ActiveTermService } from 'projects/school/src/app/services/active-term/
 export class StudentsApiService {
 
   constructor(
-    private afs: AngularFirestore,
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
     private activeTerm: ActiveTermService
   ) { }
 
-  studentRef = this.afs.collection('school/module_students/school_student');
+  studentsUrl = environment.apiUrl + 'school-modules/students/';
 
   // students
 
-  createStudent(student: any){
-    return this.studentRef.add(student);
+  // create and get all student belonging to user
+
+  public getAccountStudent(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.studentsUrl + "student?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&studenting=" + sortField, this.authHeaders.headers);
   }
 
-  getStudent(){
-    return this.studentRef.doc(String(sessionStorage.getItem('school_student_id'))).ref.get();
+  public postStudent(student: any): Observable<any>{
+    return this.http.post(this.studentsUrl + "student/", student, this.authHeaders.headers);
   }
 
-  updateStudent(student: any){
-    return this.studentRef.doc(String(sessionStorage.getItem('school_student_id'))).update(student);
+  public getStudent(): Observable<any>{
+    return this.http.get(this.studentsUrl + "student/" + sessionStorage.getItem('school_student_id'), this.authHeaders.headers);
   }
 
-  deleteStudent(){
-    return this.studentRef.doc(String(sessionStorage.getItem('school_student_id'))).delete();
+  public putStudent(student: any): Observable<any>{
+    return this.http.put(this.studentsUrl + "student/" + sessionStorage.getItem('school_student_id'), student, this.authHeaders.headers);
   }
 
-  getAccountStudent(sorting: any, pageSize: any){
-    return this.studentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteStudent(): Observable<any>{
+    return this.http.delete(this.studentsUrl + "student/" + sessionStorage.getItem('school_student_id'), this.authHeaders.headers);
   }
 
-  getAccountStudentNext(sorting: any, pageSize: any, pageStart: any){
-    return this.studentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  public putStudentPhoto(photo: File) {
+    let formParams = new FormData();
+    formParams.append('photo', photo);
+    formParams.append('account', this.customCookie.getCookie('school') as string);
+    return this.http.put(this.studentsUrl + "student/" + sessionStorage.getItem('school_student_id'), formParams, this.authHeaders.headers)
   }
 
-  getAccountStudentPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.studentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  // config
+
+  public getStudentCodeConfig(): Observable<any>{
+    return this.http.get(this.studentsUrl + "config/student-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getAllAccountStudent(){
-    return this.studentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public putStudentCodeConfig(student: any): Observable<any>{
+    return this.http.put(this.studentsUrl + "config/student-code/" + this.customCookie.getCookie('school_id'), student, this.authHeaders.headers);
+  }
+
+  public getNewStudentCodeConfig(): Observable<any>{
+    return this.http.get(this.studentsUrl + "config/new-student-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
 }
