@@ -9,7 +9,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <button class="btn btn-secondary page-add-btn" routerLink="/home/lesson-plan/new-plan">New Plan</button>
-                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountLessonPlan()">
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountLessonPlan(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -59,7 +59,7 @@
                             <tr class="bg-light">
                                 <td colspan="5">
                                     <app-table-paginator
-                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountLessonPlan()"
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountLessonPlan($event, 20, '')"
                                     ></app-table-paginator>
                                 </td>
                             </tr>

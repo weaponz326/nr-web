@@ -6,9 +6,9 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { LessonPlanApiService } from 'projects/school/src/app/services/modules/lesson-plan-api/lesson-plan-api.service';
+import { LessonPlanApiService } from 'projects/school/src/app/services/modules-api/lesson-plan-api/lesson-plan-api.service';
 
-// import { LessonPlan } from 'projects/school/src/app/models/modules/lesson-plan/lesson-plan.model';
+import { LessonPlan } from 'projects/school/src/app/models/modules/lesson-plan/lesson-plan.model';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class NewPlanComponent implements OnInit {
     private router: Router,
     private customCookie: CustomCookieService,
     // private activeTerm: ActiveTermService,
-    // private lessonPlanApi: LessonPlanApiService
+    private lessonPlanApi: LessonPlanApiService
   ) { }
 
   @ViewChild('planFormComponentReference', { read: PlanFormComponent, static: false }) planForm!: PlanFormComponent;
@@ -35,6 +35,7 @@ export class NewPlanComponent implements OnInit {
   isPlanSaving = false;
 
   ngOnInit(): void {
+    this.getNewLessonPlanCodeConfig();
   }
 
   ngAfterViewInit(): void {
@@ -46,43 +47,62 @@ export class NewPlanComponent implements OnInit {
     // this.planForm.selectedTermData = activeTerm.data;
   }
 
-  createLessonPlan(){
+  postLessonPlan(){
     console.log('u are saving a new plan');
 
-    // let data: LessonPlan = {
-    //   account: this.customCookie.getCookie('restaurant_id') as string,
-    //   plan_code: this.planForm.planForm.controls.planCode.value,
-    //   plan_name: this.planForm.planForm.controls.planName.value,
-    //   plan_date: this.planForm.planForm.controls.planDate.value,
-    //   term: this.planForm.selectedTermId,
-    //   subject: this.planForm.selectedSubjectId,
-    //   teacher: this.planForm.selectedTeacherId,
-    //   objectives: "",
-    //   materials: "",
-    //   introduction: "",
-    //   main_activity: "",
-    //   closure: "",
-    //   assessment: "",
-    // }
+    let data: LessonPlan = {
+      account: this.customCookie.getCookie('school_id') as string,
+      plan_code: this.planForm.planForm.controls.planCode.value as string,
+      plan_name: this.planForm.planForm.controls.planName.value as string,
+      plan_date: this.planForm.planForm.controls.planDate.value,
+      term: this.planForm.selectedTermId,
+      subject: this.planForm.selectedSubjectId,
+      teacher: this.planForm.selectedTeacherId,
+      objectives: "",
+      materials: "",
+      introduction: "",
+      main_activity: "",
+      closure: "",
+      assessment: "",
+    }
 
-    // console.log(data);
+    console.log(data);
     this.isPlanSaving = true;
 
-    // this.lessonPlanApi.createLessonPlan(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isPlanSaving = false;
+    this.lessonPlanApi.postLessonPlan(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isPlanSaving = false;
 
-    //       sessionStorage.setItem('school_lesson_plan_id', res.id);
-    //       this.router.navigateByUrl('/home/lesson-plan/view-plan');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isPlanSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          sessionStorage.setItem('school_lesson_plan_id', res.id);
+          this.router.navigateByUrl('/home/lesson-plan/view-plan');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPlanSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNewLessonPlanCodeConfig(){
+    this.lessonPlanApi.getNewLessonPlanCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.planForm.planForm.controls.planCode.disable();
+
+          if(res.code)
+            this.planForm.planForm.controls.planCode.setValue(res.code);
+          else
+            this.planForm.planForm.controls.planCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

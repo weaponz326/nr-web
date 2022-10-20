@@ -30,7 +30,7 @@ export class PlanFormComponent implements OnInit {
 
   planForm = new FormGroup({
     planCode: new FormControl(''),
-    planDate: new FormControl(''),
+    planDate: new FormControl(),
     planName: new FormControl(''),
     term: new FormControl({value: "", disabled: true}),
     subject: new FormControl({value: "", disabled: true}),

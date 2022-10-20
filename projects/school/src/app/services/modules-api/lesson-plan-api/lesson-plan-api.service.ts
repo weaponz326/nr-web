@@ -1,6 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
 @Injectable({
@@ -8,73 +14,52 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class LessonPlanApiService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
+    private activeTerm: ActiveTermService
+  ) { }
 
-  lessonPlanRef = this.afs.collection('school/module_lesson_plan/school_lesson_plan');
-  lessonPlanSheetRef = this.afs.collection('school/module_lesson_plan/school_lesson_planSheet');
+  lessonPlanUrl = environment.apiUrl + 'school-modules/lesson-plan/';
 
-  // lessonPlans
+  // lesson plan
 
-  createLessonPlan(lessonPlan: any){
-    return this.lessonPlanRef.add(lessonPlan);
+  public getAccountLessonPlan(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.lessonPlanUrl + "lesson-plan?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
-  getLessonPlan(){
-    return this.lessonPlanRef.doc(String(sessionStorage.getItem('school_lessonPlan_id'))).ref.get();
+  public postLessonPlan(lessonplan: any): Observable<any>{
+    return this.http.post(this.lessonPlanUrl + "lesson-plan/", lessonplan, this.authHeaders.headers);
   }
 
-  updateLessonPlan(lessonPlan: any){
-    return this.lessonPlanRef.doc(String(sessionStorage.getItem('school_lessonPlan_id'))).update(lessonPlan);
+  public getLessonPlan(): Observable<any>{
+    return this.http.get(this.lessonPlanUrl + "lesson-plan/" + sessionStorage.getItem('school_lesson_plan_id'), this.authHeaders.headers);
   }
 
-  deleteLessonPlan(){
-    return this.lessonPlanRef.doc(String(sessionStorage.getItem('school_lessonPlan_id'))).delete();
+  public putLessonPlan(lessonplan: any): Observable<any>{
+    return this.http.put(this.lessonPlanUrl + "lesson-plan/" + sessionStorage.getItem('school_lesson_plan_id'), lessonplan, this.authHeaders.headers);
   }
 
-  getAccountLessonPlan(sorting: any, pageSize: any){
-    return this.lessonPlanRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteLessonPlan(): Observable<any>{
+    return this.http.delete(this.lessonPlanUrl + "lesson-plan/" + sessionStorage.getItem('school_lesson_plan_id'), this.authHeaders.headers);
   }
 
-  getAccountLessonPlanNext(sorting: any, pageSize: any, pageStart: any){
-    return this.lessonPlanRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  // config
+
+  public getLessonPlanCodeConfig(): Observable<any>{
+    return this.http.get(this.lessonPlanUrl + "config/lesson-plan-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getAccountLessonPlanPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.lessonPlanRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  public putLessonPlanCodeConfig(lessonplan: any): Observable<any>{
+    return this.http.put(this.lessonPlanUrl + "config/lesson-plan-code/" + this.customCookie.getCookie('school_id'), lessonplan, this.authHeaders.headers);
   }
 
-  getAllAccountLessonPlan(){
-    return this.lessonPlanRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy("created_by" ,"desc")
-      .get();
-  }
-
-  // dashboard
-
-  getWeekLessonPlan(startDate: any, endDate: any){
-    return this.lessonPlanRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("created_at", "<", startDate).where("created_at", ">", endDate)
-      .get();
+  public getNewLessonPlanCodeConfig(): Observable<any>{
+    return this.http.get(this.lessonPlanUrl + "config/new-lesson-plan-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
 }
