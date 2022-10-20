@@ -29,7 +29,7 @@ export class AssessmentApiService {
     return this.http.get(this.assessmentUrl + "assessment?account=" + this.customCookie.getCookie('school_id')
       + "&page=" + page
       + "&size=" + size
-      + "&assessmenting=" + sortField, this.authHeaders.headers);
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
   public postAssessment(assessment: any): Observable<any>{

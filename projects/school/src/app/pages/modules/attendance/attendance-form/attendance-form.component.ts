@@ -19,7 +19,7 @@ export class AttendanceFormComponent implements OnInit {
   ) { }
 
   @Input() isDateDisabled: boolean = false;
-  @Input() isSourceDisabled: boolean = false;
+  @Input() isClassDisabled: boolean = false;
 
   // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
   // @ViewChild('selectClassComponentReference', { read: SelectClassComponent, static: false }) selectClass!: SelectClassComponent;
@@ -27,9 +27,7 @@ export class AttendanceFormComponent implements OnInit {
   attendanceFormData: any;
 
   selectedTermId = "";
-  selectedTermData: any = {};
   selectedClassId = "";
-  selectedClassData: any = {};
 
   attendanceForm = new FormGroup({
     attendanceCode: new FormControl(''),
@@ -37,7 +35,8 @@ export class AttendanceFormComponent implements OnInit {
     fromDate: new FormControl({value: "", disabled: this.isDateDisabled}),
     toDate: new FormControl({value: "", disabled: this.isDateDisabled}),
     term: new FormControl({value: "", disabled: true}),
-    source: new FormControl({value: "", disabled: true}),
+    attendanceSource: new FormControl('Students'),
+    clase: new FormControl({value: "", disabled: true}),
   })
 
   ngOnInit(): void {
@@ -61,7 +60,6 @@ export class AttendanceFormComponent implements OnInit {
 
     this.attendanceForm.controls.term.setValue(termData.data().term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
   }
 
   openClassWindow(){
@@ -72,9 +70,8 @@ export class AttendanceFormComponent implements OnInit {
   onClassSelected(classData: any){
     console.log(classData);
 
-    this.attendanceForm.controls.source.setValue(classData.data().class_name);
+    this.attendanceForm.controls.clase.setValue(classData.data().class_name);
     this.selectedClassId = classData.id;
-    this.selectedClassData = classData.data();
   }
 
 }

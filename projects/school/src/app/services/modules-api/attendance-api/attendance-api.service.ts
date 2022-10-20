@@ -1,6 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
 @Injectable({
@@ -8,81 +14,80 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AttendanceApiService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
+    private activeTerm: ActiveTermService
+  ) { }
 
-  attendanceRef = this.afs.collection('school/module_attendance/school_attendance');
-  attendanceSheetRef = this.afs.collection('school/module_attendance/school_attendance_sheet');
+  attendanceUrl = environment.apiUrl + 'school-modules/attendance/';
 
-  // attendance
+  // students attendance
 
-  createAttendance(attendance: any){
-    return this.attendanceRef.add(attendance);
+  public getAccountStudentAttendance(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.attendanceUrl + "student-attendance?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
-  getAttendance(){
-    return this.attendanceRef.doc(String(sessionStorage.getItem('school_attendance_id'))).ref.get();
+  public postStudentAttendance(attendance: any): Observable<any>{
+    return this.http.post(this.attendanceUrl + "student-attendance/", attendance, this.authHeaders.headers);
   }
 
-  updateAttendance(attendance: any){
-    return this.attendanceRef.doc(String(sessionStorage.getItem('school_attendance_id'))).update(attendance);
+  public getStudentAttendance(): Observable<any>{
+    return this.http.get(this.attendanceUrl + "student-attendance/" + sessionStorage.getItem('school_student_attendance_id'), this.authHeaders.headers);
   }
 
-  deleteAttendance(){
-    return this.attendanceRef.doc(String(sessionStorage.getItem('school_attendance_id'))).delete();
+  public putStudentAttendance(attendance: any): Observable<any>{
+    return this.http.put(this.attendanceUrl + "student-attendance/" + sessionStorage.getItem('school_student_attendance_id'), attendance, this.authHeaders.headers);
   }
 
-  getAccountAttendance(sorting: any, pageSize: any){
-    return this.attendanceRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteStudentAttendance(): Observable<any>{
+    return this.http.delete(this.attendanceUrl + "student-attendance/" + sessionStorage.getItem('school_student_attendance_id'), this.authHeaders.headers);
   }
 
-  getAccountAttendanceNext(sorting: any, pageSize: any, pageStart: any){
-    return this.attendanceRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  // teachers attendance
+
+  public getAccountTeacherAttendance(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.attendanceUrl + "teacher-attendance?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
-  getAccountAttendancePrev(sorting: any, pageSize: any, pageStart: any){
-    return this.attendanceRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  public postTeacherAttendance(attendance: any): Observable<any>{
+    return this.http.post(this.attendanceUrl + "teacher-attendance/", attendance, this.authHeaders.headers);
   }
 
-  getAllAccountAttendance(){
-    return this.attendanceRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public getTeacherAttendance(): Observable<any>{
+    return this.http.get(this.attendanceUrl + "teacher-attendance/" + sessionStorage.getItem('school_teacher_attendance_id'), this.authHeaders.headers);
+  }
+
+  public putTeacherAttendance(attendance: any): Observable<any>{
+    return this.http.put(this.attendanceUrl + "teacher-attendance/" + sessionStorage.getItem('school_teacher_attendance_id'), attendance, this.authHeaders.headers);
+  }
+
+  public deleteTeacherAttendance(): Observable<any>{
+    return this.http.delete(this.attendanceUrl + "teacher-attendance/" + sessionStorage.getItem('school_teacher_attendance_id'), this.authHeaders.headers);
   }
 
   // attendance sheet
 
-  createAttendanceSheet(sheet: any){
-    return this.attendanceSheetRef.doc(String(sessionStorage.getItem('school_attendance_id'))).set(sheet);
+
+  // config
+
+  public getAttendanceCodeConfig(): Observable<any>{
+    return this.http.get(this.attendanceUrl + "config/attendance-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getAttendanceSheet(){
-    return this.attendanceSheetRef.doc(String(sessionStorage.getItem('school_attendance_id'))).ref.get();
+  public putAttendanceCodeConfig(attendance: any): Observable<any>{
+    return this.http.put(this.attendanceUrl + "config/attendance-code/" + this.customCookie.getCookie('school_id'), attendance, this.authHeaders.headers);
   }
 
-  updateAttendanceSheet(sheet: any){
-    return this.attendanceSheetRef.doc(String(sessionStorage.getItem('school_attendance_id'))).update(sheet);
-  }
-
-  deleteAttendanceSheet(){
-    return this.attendanceSheetRef.doc(String(sessionStorage.getItem('school_attendance_id'))).delete();
+  public getNewAttendanceCodeConfig(): Observable<any>{
+    return this.http.get(this.attendanceUrl + "config/new-attendance-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
 }

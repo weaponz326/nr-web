@@ -4,8 +4,8 @@ export class StudentAttendance {
   clase!: string;
   attendance_code!: string;
   attendance_name!: string;
-  from_date!: Date;
-  to_date!: Date;
+  from_date!: string;
+  to_date!: string;
 }
 
 export class TeacherAttendance {
@@ -13,8 +13,8 @@ export class TeacherAttendance {
   term!: string;
   attendance_code!: string;
   attendance_name!: string;
-  from_date!: Date;
-  to_date!: Date;
+  from_date!: string;
+  to_date!: string;
 }
 
 export class AttendanceSheet {
