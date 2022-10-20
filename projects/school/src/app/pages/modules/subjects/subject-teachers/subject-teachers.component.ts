@@ -2,10 +2,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
 // import { SelectTeacherComponent } from '../../../select-windows/teachers-windows/select-teacher/select-teacher.component';
 
-// import { SubjectsApiService } from 'projects/school/src/app/services/modules/subjects-api/subjects-api.service';
-// import { SubjectTeacher } from 'projects/school/src/app/models/modules/subjects/subjects.model';
+import { SubjectsApiService } from 'projects/school/src/app/services/modules-api/subjects-api/subjects-api.service';
+import { SubjectTeacher } from 'projects/school/src/app/models/modules/subjects/subjects.model';
 
 
 @Component({
@@ -17,11 +18,12 @@ export class SubjectTeachersComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private subjectsApi: SubjectsApiService,
+    private subjectsApi: SubjectsApiService,
   ) { }
 
   @ViewChild('modalButtonElementReference', { read: ElementRef, static: false }) modalButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
   // @ViewChild('selectTeacherComponentReference', { read: SelectTeacherComponent, static: false }) selectTeacher!: SelectTeacherComponent;
 
   subjectTeachersGridData: any[] = [];
@@ -41,64 +43,59 @@ export class SubjectTeachersComponent implements OnInit {
   getSubjectSubjectTeacher(){
     this.isFetchingGridData = true;
 
-    // this.subjectsApi.getSubjectSubjectTeacher()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isFetchingGridData = false;
-    //       this.subjectTeachersGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.subjectsApi.getSubjectSubjectTeacher()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isFetchingGridData = false;
+          this.subjectTeachersGridData = res;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  createSubjectTeacher(teacherData: any){
-    // let data: SubjectTeacher = {
-    //   subject: sessionStorage.getItem('school_subject_id') as string,
-    //   teacher: {
-    //     id: teacherData.id,
-    //     data: {
+  postSubjectTeacher(teacherData: any){
+    let data: SubjectTeacher = {
+      subject: sessionStorage.getItem('school_subject_id') as string,
+      teacher: teacherData.id,
+    }
 
-    //     }
-    //   }
-    // }
+    this.subjectsApi.postSubjectTeacher(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.subjectsApi.createSubjectTeacher(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-
-    //       if(res.id){
-    //         this.getSubjectSubjectTeacher();
-    //       }
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          if(res.id){
+            this.getSubjectSubjectTeacher();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteSubjectTeacher(){
     this.isTeacherDeleting = true;
 
-    // this.subjectsApi.deleteSubjectTeacher()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isTeacherDeleting = false;
-    //       this.getSubjectSubjectTeacher();
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isTeacherDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.subjectsApi.deleteSubjectTeacher(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isTeacherDeleting = false;
+          this.getSubjectSubjectTeacher();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isTeacherDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openTeacherWindow(){

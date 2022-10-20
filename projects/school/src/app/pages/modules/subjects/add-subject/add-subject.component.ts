@@ -5,9 +5,9 @@ import { SubjectFormComponent } from '../subject-form/subject-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { SubjectsApiService } from 'projects/school/src/app/services/modules/subjects-api/subjects-api.service';
+import { SubjectsApiService } from 'projects/school/src/app/services/modules-api/subjects-api/subjects-api.service';
 
-// import { Subject } from 'projects/school/src/app/models/modules/subjects/subjects.model';
+import { Subject } from 'projects/school/src/app/models/modules/subjects/subjects.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AddSubjectComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private subjectsApi: SubjectsApiService
+    private subjectsApi: SubjectsApiService
   ) { }
 
   @ViewChild('subjectFormComponentReference', { read: SubjectFormComponent, static: false }) subjectForm!: SubjectFormComponent;
@@ -33,38 +33,58 @@ export class AddSubjectComponent implements OnInit {
   isSubjectSaving = false;
 
   ngOnInit(): void {
+    this.getNewSubjectCodeConfig();
   }
 
-  createSubject(){
+  postSubject(){
     console.log('u are saving a new subject');
 
-    // let data: Subject = {
-    //   account: this.customCookie.getCookie('restaurant_id') as string,
-    //   subject_code: this.subjectForm.subjectForm.controls.subjectCode.value,
-    //   subject_name: this.subjectForm.subjectForm.controls.subjectName.value,
-    //   description: this.subjectForm.subjectForm.controls.description.value,
-    //   department: this.subjectForm.selectedDepartmentId,
-    //   terms: [{id: this.subjectForm.selectedTermId}],
-    // }
+    let data: Subject = {
+      account: this.customCookie.getCookie('school_id') as string,
+      subject_code: this.subjectForm.subjectForm.controls.subjectCode.value as string,
+      subject_name: this.subjectForm.subjectForm.controls.subjectName.value as string,
+      description: this.subjectForm.subjectForm.controls.description.value as string,
+      department: this.subjectForm.selectedDepartmentId,
+      // terms: [{id: this.subjectForm.selectedTermId}],
+    }
 
-    // console.log(data);
+    console.log(data);
     this.isSubjectSaving = true;
 
-    // this.subjectsApi.createSubject(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isSubjectSaving = false;
+    this.subjectsApi.postSubject(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isSubjectSaving = false;
 
-    //       sessionStorage.setItem('school_subject_id', res.id);
-    //       this.router.navigateByUrl('/home/subjects/view-subject');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isSubjectSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          sessionStorage.setItem('school_subject_id', res.id);
+          this.router.navigateByUrl('/home/subjects/view-subject');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isSubjectSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNewSubjectCodeConfig(){
+    this.subjectsApi.getNewSubjectCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.subjectForm.subjectForm.controls.subjectCode.disable();
+
+          if(res.code)
+            this.subjectForm.subjectForm.controls.subjectCode.setValue(res.code);
+          else
+            this.subjectForm.subjectForm.controls.subjectCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

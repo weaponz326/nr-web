@@ -9,7 +9,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <button class="btn btn-secondary page-add-btn" routerLink="/home/subjects/add-subject">Add Subject</button>
-                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountSubject()">
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountSubject(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -49,7 +49,7 @@
                             <tr class="bg-light">
                                 <td colspan="3">
                                     <app-table-paginator
-                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountSubject()"
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountSubject($event, 20, '')"
                                     ></app-table-paginator>
                                 </td>
                             </tr>

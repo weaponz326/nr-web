@@ -59,8 +59,6 @@ export class ParentsApiService {
 
   // parent wards
 
-  // parent wards
-
   public getParentParentWard(): Observable<any>{
     return this.http.get(this.parentsUrl + "parent-ward?parent=" + sessionStorage.getItem('school_parent_id'), this.authHeaders.headers);
   }

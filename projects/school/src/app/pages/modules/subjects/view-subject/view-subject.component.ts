@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { SubjectFormComponent } from '../subject-form/subject-form.component';
 import { SubjectTeachersComponent } from '../subject-teachers/subject-teachers.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { DeleteModalComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal/delete-modal.component'
+import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { SubjectsApiService } from 'projects/school/src/app/services/modules/subjects-api/subjects-api.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { SubjectsApiService } from 'projects/school/src/app/services/modules-api/subjects-api/subjects-api.service';
 // import { SubjectsPrintService } from 'projects/school/src/app/services/printing/subjects-print/subjects-print.service';
 
-// import { Subject } from 'projects/school/src/app/models/modules/subjects/subjects.model';
+import { Subject } from 'projects/school/src/app/models/modules/subjects/subjects.model';
 
 
 @Component({
@@ -21,14 +22,15 @@ export class ViewSubjectComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private subjectsApi: SubjectsApiService,
+    private customCookie: CustomCookieService,
+    private subjectsApi: SubjectsApiService,
     // private subjectsPrint: SubjectsPrintService,
   ) { }
 
   @ViewChild('subjectFormComponentReference', { read: SubjectFormComponent, static: false }) subjectForm!: SubjectFormComponent;
   @ViewChild('subjectTeachersComponentReference', { read: SubjectTeachersComponent, static: false }) subjectTeachers!: SubjectTeachersComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('deleteModalComponentReference', { read: DeleteModalComponent, static: false }) deleteModal!: DeleteModalComponent;
+  @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   navHeading: any[] = [
     { text: "All Subjects", url: "/home/subjects/all-subjects" },
@@ -48,54 +50,56 @@ export class ViewSubjectComponent implements OnInit {
   getSubject(){
     this.isSubjectLoading = true;
 
-    // this.subjectsApi.getSubject()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.subjectData = res;
-    //       this.isSubjectLoading = false;
+    this.subjectsApi.getSubject()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.subjectData = res;
+          this.isSubjectLoading = false;
 
-    //       this.subjectForm.subjectForm.controls.subjectCode.setValue(this.subjectData.data().subject_code);
-    //       this.subjectForm.subjectForm.controls.subjectName.setValue(this.subjectData.data().subject_name);
-    //       this.subjectForm.subjectForm.controls.department.setValue(this.subjectData.data().department.data.department_name);
-    //       this.subjectForm.subjectForm.controls.description.setValue(this.subjectData.data().description);
+          this.subjectForm.subjectForm.controls.subjectCode.setValue(this.subjectData.subject_code);
+          this.subjectForm.subjectForm.controls.subjectName.setValue(this.subjectData.subject_name);
+          this.subjectForm.subjectForm.controls.department.setValue(this.subjectData.department.department_name);
+          this.subjectForm.subjectForm.controls.description.setValue(this.subjectData.description);
 
-    //       this.subjectForm.selectedDepartmentId = this.subjectData.data().department.id;
-    //       this.subjectForm.selectedDepartmentData = this.subjectData.data().department.data;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isSubjectLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          this.subjectForm.selectedDepartmentId = this.subjectData.data().department.id;
+          this.subjectForm.selectedDepartmentData = this.subjectData.data().department.data;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isSubjectLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  updateSubject(){
+  putSubject(){
     console.log('u are saving a new subject');
 
-    var data = {
-      subject_code: this.subjectForm.subjectForm.controls.subjectCode.value,
-      subject_name: this.subjectForm.subjectForm.controls.subjectName.value,
-      description: this.subjectForm.subjectForm.controls.description.value,
+    var data: Subject = {
+      account: this.customCookie.getCookie('school_id') as string,
+      subject_code: this.subjectForm.subjectForm.controls.subjectCode.value as string,
+      subject_name: this.subjectForm.subjectForm.controls.subjectName.value as string,
+      description: this.subjectForm.subjectForm.controls.description.value as string,
       department: this.subjectForm.selectedDepartmentId,
+      // terms: [{id: this.subjectForm.selectedTermId}],
     }
 
     console.log(data);
     this.isSubjectSaving = true;
 
-    // this.subjectsApi.updateSubject(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.updateTerm();
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isSubjectSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.subjectsApi.putSubject(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isSubjectSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isSubjectSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateTerm(){
@@ -131,23 +135,23 @@ export class ViewSubjectComponent implements OnInit {
   }
 
   confirmDelete(){
-    // this.deleteModal.openModal();
+    this.deleteModal.openModal();
   }
 
   deleteSubject(){
     this.isSubjectDeleting = true;
 
-    // this.subjectsApi.deleteSubject()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/subjects/all-subjects');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.subjectsApi.deleteSubject()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/subjects/all-subjects');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

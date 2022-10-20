@@ -1,7 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
@@ -11,99 +15,77 @@ import { ActiveTermService } from 'projects/school/src/app/services/active-term/
 export class SubjectsApiService {
 
   constructor(
-    private afs: AngularFirestore,
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
     private activeTerm: ActiveTermService
   ) { }
 
-  subjectRef = this.afs.collection('school/module_subjects/school_subject');
-  subjectTeacherRef = this.afs.collection('school/module_subjects/school_subject_teacher');
+  subjectsUrl = environment.apiUrl + 'school-modules/subjects/';
 
   // subjects
 
-  createSubject(subject: any){
-    return this.subjectRef.add(subject);
+  // create and get all subject belonging to user
+
+  public getAccountSubject(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.subjectsUrl + "subject?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&subjecting=" + sortField, this.authHeaders.headers);
   }
 
-  getSubject(){
-    return this.subjectRef.doc(String(sessionStorage.getItem('school_subject_id'))).ref.get();
+  public postSubject(subject: any): Observable<any>{
+    return this.http.post(this.subjectsUrl + "subject/", subject, this.authHeaders.headers);
   }
 
-  updateSubject(subject: any){
-    return this.subjectRef.doc(String(sessionStorage.getItem('school_subject_id'))).update(subject);
+  public getSubject(): Observable<any>{
+    return this.http.get(this.subjectsUrl + "subject/" + sessionStorage.getItem('school_subject_id'), this.authHeaders.headers);
   }
 
-  deleteSubject(){
-    return this.subjectRef.doc(String(sessionStorage.getItem('school_subject_id'))).delete();
+  public putSubject(subject: any): Observable<any>{
+    return this.http.put(this.subjectsUrl + "subject/" + sessionStorage.getItem('school_subject_id'), subject, this.authHeaders.headers);
   }
 
-  getAccountSubject(sorting: any, pageSize: any){
-    return this.subjectRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountSubjectNext(sorting: any, pageSize: any, pageStart: any){
-    return this.subjectRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountSubjectPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.subjectRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAllAccountSubject(){
-    return this.subjectRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public deleteSubject(): Observable<any>{
+    return this.http.delete(this.subjectsUrl + "subject/" + sessionStorage.getItem('school_subject_id'), this.authHeaders.headers);
   }
 
   // subject teachers
 
-  createSubjectTeacher(subject_teacher: any){
-    return this.subjectTeacherRef.add(subject_teacher);
+  public getSubjectSubjectTeacher(): Observable<any>{
+    return this.http.get(this.subjectsUrl + "subject-teacher?subject=" + sessionStorage.getItem('school_subject_id'), this.authHeaders.headers);
   }
 
-  getSubjectTeacher(){
-    return this.subjectTeacherRef.doc(String(sessionStorage.getItem('school_subject_teacher_id'))).ref.get();
+  public postSubjectTeacher(teacher: any): Observable<any>{
+    return this.http.post(this.subjectsUrl + "subject-teacher/", teacher, this.authHeaders.headers);
   }
 
-  updateSubjectTeacher(subject_teacher: any){
-    return this.subjectTeacherRef.doc(String(sessionStorage.getItem('school_subject_teacher_id'))).update(subject_teacher);
+  public getSubjectTeacher(teacherId: any): Observable<any>{
+    return this.http.get(this.subjectsUrl + "subject-teacher/" + teacherId, this.authHeaders.headers);
   }
 
-  deleteSubjectTeacher(){
-    return this.subjectTeacherRef.doc(String(sessionStorage.getItem('school_subject_teacher_id'))).delete();
+  public putSubjectTeacher(teacherId: any, teacherData: any): Observable<any>{
+    return this.http.put(this.subjectsUrl + "subject-teacher/" + teacherId, teacherData, this.authHeaders.headers);
   }
 
-  getSubjectSubjectTeacher(){
-    return this.subjectTeacherRef.ref
-      .where("subject", "==", sessionStorage.getItem('school_subject_id'))
-      .orderBy("created_at", "desc")
-      .get();
+  public deleteSubjectTeacher(teacherId: any): Observable<any>{
+    return this.http.delete(this.subjectsUrl + "subject-teacher/" + teacherId, this.authHeaders.headers);
+  }
+
+  // config
+
+  public getSubjectCodeConfig(): Observable<any>{
+    return this.http.get(this.subjectsUrl + "config/subject-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
+  }
+
+  public putSubjectCodeConfig(subject: any): Observable<any>{
+    return this.http.put(this.subjectsUrl + "config/subject-code/" + this.customCookie.getCookie('school_id'), subject, this.authHeaders.headers);
+  }
+
+  public getNewSubjectCodeConfig(): Observable<any>{
+    return this.http.get(this.subjectsUrl + "config/new-subject-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
   // dashboard
-
-  getWeekSubject(startDate: any, endDate: any){
-    return this.subjectRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("created_at", "<", startDate).where("created_at", ">", endDate)
-      .get();
-  }
 
 }
