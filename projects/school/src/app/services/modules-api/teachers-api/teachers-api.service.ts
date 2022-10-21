@@ -1,7 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
@@ -11,64 +15,60 @@ import { ActiveTermService } from 'projects/school/src/app/services/active-term/
 export class TeachersApiService {
 
   constructor(
-    private afs: AngularFirestore,
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
     private activeTerm: ActiveTermService
   ) { }
 
-  teacherRef = this.afs.collection('school/module_teachers/school_teacher');
+  teachersUrl = environment.apiUrl + 'school-modules/teachers/';
 
   // teachers
 
-  createTeacher(teacher: any){
-    return this.teacherRef.add(teacher);
+  // create and get all teacher belonging to user
+
+  public getAccountTeacher(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.teachersUrl + "teacher?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&teachering=" + sortField, this.authHeaders.headers);
   }
 
-  getTeacher(){
-    return this.teacherRef.doc(String(sessionStorage.getItem('school_teacher_id'))).ref.get();
+  public postTeacher(teacher: any): Observable<any>{
+    return this.http.post(this.teachersUrl + "teacher/", teacher, this.authHeaders.headers);
   }
 
-  updateTeacher(teacher: any){
-    return this.teacherRef.doc(String(sessionStorage.getItem('school_teacher_id'))).update(teacher);
+  public getTeacher(): Observable<any>{
+    return this.http.get(this.teachersUrl + "teacher/" + sessionStorage.getItem('school_teacher_id'), this.authHeaders.headers);
   }
 
-  deleteTeacher(){
-    return this.teacherRef.doc(String(sessionStorage.getItem('school_teacher_id'))).delete();
+  public putTeacher(teacher: any): Observable<any>{
+    return this.http.put(this.teachersUrl + "teacher/" + sessionStorage.getItem('school_teacher_id'), teacher, this.authHeaders.headers);
   }
 
-  getAccountTeacher(sorting: any, pageSize: any){
-    return this.teacherRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteTeacher(): Observable<any>{
+    return this.http.delete(this.teachersUrl + "teacher/" + sessionStorage.getItem('school_teacher_id'), this.authHeaders.headers);
   }
 
-  getAccountTeacherNext(sorting: any, pageSize: any, pageStart: any){
-    return this.teacherRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  public putTeacherPhoto(photo: File) {
+    let formParams = new FormData();
+    formParams.append('photo', photo);
+    formParams.append('account', this.customCookie.getCookie('school') as string);
+    return this.http.put(this.teachersUrl + "teacher/" + sessionStorage.getItem('school_teacher_id'), formParams, this.authHeaders.headers)
   }
 
-  getAccountTeacherPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.teacherRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  // config
+
+  public getTeacherCodeConfig(): Observable<any>{
+    return this.http.get(this.teachersUrl + "config/teacher-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getAllAccountTeacher(){
-    return this.teacherRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public putTeacherCodeConfig(teacher: any): Observable<any>{
+    return this.http.put(this.teachersUrl + "config/teacher-code/" + this.customCookie.getCookie('school_id'), teacher, this.authHeaders.headers);
+  }
+
+  public getNewTeacherCodeConfig(): Observable<any>{
+    return this.http.get(this.teachersUrl + "config/new-teacher-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
 }

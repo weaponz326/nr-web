@@ -76,7 +76,7 @@ export class NewStudentComponent implements OnInit {
             this.putStudentImage();
           }
           else{
-            this.router.navigateByUrl('/home/student/view-student');                    
+            this.router.navigateByUrl('/home/students/view-student');                    
           }
         },
         error: (err) => {
@@ -92,7 +92,7 @@ export class NewStudentComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.router.navigateByUrl('/home/student/view-student');                    
+          this.router.navigateByUrl('/home/students/view-student');                    
         },
         error: (err) => {
           console.log(err);          
