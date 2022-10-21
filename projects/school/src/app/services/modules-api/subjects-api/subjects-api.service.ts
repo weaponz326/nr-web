@@ -31,7 +31,7 @@ export class SubjectsApiService {
     return this.http.get(this.subjectsUrl + "subject?account=" + this.customCookie.getCookie('school_id')
       + "&page=" + page
       + "&size=" + size
-      + "&subjecting=" + sortField, this.authHeaders.headers);
+      + "&orderinging=" + sortField, this.authHeaders.headers);
   }
 
   public postSubject(subject: any): Observable<any>{
