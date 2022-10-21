@@ -6,7 +6,7 @@ import { NewReportComponent } from '../new-report/new-report.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { ReportsApiService } from 'projects/school/src/app/services/modules/reports-api/reports-api.service';
+import { ReportsApiService } from 'projects/school/src/app/services/modules-api/reports-api/reports-api.service';
 // import { ReportsPrintService } from 'projects/school/src/app/services/printing/reports-print/reports-print.service';
 
 
@@ -20,7 +20,7 @@ export class AllReportsComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private reportsApi: ReportsApiService,
+    private reportsApi: ReportsApiService,
     // private reportPrint: ReportPrintService,
   ) { }
 
@@ -47,33 +47,41 @@ export class AllReportsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveTerm();
-    this.getAccountReport();
+    this.getAccountReport(1, 20, "-created_at");
   }
 
   getActiveTerm(){
     // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
   }
 
-  getAccountReport(){
+  getAccountReport(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.reportsApi.getAccountReport(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.reportsGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.reportsApi.getAccountReport(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.reportsGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountReport();
+    this.getAccountReport(1, 20, column);
 
     this.currentSortColumn = column;
   }
@@ -95,7 +103,7 @@ export class AllReportsComponent implements OnInit {
 
     // this.activeTerm.setActiveTerm(termData);
     this.getActiveTerm();
-    this.getAccountReport();
+    this.getAccountReport(1, 20, '-created_at');
   }
 
   onPrint(){

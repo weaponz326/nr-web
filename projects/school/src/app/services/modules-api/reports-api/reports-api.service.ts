@@ -1,6 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
 @Injectable({
@@ -8,107 +14,72 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ReportsApiService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
+    private activeTerm: ActiveTermService
+  ) { }
 
-  reportRef = this.afs.collection('school/module_reports/school_report');
-  reportAssessmentRef = this.afs.collection('school/module_reports/school_report_assessment');
-  reportSheetRef = this.afs.collection('school/module_reports/school_report_sheet');
+  reportsUrl = environment.apiUrl + 'school-modules/reports/';
 
-  // report
+  // reports
 
-  createReport(report: any){
-    return this.reportRef.add(report);
+  // create and get all report belonging to user
+
+  public getAccountReport(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.reportsUrl + "report?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&reporting=" + sortField, this.authHeaders.headers);
   }
 
-  getReport(){
-    return this.reportRef.doc(String(sessionStorage.getItem('school_report_id'))).ref.get();
+  public postReport(report: any): Observable<any>{
+    return this.http.post(this.reportsUrl + "report/", report, this.authHeaders.headers);
   }
 
-  updateReport(report: any){
-    return this.reportRef.doc(String(sessionStorage.getItem('school_report_id'))).update(report);
+  public getReport(): Observable<any>{
+    return this.http.get(this.reportsUrl + "report/" + sessionStorage.getItem('school_report_id'), this.authHeaders.headers);
   }
 
-  deleteReport(){
-    return this.reportRef.doc(String(sessionStorage.getItem('school_report_id'))).delete();
+  public putReport(report: any): Observable<any>{
+    return this.http.put(this.reportsUrl + "report/" + sessionStorage.getItem('school_report_id'), report, this.authHeaders.headers);
   }
 
-  getAccountReport(sorting: any, pageSize: any){
-    return this.reportRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteReport(): Observable<any>{
+    return this.http.delete(this.reportsUrl + "report/" + sessionStorage.getItem('school_report_id'), this.authHeaders.headers);
   }
 
-  getAccountReportNext(sorting: any, pageSize: any, pageStart: any){
-    return this.reportRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  // report assessments
+
+  public getReportAssessment(): Observable<any>{
+    return this.http.get(this.reportsUrl + "report-assessment?report=" + sessionStorage.getItem('school_report_id'));
   }
 
-  getAccountReportPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.reportRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  public postReportAssessment(reportAssessment: any): Observable<any>{
+    return this.http.post(this.reportsUrl + "report-assessment/", reportAssessment, this.authHeaders.headers);
   }
 
-  getAllAccountReport(){
-    return this.reportRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy("created_by" ,"desc")
-      .get();
-  }
-
-  // report report class
-
-  createReportAssessment(reportAssessment: any){
-    return this.reportAssessmentRef.add(reportAssessment);
-  }
-
-  getReportAssessment(){
-    return this.reportAssessmentRef.doc(String(sessionStorage.getItem('school_report_assessment_id'))).ref.get();
-  }
-
-  updateReportAssessment(reportAssessment: any){
-    return this.reportAssessmentRef.doc(String(sessionStorage.getItem('school_report_assessment_id'))).update(reportAssessment);
-  }
-
-  deleteReportAssessment(){
-    return this.reportAssessmentRef.doc(String(sessionStorage.getItem('school_report_assessment_id'))).delete();
-  }
-
-  getReportReportAssessment(){
-    return this.reportAssessmentRef.ref
-      .where("report", "==", sessionStorage.getItem('school_report_id'))
-      .orderBy("class.data.assessment_name", "asc")
-      .get();
+  public deleteReportAssessment(reportId: any): Observable<any>{
+    return this.http.delete(this.reportsUrl + "report_assessment/" + reportId, this.authHeaders.headers);
   }
 
   // report sheet
 
-  createReportSheet(sheet: any){
-    return this.reportSheetRef.doc(String(sessionStorage.getItem('school_report_id'))).set({sheet: sheet});
+
+  
+  // config
+
+  public getReportCodeConfig(): Observable<any>{
+    return this.http.get(this.reportsUrl + "config/report-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getReportSheet(){
-    return this.reportSheetRef.doc(String(sessionStorage.getItem('school_report_id'))).ref.get();
+  public putReportCodeConfig(report: any): Observable<any>{
+    return this.http.put(this.reportsUrl + "config/report-code/" + this.customCookie.getCookie('school_id'), report, this.authHeaders.headers);
   }
 
-  updateReportSheet(sheet: any){
-    return this.reportSheetRef.doc(String(sessionStorage.getItem('school_report_id'))).update(sheet);
+  public getNewReportCodeConfig(): Observable<any>{
+    return this.http.get(this.reportsUrl + "config/new-report-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
-
-  deleteReportSheet(){
-    return this.reportSheetRef.doc(String(sessionStorage.getItem('school_report_id'))).delete();
-  }
-
+  
 }

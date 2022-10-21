@@ -6,15 +6,15 @@ import { ReportAssessmentsComponent } from '../report-assessments/report-assessm
 import { ClassSheetComponent } from '../class-sheet/class-sheet.component';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { DeleteModalComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal/delete-modal.component'
+import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 // import { SelectClassComponent } from '../../../select-windows/classes-windows/select-class/select-class.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { ReportsApiService } from 'projects/school/src/app/services/modules/reports-api/reports-api.service';
+import { ReportsApiService } from 'projects/school/src/app/services/modules-api/reports-api/reports-api.service';
 // import { ReportsPrintService } from 'projects/school/src/app/services/printing/reports-print/reports-print.service';
 
-// import { Report } from 'projects/school/src/app/models/modules/reports/reports.model';
+import { Report } from 'projects/school/src/app/models/modules/reports/reports.model';
 
 
 @Component({
@@ -27,12 +27,12 @@ export class ClassReportComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private reportsApi: ReportsApiService,
+    private reportsApi: ReportsApiService,
     // private reportPrint: ReportPrintService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('deleteModalComponentReference', { read: DeleteModalComponent, static: false }) deleteModal!: DeleteModalComponent;
+  @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
   // @ViewChild('selectClassComponentReference', { read: SelectClassComponent, static: false }) selectClass!: SelectClassComponent;
   @ViewChild('reportAssessmentsComponentReference', { read: ReportAssessmentsComponent, static: false }) reportAssessments!: ReportAssessmentsComponent;
@@ -40,7 +40,7 @@ export class ClassReportComponent implements OnInit {
 
   navHeading: any[] = [
     { text: "All Report", url: "/home/report/all-report" },
-    { text: "View Report", url: "/home/report/view-report" },
+    { text: "Class Report", url: "/home/report/view-report" },
   ];
 
   reportFormData: any;
@@ -76,30 +76,29 @@ export class ClassReportComponent implements OnInit {
   getReport(){
     this.isReportLoading = true;
 
-    // this.reportsApi.getReport()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.reportFormData = res;
-    //       this.isReportLoading = false;
+    this.reportsApi.getReport()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.reportFormData = res;
+          this.isReportLoading = false;
 
-    //       this.reportForm.controls.reportCode.setValue(this.reportFormData.data().report_code);
-    //       this.reportForm.controls.reportName.setValue(this.reportFormData.data().report_name);
-    //       this.reportForm.controls.reportDate.setValue(this.reportFormData.data().report_date);
+          this.reportForm.controls.reportCode.setValue(this.reportFormData.report_code);
+          this.reportForm.controls.reportName.setValue(this.reportFormData.report_name);
+          this.reportForm.controls.reportDate.setValue(this.reportFormData.report_date);
 
-    //       this.selectedClassId = this.reportFormData.data().clase.id;
-    //       this.selectedClassData = this.reportFormData.data().clase.data;
-    //       this.reportForm.controls.clase.setValue(this.reportFormData.data().clase.data.class_name);
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isReportLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          this.selectedClassId = this.reportFormData.clase.id;
+          this.reportForm.controls.clase.setValue(this.reportFormData.clase.class_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isReportLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  updateReport(){
+  putReport(){
     let data = {
       report_code: this.reportForm.controls.reportCode.value,
       report_name: this.reportForm.controls.reportName.value,
@@ -111,39 +110,39 @@ export class ClassReportComponent implements OnInit {
     console.log(data);
     this.isReportSaving = true;
 
-    // this.reportsApi.updateReport(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isReportSaving = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isReportSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.reportsApi.putReport(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isReportSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isReportSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
-    // this.deleteModal.openModal();
+    this.deleteModal.openModal();
   }
 
   deleteReport(){
     this.isReportDeleting = true;
 
-    // this.reportsApi.deleteReport()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
+    this.reportsApi.deleteReport()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/reports/all-reports');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          this.router.navigateByUrl('/home/reports/all-reports');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onAssessmentSelected(assessmentData: any){
@@ -159,9 +158,9 @@ export class ClassReportComponent implements OnInit {
   onTermSelected(termData: any){
     console.log(termData);
 
-    this.reportForm.controls.term.setValue(termData.data().term.term_name);
+    this.reportForm.controls.term.setValue(termData.term.term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
+    this.selectedTermData = termData;
   }
 
   openClassWindow(){
@@ -172,9 +171,9 @@ export class ClassReportComponent implements OnInit {
   onClassSelected(classData: any){
     console.log(classData);
 
-    this.reportForm.controls.clase.setValue(classData.data().clase.class_name);
+    this.reportForm.controls.clase.setValue(classData.clase.class_name);
     this.selectedClassId = classData.id;
-    this.selectedClassData = classData.data();
+    this.selectedClassData = classData;
   }
 
   onPrint(){
