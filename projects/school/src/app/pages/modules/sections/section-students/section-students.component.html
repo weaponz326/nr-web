@@ -19,8 +19,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of classStudentsGridData; index as i">
-                        <td>{{data?.data().student.data.student_code}}</td>
-                        <td>{{data?.data().student.data.frist_name}} {{data?.data().student.data.last_name}}</td>
+                        <td>{{data?.student.data.student_code}}</td>
+                        <td>{{data?.student.data.frist_name}} {{data?.student.data.last_name}}</td>
                         <td class="p-0">
                             <button class="btn btn-sm border w-100" (click)="gotoStudent(data.id)"><i class="bi bi-eye"></i></button>
                             <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
@@ -65,6 +65,10 @@
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteSectionStudent()"></app-delete-modal-two>
 
 <!-- select table window component -->
 

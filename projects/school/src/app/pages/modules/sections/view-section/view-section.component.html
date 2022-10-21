@@ -11,7 +11,7 @@
             <div class="col-md-6">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/section/all-section">Cancel</button>
                 <button [disabled]="isSectionDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isSectionSaving" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateSection()">Save</button>
+                <button [disabled]="isSectionSaving" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putSection()">Save</button>
             </div>
         </div>
         <div *ngIf="isSectionLoading" class="row page-form">
@@ -40,4 +40,4 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteSection()"></app-delete-modal> -->
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteSection()"></app-delete-modal-one>

@@ -1,7 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
@@ -11,116 +15,75 @@ import { ActiveTermService } from 'projects/school/src/app/services/active-term/
 export class SectionsApiService {
 
   constructor(
-    private afs: AngularFirestore,
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
     private activeTerm: ActiveTermService
   ) { }
 
-  sectionRef = this.afs.collection('school/module_sections/school_section');
-  sectionStudentRef = this.afs.collection('school/module_sections/school_section_student');
+  sectionsUrl = environment.apiUrl + 'school-modules/sections/';
 
-  // section
+  // sections
 
-  createSection(section: any){
-    return this.sectionRef.add(section);
+  public getAccountSection(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.sectionsUrl + "section?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&orderinging=" + sortField, this.authHeaders.headers);
   }
 
-  getSection(){
-    return this.sectionRef.doc(String(sessionStorage.getItem('school_section_id'))).ref.get();
+  public postSection(section: any): Observable<any>{
+    return this.http.post(this.sectionsUrl + "section/", section, this.authHeaders.headers);
   }
 
-  updateSection(section: any){
-    return this.sectionRef.doc(String(sessionStorage.getItem('school_section_id'))).update(section);
+  public getSection(): Observable<any>{
+    return this.http.get(this.sectionsUrl + "section/" + sessionStorage.getItem('school_section_id'), this.authHeaders.headers);
   }
 
-  deleteSection(){
-    return this.sectionRef.doc(String(sessionStorage.getItem('school_section_id'))).delete();
+  public putSection(section: any): Observable<any>{
+    return this.http.put(this.sectionsUrl + "section/" + sessionStorage.getItem('school_section_id'), section, this.authHeaders.headers);
   }
 
-  getAccountSection(sorting: any, pageSize: any){
-    return this.sectionRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteSection(): Observable<any>{
+    return this.http.delete(this.sectionsUrl + "section/" + sessionStorage.getItem('school_section_id'), this.authHeaders.headers);
   }
 
-  getAccountSectionNext(sorting: any, pageSize: any, pageStart: any){
-    return this.sectionRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  // section students
+
+  public getSectionSectionStudent(): Observable<any>{
+    return this.http.get(this.sectionsUrl + "section-student?section=" + sessionStorage.getItem('school_section_id'), this.authHeaders.headers);
   }
 
-  getAccountSectionPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.sectionRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  public postSectionStudent(student: any): Observable<any>{
+    return this.http.post(this.sectionsUrl + "section-student/", student, this.authHeaders.headers);
   }
 
-  getAllAccountSection(){
-    return this.sectionRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public getSectionStudent(studentId: any): Observable<any>{
+    return this.http.get(this.sectionsUrl + "section-student/" + studentId, this.authHeaders.headers);
   }
 
-  // sectionStudent
-
-  createSectionStudent(sectionStudent: any){
-    return this.sectionStudentRef.add(sectionStudent);
+  public putSectionStudent(studentId: any, studentData: any): Observable<any>{
+    return this.http.put(this.sectionsUrl + "section-student/" + studentId, studentData, this.authHeaders.headers);
   }
 
-  getSectionStudent(){
-    return this.sectionStudentRef.doc(String(sessionStorage.getItem('school_section_student_id'))).ref.get();
+  public deleteSectionStudent(studentId: any): Observable<any>{
+    return this.http.delete(this.sectionsUrl + "section-student/" + studentId, this.authHeaders.headers);
   }
 
-  updateSectionStudent(sectionStudent: any){
-    return this.sectionStudentRef.doc(String(sessionStorage.getItem('school_section_student_id'))).update(sectionStudent);
+  // config
+
+  public getSectionCodeConfig(): Observable<any>{
+    return this.http.get(this.sectionsUrl + "config/section-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  deleteSectionStudent(){
-    return this.sectionStudentRef.doc(String(sessionStorage.getItem('school_section_student_id'))).delete();
+  public putSectionCodeConfig(section: any): Observable<any>{
+    return this.http.put(this.sectionsUrl + "config/section-code/" + this.customCookie.getCookie('school_id'), section, this.authHeaders.headers);
   }
 
-  getSectionSectionStudent(sorting: any, pageSize: any){
-    return this.sectionStudentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public getNewSectionCodeConfig(): Observable<any>{
+    return this.http.get(this.sectionsUrl + "config/new-section-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getSectionSectionStudentNext(sorting: any, pageSize: any, pageStart: any){
-    return this.sectionStudentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getSectionSectionStudentPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.sectionStudentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAllSectionSectionStudent(){
-    return this.sectionStudentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
-  }
+  // dashboard
 
 }
