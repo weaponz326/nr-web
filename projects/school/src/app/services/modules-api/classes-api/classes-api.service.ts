@@ -1,7 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
@@ -11,147 +15,108 @@ import { ActiveTermService } from 'projects/school/src/app/services/active-term/
 export class ClassesApiService {
 
   constructor(
-    private afs: AngularFirestore,
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
     private activeTerm: ActiveTermService
   ) { }
 
-  classRef = this.afs.collection('school/module_classes/school_class');
-  classStudentRef = this.afs.collection('school/module_classes/school_class_student');
-  departmentRef = this.afs.collection('school/module_classes/school_department');
+  classUrl = environment.apiUrl + 'school-modules/classes/';
 
   // classes
 
-  createClass(clase: any){
-    return this.classRef.add(clase);
+  // create and get all classes belonging to an account
+
+  public getAccountClass(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.classUrl + "class?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&orderinging=" + sortField, this.authHeaders.headers);
   }
 
-  getClass(){
-    return this.classRef.doc(String(sessionStorage.getItem('school_class_id'))).ref.get();
+  public postClass(clase: any): Observable<any>{
+    return this.http.post(this.classUrl + "class/", clase, this.authHeaders.headers);
   }
 
-  updateClass(clase: any){
-    return this.classRef.doc(String(sessionStorage.getItem('school_class_id'))).update(clase);
+  public getClass(): Observable<any>{
+    return this.http.get(this.classUrl + "class/" + sessionStorage.getItem('school_class_id'), this.authHeaders.headers);
   }
 
-  deleteClass(){
-    return this.classRef.doc(String(sessionStorage.getItem('school_class_id'))).delete();
+  public putClass(clase: any): Observable<any>{
+    return this.http.put(this.classUrl + "class/" + sessionStorage.getItem('school_class_id'), clase, this.authHeaders.headers);
   }
 
-  getAccountClass(sorting: any, pageSize: any){
-    return this.classRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountClassNext(sorting: any, pageSize: any, pageStart: any){
-    return this.classRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountClassPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.classRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAllAccountClass(){
-    return this.classRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy("created_by" ,"desc")
-      .get();
+  public deleteClass(): Observable<any>{
+    return this.http.delete(this.classUrl + "class/" + sessionStorage.getItem('school_class_id'), this.authHeaders.headers);
   }
 
   // class students
 
-  createClassStudent(class_student: any){
-    return this.classStudentRef.add(class_student);
+  public getClassClassStudent(): Observable<any>{
+    return this.http.get(this.classUrl + "class-student?class=" + sessionStorage.getItem('school_class_id'), this.authHeaders.headers);
   }
 
-  getClassStudent(){
-    return this.classStudentRef.doc(String(sessionStorage.getItem('school_class_student_id'))).ref.get();
+  public postClassStudent(student: any): Observable<any>{
+    return this.http.post(this.classUrl + "class-student/", student, this.authHeaders.headers);
   }
 
-  updateClassStudent(class_student: any){
-    return this.classStudentRef.doc(String(sessionStorage.getItem('school_class_student_id'))).update(class_student);
+  public getClassStudent(studentId: any): Observable<any>{
+    return this.http.get(this.classUrl + "class-student/" + studentId, this.authHeaders.headers);
   }
 
-  deleteClassStudent(){
-    return this.classStudentRef.doc(String(sessionStorage.getItem('school_class_student_id'))).delete();
+  public putClassStudent(studentId: any, studentData: any): Observable<any>{
+    return this.http.put(this.classUrl + "class-student/" + studentId, studentData, this.authHeaders.headers);
   }
 
-  getClassClassStudent(){
-    return this.classStudentRef.ref
-      .where("clase", "==", sessionStorage.getItem('school_class_id'))
-      .orderBy("created_at", "desc")
-      .get();
+  public deleteClassStudent(studentId: any): Observable<any>{
+    return this.http.delete(this.classUrl + "class-student/" + studentId, this.authHeaders.headers);
   }
 
-  // department
+  // create and get all departmentes belonging to an account
 
-  createDepartment(departmentData: any){
-    return this.departmentRef.add(departmentData);
+  public getAccountDepartment(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.classUrl + "department?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&orderinging=" + sortField, this.authHeaders.headers);
   }
 
-  getDepartment(departmentId: any){
-    return this.departmentRef.doc(departmentId).ref.get();
+  public postDepartment(clase: any): Observable<any>{
+    return this.http.post(this.classUrl + "department/", clase, this.authHeaders.headers);
   }
 
-  updateDepartment(departmentId: any, departmentData: any){
-    return this.departmentRef.doc(departmentId).update(departmentData);
+  public getDepartment(): Observable<any>{
+    return this.http.get(this.classUrl + "department/" + sessionStorage.getItem('school_department_id'), this.authHeaders.headers);
   }
 
-  deleteDepartment(departmentId: any){
-    return this.departmentRef.doc(departmentId).delete();
+  public putDepartment(clase: any): Observable<any>{
+    return this.http.put(this.classUrl + "department/" + sessionStorage.getItem('school_department_id'), clase, this.authHeaders.headers);
   }
 
-  getAccountDepartment(sorting: any, pageSize: any){
-    return this.departmentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteDepartment(): Observable<any>{
+    return this.http.delete(this.classUrl + "department/" + sessionStorage.getItem('school_department_id'), this.authHeaders.headers);
   }
 
-  getAccountDepartmentNext(sorting: any, pageSize: any, pageStart: any){
-    return this.departmentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  // department classs
+
+  public getDepartmentDepartmentClass(): Observable<any>{
+    return this.http.get(this.classUrl + "department-class?department=" + sessionStorage.getItem('school_department_id'), this.authHeaders.headers);
   }
 
-  getAccountDepartmentPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.departmentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  public postDepartmentClass(clase: any): Observable<any>{
+    return this.http.post(this.classUrl + "department-class/", clase, this.authHeaders.headers);
   }
 
-  getAllAccountDepartment(){
-    return this.departmentRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("terms", "array-contains", this.activeTerm.getActiveTerm())
-      .orderBy("created_by" ,"desc")
-      .get();
+  public getDepartmentClass(classId: any): Observable<any>{
+    return this.http.get(this.classUrl + "department-class/" + classId, this.authHeaders.headers);
+  }
+
+  public putDepartmentClass(classId: any, classData: any): Observable<any>{
+    return this.http.put(this.classUrl + "department-class/" + classId, classData, this.authHeaders.headers);
+  }
+
+  public deleteDepartmentClass(classId: any): Observable<any>{
+    return this.http.delete(this.classUrl + "department-class/" + classId, this.authHeaders.headers);
   }
 
 }

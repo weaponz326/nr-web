@@ -23,7 +23,6 @@ export class DepartmentFormComponent implements OnInit {
   selectedTeacherData: any = {};
 
   departmentForm = new FormGroup({
-    departmentCode: new FormControl(''),
     departmentName: new FormControl(''),
     departmentDescription: new FormControl(''),
     term: new FormControl(''),

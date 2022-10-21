@@ -8,6 +8,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AllDepartmentsComponent } from './all-departments/all-departments.component';
 import { NewClassComponent } from './new-class/new-class.component';
+import { AddDepartmentComponent } from './add-department/add-department.component';
+import { EditDepartmentComponent } from './edit-department/edit-department.component';
 
 
 const routes: Routes = [
@@ -21,7 +23,9 @@ const routes: Routes = [
       { path: "all-classes", component: AllClassesComponent },
       { path: "new-class", component: NewClassComponent },
       { path: "view-class", component: ViewClassComponent },
-      { path: "all-departments", component: AllDepartmentsComponent }
+      { path: "all-departments", component: AllDepartmentsComponent },
+      { path: "new-department", component: AddDepartmentComponent },
+      { path: "view-department", component: EditDepartmentComponent }
     ]
   }
 ];

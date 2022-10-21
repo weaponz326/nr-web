@@ -1,9 +1,14 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { DepartmentFormComponent } from '../department-form/department-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { Department } from 'projects/school/src/app/models/modules/classes/classes.model';
+import { ClassesApiService } from 'projects/school/src/app/services/modules-api/classes-api/classes-api.service';
+// import { ClassesPrintService } from 'projects/school/src/app/services/printing/classes-print/classes-print.service';
+
+import { Department } from 'projects/school/src/app/models/modules/classes/classes.model';
 
 
 @Component({
@@ -13,59 +18,105 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 })
 export class EditDepartmentComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private classesApi: ClassesApiService,
+    // private classesPrint: ClassesPrintService,
+  ) { }
 
-  @Output() saveDepartmentEvent = new EventEmitter<any>();
-  @Output() deleteDepartmentEvent = new EventEmitter<any>();
-
-  @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
-  @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('departmentFormComponentReference', { read: DepartmentFormComponent, static: false }) departmentForm!: DepartmentFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
+
+  navHeading: any[] = [
+    { text: "All Departments", url: "/home/classes/all-departments" },
+    { text: "View Department", url: "/home/classes/view-department" },
+  ];
 
   departmentData: any;
 
+  isDepartmentLoading = false;
   isDepartmentSaving = false;
   isDepartmentDeleting = false;
 
   ngOnInit(): void {
+    this.getDepartment();
   }
 
-  openModal(data: any){
-    this.departmentData = data;
+  getDepartment(){
+    this.isDepartmentLoading = true;
 
-    this.departmentForm.departmentForm.controls.departmentCode.setValue(data.data().department_code);
-    this.departmentForm.departmentForm.controls.departmentName.setValue(data.data().department_name);
-    this.departmentForm.departmentForm.controls.departmentDescription.setValue(data.data().department_description);
-    this.departmentForm.departmentForm.controls.term.setValue(data.data().term.data.term_name);
-    this.departmentForm.departmentForm.controls.departmentHead.setValue(data.data().department_head.data.first_name + " " + data.data().department_head.data.last_name);
+    this.classesApi.getDepartment()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    this.departmentForm.selectedTermId = data.data().term.id
-    this.departmentForm.selectedTermData = data.data().term.data
-    this.departmentForm.selectedTeacherId = data.data().department_head.id
-    this.departmentForm.selectedTeacherData = data.data().department_head.data
+          this.departmentData = res;
+          this.isDepartmentLoading = false;
 
-    this.editButton.nativeElement.click();
+          this.departmentForm.departmentForm.controls.departmentName.setValue(res.department_name);
+          this.departmentForm.departmentForm.controls.departmentDescription.setValue(res.department_description);
+          this.departmentForm.departmentForm.controls.term.setValue(res.term.term_name);
+          this.departmentForm.departmentForm.controls.departmentHead.setValue(res.department_head.first_name + " " + res.department_head.last_name);
+
+          this.departmentForm.selectedTermId = res.term.id
+          this.departmentForm.selectedTeacherId = res.department_head.id
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDepartmentLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  saveDepartment(){
+  putDepartment(){
     let data = {
-      department_code: this.departmentForm.departmentForm.controls.departmentCode.value,
       department_name: this.departmentForm.departmentForm.controls.departmentName.value,
       department_description: this.departmentForm.departmentForm.controls.departmentDescription.value,
       department_head: this.departmentForm.selectedTeacherId,
     }
 
-    let department = {
-      id: this.departmentData.id,
-      data: data
-    }
+    console.log(data);
+    this.isDepartmentSaving = true;
 
-    this.saveDepartmentEvent.emit(department);
+    this.classesApi.putDepartment(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isDepartmentSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDepartmentSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  confirmDelete(){
+    this.deleteModal.openModal();
   }
 
   deleteDepartment(){
-    this.deleteDepartmentEvent.emit(this.departmentData.id);
+    this.isDepartmentDeleting = true;
+
+    this.classesApi.deleteDepartment()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/classes/all-classes');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  onPrint(){
+    console.log("lets start printing...");
+    // this.classesPrint.printViewDepartment();
   }
 
 }

@@ -31,8 +31,9 @@ export class ClassFormComponent implements OnInit {
   selectedTeacherData: any = {};
 
   classForm = new FormGroup({
-    classCode: new FormControl(''),
     className: new FormControl(''),
+    classAbbreviation: new FormControl(''),
+    grade: new FormControl(''),
     term: new FormControl({value: "", disabled: true}),
     department: new FormControl({value: "", disabled: true}),
     classTeacher: new FormControl({value: "", disabled: true}),
@@ -59,9 +60,9 @@ export class ClassFormComponent implements OnInit {
   onTermSelected(termData: any){
     console.log(termData);
 
-    this.classForm.controls.term.setValue(termData.data().term_name);
+    this.classForm.controls.term.setValue(termData.term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
+    this.selectedTermData = termData;
   }
 
   openDepartmentWindow(){
@@ -72,9 +73,8 @@ export class ClassFormComponent implements OnInit {
   onDepartmentSelected(departmentData: any){
     console.log(departmentData);
 
-    this.classForm.controls.department.setValue(departmentData.data().department_name);
+    this.classForm.controls.department.setValue(departmentData.department_name);
     this.selectedDepartmentId = departmentData.id;
-    this.selectedDepartmentData = departmentData.data();
   }
 
   openTeacherWindow(){
@@ -85,9 +85,8 @@ export class ClassFormComponent implements OnInit {
   onTeacherSelected(teacherData: any){
     console.log(teacherData);
 
-    this.classForm.controls.classTeacher.setValue(teacherData.data().first_name + " "+ teacherData.data().last_name);
+    this.classForm.controls.classTeacher.setValue(teacherData.first_name + " "+ teacherData.last_name);
     this.selectedTeacherId = teacherData.id;
-    this.selectedTeacherData = teacherData.data();
   }
 
 }

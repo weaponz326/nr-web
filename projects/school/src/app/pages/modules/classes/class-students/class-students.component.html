@@ -22,10 +22,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of classStudentsGridData; index as i">
-                        <td>{{data?.data().student.data.student_code}}</td>
-                        <td>{{data?.data().student.data.first_name}} {{data?.data().student.data.last_name}}</td>
+                        <td>{{data?.student.data.student_code}}</td>
+                        <td>{{data?.student.data.first_name}} {{data?.student.data.last_name}}</td>
                         <td class="p-0">
-                            <button class="btn btn-sm border w-50" (click)="gotoStudent(data.data().student.id)"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm border w-50" (click)="gotoStudent(data.student.id)"><i class="bi bi-eye"></i></button>
                             <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
@@ -68,6 +68,11 @@
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteClassStudent()"></app-delete-modal-two>
 
 <!-- select table window component -->
 

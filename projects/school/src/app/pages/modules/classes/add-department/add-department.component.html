@@ -1,29 +1,24 @@
-<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addDepartmentModal">
-    Launch demo modal
-</button>
 
-<div class="modal fade form-modal" id="addDepartmentModal" tabindex="-1" aria-labelledby="addDepartmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<app-module-topnav [headings]="navHeading" [showPrint]="true"></app-module-topnav>
 
-            <div class="modal-header bg-light">
-                <span class="modal-title" id="addDepartmentModalLabel">Add New Department</span>
-                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- department page form -->
+
+        <app-department-form #departmentFormComponentReference></app-department-form>
+
+        <div class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/classes/all-departments">Cancel</button>
+                <button [disabled]="isDepartmentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="postDepartment()">Save</button>
             </div>
-
-            <div class="modal-body">
-
-                <!-- department page form -->
-
-                <app-department-form #departmentFormComponentReference></app-department-form>
-
-            </div>
-
-            <div class="modal-footer">
-                <button [disabled]="isDepartmentSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveDepartment()">Save</button>
-                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
-            </div>
-
         </div>
+
     </div>
-</div>
+</main>
+    
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+    
