@@ -1,6 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
 @Injectable({
@@ -8,78 +14,68 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class TermsApiService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
+    private activeTerm: ActiveTermService
+  ) { }
 
-  termRef = this.afs.collection('school/module_terms/school_term');
-  activeTermRef = this.afs.collection('school/module_terms/school_active_term');
+  termsUrl = environment.apiUrl + 'school-modules/terms/';
 
   // terms
 
-  createTerm(term: any){
-    return this.termRef.add(term);
+  public getAccountTerm(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.termsUrl + "term?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&orderinging=" + sortField, this.authHeaders.headers);
   }
 
-  getTerm(){
-    return this.termRef.doc(String(sessionStorage.getItem('school_term_id'))).ref.get();
+  public postTerm(term: any): Observable<any>{
+    return this.http.post(this.termsUrl + "term/", term, this.authHeaders.headers);
   }
 
-  updateTerm(term: any){
-    return this.termRef.doc(String(sessionStorage.getItem('school_term_id'))).update(term);
+  public getTerm(): Observable<any>{
+    return this.http.get(this.termsUrl + "term/" + sessionStorage.getItem('school_term_id'), this.authHeaders.headers);
   }
 
-  deleteTerm(){
-    return this.termRef.doc(String(sessionStorage.getItem('school_term_id'))).delete();
+  public putTerm(term: any): Observable<any>{
+    return this.http.put(this.termsUrl + "term/" + sessionStorage.getItem('school_term_id'), term, this.authHeaders.headers);
   }
 
-  getAccountTerm(sorting: any, pageSize: any){
-    return this.termRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountTermNext(sorting: any, pageSize: any, pageStart: any){
-    return this.termRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountTermPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.termRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAllAccountTerm(){
-    return this.termRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public deleteTerm(): Observable<any>{
+    return this.http.delete(this.termsUrl + "term/" + sessionStorage.getItem('school_term_id'), this.authHeaders.headers);
   }
 
   // active term
 
-  createActiveTerm(active_term: any){
-    return this.activeTermRef.doc(String(localStorage.getItem('school_id'))).set(active_term);
+  public postActiveTerm(term: any): Observable<any>{
+    return this.http.post(this.termsUrl + "active-term/", term, this.authHeaders.headers);
   }
 
-  getActiveTerm(){
-    return this.activeTermRef.doc(String(localStorage.getItem('school_id'))).ref.get();
+  public getActiveTerm(): Observable<any>{
+    return this.http.get(this.termsUrl + "active-term/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  updateActiveTerm(active_term: any){
-    return this.activeTermRef.doc(String(localStorage.getItem('school_id'))).update(active_term);
+  public putActiveTerm(term: any): Observable<any>{
+    return this.http.put(this.termsUrl + "active-term/" + this.customCookie.getCookie('school_id'), term, this.authHeaders.headers);
   }
 
-  deleteActiveTerm(){
-    return this.activeTermRef.doc(String(localStorage.getItem('school_id'))).delete();
+  // config
+
+  public getTermCodeConfig(): Observable<any>{
+    return this.http.get(this.termsUrl + "config/term-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
+  public putTermCodeConfig(term: any): Observable<any>{
+    return this.http.put(this.termsUrl + "config/term-code/" + this.customCookie.getCookie('school_id'), term, this.authHeaders.headers);
+  }
+
+  public getNewTermCodeConfig(): Observable<any>{
+    return this.http.get(this.termsUrl + "config/new-term-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
+  }
+
+  // dashboard
+  
 }

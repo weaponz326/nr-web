@@ -18,8 +18,8 @@ export class TermFormComponent implements OnInit {
     termCode: new FormControl(''),
     termName: new FormControl(''),
     academicYear: new FormControl(''),
-    startDate: new FormControl(''),
-    endDate: new FormControl(''),
+    startDate: new FormControl(),
+    endDate: new FormControl(),
     termStatus: new FormControl(''),
   });
 

@@ -25,7 +25,7 @@ export class SubjectsApiService {
 
   // subjects
 
-  // create and get all subject belonging to user
+  // create and get all subject belonging to an account
 
   public getAccountSubject(page: any, size: any, sortField: any): Observable<any>{
     return this.http.get(this.subjectsUrl + "subject?account=" + this.customCookie.getCookie('school_id')

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-// import { TermsApiService } from 'projects/school/src/app/services/modules/terms-api/terms-api.service';
+import { TermsApiService } from 'projects/school/src/app/services/modules-api/terms-api/terms-api.service';
 // import { TermsPrintService } from 'projects/school/src/app/services/printing/terms-print/terms-print.service';
 
 
@@ -16,7 +16,7 @@ export class AllTermsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private termsApi: TermsApiService,
+    private termsApi: TermsApiService,
     // private termsPrint: TermsPrintService,
   ) { }
 
@@ -42,7 +42,7 @@ export class AllTermsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveTerm();
-    this.getAccountTerm();
+    this.getAccountTerm(1, 20, "-created_at");
   }
 
   getActiveTerm(){
@@ -64,25 +64,34 @@ export class AllTermsComponent implements OnInit {
     //   )
   }
 
-  getAccountTerm(){
+  getAccountTerm(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.termsApi.getAccountTerm(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.termsGridData = res.docs;        },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.termsApi.getAccountTerm(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.termsGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountTerm();
+    this.getAccountTerm(1, 20, column);
 
     this.currentSortColumn = column;
   }

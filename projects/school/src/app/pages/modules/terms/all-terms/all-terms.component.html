@@ -23,7 +23,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <button class="btn btn-secondary page-add-btn" routerLink="/home/terms/new-term">New Term</button>
-                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountTerm()">
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountTerm(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -35,15 +35,15 @@
                             <tr class="bg-light">
                                 <th width="20%" class="min-width-2">
                                     Term ID
-                                    <app-table-sorting [sortField]="'subject_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                    <app-table-sorting [sortField]="'term_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="45%" class="min-width-4">
                                     Term Name
-                                    <app-table-sorting [sortField]="'subject_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                    <app-table-sorting [sortField]="'term_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="35%" class="min-width-2">
                                     Academic Year
-                                    <app-table-sorting [sortField]="'subject_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                    <app-table-sorting [sortField]="'academic_year'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                             </tr>
                         </thead>
@@ -63,7 +63,7 @@
                             <tr class="bg-light">
                                 <td colspan="3">
                                     <app-table-paginator
-                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountTerm()"
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountTerm($event, 20, '')"
                                     ></app-table-paginator>
                                 </td>
                             </tr>
