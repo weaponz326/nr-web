@@ -14,7 +14,7 @@
                     <div class="col-md-12">
                         <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/timetable/all-timetable">Cancel</button>
                         <button [disabled]="isTimetableDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                        <button [disabled]="isTimetableSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateTimetable()">Save</button>
+                        <button [disabled]="isTimetableSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putTimetable()">Save</button>
                     </div>
                 </div>
                 <div *ngIf="isTimetableLoading" class="row page-form">
@@ -54,5 +54,5 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteTimetable()"></app-delete-modal> -->
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteTimetable()"></app-delete-modal-one>
 

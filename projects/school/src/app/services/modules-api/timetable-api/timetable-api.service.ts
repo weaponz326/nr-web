@@ -1,6 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
 @Injectable({
@@ -8,81 +14,58 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class TimetableApiService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
+    private activeTerm: ActiveTermService
+  ) { }
 
-  timetableRef = this.afs.collection('school/module_timetable/school_timetable');
-  timetableSheetRef = this.afs.collection('school/module_timetable/school_timetable_sheet');
+  timetableUrl = environment.apiUrl + 'school-modules/timetable/';
 
-  // timetable
+  // timetables
 
-  createTimetable(timetable: any){
-    return this.timetableRef.add(timetable);
+  public getAccountTimetable(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.timetableUrl + "timetable?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
-  getTimetable(){
-    return this.timetableRef.doc(String(sessionStorage.getItem('school_timetable_id'))).ref.get();
+  public postTimetable(timetable: any): Observable<any>{
+    return this.http.post(this.timetableUrl + "timetable/", timetable, this.authHeaders.headers);
   }
 
-  updateTimetable(timetable: any){
-    return this.timetableRef.doc(String(sessionStorage.getItem('school_timetable_id'))).update(timetable);
+  public getTimetable(): Observable<any>{
+    return this.http.get(this.timetableUrl + "timetable/" + sessionStorage.getItem('school_timetable_id'), this.authHeaders.headers);
   }
 
-  deleteTimetable(){
-    return this.timetableRef.doc(String(sessionStorage.getItem('school_timetable_id'))).delete();
+  public putTimetable(timetable: any): Observable<any>{
+    return this.http.put(this.timetableUrl + "timetable/" + sessionStorage.getItem('school_timetable_id'), timetable, this.authHeaders.headers);
   }
 
-  getAccountTimetable(sorting: any, pageSize: any){
-    return this.timetableRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountTimetableNext(sorting: any, pageSize: any, pageStart: any){
-    return this.timetableRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountTimetablePrev(sorting: any, pageSize: any, pageStart: any){
-    return this.timetableRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .where("term.id", "==", JSON.parse(String(localStorage.getItem('schoolActiveTerm'))).id)
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAllAccountTimetable(){
-    return this.timetableRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public deleteTimetable(): Observable<any>{
+    return this.http.delete(this.timetableUrl + "timetable/" + sessionStorage.getItem('school_timetable_id'), this.authHeaders.headers);
   }
 
   // sheet
 
-  createTimetableSheet(sheet: any){
-    return this.timetableSheetRef.doc(String(sessionStorage.getItem('school_timetable_id'))).set(sheet);
+  // TODO:
+
+  // config
+
+  public getTimetableCodeConfig(): Observable<any>{
+    return this.http.get(this.timetableUrl + "config/timetable-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getTimetableSheet(){
-    return this.timetableSheetRef.doc(String(sessionStorage.getItem('school_timetable_id'))).ref.get();
+  public putTimetableCodeConfig(timetable: any): Observable<any>{
+    return this.http.put(this.timetableUrl + "config/timetable-code/" + this.customCookie.getCookie('school_id'), timetable, this.authHeaders.headers);
   }
 
-  updateTimetableSheet(timetable: any){
-    return this.timetableSheetRef.doc(String(sessionStorage.getItem('school_timetable_id'))).update(timetable);
+  public getNewTimetableCodeConfig(): Observable<any>{
+    return this.http.get(this.timetableUrl + "config/new-timetable-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  deleteTimetableSheet(){
-    return this.timetableSheetRef.doc(String(sessionStorage.getItem('school_timetable_id'))).delete();
-  }
-
+  // dashboard
+  
 }

@@ -5,9 +5,9 @@ import { TimetableFormComponent } from '../timetable-form/timetable-form.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { TimetableApiService } from 'projects/school/src/app/services/modules/timetable-api/timetable-api.service';
+import { TimetableApiService } from 'projects/school/src/app/services/modules-api/timetable-api/timetable-api.service';
 
-// import { Timetable } from 'projects/school/src/app/models/modules/timetable/timetable.model';
+import { Timetable } from 'projects/school/src/app/models/modules/timetable/timetable.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class NewTimetableComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private timetableApi: TimetableApiService
+    private timetableApi: TimetableApiService
   ) { }
 
   @ViewChild('timetableFormComponentReference', { read: TimetableFormComponent, static: false }) timetableForm!: TimetableFormComponent;
@@ -33,56 +33,51 @@ export class NewTimetableComponent implements OnInit {
   isTimetableSaving = false;
 
   ngOnInit(): void {
+    this.getNewTimetableCodeConfig();
   }
 
-  createTimetable(){
-    // let data: Timetable = {
-    //   account: this.customCookie.getCookie('restaurant_id') as string,
-    //   timetable_code: this.timetableForm.timetableForm.controls.timetableCode.value,
-    //   timetable_name: this.timetableForm.timetableForm.controls.timetableName.value,
-    //   term: this.timetableForm.selectedTermId,
-    // }
+  postTimetable(){
+    let data: Timetable = {
+      account: this.customCookie.getCookie('school_id') as string,
+      timetable_code: this.timetableForm.timetableForm.controls.timetableCode.value as string,
+      timetable_name: this.timetableForm.timetableForm.controls.timetableName.value as string,
+      term: this.timetableForm.selectedTermId,
+    }
 
     this.isTimetableSaving = true;
 
-    // this.timetableApi.createTimetable(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('school_timetable_id', res.id);
-    //       this.createTimetableSheet();
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isTimetableSaving = true;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.timetableApi.postTimetable(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('school_timetable_id', res.id);
+          this.router.navigateByUrl('/home/timetable/full-timetable');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isTimetableSaving = true;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  createTimetableSheet(){
-    let data = {
-      Monday: {},
-      Tuesday: {},
-      Wednesday: {},
-      Thursday: {},
-      Friday: {},
-    }
+  getNewTimetableCodeConfig(){
+    this.timetableApi.getNewTimetableCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.timetableForm.timetableForm.controls.timetableCode.disable();
 
-    // this.timetableApi.createTimetableSheet(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-
-    //       this.router.navigateByUrl('/home/timetable/full-timetable');
-    //       this.isTimetableSaving = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isTimetableSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          if(res.code)
+            this.timetableForm.timetableForm.controls.timetableCode.setValue(res.code);
+          else
+            this.timetableForm.timetableForm.controls.timetableCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }
