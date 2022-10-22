@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { TimetableFormComponent } from './timetable-form/timetable-form.component';
 import { TimetableSheetComponent } from './timetable-sheet/timetable-sheet.component';
+import { TimetableClassesComponent } from './timetable-classes/timetable-classes.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { TimetableSheetComponent } from './timetable-sheet/timetable-sheet.compo
     DashboardComponent,
     ConfigurationComponent,
     TimetableFormComponent,
-    TimetableSheetComponent
+    TimetableSheetComponent,
+    TimetableClassesComponent
   ],
   imports: [
     CommonModule,

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TimetableFormComponent } from '../timetable-form/timetable-form.component'
-import { EditTimetableComponent } from '../edit-timetable/edit-timetable.component'
+import { TimetableSheetComponent } from '../timetable-sheet/timetable-sheet.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
@@ -28,7 +28,7 @@ export class FullTimetableComponent implements OnInit {
   ) { }
 
   @ViewChild('timetableFormComponentReference', { read: TimetableFormComponent, static: false }) timetableForm!: TimetableFormComponent;
-  @ViewChild('editTimetableComponentReference', { read: EditTimetableComponent, static: false }) editTimetable!: EditTimetableComponent;
+  @ViewChild('timetableSheetComponentReference', { read: TimetableSheetComponent, static: false }) timetableSheet!: TimetableSheetComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
