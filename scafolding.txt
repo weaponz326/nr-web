@@ -646,6 +646,7 @@
 				+ subject details (C)
 				+ attendance details (C)
 				+ student details (C)
+				+ lesson plan details (C)
 				+ report details (C)
 				+ teacher details (C)
 				+ staff details (C)
