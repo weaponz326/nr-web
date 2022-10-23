@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
 
+import { FeesFormComponent } from '../fees-form/fees-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { FeesApiService } from 'projects/school/src/app/services/modules/fees-api/fees-api.service';
+import { FeesApiService } from 'projects/school/src/app/services/modules-api/fees-api/fees-api.service';
 
-// import { Fees } from 'projects/school/src/app/models/modules/fees/fees.model';
+import { Fees } from 'projects/school/src/app/models/modules/fees/fees.model';
 
 
 @Component({
@@ -21,77 +20,73 @@ export class CreateFeesComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private feesApi: FeesApiService
+    private feesApi: FeesApiService
   ) { }
 
-  @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
-  @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
-
+  @ViewChild('feesFormComponentReference', { read: FeesFormComponent, static: false }) feesForm!: FeesFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
-  selectedTermId = "";
-  selectedTermData = {};
+  navHeading: any[] = [
+    { text: "Create Fees", url: "/home/fees/create-fees" },
+  ];
 
   isFeesSaving = false;
 
-  feesForm = new FormGroup({
-    feesCode: new FormControl(''),
-    feesDate: new FormControl(''),
-    feesName: new FormControl(''),
-    feesDescription: new FormControl(''),
-    term: new FormControl({value: "", disabled: true}),
-  })
-
   ngOnInit(): void {
+    this.getNewFeesCodeConfig();
   }
 
-  openModal(){
-    this.addButton.nativeElement.click();
-    this.feesForm.controls.feesDate.setValue(new Date().toISOString().slice(0, 10))
+  ngAfterViewInit(): void {
+    this.feesForm.feesForm.controls.feesDate.setValue(new Date().toISOString().slice(0, 10));
   }
 
-  createFees(){
-    // let data: Fees = {
-    //   account: this.customCookie.getCookie('restaurant_id') as string,
-    //   fees_code: this.feesForm.controls.feesCode.value,
-    //   fees_name: this.feesForm.controls.feesName.value,
-    //   fees_date: this.feesForm.controls.feesDate.value,
-    //   fees_description: this.feesForm.controls.feesDescription.value,
-    //   term: this.selectedTermId,
-    // }
+  postFees(){
+    let data: Fees = {
+      account: this.customCookie.getCookie('school_id') as string,
+      fees_code: this.feesForm.feesForm.controls.feesCode.value as string,
+      fees_name: this.feesForm.feesForm.controls.feesName.value as string,
+      fees_date: this.feesForm.feesForm.controls.feesDate.value,
+      fees_description: this.feesForm.feesForm.controls.feesDescription.value as string,
+      term: this.feesForm.selectedTermId,
+    }
 
     this.isFeesSaving = true;
 
-    // this.feesApi.createFees(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('school_fees_id', res.id);
+    this.feesApi.postFees(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/fees/view-fees');
-    //       this.dismissButton.nativeElement.click();
-    //       this.isFeesSaving = true;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFeesSaving = true;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          sessionStorage.setItem('school_fees_id', res.id);
+          this.router.navigateByUrl('/home/fees/view-fees');
+          this.isFeesSaving = true;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFeesSaving = true;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  openTermWindow(){
-    console.log("You are opening select term window")
-    // this.selectTerm.openModal();
+  getNewFeesCodeConfig(){
+    this.feesApi.getNewFeesCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.feesForm.feesForm.controls.feesCode.disable();
+
+          if(res.code)
+            this.feesForm.feesForm.controls.feesCode.setValue(res.code);
+          else
+            this.feesForm.feesForm.controls.feesCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
-
-  onTermSelected(termData: any){
-    console.log(termData);
-
-    this.feesForm.controls.term.setValue(termData.data().term_name);
-    this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
-  }
-
+  
 }

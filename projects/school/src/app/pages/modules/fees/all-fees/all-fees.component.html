@@ -8,8 +8,8 @@
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <button class="btn btn-secondary page-add-btn" (click)="createFees.openModal()">Create Fees</button>
-                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountFees()">
+                        <button class="btn btn-secondary page-add-btn" routerLink="/home/fees/create-fees">Create Fees</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountFees(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -49,7 +49,7 @@
                             <tr class="bg-light">
                                 <td colspan="3">
                                     <app-table-paginator
-                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountFees()"
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountFees($event, 20, '')"
                                     ></app-table-paginator>
                                 </td>
                             </tr>
@@ -66,7 +66,3 @@
 <!-- connection error prompt component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
-
-<!-- create fees component -->
-
-<app-create-fees #createFeesComponentReference></app-create-fees>

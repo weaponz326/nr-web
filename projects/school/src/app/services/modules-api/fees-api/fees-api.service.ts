@@ -1,6 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'projects/school/src/environments/environment';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
+import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
 @Injectable({
@@ -8,161 +14,68 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FeesApiService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private http: HttpClient,
+    private authHeaders: AuthHeadersService,
+    private customCookie: CustomCookieService,
+    private activeTerm: ActiveTermService
+  ) { }
 
-  feesRef = this.afs.collection('school/module_fees/school_fees');
-  feesTargetRef = this.afs.collection('school/module_fees/school_fees_target');
-  feesItemRef = this.afs.collection('school/module_fees/school_fees_item');
-  billRef = this.afs.collection('school/module_fees/school_fees_bill');
+  feesUrl = environment.apiUrl + 'school-modules/fees/';
 
-  // fees
+  // feess
 
-  createFees(fees: any){
-    return this.feesRef.add(fees);
+  public getAccountFees(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.feesUrl + "fees?account=" + this.customCookie.getCookie('school_id')
+      + "&page=" + page
+      + "&size=" + size
+      + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
-  getFees(){
-    return this.feesRef.doc(String(sessionStorage.getItem('school_fees_id'))).ref.get();
+  public postFees(fees: any): Observable<any>{
+    return this.http.post(this.feesUrl + "fees/", fees, this.authHeaders.headers);
   }
 
-  updateFees(fees: any){
-    return this.feesRef.doc(String(sessionStorage.getItem('school_fees_id'))).update(fees);
+  public getFees(): Observable<any>{
+    return this.http.get(this.feesUrl + "fees/" + sessionStorage.getItem('school_fees_id'), this.authHeaders.headers);
   }
 
-  deleteFees(){
-    return this.feesRef.doc(String(sessionStorage.getItem('school_fees_id'))).delete();
+  public putFees(fees: any): Observable<any>{
+    return this.http.put(this.feesUrl + "fees/" + sessionStorage.getItem('school_fees_id'), fees, this.authHeaders.headers);
   }
 
-  getAccountFees(sorting: any, pageSize: any){
-    return this.feesRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
+  public deleteFees(): Observable<any>{
+    return this.http.delete(this.feesUrl + "fees/" + sessionStorage.getItem('school_fees_id'), this.authHeaders.headers);
   }
 
-  getAccountFeesNext(sorting: any, pageSize: any, pageStart: any){
-    return this.feesRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
+  // feess
+
+  public getFeesFeesTarget(): Observable<any>{
+    return this.http.get(this.feesUrl + "fees-target?fees=" + sessionStorage.getItem('school_fees_id'), this.authHeaders.headers);
   }
 
-  getAccountFeesPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.feesRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
+  public postFeesTarget(fees: any): Observable<any>{
+    return this.http.post(this.feesUrl + "fees-target/", fees, this.authHeaders.headers);
   }
 
-  getAllAccountFees(){
-    return this.feesRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
+  public deleteFeesTarget(id: any): Observable<any>{
+    return this.http.delete(this.feesUrl + "fees-target/" + id, this.authHeaders.headers);
   }
 
-  // feesTarget
+  // config
 
-  createFeesTarget(feesTarget: any){
-    return this.feesTargetRef.add(feesTarget);
+  public getFeesCodeConfig(): Observable<any>{
+    return this.http.get(this.feesUrl + "config/fees-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  getFeesTarget(){
-    return this.feesTargetRef.doc(String(sessionStorage.getItem('school_fees_target_id'))).ref.get();
+  public putFeesCodeConfig(fees: any): Observable<any>{
+    return this.http.put(this.feesUrl + "config/fees-code/" + this.customCookie.getCookie('school_id'), fees, this.authHeaders.headers);
   }
 
-  updateFeesTarget(feesTarget: any){
-    return this.feesTargetRef.doc(String(sessionStorage.getItem('school_fees_target_id'))).update(feesTarget);
+  public getNewFeesCodeConfig(): Observable<any>{
+    return this.http.get(this.feesUrl + "config/new-fees-code/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
-  deleteFeesTarget(){
-    return this.feesTargetRef.doc(String(sessionStorage.getItem('school_fees_target_id'))).delete();
-  }
-
-  getFeesFeesTarget(){
-    return this.feesTargetRef.ref
-      .where("fees", "==", sessionStorage.getItem('school_fees_id'))
-      .get();
-  }
-
-  // feesItem
-
-  createFeesItem(feesItemData: any){
-    return this.feesItemRef.add(feesItemData);
-  }
-
-  getFeesItem(feesItemId: any){
-    return this.feesItemRef.doc(feesItemId).ref.get();
-  }
-
-  updateFeesItem(feesItemId: any, feesItemData: any){
-    return this.feesItemRef.doc(feesItemId).update(feesItemData);
-  }
-
-  deleteFeesItem(feesItemId: any){
-    return this.feesItemRef.doc(feesItemId).delete();
-  }
-
-  getFeesFeesItem(){
-    return this.feesItemRef.ref
-      .where("fees", "==", sessionStorage.getItem('school_fees_id'))
-      .get();
-  }
-
-  // bill
-
-  createBill(bill: any){
-    return this.billRef.add(bill);
-  }
-
-  getBill(){
-    return this.billRef.doc(String(sessionStorage.getItem('school_fees_bill_id'))).ref.get();
-  }
-
-  updateBill(bill: any){
-    return this.billRef.doc(String(sessionStorage.getItem('school_fees_bill_id'))).update(bill);
-  }
-
-  deleteBill(){
-    return this.billRef.doc(String(sessionStorage.getItem('school_fees_bill_id'))).delete();
-  }
-
-  getAccountBill(sorting: any, pageSize: any){
-    return this.billRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountBillNext(sorting: any, pageSize: any, pageStart: any){
-    return this.billRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAfter(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAccountBillPrev(sorting: any, pageSize: any, pageStart: any){
-    return this.billRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy(sorting?.field, sorting?.direction)
-      .startAt(pageStart)
-      .limit(pageSize)
-      .get();
-  }
-
-  getAllAccountBill(){
-    return this.billRef.ref
-      .where("account", "==", localStorage.getItem('school_id'))
-      .orderBy("created_by" ,"desc")
-      .get();
-  }
+  // dashboard
 
 }

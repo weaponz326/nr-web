@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { CreateFeesComponent } from '../create-fees/create-fees.component'
 
-// import { FeesApiService } from 'projects/school/src/app/services/modules/fees-api/fees-api.service';
+import { FeesApiService } from 'projects/school/src/app/services/modules-api/fees-api/fees-api.service';
 // import { FeesPrintService } from 'projects/school/src/app/services/printing/fees-print/fees-print.service';
 
 
@@ -17,7 +17,7 @@ export class AllFeesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private feesApi: FeesApiService,
+    private feesApi: FeesApiService,
     // private feesPrint: FeesPrintService,
   ) { }
 
@@ -40,29 +40,37 @@ export class AllFeesComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
-    this.getAccountFees();
+    this.getAccountFees(1, 20, "-created_at");
   }
 
-  getAccountFees(){
+  getAccountFees(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.feesApi.getAccountFees(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.feesGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.feesApi.getAccountFees(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.feesGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountFees();
+    this.getAccountFees(1, 20, column);
 
     this.currentSortColumn = column;
   }
