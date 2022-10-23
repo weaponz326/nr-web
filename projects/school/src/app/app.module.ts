@@ -9,11 +9,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { FeesWindowsComponent } from './components/select-windows/fees-windows/fees-windows.component';
+import { SelectFeesComponent } from './components/select-windows/fees-windows/select-fees/select-fees.component';
+import { SelectBillComponent } from './components/select-windows/fees-windows/select-bill/select-bill.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FeesWindowsComponent,
+    SelectFeesComponent,
+    SelectBillComponent
   ],
   imports: [
     BrowserModule,
