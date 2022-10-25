@@ -2,17 +2,17 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { PaymentsApiService } from 'projects/school/src/app/services/modules-api/payments-api/payments-api.service';
+import { TermsApiService } from 'projects/school/src/app/services/modules-api/terms-api/terms-api.service';
 
 
 @Component({
-  selector: 'app-payments-windows',
-  templateUrl: './payments-windows.component.html',
-  styleUrls: ['./payments-windows.component.scss']
+  selector: 'app-select-term',
+  templateUrl: './select-term.component.html',
+  styleUrls: ['./select-term.component.scss']
 })
-export class PaymentsWindowsComponent implements OnInit {
+export class SelectTermComponent implements OnInit {
 
-  constructor(private paymentsApi: PaymentsApiService) { }
+  constructor(private termsApi: TermsApiService) { }
 
   @Output() rowSelected = new EventEmitter<object>();
   @Input() closeTarget = "";
@@ -22,7 +22,7 @@ export class PaymentsWindowsComponent implements OnInit {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  paymentsGridData: any[] = [];
+  termsGridData: any[] = [];
 
   isFetchingGridData: boolean =  false;
   isDataAvailable: boolean =  true;
@@ -37,19 +37,19 @@ export class PaymentsWindowsComponent implements OnInit {
   }
 
   openModal(){
-    this.paymentsGridData = [];
-    this.getAccountPayment(1, 20, "-created_at");
+    this.termsGridData = [];
+    this.getAccountTerm(1, 20, "-created_at");
     this.openButton.nativeElement.click();
   }
 
-  getAccountPayment(page: any, size: any, sortField: any){
+  getAccountTerm(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    this.paymentsApi.getAccountPayment(page, size, sortField)
+    this.termsApi.getAccountTerm(page, size, sortField)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.paymentsGridData = res.results;
+          this.termsGridData = res.results;
 
           this.currentPage = res.current_page;
           this.totalPages = res.total_pages;
@@ -69,7 +69,7 @@ export class PaymentsWindowsComponent implements OnInit {
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountPayment(1, 20, column);
+    this.getAccountTerm(1, 20, column);
 
     this.currentSortColumn = column;
   }
