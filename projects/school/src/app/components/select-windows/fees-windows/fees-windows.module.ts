@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
-import { SelectAttendanceComponent } from './select-attendance/select-attendance.component';
-
+import { SelectFeesComponent } from './select-fees/select-fees.component';
+import { SelectBillComponent } from './select-bill/select-bill.component';
 
 
 @NgModule({
   declarations: [
-    SelectAttendanceComponent
+    SelectFeesComponent,
+    SelectBillComponent
   ],
   imports: [
     CommonModule,
     ModuleUtilitiesModule
   ],
   exports: [
-    SelectAttendanceComponent
+    SelectFeesComponent,
+    SelectBillComponent
   ]
 })
-export class AttendanceWindowsModule { }
+export class FeesWindowsModule { }

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectStudentComponent } from './select-student/select-student.component';
 
 
@@ -9,7 +12,11 @@ import { SelectStudentComponent } from './select-student/select-student.componen
     SelectStudentComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule
+  ],
+  exports: [
+    SelectStudentComponent
   ]
 })
 export class StudentsWindowsModule { }
