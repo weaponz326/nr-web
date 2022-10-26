@@ -125,6 +125,7 @@ export class ViewTermComponent implements OnInit {
     this.isActiveTermSaving = true;
 
     let data = {
+      account: this.customCookie.getCookie('school_id') as string,
       term: sessionStorage.getItem('school_term_id') as string,
     };
 

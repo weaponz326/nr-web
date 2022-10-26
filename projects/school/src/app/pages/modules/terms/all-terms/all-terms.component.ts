@@ -48,20 +48,20 @@ export class AllTermsComponent implements OnInit {
   getActiveTerm(){
     this.isLoadingActiveTerm = true;
 
-    // this.termsApi.getActiveTerm()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.activeTermId = res.data().id;
-    //       this.activeTermName = res.data().data.term_name;
-    //       this.isLoadingActiveTerm = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isLoadingActiveTerm = false;
-    //     }
-    //   )
+    this.termsApi.getActiveTerm()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.activeTermId = res.term.id;
+          this.activeTermName = res.term.term_name;
+          this.isLoadingActiveTerm = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isLoadingActiveTerm = false;
+        }
+      })
   }
 
   getAccountTerm(page: any, size: any, sortField: any){

@@ -63,12 +63,12 @@ export class ViewAssessmentComponent implements OnInit {
           this.assessmentForm.assessmentForm.controls.assessmentName.setValue(this.assessmentFormData.assessment_name);
           this.assessmentForm.assessmentForm.controls.assessmentDate.setValue(this.assessmentFormData.assessment_date);
 
-          this.assessmentForm.selectedTermId = this.assessmentFormData.term.id;
-          this.assessmentForm.assessmentForm.controls.term.setValue(this.assessmentFormData.term.term_name);
-          this.assessmentForm.selectedSubjectId = this.assessmentFormData.subject.id;
-          this.assessmentForm.assessmentForm.controls.subject.setValue(this.assessmentFormData.subject.subject_name);
-          this.assessmentForm.selectedClassId = this.assessmentFormData.clase.id;
-          this.assessmentForm.assessmentForm.controls.clase.setValue(this.assessmentFormData.clase.subject_name);
+          this.assessmentForm.selectedTermId = this.assessmentFormData.term?.id;
+          this.assessmentForm.assessmentForm.controls.term.setValue(this.assessmentFormData.term?.term_name);
+          this.assessmentForm.selectedSubjectId = this.assessmentFormData.subject?.id;
+          this.assessmentForm.assessmentForm.controls.subject.setValue(this.assessmentFormData.subject?.subject_name);
+          this.assessmentForm.selectedClassId = this.assessmentFormData.clase?.id;
+          this.assessmentForm.assessmentForm.controls.clase.setValue(this.assessmentFormData.clase?.class_name);
         },
         error: (err) => {
           console.log(err);

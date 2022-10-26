@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ImageInputComponent } from 'projects/personal/src/app/components/module-utilities/image-input/image-input.component';
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
@@ -19,7 +19,7 @@ export class ParentFormComponent implements OnInit {
   ) { }
 
   @ViewChild('imageInputComponentReference', { read: ImageInputComponent, static: false }) photo!: ImageInputComponent;
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
   selectedTermId = "";
   selectedTermData = {};
@@ -60,7 +60,7 @@ export class ParentFormComponent implements OnInit {
 
   openTermWindow(){
     console.log("You are opening select term window");
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){

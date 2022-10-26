@@ -46,8 +46,8 @@
                                 <td>{{data?.assessment_code}}</td>
                                 <td>{{data?.assessment_name}}</td>
                                 <td>{{data?.assessment_date}}</td>
-                                <td>{{data?.term.term_name}}</td>
-                                <td>{{data?.subject.subject_name}}</td>
+                                <td>{{data?.term?.term_name}}</td>
+                                <td>{{data?.subject?.subject_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="5">
