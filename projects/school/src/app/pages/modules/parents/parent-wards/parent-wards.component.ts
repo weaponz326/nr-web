@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
-// import { SelectStudentComponent } from '../../../select-windows/students-windows/select-student/select-student.component';
+import { SelectStudentComponent } from '../../../../components/select-windows/students-windows/select-student/select-student.component';
 
 import { ParentsApiService } from 'projects/school/src/app/services/modules-api/parents-api/parents-api.service';
 
@@ -24,7 +24,7 @@ export class ParentWardsComponent implements OnInit {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
-  // @ViewChild('selectStudentComponentReference', { read: SelectStudentComponent, static: false }) selectStudent!: SelectStudentComponent;
+  @ViewChild('selectStudentComponentReference', { read: SelectStudentComponent, static: false }) selectStudent!: SelectStudentComponent;
 
   parentWardsGridData: any[] = [];
 

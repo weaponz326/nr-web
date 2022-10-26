@@ -16,7 +16,7 @@
                     <thead>
                         <tr class="bg-light">
                             <th width="20%" class="min-width-2">
-                                Class ID
+                                Class Abbreviation
                                 <app-table-sorting [sortField]="'attendance_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="45%" class="min-width-4">
@@ -31,9 +31,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of classesGridData" (dblclick)="selectRow(data)" class="table-pointer">
-                            <td>{{data?.class_code}}</td>
+                            <td>{{data?.class_abbreviation}}</td>
                             <td>{{data?.class_name}}</td>
-                            <td>{{data?.department.department_name}}</td>
+                            <td>{{data?.department?.department_name}}</td>
                         </tr>
                         <tr *ngIf="isFetchingGridData || !isDataAvailable">
                             <td colspan="3">

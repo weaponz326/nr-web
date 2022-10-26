@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
-// import { SelectSubjectComponent } from '../../../select-windows/subjects-windows/select-subject/select-subject.component';
-// import { SelectClassComponent } from '../../../select-windows/classes-windows/select-class/select-class.component';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
+import { SelectSubjectComponent } from '../../../../components/select-windows/subjects-windows/select-subject/select-subject.component';
+import { SelectClaseComponent } from '../../../../components/select-windows/classes-windows/select-clase/select-clase.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
@@ -19,8 +19,9 @@ export class AssessmentFormComponent implements OnInit {
     // private activeTerm: ActiveTermService
   ) { }
 
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
-  // @ViewChild('selectSubjectComponentReference', { read: SelectSubjectComponent, static: false }) selectSubject!: SelectSubjectComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectSubjectComponentReference', { read: SelectSubjectComponent, static: false }) selectSubject!: SelectSubjectComponent;
+  @ViewChild('selectClassComponentReference', { read: SelectClaseComponent, static: false }) selectClass!: SelectClaseComponent;
 
   selectedTermId = "";
   selectedTermData: any;
@@ -52,41 +53,41 @@ export class AssessmentFormComponent implements OnInit {
 
   openTermWindow(){
     console.log("You are opening select term window");
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){
     console.log(termData);
 
-    this.assessmentForm.controls.term.setValue(termData.data().term_name);
+    this.assessmentForm.controls.term.setValue(termData.term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
+    this.selectedTermData = termData;
   }
 
   openSubjectWindow(){
     console.log("You are opening select term window")
-    // this.selectSubject.openModal();
+    this.selectSubject.openModal();
   }
 
   onSubjectSelected(subjectData: any){
     console.log(subjectData);
 
-    this.assessmentForm.controls.subject.setValue(subjectData.data().subject_name);
+    this.assessmentForm.controls.subject.setValue(subjectData.subject_name);
     this.selectedSubjectId = subjectData.id;
-    this.selectedSubjectData = subjectData.data();
+    this.selectedSubjectData = subjectData;
   }
 
   openClassWindow(){
     console.log("You are opening select term window")
-    // this.selectClass.openModal();
+    this.selectClass.openModal();
   }
 
   onClassSelected(classData: any){
     console.log(classData);
 
-    this.assessmentForm.controls.subject.setValue(classData.data().class_name);
+    this.assessmentForm.controls.clase.setValue(classData.class_name);
     this.selectedClassId = classData.id;
-    this.selectedClassData = classData.data();
+    this.selectedClassData = classData;
   }
 
 }
