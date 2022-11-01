@@ -633,6 +633,7 @@
           			+ select payment (C)
 				+ classes windows (M)
           			+ select class (C)
+          			+ select department (C)
 				+ timetable windows (M)
           			+ select timetable (C)
 				+ fees windows (M)

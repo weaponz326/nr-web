@@ -33,7 +33,7 @@
                         <tr *ngFor="let data of teachersGridData" (dblclick)="selectRow(data)" class="table-pointer">
                             <td>{{data?.teacher_code}}</td>
                             <td>{{data?.first_name}} {{data?.last_name}}</td>
-                            <td>{{data?.department.department_name}}</td>
+                            <td>{{data?.department?.department_name}}</td>
                         </tr>
                         <tr *ngIf="isFetchingGridData || !isDataAvailable">
                             <td colspan="3">

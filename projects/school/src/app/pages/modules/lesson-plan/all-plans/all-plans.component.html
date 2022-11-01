@@ -46,7 +46,7 @@
                                 <td>{{data?.plan_code}}</td>
                                 <td>{{data?.plan_name}}</td>
                                 <td>{{data?.plan_date}}</td>
-                                <td>{{data?.teacher.teacher_name}}</td>
+                                <td>{{data?.teacher.first_name + " " + data?.teacher.first_name}}</td>
                                 <td>{{data?.subject.subject_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

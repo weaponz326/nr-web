@@ -75,3 +75,15 @@
     </div>
 
 </form>
+
+<!-- select term window component -->
+
+<app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term>
+
+<!-- select subject window component -->
+
+<app-select-department #selectDepartmentComponentReference (rowSelected)="onDepartmentSelected($event)"></app-select-department>
+
+<!-- select-teacher -->
+
+<app-select-teacher #selectTeacherComponentReference (rowSelected)="onTeacherSelected($event)"></app-select-teacher>

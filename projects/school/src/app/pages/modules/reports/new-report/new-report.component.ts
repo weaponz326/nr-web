@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
-// import { SelectClassComponent } from '../../../select-windows/classes-windows/select-class/select-class.component';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
+import { SelectClaseComponent } from '../../../../components/select-windows/classes-windows/select-clase/select-clase.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 import { ReportsApiService } from 'projects/school/src/app/services/modules-api/reports-api/reports-api.service';
@@ -26,8 +26,8 @@ export class NewReportComponent implements OnInit {
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
-  // @ViewChild('selectClassComponentReference', { read: SelectClassComponent, static: false }) selectClass!: SelectClassComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectClassComponentReference', { read: SelectClaseComponent, static: false }) selectClass!: SelectClaseComponent;
 
   navHeading: any[] = [
     { text: "New Report", url: "/home/report/new-report" },
@@ -76,6 +76,7 @@ export class NewReportComponent implements OnInit {
         next: (res) => {
           console.log(res);
           sessionStorage.setItem('school_report_id', res.id);
+          this.router.navigateByUrl('/home/reports/class-report');
         },
         error: (err) => {
           console.log(err);
@@ -87,25 +88,25 @@ export class NewReportComponent implements OnInit {
 
   openTermWindow(){
     console.log("You are opening select term window")
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){
     console.log(termData);
 
-    this.reportForm.controls.term.setValue(termData.data().term_name);
+    this.reportForm.controls.term.setValue(termData.term_name);
     this.selectedTermId = termData.id;
   }
 
   openClassWindow(){
     console.log("You are opening select term window")
-    // this.selectClass.openModal();
+    this.selectClass.openModal();
   }
 
   onClassSelected(classData: any){
     console.log(classData);
 
-    this.reportForm.controls.clase.setValue(classData.data().class_name);
+    this.reportForm.controls.clase.setValue(classData.class_name);
     this.selectedClassId = classData.id;
   }
 

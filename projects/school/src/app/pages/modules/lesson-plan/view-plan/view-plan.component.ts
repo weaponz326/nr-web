@@ -61,7 +61,7 @@ export class ViewPlanComponent implements OnInit {
           this.planForm.planForm.controls.planName.setValue(this.planData.plan_name);
           this.planForm.planForm.controls.term.setValue(this.planData.term.term_name);
           this.planForm.planForm.controls.subject.setValue(this.planData.subject.subject_name);
-          this.planForm.planForm.controls.teacher.setValue(this.planData.teacher.teacher_name);
+          this.planForm.planForm.controls.teacher.setValue(this.planData.teacher.first_name + " " + this.planData.teacher.last_name);
           this.planSheet.sheetForm.controls.objectives.setValue(this.planData.objectives);
           this.planSheet.sheetForm.controls.materials.setValue(this.planData.materials);
           this.planSheet.sheetForm.controls.introduction.setValue(this.planData.introduction);

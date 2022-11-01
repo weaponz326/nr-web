@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
-// import { SelectDepartmentComponent } from '../../../select-windows/classes-windows/select-department/select-department.component';
-// import { SelectTeacherComponent } from '../../../select-windows/teachers-windows/select-teacher/select-teacher.component';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
+import { SelectDepartmentComponent } from '../../../../components/select-windows/classes-windows/select-department/select-department.component';
+import { SelectTeacherComponent } from '../../../../components/select-windows/teachers-windows/select-teacher/select-teacher.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
@@ -19,9 +19,9 @@ export class ClassFormComponent implements OnInit {
     // private activeTerm: ActiveTermService
   ) { }
 
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
-  // @ViewChild('selectDepartmentComponentReference', { read: SelectDepartmentComponent, static: false }) selectDepartment!: SelectDepartmentComponent;
-  // @ViewChild('selectTeacherComponentReference', { read: SelectTeacherComponent, static: false }) selectTeacher!: SelectTeacherComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectDepartmentComponentReference', { read: SelectDepartmentComponent, static: false }) selectDepartment!: SelectDepartmentComponent;
+  @ViewChild('selectTeacherComponentReference', { read: SelectTeacherComponent, static: false }) selectTeacher!: SelectTeacherComponent;
 
   selectedTermId = "";
   selectedTermData: any = {};
@@ -54,7 +54,7 @@ export class ClassFormComponent implements OnInit {
 
   openTermWindow(){
     console.log("You are opening select term window")
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){
@@ -67,7 +67,7 @@ export class ClassFormComponent implements OnInit {
 
   openDepartmentWindow(){
     console.log("You are opening select term window")
-    // this.selectDepartment.openModal();
+    this.selectDepartment.openModal();
   }
 
   onDepartmentSelected(departmentData: any){
@@ -79,13 +79,13 @@ export class ClassFormComponent implements OnInit {
 
   openTeacherWindow(){
     console.log("You are opening select term window")
-    // this.selectTeacher.openModal();
+    this.selectTeacher.openModal();
   }
 
   onTeacherSelected(teacherData: any){
     console.log(teacherData);
 
-    this.classForm.controls.classTeacher.setValue(teacherData.first_name + " "+ teacherData.last_name);
+    this.classForm.controls.classTeacher.setValue(teacherData.first_name + " " + teacherData.last_name);
     this.selectedTeacherId = teacherData.id;
   }
 

@@ -62,8 +62,7 @@ export class ViewSubjectComponent implements OnInit {
           this.subjectForm.subjectForm.controls.department.setValue(this.subjectData.department.department_name);
           this.subjectForm.subjectForm.controls.description.setValue(this.subjectData.description);
 
-          this.subjectForm.selectedDepartmentId = this.subjectData.data().department.id;
-          this.subjectForm.selectedDepartmentData = this.subjectData.data().department.data;
+          this.subjectForm.selectedDepartmentId = this.subjectData.department.id;
         },
         error: (err) => {
           console.log(err);
@@ -105,13 +104,12 @@ export class ViewSubjectComponent implements OnInit {
   updateTerm(){
     console.log('u are adding new term to term');
 
-    if (this.subjectData.data().terms.include({id: this.subjectForm.selectedTermId})){
+    if (this.subjectData.terms.include({id: this.subjectForm.selectedTermId})){
       console.log('lets go ahead with term update');
 
       let data = {
         terms: {
           id: this.subjectForm.selectedTermId,
-          data: this.subjectForm.selectedTermData,
         }
       }
 

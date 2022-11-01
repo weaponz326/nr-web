@@ -39,8 +39,8 @@ export class ClassReportComponent implements OnInit {
   @ViewChild('classSheetComponentReference', { read: ClassSheetComponent, static: false }) classSheet!: ClassSheetComponent;
 
   navHeading: any[] = [
-    { text: "All Report", url: "/home/report/all-report" },
-    { text: "Class Report", url: "/home/report/view-report" },
+    { text: "All Reports", url: "/home/reports/all-reports" },
+    { text: "Class Report", url: "/home/reports/view-report" },
   ];
 
   reportFormData: any;
