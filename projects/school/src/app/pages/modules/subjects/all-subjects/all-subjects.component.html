@@ -37,7 +37,7 @@
                             <tr *ngFor="let data of subjectsGridData" (dblclick)="viewSubject(data.id)" class="table-pointer">
                                 <td>{{data?.subject_code}}</td>
                                 <td>{{data?.subject_name}}</td>
-                                <td>{{data?.department.department_name}}</td>
+                                <td>{{data?.department?.department_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="3">

@@ -4,8 +4,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
 import { SelectDepartmentComponent } from '../../../../components/select-windows/classes-windows/select-department/select-department.component';
 
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-
 
 @Component({
   selector: 'app-subject-form',
@@ -14,9 +12,7 @@ import { SelectDepartmentComponent } from '../../../../components/select-windows
 })
 export class SubjectFormComponent implements OnInit {
 
-  constructor(
-    // private activeTerm: ActiveTermService
-  ) { }
+  constructor() { }
 
   @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
   @ViewChild('selectDepartmentComponentReference', { read: SelectDepartmentComponent, static: false }) selectDepartment!: SelectDepartmentComponent;
@@ -35,18 +31,6 @@ export class SubjectFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    this.setActiveTerm()
-  }
-
-  setActiveTerm(){
-    // let activeTermData = this.activeTerm.getActiveTerm();
-
-    // this.selectedTermId = activeTermData.id;
-    // this.selectedTermData = activeTermData.data;
-    // this.subjectForm.controls.term.setValue(activeTermData.data.term_name);
-  }
-
   openTermWindow(){
     console.log("You are opening select term window")
     this.selectTerm.openModal();
@@ -56,11 +40,7 @@ export class SubjectFormComponent implements OnInit {
     console.log(termData);
 
     this.selectedTermId = termData.id;
-
-    let termObject = {
-      id: this.selectedTermId,
-    }
-    localStorage.setItem('schoolActiveTerm', JSON.stringify(termObject));
+    this.subjectForm.controls.term.setValue(termData.term_name);
   }
 
   openDepartmentWindow(){

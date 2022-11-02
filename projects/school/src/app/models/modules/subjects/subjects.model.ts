@@ -1,5 +1,6 @@
 export class Subject {
   account!: string;
+  term!: string;
   department!: string;
   subject_code!: string;
   subject_name!: string;

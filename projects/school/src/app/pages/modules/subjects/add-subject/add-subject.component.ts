@@ -36,6 +36,13 @@ export class AddSubjectComponent implements OnInit {
     this.getNewSubjectCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.subjectForm.selectedTermId = activeTerm.term.id
+    this.subjectForm.subjectForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postSubject(){
     console.log('u are saving a new subject');
 
@@ -45,7 +52,7 @@ export class AddSubjectComponent implements OnInit {
       subject_name: this.subjectForm.subjectForm.controls.subjectName.value as string,
       description: this.subjectForm.subjectForm.controls.description.value as string,
       department: this.subjectForm.selectedDepartmentId,
-      // terms: [{id: this.subjectForm.selectedTermId}],
+      term: this.subjectForm.selectedTermId,
     }
 
     console.log(data);

@@ -57,11 +57,14 @@ export class ViewSubjectComponent implements OnInit {
           this.subjectData = res;
           this.isSubjectLoading = false;
 
+
+          this.subjectForm.subjectForm.controls.term.setValue(this.subjectData.term?.term_name);
           this.subjectForm.subjectForm.controls.subjectCode.setValue(this.subjectData.subject_code);
           this.subjectForm.subjectForm.controls.subjectName.setValue(this.subjectData.subject_name);
           this.subjectForm.subjectForm.controls.department.setValue(this.subjectData.department.department_name);
           this.subjectForm.subjectForm.controls.description.setValue(this.subjectData.description);
 
+          this.subjectForm.selectedTermId = this.subjectData.term?.id;
           this.subjectForm.selectedDepartmentId = this.subjectData.department.id;
         },
         error: (err) => {
@@ -81,7 +84,7 @@ export class ViewSubjectComponent implements OnInit {
       subject_name: this.subjectForm.subjectForm.controls.subjectName.value as string,
       description: this.subjectForm.subjectForm.controls.description.value as string,
       department: this.subjectForm.selectedDepartmentId,
-      // terms: [{id: this.subjectForm.selectedTermId}],
+      term: this.subjectForm.selectedTermId,
     }
 
     console.log(data);
@@ -99,37 +102,6 @@ export class ViewSubjectComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
-  }
-
-  updateTerm(){
-    console.log('u are adding new term to term');
-
-    if (this.subjectData.terms.include({id: this.subjectForm.selectedTermId})){
-      console.log('lets go ahead with term update');
-
-      let data = {
-        terms: {
-          id: this.subjectForm.selectedTermId,
-        }
-      }
-
-      // this.subjectsApi.updateSubject(data)
-      //   .then(
-      //     (res: any) => {
-      //       console.log(res);
-      //       this.isSubjectSaving = false;
-      //     },
-      //     (err: any) => {
-      //       console.log(err);
-      //       this.isSubjectSaving = false;
-      //       this.connectionToast.openToast();
-      //     }
-      //   )
-    }
-    else{
-      console.log('no need to update term');
-      this.isSubjectSaving = false;
-    }
   }
 
   confirmDelete(){
