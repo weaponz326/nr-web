@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
 
 
 @Component({
@@ -13,10 +13,9 @@ export class FeesFormComponent implements OnInit {
 
   constructor() { }
 
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
   selectedTermId = "";
-  selectedTermData = {};
   
   feesForm = new FormGroup({
     feesCode: new FormControl(''),
@@ -31,7 +30,7 @@ export class FeesFormComponent implements OnInit {
 
   openTermWindow(){
     console.log("You are opening select term window")
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){
@@ -39,7 +38,6 @@ export class FeesFormComponent implements OnInit {
 
     this.feesForm.controls.term.setValue(termData.data().term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
   }
 
 }

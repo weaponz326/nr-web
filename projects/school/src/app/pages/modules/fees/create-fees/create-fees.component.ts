@@ -25,7 +25,6 @@ export class CreateFeesComponent implements OnInit {
 
   @ViewChild('feesFormComponentReference', { read: FeesFormComponent, static: false }) feesForm!: FeesFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
   navHeading: any[] = [
     { text: "Create Fees", url: "/home/fees/create-fees" },
@@ -38,6 +37,11 @@ export class CreateFeesComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.feesForm.selectedTermId = activeTerm.term.id
+    this.feesForm.feesForm.controls.term.setValue(activeTerm.term.term_name);
+
     this.feesForm.feesForm.controls.feesDate.setValue(new Date().toISOString().slice(0, 10));
   }
 

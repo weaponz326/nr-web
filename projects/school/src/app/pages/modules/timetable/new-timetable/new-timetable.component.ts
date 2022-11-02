@@ -36,6 +36,13 @@ export class NewTimetableComponent implements OnInit {
     this.getNewTimetableCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.timetableForm.selectedTermId = activeTerm.term.id
+    this.timetableForm.timetableForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postTimetable(){
     let data: Timetable = {
       account: this.customCookie.getCookie('school_id') as string,

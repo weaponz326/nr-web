@@ -62,11 +62,10 @@ export class ViewFeesComponent implements OnInit {
           this.feesForm.feesForm.controls.feesCode.setValue(this.feesFormData.fees_code);
           this.feesForm.feesForm.controls.feesName.setValue(this.feesFormData.fees_name);
           this.feesForm.feesForm.controls.feesDate.setValue(this.feesFormData.fees_date);
-          this.feesForm.feesForm.controls.term.setValue(this.feesFormData.term.term_name);
+          this.feesForm.feesForm.controls.term.setValue(this.feesFormData.term?.term_name);
           this.feesForm.feesForm.controls.feesDescription.setValue(this.feesFormData.fees_description);
 
-          this.feesForm.selectedTermId = this.feesFormData.term.id;
-          this.feesForm.selectedTermData = this.feesFormData.term.data;
+          this.feesForm.selectedTermId = this.feesFormData.term?.id;
         },
         error: (err: any) => {
           console.log(err);
