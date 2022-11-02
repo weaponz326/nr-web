@@ -38,6 +38,13 @@ export class NewAttendanceComponent implements OnInit {
     this.getNewAttendanceCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.attendanceForm.selectedTermId = activeTerm.term.id
+    this.attendanceForm.attendanceForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   createAttendance(){
     if(this.attendanceForm.attendanceForm.controls.attendanceSource.value == "Students")
       this.postStudentAttendance()

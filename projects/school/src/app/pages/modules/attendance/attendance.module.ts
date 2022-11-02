@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AttendanceRoutingModule } from './attendance-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { TermsWindowsModule } from '../../../components/select-windows/terms-windows/terms-windows.module';
+import { ClassesWindowsModule } from '../../../components/select-windows/classes-windows/classes-windows.module';
 
 import { AttendancePage } from './attendance.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -40,6 +42,8 @@ import { TeachersAttendanceComponent } from './teachers-attendance/teachers-atte
     AttendanceRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    TermsWindowsModule,
+    ClassesWindowsModule
   ]
 })
 export class AttendanceModule { }

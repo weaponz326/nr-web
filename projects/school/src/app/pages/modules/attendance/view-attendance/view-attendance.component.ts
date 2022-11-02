@@ -91,6 +91,8 @@ export class ViewAttendanceComponent implements OnInit {
 
           this.attendanceForm.selectedClassId = this.attendanceFormData.source.id;
           this.attendanceForm.attendanceForm.controls.clase.setValue(this.attendanceFormData.clase.class_name);
+          this.attendanceForm.selectedTermId = this.attendanceFormData.term?.id;
+          this.attendanceForm.attendanceForm.controls.term.setValue(this.attendanceFormData.term?.term_name);
         },
         error: (err: any) => {
           console.log(err);
@@ -162,6 +164,9 @@ export class ViewAttendanceComponent implements OnInit {
           this.attendanceForm.attendanceForm.controls.attendanceName.setValue(this.attendanceFormData.attendance_name);
           this.attendanceForm.attendanceForm.controls.fromDate.setValue(this.attendanceFormData.from_date);
           this.attendanceForm.attendanceForm.controls.toDate.setValue(this.attendanceFormData.to_date);
+
+          this.attendanceForm.selectedTermId = this.attendanceFormData.term?.id;
+          this.attendanceForm.attendanceForm.controls.term.setValue(this.attendanceFormData.term?.term_name);
         },
         error: (err: any) => {
           console.log(err);
