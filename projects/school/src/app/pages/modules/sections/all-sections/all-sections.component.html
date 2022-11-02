@@ -37,7 +37,7 @@
                             <tr *ngFor="let data of sectionsGridData" (dblclick)="viewSection(data.id)" class="table-pointer">
                                 <td>{{data?.section_code}}</td>
                                 <td>{{data?.section_name}}</td>
-                                <td>{{data?.term.term_name}}</td>
+                                <td>{{data?.term?.term_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="3">

@@ -60,8 +60,8 @@ export class ViewSectionComponent implements OnInit {
           this.sectionForm.sectionForm.controls.sectionCode.setValue(this.sectionData.section_code);
           this.sectionForm.sectionForm.controls.sectionName.setValue(this.sectionData.section_name);
 
-          this.sectionForm.selectedTermId = this.sectionData.term.id;
-          this.sectionForm.sectionForm.controls.term.setValue(this.sectionData.term.term_name);
+          this.sectionForm.selectedTermId = this.sectionData.term?.id;
+          this.sectionForm.sectionForm.controls.term.setValue(this.sectionData.term?.term_name);
         },
         error: (err) => {
           console.log(err);

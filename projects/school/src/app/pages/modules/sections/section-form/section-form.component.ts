@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 
 
 @Component({
@@ -12,9 +11,7 @@ import { SelectTermComponent } from '../../../../components/select-windows/terms
 })
 export class SectionFormComponent implements OnInit {
 
-  constructor(
-    // private activeTerm: ActiveTermService
-  ) { }
+  constructor() { }
 
   @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
@@ -28,13 +25,6 @@ export class SectionFormComponent implements OnInit {
   })
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    // let activeTerm = this.activeTerm.getActiveTerm();
-    // this.sectionForm.controls.term.setValue(activeTerm.data.term_name);
-    // this.selectedTermId = activeTerm.id;
-    // this.selectedTermData = activeTerm.data;
   }
 
   openTermWindow(){

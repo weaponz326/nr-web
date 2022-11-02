@@ -38,6 +38,13 @@ export class NewSectionComponent implements OnInit {
     this.getNewSectionCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.sectionForm.selectedTermId = activeTerm.term.id
+    this.sectionForm.sectionForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postSection(){
     let data: Section = {
       account: this.customCookie.getCookie('school_id') as string,
