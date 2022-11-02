@@ -63,12 +63,12 @@ export class ViewClassComponent implements OnInit {
           this.classForm.classForm.controls.className.setValue(this.classData.class_name);
           this.classForm.classForm.controls.classAbbreviation.setValue(this.classData.class_abbreviation);
           this.classForm.classForm.controls.grade.setValue(this.classData.grade);
-          this.classForm.classForm.controls.department.setValue(this.classData.department.department_name);
-          this.classForm.classForm.controls.classTeacher.setValue(this.classData.class_teacher.teacher_name);
+          this.classForm.classForm.controls.department.setValue(this.classData.department?.department_name);
+          this.classForm.classForm.controls.classTeacher.setValue(this.classData.class_teacher?.first_name + " " + this.classData.class_teacher?.last_name);
           this.classForm.classForm.controls.location.setValue(this.classData.location);
 
-          this.classForm.selectedTeacherId = this.classData.class_teacher.id;
-          this.classForm.selectedDepartmentId = this.classData.department.id;
+          this.classForm.selectedTeacherId = this.classData.class_teacher?.id;
+          this.classForm.selectedDepartmentId = this.classData.department?.id;
 
           // this.setStudentClass();
         },

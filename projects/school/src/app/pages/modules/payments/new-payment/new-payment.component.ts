@@ -5,7 +5,6 @@ import { PaymentFormComponent } from '../payment-form/payment-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 import { PaymentsApiService } from 'projects/school/src/app/services/modules-api/payments-api/payments-api.service';
 
 import { Payment } from 'projects/school/src/app/models/modules/payments/payments.model';
@@ -21,7 +20,6 @@ export class NewPaymentComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private activeTerm: ActiveTermService,
     private paymentsApi: PaymentsApiService
   ) { }
 
@@ -39,11 +37,10 @@ export class NewPaymentComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.paymentForm.paymentForm.controls.paymentDate.setValue(new Date().toISOString().slice(0, 16));
-
-    // let activeTerm = this.activeTerm.getActiveTerm();
-    // this.paymentForm.paymentForm.controls.term.setValue(activeTerm.term_name);
-    // this.paymentForm.selectedTermId = activeTerm.id;
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.paymentForm.selectedTermId = activeTerm.term.id
+    this.paymentForm.paymentForm.controls.term.setValue(activeTerm.term.term_name);
   }
 
   postPayment(){

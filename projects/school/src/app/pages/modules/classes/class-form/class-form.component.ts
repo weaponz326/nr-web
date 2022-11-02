@@ -5,8 +5,6 @@ import { SelectTermComponent } from '../../../../components/select-windows/terms
 import { SelectDepartmentComponent } from '../../../../components/select-windows/classes-windows/select-department/select-department.component';
 import { SelectTeacherComponent } from '../../../../components/select-windows/teachers-windows/select-teacher/select-teacher.component';
 
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-
 
 @Component({
   selector: 'app-class-form',
@@ -15,20 +13,15 @@ import { SelectTeacherComponent } from '../../../../components/select-windows/te
 })
 export class ClassFormComponent implements OnInit {
 
-  constructor(
-    // private activeTerm: ActiveTermService
-  ) { }
+  constructor() { }
 
   @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
   @ViewChild('selectDepartmentComponentReference', { read: SelectDepartmentComponent, static: false }) selectDepartment!: SelectDepartmentComponent;
   @ViewChild('selectTeacherComponentReference', { read: SelectTeacherComponent, static: false }) selectTeacher!: SelectTeacherComponent;
 
   selectedTermId = "";
-  selectedTermData: any = {};
   selectedDepartmentId = "";
-  selectedDepartmentData: any = {};
   selectedTeacherId = "";
-  selectedTeacherData: any = {};
 
   classForm = new FormGroup({
     className: new FormControl(''),
@@ -41,15 +34,6 @@ export class ClassFormComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.setActiveTerm();
-  }
-
-  setActiveTerm(){
-    // let activeTermData = this.activeTerm.getActiveTerm();
-
-    // this.selectedTermId = activeTermData.id;
-    // this.selectedTermData = activeTermData.data;
-    // this.classForm.controls.term.setValue(activeTermData.data.term_name);
   }
 
   openTermWindow(){
@@ -62,7 +46,6 @@ export class ClassFormComponent implements OnInit {
 
     this.classForm.controls.term.setValue(termData.term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData;
   }
 
   openDepartmentWindow(){

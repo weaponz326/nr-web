@@ -34,6 +34,13 @@ export class NewClassComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.classForm.selectedTermId = activeTerm.term.id
+    this.classForm.classForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postClass(){
     let data = {
       account: this.customCookie.getCookie('school_id') as string,

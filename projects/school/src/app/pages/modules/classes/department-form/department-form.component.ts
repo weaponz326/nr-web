@@ -18,15 +18,13 @@ export class DepartmentFormComponent implements OnInit {
   @ViewChild('selectTeacherComponentReference', { read: SelectTeacherComponent, static: false }) selectTeacher!: SelectTeacherComponent;
 
   selectedTermId = "";
-  selectedTermData: any = {};
   selectedTeacherId = "";
-  selectedTeacherData: any = {};
 
   departmentForm = new FormGroup({
     departmentName: new FormControl(''),
     departmentDescription: new FormControl(''),
-    term: new FormControl(''),
-    departmentHead: new FormControl(''),
+    term: new FormControl({value: "", disabled: true}),
+    departmentHead: new FormControl({value: "", disabled: true}),
   })
 
   ngOnInit(): void {

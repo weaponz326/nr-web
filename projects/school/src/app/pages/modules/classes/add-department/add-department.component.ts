@@ -34,12 +34,11 @@ export class AddDepartmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setActiveTerm(){
-    // let activeTermData = this.activeTerm.getActiveTerm();
-
-    // this.departmentForm.selectedTermId = activeTermData.id;
-    // this.departmentForm.selectedTermData = activeTermData.data;
-    // this.departmentForm.departmentForm.controls.term.setValue(activeTermData.data.term_name);
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.departmentForm.selectedTermId = activeTerm.term.id
+    this.departmentForm.departmentForm.controls.term.setValue(activeTerm.term.term_name);
   }
 
   postDepartment(){

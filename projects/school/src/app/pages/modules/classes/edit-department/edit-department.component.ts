@@ -56,11 +56,11 @@ export class EditDepartmentComponent implements OnInit {
 
           this.departmentForm.departmentForm.controls.departmentName.setValue(res.department_name);
           this.departmentForm.departmentForm.controls.departmentDescription.setValue(res.department_description);
-          this.departmentForm.departmentForm.controls.term.setValue(res.term.term_name);
-          this.departmentForm.departmentForm.controls.departmentHead.setValue(res.department_head.first_name + " " + res.department_head.last_name);
+          this.departmentForm.departmentForm.controls.term.setValue(res.term?.term_name);
+          this.departmentForm.departmentForm.controls.departmentHead.setValue(res.department_head?.first_name + " " + res.department_head?.last_name);
 
-          this.departmentForm.selectedTermId = res.term.id
-          this.departmentForm.selectedTeacherId = res.department_head.id
+          this.departmentForm.selectedTermId = res.term?.id
+          this.departmentForm.selectedTeacherId = res.department_head?.id
         },
         error: (err) => {
           console.log(err);

@@ -6,7 +6,6 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
 import { SelectClaseComponent } from '../../../../components/select-windows/classes-windows/select-clase/select-clase.component';
 
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 import { ReportsApiService } from 'projects/school/src/app/services/modules-api/reports-api/reports-api.service';
 
 import { Report } from 'projects/school/src/app/models/modules/reports/reports.model';
@@ -21,7 +20,6 @@ export class NewReportComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private activeTerm: ActiveTermService,
     private reportsApi: ReportsApiService,
   ) { }
 
@@ -51,12 +49,10 @@ export class NewReportComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.reportForm.controls.reportDate.setValue(new Date().toISOString().slice(0, 10));
-
-    // let activeTerm = this.activeTerm.getActiveTerm();
-    // this.reportForm.controls.term.setValue(activeTerm.data.term_name);
-    // this.selectedTermId = activeTerm.id;
-    // this.selectedTermData = activeTerm.data;
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.selectedTermId = activeTerm.term.id
+    this.reportForm.controls.term.setValue(activeTerm.term.term_name);
   }
 
   postReport(){

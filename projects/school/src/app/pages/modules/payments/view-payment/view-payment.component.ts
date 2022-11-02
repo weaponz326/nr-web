@@ -57,7 +57,7 @@ export class ViewPaymentComponent implements OnInit {
           this.paymentForm.paymentForm.controls.paymentDate.setValue(res.payment_date);
           this.paymentForm.paymentForm.controls.amountPaid.setValue(res.amount_paid);
 
-          this.paymentForm.paymentForm.controls.term.setValue(res.term.term_name);
+          this.paymentForm.paymentForm.controls.term.setValue(res.term?.term_name);
           this.paymentForm.paymentForm.controls.billCode.setValue(res.bill.bill_code);
           this.paymentForm.paymentForm.controls.studentCode.setValue(res.bill.student?.student_code);
           this.paymentForm.paymentForm.controls.studentName.setValue(res.bill.student?.student_name);
