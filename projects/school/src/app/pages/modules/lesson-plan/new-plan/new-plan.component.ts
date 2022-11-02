@@ -5,7 +5,6 @@ import { PlanFormComponent } from '../plan-form/plan-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
 import { LessonPlanApiService } from 'projects/school/src/app/services/modules-api/lesson-plan-api/lesson-plan-api.service';
 
 import { LessonPlan } from 'projects/school/src/app/models/modules/lesson-plan/lesson-plan.model';
@@ -21,7 +20,6 @@ export class NewPlanComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private activeTerm: ActiveTermService,
     private lessonPlanApi: LessonPlanApiService
   ) { }
 
@@ -39,12 +37,10 @@ export class NewPlanComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.planForm.planForm.controls.planDate.setValue(new Date().toISOString().slice(0, 10));
-
-    // let activeTerm = this.activeTerm.getActiveTerm();
-    // this.planForm.planForm.controls.term.setValue(activeTerm.data.term_name);
-    // this.planForm.selectedTermId = activeTerm.id;
-    // this.planForm.selectedTermData = activeTerm.data;
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.planForm.selectedTermId = activeTerm.term.id
+    this.planForm.planForm.controls.term.setValue(activeTerm.term.term_name);
   }
 
   postLessonPlan(){
