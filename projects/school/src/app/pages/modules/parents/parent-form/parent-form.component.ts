@@ -4,8 +4,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ImageInputComponent } from 'projects/personal/src/app/components/module-utilities/image-input/image-input.component';
 import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
 
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-
 
 @Component({
   selector: 'app-parent-form',
@@ -14,15 +12,14 @@ import { SelectTermComponent } from '../../../../components/select-windows/terms
 })
 export class ParentFormComponent implements OnInit {
 
-  constructor(
-    // private activeTerm: ActiveTermService
-  ) { }
+  constructor() { }
 
   @ViewChild('imageInputComponentReference', { read: ImageInputComponent, static: false }) photo!: ImageInputComponent;
   @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
   selectedTermId = "";
-  selectedTermData = {};
+
+  // activeTerm: any;
 
   parentForm = new FormGroup({
     parentCode: new FormControl(''),
@@ -46,18 +43,6 @@ export class ParentFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(){
-    this.setActiveTerm()
-  }
-
-  setActiveTerm(){
-    // let activeTermData = this.activeTerm.getActiveTerm();
-
-    // this.selectedTermId = activeTermData.id;
-    // this.selectedTermData = activeTermData.data;
-    // this.parentForm.controls.term.setValue(activeTermData.data.term_name);
-  }
-
   openTermWindow(){
     console.log("You are opening select term window");
     this.selectTerm.openModal();
@@ -67,13 +52,7 @@ export class ParentFormComponent implements OnInit {
     console.log(termData);
 
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
-
-    let termObject = {
-      id: this.selectedTermId,
-      data: this.selectedTermData,
-    }
-    localStorage.setItem('schoolActiveTerm', JSON.stringify(termObject));
+    this.parentForm.controls.term.setValue(termData.term_name);
   }
 
 }

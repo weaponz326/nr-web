@@ -7,15 +7,7 @@ export class ActiveTermService {
 
   constructor() { }
 
-  public setActiveTerm(snapshotData: any){
-    let data = {
-      id: snapshotData.id,
-      data: {
-        term_code: snapshotData.data().term_code,
-        term_name: snapshotData.data().term_name,
-      }
-    }
-
+  public setActiveTerm(data: any){
     console.log(data);
 
     const dataString = JSON.stringify(data);

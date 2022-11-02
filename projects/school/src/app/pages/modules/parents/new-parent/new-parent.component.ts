@@ -36,6 +36,13 @@ export class NewParentComponent implements OnInit {
     this.getNewParentCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.parentForm.selectedTermId = activeTerm.term.id
+    this.parentForm.parentForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postParent(){
     console.log('u are saving a new parent');
 
@@ -56,7 +63,7 @@ export class NewParentComponent implements OnInit {
       city: this.parentForm.parentForm.controls.city.value,
       country: this.parentForm.parentForm.controls.city.value,
       post_code: this.parentForm.parentForm.controls.postCode.value,
-      // terms: [this.parentForm.selectedTermId],
+      term: this.parentForm.selectedTermId,
     }
 
     console.log(data);

@@ -8,6 +8,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 
 import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { ParentsApiService } from 'projects/school/src/app/services/modules-api/parents-api/parents-api.service';
 // import { ParentsPrintService } from 'projects/school/src/app/services/printing/parents-print/parents-print.service';
 
@@ -23,6 +24,7 @@ export class ViewParentComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private parentsApi: ParentsApiService,
     // private parentsPrint: ParentsPrintService,
   ) { }
@@ -57,6 +59,9 @@ export class ViewParentComponent implements OnInit {
           this.parentData = res;
           this.isParentLoading = false;
 
+          this.parentForm.parentForm.controls.term.setValue(this.parentData.term?.term_name);
+          this.parentForm.selectedTermId = this.parentData.term?.id;
+
           this.parentForm.parentForm.controls.parentCode.setValue(this.parentData.parent_code);
           this.parentForm.parentForm.controls.firstName.setValue(this.parentData.first_name);
           this.parentForm.parentForm.controls.lastName.setValue(this.parentData.last_name);
@@ -90,6 +95,8 @@ export class ViewParentComponent implements OnInit {
     console.log('u are saving a new parent');
 
     var data = {
+      account: this.customCookie.getCookie('school_id') as string,
+      term: this.parentForm.selectedTermId,
       parent_code: this.parentForm.parentForm.controls.parentCode.value,
       first_name: this.parentForm.parentForm.controls.firstName.value,
       last_name: this.parentForm.parentForm.controls.lastName.value,
@@ -131,38 +138,6 @@ export class ViewParentComponent implements OnInit {
 
   confirmDelete(){
     this.deleteModal.openModal();
-  }
-
-  updateTerm(){
-    console.log('u are adding new term to term');
-
-    if (this.parentData.terms.include({id: this.parentForm.selectedTermId})){
-      console.log('lets go ahead with term update');
-
-      let data = {
-        terms: {
-          id: this.parentForm.selectedTermId,
-          data: this.parentForm.selectedTermData,
-        }
-      }
-
-      // this.parentsApi.updateParent(data)
-      //   .then(
-      //     (res: any) => {
-      //       console.log(res);
-      //       this.isParentSaving = false;
-      //     },
-      //     (err: any) => {
-      //       console.log(err);
-      //       this.isParentSaving = false;
-      //       this.connectionToast.openToast();
-      //     }
-      //   )
-    }
-    else{
-      console.log('no need to update term');
-      this.isParentSaving = false;
-    }
   }
 
   deleteParent(){
