@@ -59,9 +59,9 @@ export class ViewParentComponent implements OnInit {
           this.parentData = res;
           this.isParentLoading = false;
 
-          this.parentForm.parentForm.controls.term.setValue(this.parentData.term?.term_name);
           this.parentForm.selectedTermId = this.parentData.term?.id;
 
+          this.parentForm.parentForm.controls.term.setValue(this.parentData.term?.term_name);
           this.parentForm.parentForm.controls.parentCode.setValue(this.parentData.parent_code);
           this.parentForm.parentForm.controls.firstName.setValue(this.parentData.first_name);
           this.parentForm.parentForm.controls.lastName.setValue(this.parentData.last_name);

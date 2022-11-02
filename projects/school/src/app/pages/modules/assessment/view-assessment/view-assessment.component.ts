@@ -59,6 +59,8 @@ export class ViewAssessmentComponent implements OnInit {
           this.assessmentFormData = res;
           this.isAssessmentLoading = false;
 
+          this.assessmentForm.selectedTermId = this.assessmentFormData.term?.id;
+
           this.assessmentForm.assessmentForm.controls.assessmentCode.setValue(this.assessmentFormData.assessment_code);
           this.assessmentForm.assessmentForm.controls.assessmentName.setValue(this.assessmentFormData.assessment_name);
           this.assessmentForm.assessmentForm.controls.assessmentDate.setValue(this.assessmentFormData.assessment_date);

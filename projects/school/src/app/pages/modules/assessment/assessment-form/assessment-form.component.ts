@@ -5,8 +5,6 @@ import { SelectTermComponent } from '../../../../components/select-windows/terms
 import { SelectSubjectComponent } from '../../../../components/select-windows/subjects-windows/select-subject/select-subject.component';
 import { SelectClaseComponent } from '../../../../components/select-windows/classes-windows/select-clase/select-clase.component';
 
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-
 
 @Component({
   selector: 'app-assessment-form',
@@ -15,20 +13,15 @@ import { SelectClaseComponent } from '../../../../components/select-windows/clas
 })
 export class AssessmentFormComponent implements OnInit {
 
-  constructor(
-    // private activeTerm: ActiveTermService
-  ) { }
+  constructor() { }
 
   @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
   @ViewChild('selectSubjectComponentReference', { read: SelectSubjectComponent, static: false }) selectSubject!: SelectSubjectComponent;
   @ViewChild('selectClassComponentReference', { read: SelectClaseComponent, static: false }) selectClass!: SelectClaseComponent;
 
   selectedTermId = "";
-  selectedTermData: any;
   selectedSubjectId = "";
-  selectedSubjectData: any;
   selectedClassId = "";
-  selectedClassData: any;
 
   assessmentForm = new FormGroup({
     assessmentCode: new FormControl(''),
@@ -42,15 +35,6 @@ export class AssessmentFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    this.assessmentForm.controls.assessmentDate.setValue(new Date().toISOString().slice(0, 10));
-
-    // let activeTerm = this.activeTerm.getActiveTerm();
-    // this.assessmentForm.controls.term.setValue(activeTerm.data.term_name);
-    // this.selectedTermId = activeTerm.id;
-    // this.selectedTermData = activeTerm.data;
-  }
-
   openTermWindow(){
     console.log("You are opening select term window");
     this.selectTerm.openModal();
@@ -61,7 +45,6 @@ export class AssessmentFormComponent implements OnInit {
 
     this.assessmentForm.controls.term.setValue(termData.term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData;
   }
 
   openSubjectWindow(){
@@ -74,7 +57,6 @@ export class AssessmentFormComponent implements OnInit {
 
     this.assessmentForm.controls.subject.setValue(subjectData.subject_name);
     this.selectedSubjectId = subjectData.id;
-    this.selectedSubjectData = subjectData;
   }
 
   openClassWindow(){
@@ -87,7 +69,6 @@ export class AssessmentFormComponent implements OnInit {
 
     this.assessmentForm.controls.clase.setValue(classData.class_name);
     this.selectedClassId = classData.id;
-    this.selectedClassData = classData;
   }
 
 }

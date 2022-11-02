@@ -36,6 +36,13 @@ export class NewAssessmentComponent implements OnInit {
     this.getNewAssessmentCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.assessmentForm.selectedTermId = activeTerm.term.id
+    this.assessmentForm.assessmentForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postAssessment(){
     let data: Assessment = {
       account: this.customCookie.getCookie('school_id') as string,

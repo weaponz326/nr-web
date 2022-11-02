@@ -19,8 +19,6 @@ export class ParentFormComponent implements OnInit {
 
   selectedTermId = "";
 
-  // activeTerm: any;
-
   parentForm = new FormGroup({
     parentCode: new FormControl(''),
     term: new FormControl({value: '', disabled: true}),
