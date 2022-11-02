@@ -3,10 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ImageInputComponent } from 'projects/personal/src/app/components/module-utilities/image-input/image-input.component';
 import { BdayInputComponent } from 'projects/personal/src/app/components/module-utilities/bday-input/bday-input.component'
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
-// import { SelectClassComponent } from '../../../select-windows/classes-windows/select-class/select-class.component';
-
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
+import { SelectClaseComponent } from '../../../../components/select-windows/classes-windows/select-clase/select-clase.component';
 
 
 @Component({
@@ -16,15 +14,13 @@ import { BdayInputComponent } from 'projects/personal/src/app/components/module-
 })
 export class StudentFormComponent implements OnInit {
 
-  constructor(
-    // private activeTerm: ActiveTermService
-  ) { }
+  constructor() { }
 
   @ViewChild('imageInputComponentReference', { read: ImageInputComponent, static: false }) photo!: ImageInputComponent;
   @ViewChild('bdayInputComponentReference', { read: BdayInputComponent, static: false }) bday!: BdayInputComponent;
 
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
-  // @ViewChild('selectClassComponentReference', { read: SelectClassComponent, static: false }) selectClass!: SelectClassComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectClassComponentReference', { read: SelectClaseComponent, static: false }) selectClass!: SelectClaseComponent;
 
   selectedTermId = "";
   selectedTermData: any;
@@ -53,21 +49,9 @@ export class StudentFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    this.setActiveTerm()
-  }
-
-  setActiveTerm(){
-    // let activeTermData = this.activeTerm.getActiveTerm();
-
-    // this.selectedTermId = activeTermData.id;
-    // this.selectedTermData = activeTermData.data;
-    // this.studentForm.controls.term.setValue(activeTermData.data.term_name);
-  }
-
   openTermWindow(){
     console.log("You are opening select term window")
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){
@@ -80,7 +64,7 @@ export class StudentFormComponent implements OnInit {
 
   openClassWindow(){
     console.log("You are opening select term window")
-    // this.selectClass.openModal();
+    this.selectClass.openModal();
   }
 
   onClassSelected(classData: any){

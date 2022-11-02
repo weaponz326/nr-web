@@ -41,6 +41,13 @@ export class NewStudentComponent implements OnInit {
     this.getNewStudentCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.studentForm.selectedTermId = activeTerm.term.id
+    this.studentForm.studentForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postStudent(){
     console.log('u are saving a new student');
 
@@ -51,6 +58,7 @@ export class NewStudentComponent implements OnInit {
       sex: this.studentForm.studentForm.controls.sex.value as string,
       date_of_birth: this.studentForm.bday.getValue(),
       student_code: this.studentForm.studentForm.controls.studentCode.value as string,
+      term: this.studentForm.selectedTermId,
       admission_date: this.studentForm.studentForm.controls.admissionDate.value,
       previous_school: this.studentForm.studentForm.controls.previousSchool.value as string,
       nationality: this.studentForm.studentForm.controls.nationality.value as string,

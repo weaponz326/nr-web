@@ -7,6 +7,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 
 import { environment } from 'projects/school/src/environments/environment';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { StudentsApiService } from 'projects/school/src/app/services/modules-api/students-api/students-api.service';
 // import { StudentsPrintService } from 'projects/school/src/app/services/printing/students-print/students-print.service';
 
@@ -22,6 +23,7 @@ export class ViewStudentComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private customCookie: CustomCookieService,
     private studentsApi: StudentsApiService,
     // private studentsPrint: StudentsPrintService,
   ) { }
@@ -71,6 +73,11 @@ export class ViewStudentComponent implements OnInit {
           this.studentForm.studentForm.controls.city.setValue(this.studentData.city);
           this.studentForm.studentForm.controls.postCode.setValue(this.studentData.post_code);
 
+          this.studentForm.selectedTermId = this.studentData.term?.id;
+          this.studentForm.studentForm.controls.term.setValue(this.studentData.term?.term_name);
+          this.studentForm.selectedClassId = this.studentData.clase?.id;
+          this.studentForm.studentForm.controls.clase.setValue(this.studentData.clase?.class_name);
+
           if (this.studentData.photo != null)
             this.studentForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.studentData.photo;
           else
@@ -88,11 +95,13 @@ export class ViewStudentComponent implements OnInit {
     console.log('u are saving a new student');
 
     var data = {
+      account: this.customCookie.getCookie('school_id') as string,
       first_name: this.studentForm.studentForm.controls.firstName.value,
       last_name: this.studentForm.studentForm.controls.lastName.value,
       sex: this.studentForm.studentForm.controls.sex.value,
       date_of_birth: this.studentForm.bday.getValue(),
       student_code: this.studentForm.studentForm.controls.studentCode.value,
+      term: this.studentForm.selectedTermId,
       admission_date: this.studentForm.studentForm.controls.admissionDate.value,
       previous_school: this.studentForm.studentForm.controls.previousSchool.value,
       nationality: this.studentForm.studentForm.controls.nationality.value,
