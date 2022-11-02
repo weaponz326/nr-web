@@ -38,6 +38,13 @@ export class NewTeacherComponent implements OnInit {
     this.getNewTeacherCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.teacherForm.selectedTermId = activeTerm.term.id
+    this.teacherForm.teacherForm.controls.term.setValue(activeTerm.term.term_name);
+  }
+
   postTeacher(){
     console.log('u are saving a new teacher');
 

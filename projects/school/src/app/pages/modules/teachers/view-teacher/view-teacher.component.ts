@@ -77,6 +77,7 @@ export class ViewTeacherComponent implements OnInit {
 
           this.teacherForm.selectedTermId = this.teacherData.term.id;
           this.teacherForm.teacherForm.controls.term.setValue(this.teacherData.term?.term_name);
+          this.teacherForm.selectedDepartmentId = this.teacherData.department.id;
           this.teacherForm.teacherForm.controls.department.setValue(this.teacherData.department?.department_name);
         },
         error: (err) => {
