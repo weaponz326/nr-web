@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-import { PortalApiService } from 'projects/restaurant/src/app/services/modules-api/portal-api/portal-api.service';
+import { PortalApiService } from 'projects/association/src/app/services/modules-api/portal-api/portal-api.service';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class TimelineComponent implements OnInit {
     { text: "Timeline", url: "/home/portal/timeline" },
   ];
 
-  restaurantId = this.customCookie.getCookie('restaurant_id');
+  associationId = this.customCookie.getCookie('association_id');
   rinksData: any[] = [];
 
   isRinksLoading = false;
@@ -54,7 +54,7 @@ export class TimelineComponent implements OnInit {
   }
 
   viewRink(rinkId: any){
-    sessionStorage.setItem('restaurant_rink_id', rinkId);
+    sessionStorage.setItem('association_rink_id', rinkId);
     this.router.navigateByUrl('/home/portal/view-rink');
   }
 

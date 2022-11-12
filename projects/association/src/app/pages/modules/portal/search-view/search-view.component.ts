@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
+import { AccountApiService } from 'projects/association/src/app/services/account-api/account-api.service';
 
 
 @Component({
@@ -24,10 +24,10 @@ export class SearchViewComponent implements OnInit {
     { text: "New Rink", url: "/home/portal/search" },
   ];
 
-  searchFilterValues: any[] = ['All', 'Personal', 'Restaurant'];
+  searchFilterValues: any[] = ['All', 'Personal', 'Association'];
 
   searchInput = '';
-  searchFilter = 'Restaurant';
+  searchFilter = 'Association';
 
   isSearchResultsReady = false;
   isSearchDetailReady = false;
@@ -43,12 +43,12 @@ export class SearchViewComponent implements OnInit {
   isPrevDisabled = false;
 
   ngOnInit(): void {
-    console.log(sessionStorage.getItem('restaurantSearchInput'));
+    console.log(sessionStorage.getItem('associationSearchInput'));
 
-    if(sessionStorage.getItem('restaurantSearchInput')){
-      this.searchInput = String(sessionStorage.getItem('restaurantSearchInput') || '');
-      this.searchFilter = String(sessionStorage.getItem('restaurantSearchFilter') || 'Personal');
-      this.searchQuery = sessionStorage.getItem('restaurantSearchInput');
+    if(sessionStorage.getItem('associationSearchInput')){
+      this.searchInput = String(sessionStorage.getItem('associationSearchInput') || '');
+      this.searchFilter = String(sessionStorage.getItem('associationSearchFilter') || 'Personal');
+      this.searchQuery = sessionStorage.getItem('associationSearchInput');
 
       this.doSearch(1);
     }
@@ -59,8 +59,8 @@ export class SearchViewComponent implements OnInit {
       // put search input in url just for the looks
       this.router.navigate(['/home/portal/search', { input: this.searchInput, filter: this.searchFilter }]);
 
-      sessionStorage.setItem('restaurantSearchInput', this.searchInput);
-      sessionStorage.setItem('restaurantSearchFilter', this.searchFilter);
+      sessionStorage.setItem('associationSearchInput', this.searchInput);
+      sessionStorage.setItem('associationSearchFilter', this.searchFilter);
       this.searchQuery = this.searchInput;
 
       this.getSearchResults(page);
@@ -100,9 +100,9 @@ export class SearchViewComponent implements OnInit {
   }
 
   getSearchDetail(userId: any){
-    sessionStorage.setItem('restaurantSearchAccount', userId);
+    sessionStorage.setItem('associationSearchAccount', userId);
 
-    this.accountApi.getSearchDetail(sessionStorage.getItem('restaurantSearchAccount') as string)
+    this.accountApi.getSearchDetail(sessionStorage.getItem('associationSearchAccount') as string)
       .subscribe({
         next: (res) => {
           console.log(res);

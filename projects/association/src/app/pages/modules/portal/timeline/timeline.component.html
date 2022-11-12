@@ -28,7 +28,7 @@
                         <tr *ngFor="let rink of rinksData">
                             <td class="py-3">
 
-                                <div *ngIf="rink?.sender.id==restaurantId; then senderBlock else recipientBlock"></div>
+                                <div *ngIf="rink?.sender.id==associationId; then senderBlock else recipientBlock"></div>
 
                                 <ng-template #senderBlock>
                                     <div class="list-pointer" (click)="viewRink(rink?.id)">
@@ -56,17 +56,8 @@
                                         <div class="row mt-1">
                                             <div class="offset-md-1 col">
                                                 <i class="bi bi-menu-button-fill me-2 text-muted"></i>
-                                                Restaurant - {{rink?.rink_type}}
-                                                <img *ngIf="rink?.rink_type == 'Menu Group' || rink?.rink_type == 'Menu Item'" src="../../../../../assets/images/modules/menu.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Staff'" src="../../../../../assets/images/modules/staff.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Order'" src="../../../../../assets/images/modules/orders.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Delivery'" src="../../../../../assets/images/modules/deliveries.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Customer'" src="../../../../../assets/images/modules/customers.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Reservation'" src="../../../../../assets/images/modules/reservations.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Kitchen Stock Item'" src="../../../../../assets/images/modules/kitchen_stock.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Payment'" src="../../../../../assets/images/modules/payments.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Roster' || rink?.rink_type == 'Roster Batch'" src="../../../../../assets/images/modules/roster.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Table'" src="../../../../../assets/images/modules/tables.png" alt="" width="25" height="25" class="ms-2" />
+                                                Association - {{rink?.rink_type}}
+
                                             </div>
                                         </div>
                                     </div>
@@ -99,17 +90,8 @@
                                         <div class="row mt-1">
                                             <div class="offset-md-1 col">
                                                 <i class="bi bi-menu-button-fill me-2 text-muted"></i>
-                                                Restaurant - {{rink?.rink_type}}
-                                                <img *ngIf="rink?.rink_type == 'Menu Group' || rink?.rink_type == 'Menu Item'" src="../../../../../assets/images/modules/menu.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Staff'" src="../../../../../assets/images/modules/staff.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Order'" src="../../../../../assets/images/modules/orders.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Delivery'" src="../../../../../assets/images/modules/deliveries.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Customer'" src="../../../../../assets/images/modules/customers.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Reservation'" src="../../../../../assets/images/modules/reservations.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Kitchen Stock Item'" src="../../../../../assets/images/modules/kitchen_stock.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Payment'" src="../../../../../assets/images/modules/payments.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Roster' || rink?.rink_type == 'Roster Batch'" src="../../../../../assets/images/modules/roster.png" alt="" width="25" height="25" class="ms-2" />
-                                                <img *ngIf="rink?.rink_type == 'Table'" src="../../../../../assets/images/modules/tables.png" alt="" width="25" height="25" class="ms-2" />
+                                                Association - {{rink?.rink_type}}
+
                                             </div>
                                         </div>
                                     </div>

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { ViewInvitationComponent } from '../view-invitation/view-invitation.component';
 
-import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
+import { AdminApiService } from 'projects/association/src/app/services/modules-api/admin-api/admin-api.service';
 
 
 @Component({

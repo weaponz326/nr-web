@@ -7,8 +7,8 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { AccessFormComponent } from '../access-form/access-form.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
-import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
+import { AccountApiService } from 'projects/association/src/app/services/account-api/account-api.service';
+import { AdminApiService } from 'projects/association/src/app/services/modules-api/admin-api/admin-api.service';
 
 
 @Component({
@@ -104,9 +104,9 @@ export class ViewUserComponent implements OnInit {
     this.isUserSaving = true;
 
     let data = {
-      account: this.customCookie.getCookie('restaurant_id'),
+      account: this.customCookie.getCookie('association_id'),
       access_level: this.userForm.controls.accessLevel.value,
-      personal_user: sessionStorage.getItem('restaurant_account_user_id')
+      personal_user: sessionStorage.getItem('association_account_user_id')
     }
 
     this.adminApi.putAccountUser(data)
