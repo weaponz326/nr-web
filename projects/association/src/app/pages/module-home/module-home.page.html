@@ -1,4 +1,4 @@
-<app-main-navbar [navBrand]="'nR Restaurant'" [source]="'Restaurant'"></app-main-navbar>
+<app-main-navbar [navBrand]="'nR Association'" [source]="'Association'"></app-main-navbar>
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar d-block mb-4 static-top shadow-sm">
     <div class="text-center module-heading">
@@ -20,7 +20,7 @@
 
         <div class="col-md-2 col-sm-6 text-center">
             <a id="portal" routerLink="/home/portal/dashboard" (click)="checkAccess('portal')"
-            data-bs-toggle="tooltip" title="Interact with customers through netRink portal">
+            data-bs-toggle="tooltip" title="Connect to other associations throgh netRink portal">
                 <figure>
                     <img src="assets/images/modules/portal.png" class="home-icons" />
                     <figcaption>Portal</figcaption>
@@ -29,59 +29,59 @@
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="menu" routerLink="/home/menu/dashboard" (click)="checkAccess('menu')"
-            data-bs-toggle="tooltip" title="Plan and organize your menus">
+            <a id="accounts" routerLink="/home/accounts/dashboard" (click)="checkAccess('accounts')"
+            data-bs-toggle="tooltip" title="Manage financial accounts and transactions">
                 <figure>
-                    <img src="assets/images/modules/menu.png" class="home-icons" />
-                    <figcaption>Menu</figcaption>
+                    <img src="assets/images/modules/accounts.png" class="home-icons" />
+                    <figcaption>Accounts</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="staff" routerLink="/home/staff/dashboard" (click)="checkAccess('staff')"
-            data-bs-toggle="tooltip" title="Manage all staff">
+            <a id="members" routerLink="/home/members/dashboard" (click)="checkAccess('members')"
+            data-bs-toggle="tooltip" title="Manage all members related operations">
                 <figure>
-                    <img src="assets/images/modules/staff.png" class="home-icons" />
-                    <figcaption>Staff</figcaption>
+                    <img src="assets/images/modules/members.png" class="home-icons" />
+                    <figcaption>Members</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="payments" routerLink="/home/payments/dashboard" (click)="checkAccess('payments')"
-            data-bs-toggle="tooltip" title="Receive payment of bills from customers">
+            <a id="committees" routerLink="/home/committees/dashboard" (click)="checkAccess('committees')"
+            data-bs-toggle="tooltip" title="Manage the affairs of sub committees">
                 <figure>
-                    <img src="assets/images/modules/payments.png" class="home-icons" />
-                    <figcaption>Payments</figcaption>
+                    <img src="assets/images/modules/committees.png" class="home-icons" />
+                    <figcaption>Committees</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="orders" routerLink="/home/orders/dashboard" (click)="checkAccess('orders')"
-            data-bs-toggle="tooltip" title="Receive orders and automatically generate bills">
+            <a id="dues" routerLink="/home/dues/dashboard" (click)="checkAccess('dues')"
+            data-bs-toggle="tooltip" title="Manage dues and financial obligations of members">
                 <figure>
-                    <img src="assets/images/modules/orders.png" class="home-icons" />
-                    <figcaption>Orders</figcaption>
+                    <img src="assets/images/modules/dues.png" class="home-icons" />
+                    <figcaption>Dues</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="kitchenStock" routerLink="/home/kitchen-stock/dashboard" (click)="checkAccess('kitchen_stock')"
-            data-bs-toggle="tooltip" title="Keep track of the quantity of ingredients">
+            <a id="meetings" routerLink="/home/meetings/dashboard" (click)="checkAccess('meetings')"
+            data-bs-toggle="tooltip" title="Plan and organize meetings">
                 <figure>
-                    <img src="assets/images/modules/kitchen_stock.png" class="home-icons" />
-                    <figcaption>Kitchen Stock</figcaption>
+                    <img src="assets/images/modules/meetings.png" class="home-icons" />
+                    <figcaption>Meetings</figcaption>
                 </figure>
             </a>
         </div>
 
     </div>
 
-    <!-- -----------------------------------------------------------------------------------------
-    new row -->
+    <!-- ----------------------------------------------------------------------------------
+    row -->
 
     <div class="row my-3">
 
@@ -96,59 +96,59 @@
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="roster" routerLink="/home/roster/dashboard" (click)="checkAccess('roster')"
-            data-bs-toggle="tooltip" title="Plan and manage staff shift and schedules">
+            <a id="executives" routerLink="/home/executives/dashboard" (click)="checkAccess('executives')"
+            data-bs-toggle="tooltip" title="Manage directors and executive members">
                 <figure>
-                    <img src="assets/images/modules/roster.png" class="home-icons" />
-                    <figcaption>Roster</figcaption>
+                    <img src="assets/images/modules/executives.png" class="home-icons" />
+                    <figcaption>Executives</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="tables" routerLink="/home/tables/dashboard" (click)="checkAccess('tables')"
-            data-bs-toggle="tooltip" title="Organize tables and manage other table activities">
+            <a id="actionPlan" routerLink="/home/action_plan/dashboard" (click)="checkAccess('action_plan')"
+            data-bs-toggle="tooltip" title="Plan and manage activities, goals and objectives">
                 <figure>
-                    <img src="assets/images/modules/tables.png" class="home-icons" />
-                    <figcaption>Tables</figcaption>
+                    <img src="assets/images/modules/action-plan.png" class="home-icons" />
+                    <figcaption>Action Plan</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="deliveries" routerLink="/home/deliveries/dashboard" (click)="checkAccess('deliveries')"
-            data-bs-toggle="tooltip" title="Manage delivery operations">
+            <a id="year" routerLink="/home/year/dashboard" (click)="checkAccess('year')"
+            data-bs-toggle="tooltip" title="Plan and manage fiscal years, terms or tenures">
                 <figure>
-                    <img src="assets/images/modules/deliveries.png" class="home-icons" />
-                    <figcaption>Deliveries</figcaption>
+                    <img src="assets/images/modules/year.png" class="home-icons" />
+                    <figcaption>Fiscal Year</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="reservations" routerLink="/home/reservations/dashboard" (click)="checkAccess('reservations')"
-            data-bs-toggle="tooltip" title="Receive and plan reservations">
+            <a id="attendance" routerLink="/home/attendance/dashboard" (click)="checkAccess('attendance')"
+            data-bs-toggle="tooltip" title="Take attendance to meetings and events">
                 <figure>
-                    <img src="assets/images/modules/reservations.png" class="home-icons" />
-                    <figcaption>Reservations</figcaption>
+                    <img src="assets/images/modules/attendance.png" class="home-icons" />
+                    <figcaption>Attendance</figcaption>
                 </figure>
             </a>
         </div>
 
         <div class="col-md-2 col-sm-6 text-center">
-            <a id="customers" routerLink="/home/customers/dashboard" (click)="checkAccess('customers')"
-            data-bs-toggle="tooltip" title="Keep track of all your guests and customers">
+            <a id="groups" routerLink="/home/groups/dashboard" (click)="checkAccess('groups')"
+            data-bs-toggle="tooltip" title="Manage sub divisions within the association">
                 <figure>
-                    <img src="assets/images/modules/customers.png" class="home-icons" />
-                    <figcaption>Customers</figcaption>
+                    <img src="assets/images/modules/groups.png" class="home-icons" />
+                    <figcaption>Groups</figcaption>
                 </figure>
             </a>
         </div>
 
     </div>
 
-    <!-- -----------------------------------------------------------------------------
-    new row -->
+    <!-- ------------------------------------------------------------------------
+    row -->
 
     <div class="row my-3">
 

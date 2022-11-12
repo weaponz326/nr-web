@@ -33,7 +33,7 @@ export class RegisterPage implements OnInit {
           console.log(res);
           if(res.id){
             this.showPrompt = true;
-            this.customCookie.setCookie('restaurant_id', res.id);
+            this.customCookie.setCookie('association_id', res.id);
           }
 
           this.isSending = false;
