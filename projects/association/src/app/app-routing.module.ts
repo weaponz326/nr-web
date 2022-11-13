@@ -71,10 +71,10 @@ const routes: Routes = [
         path: "members",
         loadChildren: () => import("./pages/modules/members/members.module").then(m => m.MembersModule)
       },
-      // {
-      //   path: "committees",
-      //   loadChildren: () => import("./pages/modules/committees/committees.module").then(m => m.)
-      // },
+      {
+        path: "committees",
+        loadChildren: () => import("./pages/modules/committees/committees.module").then(m => m.CommitteesModule)
+      },
       {
         path: "dues",
         loadChildren: () => import("./pages/modules/dues/dues.module").then(m => m.DuesModule)
