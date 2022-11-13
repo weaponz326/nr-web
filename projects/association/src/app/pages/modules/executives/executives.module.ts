@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ExecutivesRoutingModule } from './executives-routing.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { ExecutivesPage } from './executives.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -23,7 +27,11 @@ import { ExecutiveFormComponent } from './executive-form/executive-form.componen
   ],
   imports: [
     CommonModule,
-    ExecutivesRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    ExecutivesRoutingModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule
   ]
 })
 export class ExecutivesModule { }

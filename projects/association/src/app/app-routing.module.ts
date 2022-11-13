@@ -63,6 +63,46 @@ const routes: Routes = [
         // canActivateChild: [SettingsGuard, ConfigAccessGuard],
         loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
       },
+      {
+        path: "accounts",
+        loadChildren: () => import("./pages/modules/accounts/accounts.module").then(m => m.AccountsModule)
+      },
+      {
+        path: "members",
+        loadChildren: () => import("./pages/modules/members/members.module").then(m => m.MembersModule)
+      },
+      // {
+      //   path: "committees",
+      //   loadChildren: () => import("./pages/modules/committees/committees.module").then(m => m.)
+      // },
+      {
+        path: "dues",
+        loadChildren: () => import("./pages/modules/dues/dues.module").then(m => m.DuesModule)
+      },
+      {
+        path: "executives",
+        loadChildren: () => import("./pages/modules/executives/executives.module").then(m => m.ExecutivesModule)
+      },
+      {
+        path: "action-plan",
+        loadChildren: () => import("./pages/modules/action-plan/action-plan.module").then(m => m.ActionPlanModule)
+      },
+      {
+        path: "attendance",
+        loadChildren: () => import("./pages/modules/attendance/attendance.module").then(m => m.AttendanceModule)
+      },
+      {
+        path: "meetings",
+        loadChildren: () => import("./pages/modules/meetings/meetings.module").then(m => m.MeetingsModule)
+      },
+      {
+        path: "groups",
+        loadChildren: () => import("./pages/modules/groups/groups.module").then(m => m.GroupsModule)
+      },
+      {
+        path: "fiscal-year",
+        loadChildren: () => import("./pages/modules/fiscal-year/fiscal-year.module").then(m => m.FiscalYearModule)
+      },
     ]
   },
 ];
