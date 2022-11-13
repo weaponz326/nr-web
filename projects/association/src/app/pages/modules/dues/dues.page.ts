@@ -9,6 +9,10 @@ export class DuesPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Dues", url: "/home/dues/all-dues", icon: "bi bi-list-ul" },
+  ]
+
   ngOnInit(): void {
   }
 

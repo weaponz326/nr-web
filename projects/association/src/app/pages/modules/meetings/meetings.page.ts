@@ -9,6 +9,10 @@ export class MeetingsPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Meetings", url: "/home/meetings/all-meetings", icon: "bi bi-list-ul" },
+  ]
+
   ngOnInit(): void {
   }
 

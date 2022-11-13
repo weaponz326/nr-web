@@ -9,6 +9,11 @@ export class ExecutivesPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Executives", url: "/home/executives/all-executives", icon: "bi bi-list-ul" },
+    { text: "Add Executive", url: "/home/executives/add-executive", icon: "bi bi-plus-square" },
+  ]
+
   ngOnInit(): void {
   }
 

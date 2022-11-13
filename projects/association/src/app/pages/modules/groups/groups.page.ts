@@ -9,6 +9,11 @@ export class GroupsPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Groups", url: "/home/groups/all-groups", icon: "bi bi-list-ul" },
+    { text: "New Group", url: "/home/groups/new-group", icon: "bi bi-plus-square" },
+  ]
+  
   ngOnInit(): void {
   }
 
