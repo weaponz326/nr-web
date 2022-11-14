@@ -178,5 +178,4 @@ export class ViewStudentComponent implements OnInit {
     // this.studentsPrint.printViewStudent();
   }
 
-
 }
