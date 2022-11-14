@@ -1,1 +1,61 @@
-<p>committee-form works!</p>
+<form class="page-form" [formGroup]="committeeForm">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4>Committee Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Committee Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="committeeName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+                <div class="col-md-8">
+                    <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Date Commissioned :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="dateCommissioned" type="date" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Date Decommissioned :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="dateDecommissioned" type="date" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Committee Chairman :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="committeeChairman" class="form-control">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+</form>

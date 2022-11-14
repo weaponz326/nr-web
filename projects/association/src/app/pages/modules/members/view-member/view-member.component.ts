@@ -81,7 +81,7 @@ export class ViewMemberComponent implements OnInit {
     console.log('u are saving a new member');
 
     var data = {
-      account: this.customCookie.getCookie('school_id') as string,
+      account: this.customCookie.getCookie('association_id') as string,
       first_name: this.memberForm.memberForm.controls.firstName.value,
       last_name: this.memberForm.memberForm.controls.lastName.value,
       sex: this.memberForm.memberForm.controls.sex.value,

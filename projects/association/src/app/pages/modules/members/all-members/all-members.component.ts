@@ -61,5 +61,4 @@ export class AllMembersComponent implements OnInit {
     // this.membersPrint.printAllMembers();
   }
 
-
 }

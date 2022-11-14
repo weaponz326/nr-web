@@ -38,7 +38,7 @@ export class NewMemberComponent implements OnInit {
     console.log('u are saving a new member');
 
     var data = {
-      account: this.customCookie.getCookie('school_id') as string,
+      account: this.customCookie.getCookie('asssociation_id') as string,
       first_name: this.memberForm.memberForm.controls.firstName.value as string,
       last_name: this.memberForm.memberForm.controls.lastName.value as string,
       sex: this.memberForm.memberForm.controls.sex.value as string,
