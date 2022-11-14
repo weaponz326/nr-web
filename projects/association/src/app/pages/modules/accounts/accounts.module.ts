@@ -16,6 +16,7 @@ import { AddTransactionComponent } from './add-transaction/add-transaction.compo
 import { EditTransactionComponent } from './edit-transaction/edit-transaction.component';
 import { AllTransactionsComponent } from './all-transactions/all-transactions.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     AddTransactionComponent,
     EditTransactionComponent,
     AllTransactionsComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    TransactionFormComponent
   ],
   imports: [
     CommonModule,

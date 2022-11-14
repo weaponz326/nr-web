@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AccountsPage } from './accounts.page';
 import { AllAccountsComponent } from './all-accounts/all-accounts.component';
+import { AllTransactionsComponent } from './all-transactions/all-transactions.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAccountComponent } from './view-account/view-account.component';
@@ -17,7 +18,7 @@ const routes: Routes = [
       { path: "configuration", component: ConfigurationComponent },
       { path: "all-accounts", component: AllAccountsComponent },
       { path: "view-account", component: ViewAccountComponent },
-      // { path: "all-transactions", component: AllTransactionComponent },
+      { path: "all-transactions", component: AllTransactionsComponent },
     ]
   }
 ];
