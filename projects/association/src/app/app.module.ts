@@ -29,7 +29,6 @@ import { environment } from '../environments/environment';
     }),
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }
