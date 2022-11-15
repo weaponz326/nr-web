@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-executive-form',
@@ -9,6 +11,12 @@ export class ExecutiveFormComponent implements OnInit {
 
   constructor() { }
 
+  executiveForm = new FormGroup({
+    name: new FormControl(''),
+    position: new FormControl(''),
+    fiscalYear: new FormControl(''),
+  });
+  
   ngOnInit(): void {
   }
 

@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ExecutiveFormComponent } from '../executive-form/executive-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+
 
 @Component({
   selector: 'app-add-executive',
@@ -7,9 +14,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddExecutiveComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private customCookie: CustomCookieService,
+  ) { }
+
+  @ViewChild('executiveFormComponentReference', { read: ExecutiveFormComponent, static: false }) executiveForm!: ExecutiveFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  navHeading: any[] = [
+    { text: "New Executive", url: "/home/executives/new-executive" },
+  ];
+
+  storageBasePath = "/school/" + this.customCookie.getCookie('restaurant_id') + "/module_executives/";
+
+  isExecutiveSaving = false;
 
   ngOnInit(): void {
+  }
+
+  postExecutive(){
+    console.log('u are saving a new executive');
+
+    var data = {
+      account: this.customCookie.getCookie('asssociation_id') as string,
+      psoition: this.executiveForm.executiveForm.controls.position.value as string,
+    }
+
+    console.log(data);
+    this.isExecutiveSaving = true;
+
+        
   }
 
 }

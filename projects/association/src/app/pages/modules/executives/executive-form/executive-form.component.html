@@ -1,1 +1,46 @@
-<p>executive-form works!</p>
+<form class="page-form" [formGroup]="executiveForm">
+
+    <div class="row mb-3">
+
+        <div class="col-md-12">
+            <h4>Executive Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Name :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="name" class="form-control">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Position :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="position" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Fiscal Year :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="fiscalYear" class="form-control">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
