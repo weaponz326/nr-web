@@ -1,1 +1,76 @@
-<p>view-plan works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row mb-3">    
+            <div class="col-md-6">
+
+                <form class="page-form" [formGroup]="planForm">
+
+                    <h4>Plan Details</h4>
+                      
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Plan ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="planCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Plan Title :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="planTitle" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+                        <div class="col-md-8">
+                            <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Plan Date :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="planDate" type="date" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+                
+                </form>       
+                
+            </div>
+        </div>
+        
+        <div *ngIf="!isPlanLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/plans/all-plans">Cancel</button>
+                <button [disabled]="isPlanDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isPlanSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putPlan()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isPlanLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- plan steps component -->
+
+        <app-plan-steps #planStepsComponentReference></app-plan-steps>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deletePlan()"></app-delete-modal-one>

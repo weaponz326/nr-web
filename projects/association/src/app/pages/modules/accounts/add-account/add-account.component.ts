@@ -49,7 +49,7 @@ export class AddAccountComponent implements OnInit {
 
     // let data: Account = {
     let data = {
-      user: this.customCookie.getCookie('association_id') as string,
+      account: this.customCookie.getCookie('association_id') as string,
       account_name: this.accountForm.controls.accountName.value as string,
       account_number: this.accountForm.controls.accountNumber.value as string,
       bank_name: this.accountForm.controls.bankName.value as string,

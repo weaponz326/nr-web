@@ -1,1 +1,45 @@
-<p>edit-step works!</p>
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editStepModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="editStepModal" tabindex="-1" aria-labelledby="editStepModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="page-form" [formGroup]="editStepForm" (ngSubmit)="saveStep()">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="editStepModalLabel">Edit Step</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Step No. :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="stepNumber" type="number" min="1" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Step Description :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea formControlName="stepDescription" rows="5" class="form-control form-control-sm w-100"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button [disabled]="isSaving" type="submit" class="btn btn-sm btn-secondary modal-form-btn">Save</button>
+                    <button type="button" class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

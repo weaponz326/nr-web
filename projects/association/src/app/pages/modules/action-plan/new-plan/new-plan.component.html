@@ -1,1 +1,67 @@
-<p>new-plan works!</p>
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#newPlanModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="newPlanModal" tabindex="-1" aria-labelledby="newPlanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="page-form" [formGroup]="planForm" (ngSubmit)="createPlan()">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="newPlanModalLabel">Add New Action Plan</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Plan ID :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="planCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Plan Title :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="planTitle" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Description :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea formControlName="description" rows="3" class="form-control form-control-sm w-100"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Plan Date :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="planDate" type="date" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button [disabled]="isSavingPlan" type="submit" class="btn btn-sm btn-secondary modal-form-btn">Save</button>
+                    <button type="button" class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

@@ -5,8 +5,6 @@ import { ExecutiveFormComponent } from '../executive-form/executive-form.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-import { environment } from 'projects/school/src/environments/environment';
-
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 
 

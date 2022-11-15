@@ -5,7 +5,6 @@ import { ActionPlanPage } from './action-plan.page';
 import { AllPlansComponent } from './all-plans/all-plans.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NewPlanComponent } from './new-plan/new-plan.component';
 import { ViewPlanComponent } from './view-plan/view-plan.component';
 
 const routes: Routes = [
@@ -17,7 +16,6 @@ const routes: Routes = [
       { path: "dashboard", component: DashboardComponent },
       { path: "configuration", component: ConfigurationComponent },
       { path: "all-plans", component: AllPlansComponent },
-      { path: "new-plan", component: NewPlanComponent },
       { path: "view-plan", component: ViewPlanComponent },
     ]
   }
