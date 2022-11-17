@@ -11,7 +11,7 @@ export class MembersPage implements OnInit {
 
   navLinks: any[] = [
     { text: "All Members", url: "/home/members/all-members", icon: "bi bi-list-ul" },
-    { text: "Add Member", url: "/home/members/add-member", icon: "bi bi-plus-square" },
+    { text: "New Member", url: "/home/members/new-member", icon: "bi bi-plus-square" },
   ]
 
   ngOnInit(): void {

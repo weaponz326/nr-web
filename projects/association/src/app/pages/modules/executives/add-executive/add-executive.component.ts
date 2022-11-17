@@ -38,7 +38,7 @@ export class AddExecutiveComponent implements OnInit {
 
     var data = {
       account: this.customCookie.getCookie('asssociation_id') as string,
-      psoition: this.executiveForm.executiveForm.controls.position.value as string,
+      position: this.executiveForm.executiveForm.controls.position.value as string,
     }
 
     console.log(data);
