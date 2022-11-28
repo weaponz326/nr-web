@@ -7,7 +7,7 @@ export class ActionPlan {
 }
 
 export class PlanStep {
-    account!: string;
+    action_plan!: string;
     stepNumber!: string;
     stepDescription!: string;
 }
