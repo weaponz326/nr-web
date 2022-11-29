@@ -6,7 +6,11 @@
         <div *ngIf="!isForms"> 
 
             <div *ngIf="isAuthLoading" class="d-flex auth-btns">
-                <button class="btn btn-secondary disabled" type="button">.</button>
+                <button class="btn btn-secondary disabled" type="button">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
             </div>
 
             <div *ngIf="!isAuthLoading">                
