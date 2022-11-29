@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectMemberComponent } from './select-member/select-member.component';
 
 
@@ -9,7 +12,11 @@ import { SelectMemberComponent } from './select-member/select-member.component';
     SelectMemberComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule
+  ],
+  exports: [
+    SelectMemberComponent
   ]
 })
 export class MembersWindowsModule { }

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectDuesComponent } from './select-dues/select-dues.component';
 import { SelectPaymentComponent } from './select-payment/select-payment.component';
 
@@ -11,7 +14,12 @@ import { SelectPaymentComponent } from './select-payment/select-payment.componen
     SelectPaymentComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule
+  ],
+  exports: [
+    SelectDuesComponent,
+    SelectPaymentComponent
   ]
 })
 export class DuesWindowsModule { }
