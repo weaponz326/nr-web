@@ -6,7 +6,7 @@ import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/mo
 import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
 import { EditTransactionComponent } from '../edit-transaction/edit-transaction.component';
 
-// import { AccountsApiService } from 'projects/association/src/app/services/modules-api/accounts-api/accounts-api.service';
+import { AccountsApiService } from 'projects/association/src/app/services/modules-api/accounts-api/accounts-api.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { EditTransactionComponent } from '../edit-transaction/edit-transaction.c
 export class AccountTransactionsComponent implements OnInit {
 
   constructor(
-    // private accountsApi: AccountsApiService
+    private accountsApi: AccountsApiService
   ) { }
 
   @Output() balanceEvent = new EventEmitter<any>();
@@ -55,82 +55,82 @@ export class AccountTransactionsComponent implements OnInit {
   getAccountTransaction(){
     this.isFetchingGridData = true;
 
-    // this.accountsApi.getAccountTransactions()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.accountsApi.getAccountTransactions()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.transactionsGridData = res;
-    //       this.isFetchingGridData = false;
-    //       this.calculateBalance();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.transactionsGridData = res;
+          this.isFetchingGridData = false;
+          this.calculateBalance();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   createTransaction(data: any){
     console.log(data);
     this.addTransaction.isSaving = true;
 
-    // this.accountsApi.postTransaction(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.accountsApi.postTransaction(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.addTransaction.isSaving = false;
-    //       this.addTransaction.dismissButton.nativeElement.click();
-    //       this.addTransaction.resetForm();
-    //       this.getAccountTransaction();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addTransaction.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.addTransaction.isSaving = false;
+          this.addTransaction.dismissButton.nativeElement.click();
+          this.addTransaction.resetForm();
+          this.getAccountTransaction();
+        },
+        error: (err) => {
+          console.log(err);
+          this.addTransaction.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateTransaction(transaction: any){
     console.log(transaction);
     this.editTransaction.isSaving = true;
 
-    // this.accountsApi.putTransaction(transaction.data, transaction.id)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editTransaction.dismissButton.nativeElement.click();
-    //       this.editTransaction.isSaving = false;
-    //       this.getAccountTransaction();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editTransaction.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.accountsApi.putTransaction(transaction.data, transaction.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editTransaction.dismissButton.nativeElement.click();
+          this.editTransaction.isSaving = false;
+          this.getAccountTransaction();
+        },
+        error: (err) => {
+          console.log(err);
+          this.editTransaction.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteTransaction(){
     console.log(this.deleteId);
     this.isTransactionDeleting = true;
 
-    // this.accountsApi.deleteTransaction(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //     this.isTransactionDeleting = false;
-    //     this.getAccountTransaction();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isTransactionDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.accountsApi.deleteTransaction(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        this.isTransactionDeleting = false;
+        this.getAccountTransaction();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isTransactionDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditTransaction(data: any){

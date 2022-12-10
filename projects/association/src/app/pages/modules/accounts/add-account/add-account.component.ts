@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { AccountsApiService } from 'projects/association/src/app/services/modules-api/accounts-api/accounts-api.service';
+import { AccountsApiService } from 'projects/association/src/app/services/modules-api/accounts-api/accounts-api.service';
 
-// import { Account } from 'projects/association/src/app/models/modules/accounts/accounts.model';
+import { Account } from 'projects/association/src/app/models/modules/accounts/accounts.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AddAccountComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private accountsApi: AccountsApiService
+    private accountsApi: AccountsApiService
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -47,8 +47,7 @@ export class AddAccountComponent implements OnInit {
   createAccount(){
     this.isSavingAccount = true;
 
-    // let data: Account = {
-    let data = {
+    let data: Account = {
       account: this.customCookie.getCookie('association_id') as string,
       account_name: this.accountForm.controls.accountName.value as string,
       account_number: this.accountForm.controls.accountNumber.value as string,
@@ -58,24 +57,24 @@ export class AddAccountComponent implements OnInit {
 
     console.log(data);
 
-    // this.accountsApi.postAccount(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.accountsApi.postAccount(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('association_account_id', res.id);
-    //         this.router.navigateByUrl('/home/accounts/view-account');
-    //         this.dismissButton.nativeElement.click();
-    //       }
-    //       this.isSavingAccount = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isSavingAccount = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.id){
+            sessionStorage.setItem('association_account_id', res.id);
+            this.router.navigateByUrl('/home/accounts/view-account');
+            this.dismissButton.nativeElement.click();
+          }
+          this.isSavingAccount = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isSavingAccount = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }
