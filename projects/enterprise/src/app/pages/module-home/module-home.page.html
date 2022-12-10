@@ -1,0 +1,175 @@
+<app-main-navbar [navBrand]="'nR Restaurant'" [source]="'Restaurant'"></app-main-navbar>
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar d-block mb-4 static-top shadow-sm">
+    <div class="text-center module-heading">
+        <a routerLink="./">
+            <p class="lead mt-2">
+                <i *ngIf="!isAccessLoading" class="bi bi-house-fill me-2"></i>
+                <span *ngIf="isAccessLoading" class="spinner-grow spinner-grow-sm me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                Home
+            </p>
+        </a>
+    </div>
+</nav>
+
+<div class="container home-div">
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="portal" routerLink="/home/portal/dashboard" (click)="checkAccess('portal')"
+            data-bs-toggle="tooltip" title="Interact with customers through netRink portal">
+                <figure>
+                    <img src="assets/images/modules/portal.png" class="home-icons" />
+                    <figcaption>Portal</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="menu" routerLink="/home/menu/dashboard" (click)="checkAccess('menu')"
+            data-bs-toggle="tooltip" title="Plan and organize your menus">
+                <figure>
+                    <img src="assets/images/modules/menu.png" class="home-icons" />
+                    <figcaption>Menu</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="staff" routerLink="/home/staff/dashboard" (click)="checkAccess('staff')"
+            data-bs-toggle="tooltip" title="Manage all staff">
+                <figure>
+                    <img src="assets/images/modules/staff.png" class="home-icons" />
+                    <figcaption>Staff</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="payments" routerLink="/home/payments/dashboard" (click)="checkAccess('payments')"
+            data-bs-toggle="tooltip" title="Receive payment of bills from customers">
+                <figure>
+                    <img src="assets/images/modules/payments.png" class="home-icons" />
+                    <figcaption>Payments</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="orders" routerLink="/home/orders/dashboard" (click)="checkAccess('orders')"
+            data-bs-toggle="tooltip" title="Receive orders and automatically generate bills">
+                <figure>
+                    <img src="assets/images/modules/orders.png" class="home-icons" />
+                    <figcaption>Orders</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="kitchenStock" routerLink="/home/kitchen-stock/dashboard" (click)="checkAccess('kitchen_stock')"
+            data-bs-toggle="tooltip" title="Keep track of the quantity of ingredients">
+                <figure>
+                    <img src="assets/images/modules/kitchen_stock.png" class="home-icons" />
+                    <figcaption>Kitchen Stock</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="admin" routerLink="/home/admin/dashboard" (click)="checkAccess('admin')"
+            data-bs-toggle="tooltip" title="Manage users and access levels">
+                <figure>
+                    <img src="assets/images/modules/admin.png" class="home-icons" />
+                    <figcaption>Admin</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="roster" routerLink="/home/roster/dashboard" (click)="checkAccess('roster')"
+            data-bs-toggle="tooltip" title="Plan and manage staff shift and schedules">
+                <figure>
+                    <img src="assets/images/modules/roster.png" class="home-icons" />
+                    <figcaption>Roster</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="tables" routerLink="/home/tables/dashboard" (click)="checkAccess('tables')"
+            data-bs-toggle="tooltip" title="Organize tables and manage other table activities">
+                <figure>
+                    <img src="assets/images/modules/tables.png" class="home-icons" />
+                    <figcaption>Tables</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="deliveries" routerLink="/home/deliveries/dashboard" (click)="checkAccess('deliveries')"
+            data-bs-toggle="tooltip" title="Manage delivery operations">
+                <figure>
+                    <img src="assets/images/modules/deliveries.png" class="home-icons" />
+                    <figcaption>Deliveries</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="reservations" routerLink="/home/reservations/dashboard" (click)="checkAccess('reservations')"
+            data-bs-toggle="tooltip" title="Receive and plan reservations">
+                <figure>
+                    <img src="assets/images/modules/reservations.png" class="home-icons" />
+                    <figcaption>Reservations</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="customers" routerLink="/home/customers/dashboard" (click)="checkAccess('customers')"
+            data-bs-toggle="tooltip" title="Keep track of all your guests and customers">
+                <figure>
+                    <img src="assets/images/modules/customers.png" class="home-icons" />
+                    <figcaption>Customers</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="settings" routerLink="/home/settings/dashboard" (click)="checkAccess('settings')"
+            data-bs-toggle="tooltip" title="Set configuarations for your modules">
+                <figure>
+                    <img src="assets/images/modules/settings.png" class="home-icons" />
+                    <figcaption>Settings</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- access denied prompt component -->
+
+<app-access-toast #accessToastComponentReference></app-access-toast>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
