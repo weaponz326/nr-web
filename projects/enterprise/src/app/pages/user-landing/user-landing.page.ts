@@ -55,7 +55,7 @@ export class UserLandingPage implements OnInit {
     this.isAccountChecking = true;
     console.log(data);
 
-    this.customCookie.setCookie('restaurant_id', data.account.id);
+    this.customCookie.setCookie('enterprise_id', data.account.id);
     
     this.settingsApi.getSubscription()
       .subscribe({
@@ -64,11 +64,11 @@ export class UserLandingPage implements OnInit {
           this.isAccountChecking = false;
 
           if (res.status == "Active" || res.status != "Active" && data.account.creator == this.customCookie.getCookie('personal_id')){
-            sessionStorage.setItem('restaurant_user_access_id', data.id);
+            sessionStorage.setItem('enterprise_user_access_id', data.id);
             this.router.navigateByUrl('/home');
           }
           else {
-            this.customCookie.removeCookie('restaurant_id');
+            this.customCookie.removeCookie('enterprise_id');
             this.userTop.openSubscriptionModal();
           }
         },

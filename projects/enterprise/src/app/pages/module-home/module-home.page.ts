@@ -36,7 +36,7 @@ export class ModuleHomePage implements OnInit {
         next: (res) => {
           console.log(res);
           this.level = res;
-          localStorage.setItem("restaurantUserLevel", JSON.stringify(res));
+          localStorage.setItem("enterpriseUserLevel", JSON.stringify(res));
         },
         error: (err) => {
           console.log(err);
@@ -54,7 +54,7 @@ export class ModuleHomePage implements OnInit {
           console.log(res);
 
           this.access = res;
-          localStorage.setItem("restaurantUserAccess", JSON.stringify(res));
+          localStorage.setItem("enterpriseUserAccess", JSON.stringify(res));
 
           this.isAccessLoading = false;
         },
@@ -75,23 +75,29 @@ export class ModuleHomePage implements OnInit {
       this.accessToast.openToast();
     else if (module == "settings" && (!this.access.settings_access || this.level.access_level == "Staff"))
       this.accessToast.openToast();
-    else if (module == "menu" && !this.access.menu_access)
+    else if (module == "attendance" && !this.access.attendance_access)
       this.accessToast.openToast();
-    else if (module == "staff" && !this.access.staff_access)
+    else if (module == "assets" && !this.access.assets_access)
       this.accessToast.openToast();
-    else if (module == "tables" && !this.access.tables_access)
+    else if (module == "leave" && !this.access.leave_access)
       this.accessToast.openToast();
-    else if (module == "customers" && !this.access.customers_access)
+    else if (module == "budget" && !this.access.budget_access)
       this.accessToast.openToast();
-    else if (module == "deliveries" && !this.access.deliveries_access)
+    else if (module == "procurement" && !this.access.procurement_access)
       this.accessToast.openToast();
-    else if (module == "payments" && !this.access.payments_access)
+    else if (module == "letters" && !this.access.letters_access)
       this.accessToast.openToast();
-    else if (module == "roster" && !this.access.roster_access)
+    else if (module == "appraisal" && !this.access.appraisal_access)
       this.accessToast.openToast();
-    else if (module == "reservations" && !this.access.reservations_access)
+    else if (module == "files" && !this.access.files_access)
       this.accessToast.openToast();
-    else if (module == "orders" && !this.access.orders_access)
+    else if (module == "employees" && !this.access.employees_access)
+      this.accessToast.openToast();
+    else if (module == "ledger" && !this.access.ledger_access)
+      this.accessToast.openToast();
+    else if (module == "reception" && !this.access.reception_access)
+      this.accessToast.openToast();
+    else if (module == "fiscal_year" && !this.access.fiscal_year_access)
       this.accessToast.openToast();
     else
       console.log("Access granted :)");
