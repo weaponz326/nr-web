@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
+import { AdminApiService } from 'projects/enterprise/src/app/services/modules-api/admin-api/admin-api.service';
 
 
 @Component({
@@ -65,7 +65,7 @@ export class AllUsersComponent implements OnInit {
 
   viewUser(personalId: any){
     console.log(personalId);
-    sessionStorage.setItem('restaurant_account_user_id', personalId);
+    sessionStorage.setItem('enterprise_account_user_id', personalId);
 
     this.router.navigateByUrl('/home/admin/view-user');
   }

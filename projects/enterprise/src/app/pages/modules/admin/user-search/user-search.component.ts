@@ -9,10 +9,10 @@ import { SearchDetailComponent } from '../search-detail/search-detail.component'
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { AuthApiService } from 'projects/personal/src/app/services/auth/auth-api/auth-api.service';
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
-import { AdminApiService } from 'projects/restaurant/src/app/services/modules-api/admin-api/admin-api.service';
-import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
+import { AdminApiService } from 'projects/enterprise/src/app/services/modules-api/admin-api/admin-api.service';
+import { SettingsApiService } from 'projects/enterprise/src/app/services/modules-api/settings-api/settings-api.service';
 
-import { Invitation } from 'projects/restaurant/src/app/models/modules/admin/admin.model';
+import { Invitation } from 'projects/enterprise/src/app/models/modules/admin/admin.model';
 
 
 @Component({
@@ -55,10 +55,10 @@ export class UserSearchComponent implements OnInit {
   isPrevDisabled = false;
 
   ngOnInit(): void {
-    console.log(sessionStorage.getItem('restaurantAdminSearchInput'));
+    console.log(sessionStorage.getItem('enterpriseAdminSearchInput'));
 
-    if(sessionStorage.getItem('restaurantAdminSearchInput')){
-      this.searchQuery = sessionStorage.getItem('restaurantAdminSearchInput');
+    if(sessionStorage.getItem('enterpriseAdminSearchInput')){
+      this.searchQuery = sessionStorage.getItem('enterpriseAdminSearchInput');
       this.doSearch(1);
     }
   }
@@ -68,7 +68,7 @@ export class UserSearchComponent implements OnInit {
       // put search input in url
       this.router.navigate(['/home/admin/search/', { input: this.searchInput }]);
 
-      sessionStorage.setItem('restaurantAdminSearchInput', this.searchInput);
+      sessionStorage.setItem('enterpriseAdminSearchInput', this.searchInput);
       this.searchQuery = this.searchInput;
 
       this.getSearchResult(page);
@@ -104,7 +104,7 @@ export class UserSearchComponent implements OnInit {
   }
 
   getSearchDetail(){
-    this.authApi.getSearchDetail(String(sessionStorage.getItem('restaurantAdminSearchUser')))
+    this.authApi.getSearchDetail(String(sessionStorage.getItem('enterpriseAdminSearchUser')))
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -145,8 +145,8 @@ export class UserSearchComponent implements OnInit {
   createAccountInvitation() {
     let data: Invitation = {
       user: this.searchDetailData.id,
-      account: this.customCookie.getCookie('restaurant_id') as string,
-      account_type: 'Restaurant',
+      account: this.customCookie.getCookie('enterprise_id') as string,
+      account_type: 'Enterprise',
       invitation_status: 'Awaiting',
       date_confirmed: null
     }
@@ -173,7 +173,7 @@ export class UserSearchComponent implements OnInit {
   }
 
   gotoSearchDetail(userId: any){
-    sessionStorage.setItem('restaurantAdminSearchUser', userId);
+    sessionStorage.setItem('enterpriseAdminSearchUser', userId);
     this.getSearchDetail();
   }
 

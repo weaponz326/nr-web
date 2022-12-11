@@ -17,56 +17,68 @@
 
             <tbody>
                 <tr>
+                    <td>Accounts</td>
+                    <td><input [(ngModel)]="accessForm.accounts_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
                     <td>Admin</td>
                     <td><input [(ngModel)]="accessForm.admin_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Customers</td>
-                    <td><input [(ngModel)]="accessForm.customers_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Appraisal</td>
+                    <td><input [(ngModel)]="accessForm.appraisal_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Deliveries</td>
-                    <td><input [(ngModel)]="accessForm.deliveries_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Assets</td>
+                    <td><input [(ngModel)]="accessForm.assets_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Kitchen Stock</td>
-                    <td><input [(ngModel)]="accessForm.kitchen_stock_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Attendance</td>
+                    <td><input [(ngModel)]="accessForm.attendance_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Menu</td>
-                    <td><input [(ngModel)]="accessForm.menu_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Budget</td>
+                    <td><input [(ngModel)]="accessForm.budget_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Orders</td>
-                    <td><input [(ngModel)]="accessForm.orders_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Employees</td>
+                    <td><input [(ngModel)]="accessForm.employees_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Payments</td>
-                    <td><input [(ngModel)]="accessForm.payments_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Files</td>
+                    <td><input [(ngModel)]="accessForm.files_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Fiscal Year</td>
+                    <td><input [(ngModel)]="accessForm.fiscal_year_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Ledger</td>
+                    <td><input [(ngModel)]="accessForm.ledger_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Letters</td>
+                    <td><input [(ngModel)]="accessForm.letters_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Payroll</td>
+                    <td><input [(ngModel)]="accessForm.payroll_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
                     <td>Portal</td>
                     <td><input [(ngModel)]="accessForm.portal_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Reservations</td>
-                    <td><input [(ngModel)]="accessForm.reservations_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Procurement</td>
+                    <td><input [(ngModel)]="accessForm.procurement_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
-                    <td>Roster</td>
-                    <td><input [(ngModel)]="accessForm.roster_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                    <td>Reception</td>
+                    <td><input [(ngModel)]="accessForm.reception_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
                 <tr>
                     <td>Settings</td>
                     <td><input [(ngModel)]="accessForm.settings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
-                </tr>
-                <tr>
-                    <td>Staff</td>
-                    <td><input [(ngModel)]="accessForm.staff_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
-                </tr>
-                <tr>
-                    <td>Tables</td>
-                    <td><input [(ngModel)]="accessForm.tables_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
                 </tr>
             </tbody>
         </table>
