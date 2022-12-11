@@ -14,7 +14,7 @@
         <div *ngIf="!isRinkLoading" class="row">
             <div class="col-md-9">
 
-                <div *ngIf="rinkData?.sender?.id==restaurantId; then senderBlock else recipientBlock"></div>
+                <div *ngIf="rinkData?.sender?.id==enterpriseId; then senderBlock else recipientBlock"></div>
 
                 <ng-template #senderBlock>
                     <div class="row mb-2">
@@ -44,7 +44,7 @@
                         <div class="offset-md-2 col-md-5">
                             <i class="bi bi-menu-button-fill me-2 text-muted"></i>
                             <em><small>Rink type :</small></em><br>
-                            Restaurant - {{rinkData?.rink_type}}
+                            Enterprise - {{rinkData?.rink_type}}
                             <img *ngIf="rinkData?.rink_type == 'Menu Group' || rinkData?.rink_type == 'Menu Item'" src="../../../../../assets/images/modules/menu.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Staff'" src="../../../../../assets/images/modules/staff.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Order'" src="../../../../../assets/images/modules/orders.png" alt="" width="25" height="25" class="ms-2" />
@@ -95,7 +95,7 @@
                         <div class="offset-md-2 col-md-5">
                             <i class="bi bi-menu-button-fill me-2 text-muted"></i>
                             <em><small>Rink type :</small></em><br>
-                            Restaurant - {{rinkData?.rink_type}}
+                            Enterprise - {{rinkData?.rink_type}}
                             <img *ngIf="rinkData?.rink_type == 'Menu Group' || rinkData?.rink_type == 'Menu Item'" src="../../../../../assets/images/modules/menu.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Staff'" src="../../../../../assets/images/modules/staff.png" alt="" width="25" height="25" class="ms-2" />
                             <img *ngIf="rinkData?.rink_type == 'Order'" src="../../../../../assets/images/modules/orders.png" alt="" width="25" height="25" class="ms-2" />

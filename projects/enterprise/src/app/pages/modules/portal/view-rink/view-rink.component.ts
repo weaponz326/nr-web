@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-import { PortalApiService } from 'projects/restaurant/src/app/services/modules-api/portal-api/portal-api.service';
+import { PortalApiService } from 'projects/enterprise/src/app/services/modules-api/portal-api/portal-api.service';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class ViewRinkComponent implements OnInit {
     { text: "View Rink", url: "/home/portal/view-rink" },
   ];
 
-  restaurantId = this.customCookie.getCookie('restaurant_id');
+  enterpriseId = this.customCookie.getCookie('enterprise_id');
 
   rinkData: any;
 
@@ -43,7 +43,7 @@ export class ViewRinkComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.rinkData = res;
-          sessionStorage.setItem('restaurant_rink_source_id', res.rink_source);
+          sessionStorage.setItem('enterprise_rink_source_id', res.rink_source);
           this.isRinkLoading = false;
         },
         error: (err) => {

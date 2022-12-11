@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-import { Rink } from 'projects/restaurant/src/app/models/modules/portal/portal.model';
-import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
-import { PortalApiService } from 'projects/restaurant/src/app/services/modules-api/portal-api/portal-api.service';
+import { Rink } from 'projects/enterprise/src/app/models/modules/portal/portal.model';
+import { AccountApiService } from 'projects/enterprise/src/app/services/account-api/account-api.service';
+import { PortalApiService } from 'projects/enterprise/src/app/services/modules-api/portal-api/portal-api.service';
 
 
 @Component({
@@ -36,18 +36,7 @@ export class NewRinkComponent implements OnInit {
 
   selectedSourceId: any;
   typeSource: any[] = [
-    'Menu Group',
-    'Menu Item',
-    'Staff',
-    'Payment',
-    'Order',
-    'Kitchen Stock Item',
-    'Roster',
-    'Roster Batch',
-    'Table',
-    'Delivery',
-    'Reservation',
-    'Customer',
+    
   ];
 
   isRinkSending = false;
@@ -68,7 +57,7 @@ export class NewRinkComponent implements OnInit {
   }
 
   getRecipientDetail(){
-    this.accountApi.getSearchDetail(String(sessionStorage.getItem('restaurantSearchAccount')))
+    this.accountApi.getSearchDetail(String(sessionStorage.getItem('enterpriseSearchAccount')))
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -90,8 +79,8 @@ export class NewRinkComponent implements OnInit {
       rink_type: this.rinkForm.controls.rinkType.value as string,
       rink_source: this.selectedSourceId,
       comment: this.rinkForm.controls.comment.value as string,
-      sender: this.customCookie.getCookie('restaurant_id') as string,
-      recipient: sessionStorage.getItem('restaurant_rink_recipient') as string,
+      sender: this.customCookie.getCookie('enterprise_id') as string,
+      recipient: sessionStorage.getItem('enterprise_rink_recipient') as string,
     }
 
     console.log(data);
@@ -103,7 +92,7 @@ export class NewRinkComponent implements OnInit {
           console.log(res);
           this.isRinkSending = false;
 
-          sessionStorage.setItem('restaurant_rink_id', res.id);
+          sessionStorage.setItem('enterprise_rink_id', res.id);
           this.router.navigateByUrl('/home/portal/view-rink');
         },
         error: (err) => {

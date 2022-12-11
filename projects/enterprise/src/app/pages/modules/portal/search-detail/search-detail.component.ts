@@ -18,7 +18,7 @@ export class SearchDetailComponent implements OnInit {
 
   createRink(){
     console.log(this.searchDetail.id);
-    sessionStorage.setItem('restaurant_rink_recipient', this.searchDetail.id);
+    sessionStorage.setItem('enterprise_rink_recipient', this.searchDetail.id);
     this.router.navigateByUrl('home/portal/new-rink');
   }
 
