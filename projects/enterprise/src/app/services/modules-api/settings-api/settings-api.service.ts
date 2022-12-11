@@ -18,40 +18,40 @@ export class SettingsApiService {
     private customCookie: CustomCookieService
   ) { }
 
-  settingsUrl = environment.apiUrl + 'restaurant-modules/settings/';
+  settingsUrl = environment.apiUrl + 'enterprise-modules/settings/';
 
   // extended profile
 
   public getExtendedProfile(): Observable<any>{
-    return this.http.get(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
   }
 
   public putExtendedProfile(extended: any): Observable<any>{
-    return this.http.put(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('restaurant_id'), extended, this.authHeaders.headers);
+    return this.http.put(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('enterprise_id'), extended, this.authHeaders.headers);
   }
 
   public patchExtendedProfile(extended: any): Observable<any>{
-    return this.http.patch(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('restaurant_id'), extended, this.authHeaders.headers);
+    return this.http.patch(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('enterprise_id'), extended, this.authHeaders.headers);
   }
 
   // subscriptions
 
   public getSubscription(): Observable<any>{
-    return this.http.get(this.settingsUrl + "subscription/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "subscription/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
   }
 
   public putSubscription(subscription: any): Observable<any>{
-    return this.http.put(this.settingsUrl + "subscription/" + this.customCookie.getCookie('restaurant_id'), subscription, this.authHeaders.headers);
+    return this.http.put(this.settingsUrl + "subscription/" + this.customCookie.getCookie('enterprise_id'), subscription, this.authHeaders.headers);
   }
 
   public changeSubscription(subscription: any): Observable<any>{
-    return this.http.put(this.settingsUrl + "subscription-change/" + this.customCookie.getCookie('restaurant_id'), subscription, this.authHeaders.headers);
+    return this.http.put(this.settingsUrl + "subscription-change/" + this.customCookie.getCookie('enterprise_id'), subscription, this.authHeaders.headers);
   }
 
   // subscription events
 
   public getAccountSubscriptionEvent(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.settingsUrl + "subscription-event?account=" + this.customCookie.getCookie('restaurant_id')
+    return this.http.get(this.settingsUrl + "subscription-event?account=" + this.customCookie.getCookie('enterprise_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField, this.authHeaders.headers);

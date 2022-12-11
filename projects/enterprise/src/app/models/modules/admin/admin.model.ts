@@ -14,17 +14,21 @@ export class Invitation {
 
 export class UserAccess {
   account!: string;
+  accounts_access!: boolean;
   admin_access!: boolean;
-  customers_access!: boolean;
-  deliveries_access!: boolean;
-  kitchen_stock_access!: boolean;
-  menu_access!: boolean;
-  orders_access!: boolean;
-  payments_access!: boolean;
+  appraisal_access!: boolean;
+  assets_access!: boolean;
+  attendance_access!: boolean;
+  budget_access!: boolean;
+  employees_access!: boolean;
+  files_access!: boolean;
+  leave_access!: boolean;
+  fiscal_year_access!: boolean;
+  ledger_access!: boolean;
+  letters_access!: boolean;
+  payroll_access!: boolean;
   portal_access!: boolean;
-  roster_access!: boolean;
+  procurement_access!: boolean;
+  reception_access!: boolean;
   settings_access!: boolean;
-  staff_access!: boolean;
-  reservations_access!: boolean;
-  tables_access!: boolean;
 }

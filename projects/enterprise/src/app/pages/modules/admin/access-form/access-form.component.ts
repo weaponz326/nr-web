@@ -24,8 +24,7 @@ export class AccessFormComponent implements OnInit {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  // accessForm: UserAccess = {
-  accessForm = {
+  accessForm: UserAccess = {
     account: this.customCookie.getCookie('enterprise_id') as string,
     accounts_access: false,
     admin_access: false,
@@ -82,8 +81,7 @@ export class AccessFormComponent implements OnInit {
   }
 
   updateUserAccess(){
-    // let access: UserAccess = {
-    let access = {
+    let access: UserAccess = {
       account: this.customCookie.getCookie('enterprise_id') as string,
       accounts_access: this.accessForm.accounts_access,
       admin_access: this.accessForm.admin_access,
