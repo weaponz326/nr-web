@@ -3,10 +3,10 @@ import { NgForm } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
-import { environment } from 'projects/restaurant/src/environments/environment';
-import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
+import { environment } from 'projects/enterprise/src/environments/environment';
+import { SettingsApiService } from 'projects/enterprise/src/app/services/modules-api/settings-api/settings-api.service';
 
-import { Subscription } from 'projects/restaurant/src/app/models/modules/settings/settings.model';
+import { Subscription } from 'projects/enterprise/src/app/models/modules/settings/settings.model';
 
 
 @Component({

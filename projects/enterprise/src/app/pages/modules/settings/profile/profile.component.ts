@@ -6,9 +6,9 @@ import { ContactComponent } from '../profile-content/contact/contact.component';
 import { LocationComponent } from '../profile-content/location/location.component';
 import { LogoComponent } from '../profile-content/logo/logo.component';
 
-import { environment } from 'projects/restaurant/src/environments/environment';
-import { AccountApiService } from 'projects/restaurant/src/app/services/account-api/account-api.service';
-import { SettingsApiService } from 'projects/restaurant/src/app/services/modules-api/settings-api/settings-api.service';
+import { environment } from 'projects/enterprise/src/environments/environment';
+import { AccountApiService } from 'projects/enterprise/src/app/services/account-api/account-api.service';
+import { SettingsApiService } from 'projects/enterprise/src/app/services/modules-api/settings-api/settings-api.service';
 
 
 @Component({
@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
           this.basic.basicForm.controls.name.setValue(res.name);
           this.basic.basicForm.controls.about.setValue(res.about);
           this.location.locationForm.controls.location.setValue(res.location);
-          if(res.logo != null) this.logo.imageInput.imgSrc = environment.apiUrl + 'restaurant-accounts' + res.logo;
+          if(res.logo != null) this.logo.imageInput.imgSrc = environment.apiUrl + 'enterprise-accounts' + res.logo;
 
           this.basic.isAccountLoading = false;
           this.logo.isAccountLoading = false;
