@@ -16,7 +16,7 @@ export class AccountGuard implements CanActivate, CanActivateChild {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (!!this.customCookie.getCookie('restaurant_id') && sessionStorage.getItem('restaurant_user_access_id')){
+    if (!!this.customCookie.getCookie('enterprise_id') && sessionStorage.getItem('enterprise_user_access_id')){
       return true;
     }
     else{
@@ -26,7 +26,7 @@ export class AccountGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    if (!!this.customCookie.getCookie('restaurant_id') && sessionStorage.getItem('restaurant_user_access_id')){
+    if (!!this.customCookie.getCookie('enterprise_id') && sessionStorage.getItem('enterprise_user_access_id')){
       return true;
     }
     else{

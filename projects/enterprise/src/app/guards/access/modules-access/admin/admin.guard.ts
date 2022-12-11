@@ -11,7 +11,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    let adminAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).admin_access;
+    let adminAccess = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).admin_access;
 
     if (adminAccess){
       return true;
@@ -22,7 +22,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    let adminAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).admin_access;
+    let adminAccess = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).admin_access;
 
     if (adminAccess){
       return true;

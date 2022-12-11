@@ -11,7 +11,7 @@ export class ViewUserGuard implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (!!sessionStorage.getItem('restaurant_account_user_id')){
+    if (!!sessionStorage.getItem('enterprise_account_user_id')){
       return true;
     }
     else{

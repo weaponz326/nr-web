@@ -11,7 +11,7 @@ export class PortalGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    let portalAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).portal_access;
+    let portalAccess = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).portal_access;
 
     if (portalAccess){
       return true;
@@ -22,7 +22,7 @@ export class PortalGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    let portalAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).portal_access;
+    let portalAccess = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).portal_access;
 
     if (portalAccess){
       return true;

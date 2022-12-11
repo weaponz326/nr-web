@@ -11,7 +11,7 @@ export class SendRinkGuard implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (!!sessionStorage.getItem('restaurant_rink_recipient')){
+    if (!!sessionStorage.getItem('enterprise_rink_recipient')){
       return true;
     }
     else{

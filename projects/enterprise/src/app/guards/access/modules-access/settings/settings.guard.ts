@@ -11,7 +11,7 @@ export class SettingsGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    let settingsAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).settings_access;
+    let settingsAccess = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).settings_access;
 
     if (settingsAccess){
       return true;
@@ -22,7 +22,7 @@ export class SettingsGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    let settingsAccess = JSON.parse(localStorage.getItem('restaurantUserAccess') as string).settings_access;
+    let settingsAccess = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).settings_access;
 
     if (settingsAccess){
       return true;
