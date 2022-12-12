@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { EditSentComponent } from './edit-sent.component';
+
+describe('EditSentComponent', () => {
+  let component: EditSentComponent;
+  let fixture: ComponentFixture<EditSentComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ EditSentComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(EditSentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
