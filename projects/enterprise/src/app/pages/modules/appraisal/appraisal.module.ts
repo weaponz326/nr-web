@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppraisalRoutingModule } from './appraisal-routing.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { AppraisalPage } from './appraisal.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -25,7 +29,11 @@ import { AppraisalEmployeesComponent } from './appraisal-employees/appraisal-emp
   ],
   imports: [
     CommonModule,
-    AppraisalRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    AppraisalRoutingModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class AppraisalModule { }

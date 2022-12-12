@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
 
 import { AttendancePage } from './attendance.page';
 import { CheckAttendanceComponent } from './check-attendance/check-attendance.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewAttendanceComponent } from './new-attendance/new-attendance.component';
 import { ViewAttendanceComponent } from './view-attendance/view-attendance.component';
