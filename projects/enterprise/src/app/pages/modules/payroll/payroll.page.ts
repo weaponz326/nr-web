@@ -9,6 +9,10 @@ export class PayrollPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Payroll", url: "/home/payroll/all-payroll", icon: "bi bi-list-ul" },
+  ]
+  
   ngOnInit(): void {
   }
 

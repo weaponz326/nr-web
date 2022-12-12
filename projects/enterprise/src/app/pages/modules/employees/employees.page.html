@@ -1,1 +1,14 @@
-<p>employees works!</p>
+<app-main-navbar [navBrand]="'nR Enterprise'" [source]="'Enterprise'"></app-main-navbar>
+
+<div class="row flex-nowrap g-0">
+    <div class="col-auto col-md-3 col-xl-2">
+
+        <app-module-sidenav [navLinks]="navLinks" [heading]="'Employees'"></app-module-sidenav>
+
+    </div>
+    <div class="col">
+        
+        <router-outlet></router-outlet>
+
+    </div>
+</div>

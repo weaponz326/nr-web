@@ -9,6 +9,10 @@ export class LettersPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Letters", url: "/home/letters/all-letters", icon: "bi bi-list-ul" },
+  ]
+
   ngOnInit(): void {
   }
 

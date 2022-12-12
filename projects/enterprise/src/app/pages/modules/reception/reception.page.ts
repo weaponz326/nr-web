@@ -9,6 +9,11 @@ export class ReceptionPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Visitors", url: "/home/reception/all-visitors", icon: "bi bi-list-ul" },
+    { text: "Add Visitor", url: "/home/reception/add-visitor", icon: "bi bi-plus-square" },
+  ]
+
   ngOnInit(): void {
   }
 

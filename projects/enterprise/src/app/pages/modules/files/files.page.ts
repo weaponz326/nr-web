@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class FilesPage implements OnInit {
 
   constructor() { }
+  
+  navLinks: any[] = [
+    { text: "All Folders", url: "/home/files/all-folders", icon: "bi bi-list-ul" },
+  ]
 
   ngOnInit(): void {
   }
