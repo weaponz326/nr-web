@@ -9,6 +9,10 @@ export class ConfigurationComponent implements OnInit {
 
   constructor() { }
 
+  navHeading: any[] = [
+    { text: "Configuration", url: "/home/fiscal-year/configuration" },
+  ];
+
   ngOnInit(): void {
   }
 
