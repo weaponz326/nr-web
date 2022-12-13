@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-transaction-form',
@@ -8,6 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class TransactionFormComponent implements OnInit {
 
   constructor() { }
+
+  transactionForm = new FormGroup({
+    transactionDate: new FormControl(),
+    description: new FormControl(''),
+    transactionType: new FormControl(''),
+    amount: new FormControl(0)
+  })
 
   ngOnInit(): void {
   }
