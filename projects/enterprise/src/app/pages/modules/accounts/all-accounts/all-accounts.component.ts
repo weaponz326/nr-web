@@ -43,7 +43,7 @@ export class AllAccountsComponent implements OnInit {
     this.getAccountAccounts(1, 20, "-created_at");
   }
 
- getAccountAccounts(page: any, size: any, sortField: any){
+  getAccountAccounts(page: any, size: any, sortField: any){
     this.isFetchingGridData =  true;
 
     // this.accountsApi.getAccountAccounts(page, size, sortField)

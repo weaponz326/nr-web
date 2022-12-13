@@ -96,8 +96,8 @@ export class ViewYearComponent implements OnInit {
     this.isActiveYearSaving = true;
 
     let data = {
-      account: this.customCookie.getCookie('school_id') as string,
-      year: sessionStorage.getItem('school_year_id') as string,
+      account: this.customCookie.getCookie('association_id') as string,
+      year: sessionStorage.getItem('association_year_id') as string,
     };
 
     console.log(data);

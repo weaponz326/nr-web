@@ -1,1 +1,77 @@
-<p>asset-form works!</p>
+<form class="page-form" [formGroup]="assetForm">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="form-heading">Asset Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Asset No. :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="assetNumber" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Asset Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="assetName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Category :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="category" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Type :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="type" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Model :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="model" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+                <div class="col-md-8">
+                    <textarea formControlName="description" class="form-control form-control-sm w-100" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Date Purchased :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="startDate" type="date" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Status :</label></div>
+                <div class="col-md-8">
+                    <select formControlName="yearStatus" class="form-control form-control-sm w-100">
+                        <option></option>
+                        <option>Good Condition</option>
+                        <option>Average Condition</option>
+                        <option>Bad Condition</option>
+                        <option>Broken</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
