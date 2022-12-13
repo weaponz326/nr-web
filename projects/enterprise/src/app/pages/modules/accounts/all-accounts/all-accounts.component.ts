@@ -40,10 +40,10 @@ export class AllAccountsComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
-    this.getUserAccounts(1, 20, "-created_at");
+    this.getAccountAccounts(1, 20, "-created_at");
   }
 
- getUserAccounts(page: any, size: any, sortField: any){
+ getAccountAccounts(page: any, size: any, sortField: any){
     this.isFetchingGridData =  true;
 
     // this.accountsApi.getAccountAccounts(page, size, sortField)
@@ -69,7 +69,7 @@ export class AllAccountsComponent implements OnInit {
 
   sortTable(column: any){
     console.log(column);
-    this.getUserAccounts(1, 20, column);
+    this.getAccountAccounts(1, 20, column);
 
     this.currentSortColumn = column;
   }
