@@ -1,1 +1,78 @@
-<p>all-procurement works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-10">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" routerLink="/home/procurement/new-procurement">New Procurement</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountProcurement(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="15%" class="min-width-2">
+                                    Procurement ID.
+                                    <app-table-sorting [sortField]="'procurement_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="30%" class="min-width-4">
+                                    Vendor Name
+                                    <app-table-sorting [sortField]="'employee_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-2">
+                                    Order Code
+                                    <app-table-sorting [sortField]="'procurement_start'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Order Date
+                                    <app-table-sorting [sortField]="'procurement_start'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Order Status
+                                    <app-table-sorting [sortField]="'procurement_start'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of procurementGridData" (dblclick)="viewProcurement(data.id)" class="table-pointer">
+                                <td>{{data?.procurement_code}}</td>
+                                <td>{{data?.vendor_name}}</td>
+                                <td>{{data?.order_code}}</td>
+                                <td>{{data?.order_date}}</td>
+                                <td>{{data?.order_status}}</td>
+                            </tr>                          
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="5">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="5">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountProcurement($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

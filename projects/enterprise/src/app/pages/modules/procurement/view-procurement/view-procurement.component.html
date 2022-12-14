@@ -1,1 +1,40 @@
-<p>view-procurement works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- procurement page form -->
+
+        <app-procurement-form #procurementFormComponentReference></app-procurement-form>
+
+        <!-- order review form -->
+
+        <app-order-review #orderReviewComponentReference></app-order-review>
+
+        <div *ngIf="!isProcurementLoading" class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/procurement/all-procurement">Cancel</button>
+                <button [disabled]="isProcurementDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isProcurementaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateProcurement()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isProcurementLoading" class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteProcurement()"></app-delete-modal> -->

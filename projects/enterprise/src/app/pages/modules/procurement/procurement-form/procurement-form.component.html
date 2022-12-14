@@ -1,1 +1,105 @@
-<p>procurement-form works!</p>
+<form class="page-form" [formGroup]="procurementForm">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="form-heading">Procurement Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Procurement ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="procurementCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Description :</label></div>
+                <div class="col-md-8">
+                    <textarea formControlName="description" class="form-control form-control-sm w-100" rows="3"></textarea>
+                </div>
+            </div>
+            
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Project :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="project" class="form-control form-control-sm w-100">
+                </div>
+            </div>            
+
+            <div class="row mb-3">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Procurement Status :</label></div>
+                <div class="col-md-8">
+                    <select formControlName="procurementStatus" class="form-control form-control-sm w-100">
+                        <option></option>
+                        <option>Issued</option>
+                        <option>Received</option>
+                        <option>Approved</option>
+                        <option>Acknowledged</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="orderCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order Date :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="orderDate" type="date" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">OrderType :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="orderType" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="vendor" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor Phone :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="vendorPhone" type="tel" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor Email :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="vendorEmail" type="email" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Vendor Address :</label></div>
+                <div class="col-md-8">
+                    <textarea formControlName="vendorAddress" class="form-control form-control-sm w-100" rows="2"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+<hr>
