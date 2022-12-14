@@ -33,7 +33,7 @@ export class NewStudentComponent implements OnInit {
     { text: "New Student", url: "/home/students/new-student" },
   ];
 
-  storageBasePath = "/school/" + this.customCookie.getCookie('restaurant_id') + "/module_students/";
+  storageBasePath = "/school/" + this.customCookie.getCookie('school_id') + "/module_students/";
 
   isStudentSaving = false;
 
