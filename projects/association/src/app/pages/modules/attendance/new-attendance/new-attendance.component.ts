@@ -36,7 +36,7 @@ export class NewAttendanceComponent implements OnInit {
 
   postAttendance(){
     let data = {
-      account: this.customCookie.getCookie('asociation_id') as string,
+      account: this.customCookie.getCookie('association_id') as string,
       attendance_code: this.attendanceForm.attendanceForm.controls.attendanceCode.value as string,
       attendance_name: this.attendanceForm.attendanceForm.controls.attendanceName.value as string,
       from_date: this.attendanceForm.attendanceForm.controls.fromDate.value as string,
