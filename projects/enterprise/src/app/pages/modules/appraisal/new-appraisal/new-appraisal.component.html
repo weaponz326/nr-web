@@ -1,1 +1,28 @@
-<p>new-appraisal works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- appraisal page form -->
+
+        <app-appraisal-form #appraisalFormComponentReference></app-appraisal-form>
+
+        <div class="row">
+            <div class="col-md-6">
+                <hr />
+            </div>
+        </div>
+        
+        <div class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/appraisal/all-appraisal">Cancel</button>
+                <button [disabled]="isAppraisalaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="postAppraisal()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

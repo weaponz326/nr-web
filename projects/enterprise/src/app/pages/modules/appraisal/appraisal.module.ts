@@ -14,6 +14,7 @@ import { NewAppraisalComponent } from './new-appraisal/new-appraisal.component';
 import { ViewAppraisalComponent } from './view-appraisal/view-appraisal.component';
 import { AppraisalFormComponent } from './appraisal-form/appraisal-form.component';
 import { AppraisalEmployeesComponent } from './appraisal-employees/appraisal-employees.component';
+import { AppraisalSheetComponent } from './appraisal-sheet/appraisal-sheet.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AppraisalEmployeesComponent } from './appraisal-employees/appraisal-emp
     NewAppraisalComponent,
     ViewAppraisalComponent,
     AppraisalFormComponent,
-    AppraisalEmployeesComponent
+    AppraisalEmployeesComponent,
+    AppraisalSheetComponent
   ],
   imports: [
     CommonModule,
