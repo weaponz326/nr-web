@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { LeaveFormComponent } from '../leave-form/leave-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+
 
 @Component({
   selector: 'app-add-leave',
@@ -7,9 +14,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddLeaveComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private customCookie: CustomCookieService,
+  ) { }
+
+  @ViewChild('leaveFormComponentReference', { read: LeaveFormComponent, static: false }) leaveForm!: LeaveFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+
+  navHeading: any[] = [
+    { text: "Add Leave", url: "/home/leave/add-leave" },
+  ];
+
+  isLeaveaving = false;
 
   ngOnInit(): void {
+    this.getNewLeaveCodeConfig();
+  }
+
+  postLeave(){
+    console.log('u are saving a new leave');
+
+    var data = {
+      account: this.customCookie.getCookie('enterprise_id') as string,
+      leave_code: this.leaveForm.leaveForm.controls.leaveCode.value as string,
+      leave_type: this.leaveForm.leaveForm.controls.leaveType.value as string,
+      leave_start: this.leaveForm.leaveForm.controls.leaveStart.value,
+      leave_end: this.leaveForm.leaveForm.controls.leaveEnd.value,
+      leave_status: this.leaveForm.leaveForm.controls.leaveStatus.value as string,
+    }
+
+    console.log(data);
+    this.isLeaveaving = true;
+
+    
+  }
+
+  getNewLeaveCodeConfig(){
+    
+    
   }
 
 }

@@ -96,5 +96,4 @@ export class ViewAssetComponent implements OnInit {
     // this.assetsPrint.printViewAsset();
   }
 
-
 }

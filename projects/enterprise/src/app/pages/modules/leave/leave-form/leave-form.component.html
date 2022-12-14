@@ -1,1 +1,88 @@
-<p>leave-form works!</p>
+<form class="page-form" [formGroup]="leaveForm">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="form-heading">Leave Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Leave ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="leaveCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Employee ID : </label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="employeeCode" class="form-control">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Employee Name :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="employeeName" class="form-control">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Leave Type :</label></div>
+                <div class="col-md-8">
+                    <select formControlName="leaveType" class="form-control form-control-sm w-100">
+                        <option></option>
+                        <option>Annual Leave</option>
+                        <option>Sick Leave</option>
+                        <option>Maternity Leave</option>
+                        <option>Parental Leave</option>
+                        <option>Unpaid Leave</option>
+                        <option>Others</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Leave Start :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="leaveStart" type="date" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Leave End :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="leaveEnd" type="date" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Leave Status :</label></div>
+                <div class="col-md-8">
+                    <select formControlName="yearStatus" class="form-control form-control-sm w-100">
+                        <option></option>
+                        <option>Processing</option>
+                        <option>Approved</option>
+                        <option>Ongoing</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
