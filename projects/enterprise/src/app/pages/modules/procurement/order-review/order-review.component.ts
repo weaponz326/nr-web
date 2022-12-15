@@ -11,9 +11,7 @@ export class OrderReviewComponent implements OnInit {
 
   constructor() { }
 
-  orderReviewForm = new FormGroup({
-    procurementCode: new FormControl(''),
-    
+  orderReviewForm = new FormGroup({    
     issuedDate: new FormControl(),
     issuedBy: new FormControl(''),
     receivedDate: new FormControl(),
@@ -24,7 +22,6 @@ export class OrderReviewComponent implements OnInit {
     acknowledgedBy: new FormControl(''),
     completedDate: new FormControl(),
     completedBy: new FormControl(''),
-
   });
 
   ngOnInit(): void {
