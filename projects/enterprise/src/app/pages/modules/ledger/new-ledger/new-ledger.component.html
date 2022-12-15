@@ -1,1 +1,67 @@
-<p>new-ledger works!</p>
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#newLedgerModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="newLedgerModal" tabindex="-1" aria-labelledby="newLedgerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="page-form" [formGroup]="ledgerForm" (ngSubmit)="createLedger()">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="newLedgerModalLabel">Add New Ledger</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Ledger ID :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="ledgerCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Ledger Name :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="ledgerName" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">From Date :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="fromDate" type="date" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">To Date :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="toDate" type="date" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-secondary modal-form-btn" [disabled]="isSavingLedger">Save</button>
+                    <button type="button" class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

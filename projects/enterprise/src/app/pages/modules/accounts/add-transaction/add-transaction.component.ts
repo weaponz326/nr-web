@@ -47,7 +47,7 @@ export class AddTransactionComponent implements OnInit {
   }
 
   resetForm(){
-    this.transactionForm.transactionForm.controls.transactionDate.setValue('');
+    this.transactionForm.transactionForm.controls.transactionDate.setValue(new Date().toISOString().slice(0, 16));
     this.transactionForm.transactionForm.controls.description.setValue('');
     this.transactionForm.transactionForm.controls.transactionType.setValue('');
     this.transactionForm.transactionForm.controls.amount.setValue(0);
