@@ -55,7 +55,6 @@ export class AllYearsComponent implements OnInit {
     this.router.navigateByUrl('/home/years/view-year');
   }
 
-
   onPrint(){
     console.log("lets start printing...");
     // this.yearsPrint.printAllYears();
