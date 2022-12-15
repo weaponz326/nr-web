@@ -1,1 +1,59 @@
-<p>visitor-form works!</p>
+<form class="page-form" [formGroup]="visitorForm">
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Visit ID :</label></div>
+        <div class="col-md-8">
+            <input formControlName="visitCode" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Visit Date :</label></div>
+        <div class="col-md-8">
+            <input formControlName="visitDate" type="date" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Visitor Name :</label></div>
+        <div class="col-md-8">
+            <input formControlName="visitorName" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Visitor Phone No. :</label></div>
+        <div class="col-md-8">
+            <input formControlName="visitorPhone" type="tel" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Arrival :</label></div>
+        <div class="col-md-8">
+            <input formControlName="arrival" type="time" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Departure :</label></div>
+        <div class="col-md-8">
+            <input formControlName="departure" type="time" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purpose :</label></div>
+        <div class="col-md-8">
+            <input formControlName="purpose" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Tag No. :</label></div>
+        <div class="col-md-8">
+            <input formControlName="tagNumber" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+</form>

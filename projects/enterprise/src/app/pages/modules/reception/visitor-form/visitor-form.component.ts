@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-visitor-form',
@@ -8,6 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class VisitorFormComponent implements OnInit {
 
   constructor() { }
+
+  visitorForm = new FormGroup({
+    visitCode: new FormControl(''),
+    visitDate: new FormControl(),
+    visitorName: new FormControl(''),
+    visitorPhone: new FormControl(''),
+    arrival: new FormControl(),
+    departure: new FormControl(),
+    purpose: new FormControl(''),
+    tagNumber: new FormControl(''),
+  })
 
   ngOnInit(): void {
   }
