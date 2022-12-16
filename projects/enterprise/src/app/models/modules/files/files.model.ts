@@ -1,6 +1,6 @@
 export class Folder {
-    folderNumber!: string;
-    folderName!: string;
+    folder_number!: string;
+    folder_name!: string;
 }
 
 export class File {

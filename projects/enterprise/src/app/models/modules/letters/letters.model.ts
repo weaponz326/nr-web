@@ -1,13 +1,13 @@
 export class SentLetter {
-    dateSent!: Date; 
-    referenceNumber!: string; 
+    date_sent!: Date; 
+    reference_number!: string; 
     recepient!: string; 
     subject!: string;
 }
 
 export class ReceivedLetter {
-    dateReceived!: Date; 
-    referenceNumber!: string; 
+    date_received!: Date; 
+    reference_number!: string; 
     sender!: string; 
     subject!: string;
 }

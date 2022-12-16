@@ -5,13 +5,13 @@ export class Employees {
     nationality!: string;
     religion!: string;
     employeeCode!: string;
-    startedWork!: Date;
-    endedWork!: Date;
-    workStatus!: string;
+    started_work!: Date;
+    ended_work!: Date;
+    work_status!: string;
     department!: string;
     job!: string;
-    payGrade!: string;
-    ssnReference!: string;
+    pay_grade!: string;
+    ssn_reference!: string;
     phone!: string;
     email!: string;
     address!: string;

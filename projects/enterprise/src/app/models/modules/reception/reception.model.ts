@@ -1,10 +1,10 @@
 export class Visitor {
-    visitCode!: string;
-    visitDate!: Date;
-    visitorName!: string;
-    visitorPhone!: string;
+    visit_code!: string;
+    visit_date!: Date;
+    visitor_name!: string;
+    visitor_phone!: string;
     arrival!: Date;
     departure!: Date;
     purpose!: string;
-    tagNumber!: string;
+    tag_number!: string;
 }

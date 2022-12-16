@@ -1,26 +1,26 @@
 export class Procurement {
-    procurementCode!: string;
-    orderCode!: string;
-    orderType!: string;
-    orderDate!: Date;
+    procurement_code!: string;
+    order_code!: string;
+    order_type!: string;
+    order_date!: Date;
     description!: string;
     project!: string;
-    procurementStatus!: string;
+    procurement_status!: string;
     vendor!: string;
-    vendorPhone!: string;
-    vendorEmail!: string;
-    vendorAddress!: string;
+    vendor_phone!: string;
+    vendor_email!: string;
+    vendor_address!: string;
 }
 
 export class OrderReview {
-    issuedDate!: Date;
-    issuedBy!: string;
-    receivedDate!: Date;
-    receivedBy!: string;
-    approvedDate!: Date;
-    approvedBy!: string;
-    acknowledgedDate!: Date;
-    acknowledgedBy!: string;
-    completedDate!: Date;
-    completedBy!: string;
+    issued_date!: Date;
+    issued_by!: string;
+    received_date!: Date;
+    received_by!: string;
+    approved_date!: Date;
+    approved_by!: string;
+    acknowledged_date!: Date;
+    acknowledged_by!: string;
+    completed_date!: Date;
+    completed_by!: string;
 }

@@ -1,14 +1,14 @@
 export class Ledger {
-    ledgerCode!: string;
-    ledgerName!:  string;
-    fromDate!: Date;
-    toDate!: Date;
+    ledger_code!: string;
+    ledger_name!:  string;
+    from_date!: Date;
+    to_date!: Date;
 }
 
 export class LedgerItem {
-    itemDate!: Date;
-    referenceNumber!: string;
+    item_date!: Date;
+    reference_number!: string;
     description!: string;
-    itemType!: string;
+    item_type!: string;
     amount!: string;
 }
