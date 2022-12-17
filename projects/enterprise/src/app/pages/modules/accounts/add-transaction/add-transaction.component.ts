@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
-// import { Transaction } from 'projects/enterprise/src/app/models/modules/accounts/accounts.model';
+import { Transaction } from 'projects/enterprise/src/app/models/modules/accounts/accounts.model';
 
 
 @Component({
@@ -34,8 +34,7 @@ export class AddTransactionComponent implements OnInit {
   }
 
   saveTransaction(){
-    // let data: Transaction = {
-    let data = {
+    let data: Transaction = {
       transaction_date: this.transactionForm.transactionForm.controls.transactionDate.value,
       description: this.transactionForm.transactionForm.controls.description.value as string,
       transaction_type: this.transactionForm.transactionForm.controls.transactionType.value as string,
