@@ -8,7 +8,7 @@ import { AddIncomeComponent } from '../add-income/add-income.component';
 import { EditExpenditureComponent } from '../edit-expenditure/edit-expenditure.component';
 import { EditIncomeComponent } from '../edit-income/edit-income.component';
 
-// import { BudgetApiService } from 'projects/enterprise/src/app/services/modules-api/budget-api/budget-api.service';
+import { BudgetApiService } from 'projects/enterprise/src/app/services/modules-api/budget-api/budget-api.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ import { EditIncomeComponent } from '../edit-income/edit-income.component';
 })
 export class BudgetTablesComponent implements OnInit {
 
-  // constructor(private budgetApi: BudgetApiService) { }
+  constructor(private budgetApi: BudgetApiService) { }
 
   @Output() ioeEvent = new EventEmitter<any>();
 
@@ -76,86 +76,86 @@ export class BudgetTablesComponent implements OnInit {
   getBudgetIncome(){
     this.isFetchingIncomeGridData = true;
 
-    // this.budgetApi.getBudgetIncome()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.incomeGridData = res;
-    //       this.isFetchingIncomeGridData = false;
+    this.budgetApi.getBudgetIncome()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.incomeGridData = res;
+          this.isFetchingIncomeGridData = false;
 
-    //       try { this.lastIncomeId = Number((res[res.length - 1]).item_number) }
-    //       catch{ this.lastIncomeId = 0 }
+          try { this.lastIncomeId = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastIncomeId = 0 }
 
-    //       this.calculateTotalIncome();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingIncomeGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.calculateTotalIncome();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingIncomeGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   createIncome(data: any){
     console.log(data);
     this.addIncome.isSaving = true;
 
-    // this.budgetApi.postIncome(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.addIncome.isSaving = false;
+    this.budgetApi.postIncome(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.addIncome.isSaving = false;
 
-    //       if(res.id){
-    //         this.addIncome.dismissButton.nativeElement.click();
-    //         this.getBudgetIncome();
-    //         this.addIncome.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addIncome.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.id){
+            this.addIncome.dismissButton.nativeElement.click();
+            this.getBudgetIncome();
+            this.addIncome.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addIncome.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateIncome(income: any){
     console.log(income);
     this.editIncome.isSaving = true;
 
-    // this.budgetApi.putIncome(income.data, income.id)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editIncome.dismissButton.nativeElement.click();
-    //       this.editIncome.isSaving = false;
-    //       this.getBudgetIncome();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editIncome.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.budgetApi.putIncome(income.data, income.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editIncome.dismissButton.nativeElement.click();
+          this.editIncome.isSaving = false;
+          this.getBudgetIncome();
+        },
+        error: (err) => {
+          console.log(err);
+          this.editIncome.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteIncome(){
     this.isIncomeDeleting = true;
 
-    // this.budgetApi.deleteIncome(this.incomeDeleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isIncomeDeleting = false;
-    //       this.getBudgetIncome();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isIncomeDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.budgetApi.deleteIncome(this.incomeDeleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isIncomeDeleting = false;
+          this.getBudgetIncome();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isIncomeDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditIncome(data: any){
@@ -178,86 +178,86 @@ export class BudgetTablesComponent implements OnInit {
   getBudgetExpenditure(){
     this.isFetchingExpenditureGridData = true;
 
-    // this.budgetApi.getBudgetExpenditure()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.expenditureGridData = res;
-    //       this.isFetchingExpenditureGridData = false;
+    this.budgetApi.getBudgetExpenditure()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.expenditureGridData = res;
+          this.isFetchingExpenditureGridData = false;
 
-    //       try { this.lastExpenditureId = Number((res[res.length - 1]).item_number) }
-    //       catch{ this.lastExpenditureId = 0 }
+          try { this.lastExpenditureId = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastExpenditureId = 0 }
 
-    //       this.calculateTotalExpenditure();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingExpenditureGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.calculateTotalExpenditure();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingExpenditureGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   createExpenditure(data: any){
     console.log(data);
     this.addExpenditure.isSaving = true;
 
-    // this.budgetApi.postExpenditure(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.addExpenditure.isSaving = false;
+    this.budgetApi.postExpenditure(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.addExpenditure.isSaving = false;
 
-    //       if(res.id){
-    //         this.addExpenditure.dismissButton.nativeElement.click();
-    //         this.getBudgetExpenditure();
-    //         this.addExpenditure.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addExpenditure.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.id){
+            this.addExpenditure.dismissButton.nativeElement.click();
+            this.getBudgetExpenditure();
+            this.addExpenditure.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addExpenditure.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateExpenditure(expenditure: any){
     console.log(expenditure);
     this.editExpenditure.isSaving = true;
 
-    // this.budgetApi.putExpenditure(expenditure.data, expenditure.id)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editExpenditure.dismissButton.nativeElement.click();
-    //       this.editExpenditure.isSaving = false;
-    //       this.getBudgetExpenditure()
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editExpenditure.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.budgetApi.putExpenditure(expenditure.data, expenditure.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editExpenditure.dismissButton.nativeElement.click();
+          this.editExpenditure.isSaving = false;
+          this.getBudgetExpenditure()
+        },
+        error: (err) => {
+          console.log(err);
+          this.editExpenditure.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteExpenditure(){
     this.isExpenditureDeleting = true;
 
-    // this.budgetApi.deleteExpenditure(this.expenditureDeleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isExpenditureDeleting = false;
-    //       this.getBudgetExpenditure();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isExpenditureDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.budgetApi.deleteExpenditure(this.expenditureDeleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isExpenditureDeleting = false;
+          this.getBudgetExpenditure();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isExpenditureDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditExpenditure(data: any){

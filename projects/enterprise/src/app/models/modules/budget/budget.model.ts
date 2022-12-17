@@ -1,5 +1,5 @@
 export class Budget {
-    user!: string;
+    account!: string;
     budget_name!: string;
     budget_type!: string;
 }

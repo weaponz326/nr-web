@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { Expenditure } from 'projects/enterprise/src/app/models/modules/budget/budget.model';
+import { Expenditure } from 'projects/enterprise/src/app/models/modules/budget/budget.model';
 
 
 @Component({
@@ -38,8 +38,7 @@ export class AddExpenditureComponent implements OnInit {
   }
 
   saveExpenditure(){
-    // let data: Expenditure = {
-    let data = {
+    let data: Expenditure = {
       item_number: this.addExpenditureForm.controls.itemNumber.value as string,
       item_description: this.addExpenditureForm.controls.itemDescription.value as string,
       amount: this.addExpenditureForm.controls.amount.value as number,

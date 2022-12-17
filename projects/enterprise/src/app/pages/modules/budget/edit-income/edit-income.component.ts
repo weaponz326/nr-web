@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { Income } from 'projects/enterprise/src/app/models/modules/budget/budget.model';
+import { Income } from 'projects/enterprise/src/app/models/modules/budget/budget.model';
 
 
 @Component({
@@ -43,8 +43,7 @@ export class EditIncomeComponent implements OnInit {
   }
 
   saveIncome(){
-    // let data: Income = {
-    let data = {
+    let data: Income = {
       item_number: this.editIncomeForm.controls.itemNumber.value as string,
       item_description: this.editIncomeForm.controls.itemDescription.value as string,
       amount: this.editIncomeForm.controls.amount.value as number,

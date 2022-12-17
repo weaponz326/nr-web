@@ -6,10 +6,10 @@ import { BudgetTablesComponent } from '../budget-tables/budget-tables.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { BudgetApiService } from 'projects/enterprise/src/app/services/modules-api/budget-api/budget-api.service';
+import { BudgetApiService } from 'projects/enterprise/src/app/services/modules-api/budget-api/budget-api.service';
 // import { BudgetPrintService } from 'projects/enterprise/src/app/services/modules-printing/budget-print/budget-print.service';
 
-// import { Budget } from 'projects/enterprise/src/app/models/modules/budget/budget.model';
+import { Budget } from 'projects/enterprise/src/app/models/modules/budget/budget.model';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ViewBudgetComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private budgetApi: BudgetApiService,
+    private budgetApi: BudgetApiService,
     // private budgetPrint: BudgetPrintService
   ) { }
 
@@ -56,27 +56,26 @@ export class ViewBudgetComponent implements OnInit {
   getBudget(){
     this.isBudgetLoading = true;
 
-    // this.budgetApi.getBudget()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.budgetFormData = res;
-    //       this.budgetForm.controls.budgetName.setValue(this.budgetFormData.budget_name);
-    //       this.budgetForm.controls.budgetType.setValue(this.budgetFormData.budget_type);
+    this.budgetApi.getBudget()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.budgetFormData = res;
+          this.budgetForm.controls.budgetName.setValue(this.budgetFormData.budget_name);
+          this.budgetForm.controls.budgetType.setValue(this.budgetFormData.budget_type);
 
-    //       this.isBudgetLoading = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBudgetLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    // })
+          this.isBudgetLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isBudgetLoading = false;
+          this.connectionToast.openToast();
+        }
+    })
   }
 
   updateBudget(){
-    // let data: Budget = {
-    let data = {
+    let data: Budget = {
       account: this.customCookie.getCookie('enterprise_id') as string,
       budget_name: this.budgetForm.controls.budgetName.value as string,
       budget_type: this.budgetForm.controls.budgetType.value as string
@@ -85,18 +84,18 @@ export class ViewBudgetComponent implements OnInit {
     console.log(data);
     this.isBudgetSaving = true;
 
-    // this.budgetApi.putBudget(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isBudgetSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isBudgetSaving = false;
-    //     }
-    // })
+    this.budgetApi.putBudget(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isBudgetSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isBudgetSaving = false;
+        }
+    })
   }
 
   confirmDelete(){
@@ -107,18 +106,18 @@ export class ViewBudgetComponent implements OnInit {
     this.isBudgetDeleting = true;
     console.log('deleting...');
 
-    // this.budgetApi.deleteBudget()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/budget/all-budget');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isBudgetDeleting = false;
-    //     }
-    //   })
+    this.budgetApi.deleteBudget()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/budget/all-budget');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isBudgetDeleting = false;
+        }
+      })
   }
 
   getIoe(e: any){
