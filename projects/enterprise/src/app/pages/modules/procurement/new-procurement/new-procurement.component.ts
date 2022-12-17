@@ -5,6 +5,9 @@ import { ProcurementFormComponent } from '../procurement-form/procurement-form.c
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { ProcurementApiService } from 'projects/enterprise/src/app/services/modules-api/procurement-api/procurement-api.service';
+
+import { Procurement } from 'projects/enterprise/src/app/models/modules/procurement/procurement.model';
 
 
 @Component({
@@ -17,6 +20,7 @@ export class NewProcurementComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private procurementApi: ProcurementApiService
   ) { }
 
   @ViewChild('procurementFormComponentReference', { read: ProcurementFormComponent, static: false }) procurementForm!: ProcurementFormComponent;
@@ -35,13 +39,14 @@ export class NewProcurementComponent implements OnInit {
   postProcurement(){
     console.log('u are saving a new procurement');
 
-    var data = {
+    var data: Procurement = {
       account: this.customCookie.getCookie('enterprise_id') as string,
       procurement_code: this.procurementForm.procurementForm.controls.procurementCode.value as string,
       project: this.procurementForm.procurementForm.controls.project.value as string,
-      description: this.procurementForm.procurementForm.controls.description.value,
-      procurement_status: this.procurementForm.procurementForm.controls.procurementStatus.value,
-      order_date: this.procurementForm.procurementForm.controls.orderDate.value as string,
+      description: this.procurementForm.procurementForm.controls.description.value as string,
+      procurement_status: this.procurementForm.procurementForm.controls.procurementStatus.value as string,
+      order_code: this.procurementForm.procurementForm.controls.orderCode.value as string,
+      order_date: this.procurementForm.procurementForm.controls.orderDate.value,
       order_type: this.procurementForm.procurementForm.controls.orderType.value as string,
       vendor: this.procurementForm.procurementForm.controls.vendor.value as string,
       vendor_phone: this.procurementForm.procurementForm.controls.vendor.value as string,
@@ -52,7 +57,21 @@ export class NewProcurementComponent implements OnInit {
     console.log(data);
     this.isProcurementaving = true;
 
-    
+    this.procurementApi.postProcurement(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isProcurementaving = false;
+
+          sessionStorage.setItem('enterprise_procurement_id', res.id);
+          this.router.navigateByUrl('/home/procurement/view-procurement');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isProcurementaving = false;
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   getNewProcurementCodeConfig(){

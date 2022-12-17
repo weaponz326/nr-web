@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/procurement/all-procurement">Cancel</button>
                 <button [disabled]="isProcurementDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isProcurementaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateProcurement()">Save</button>
+                <button [disabled]="isProcurementSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateProcurement()">Save</button>
             </div>
         </div>
         <div *ngIf="isProcurementLoading" class="row page-form">
@@ -37,4 +37,4 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteProcurement()"></app-delete-modal> -->
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteProcurement()"></app-delete-modal-one>

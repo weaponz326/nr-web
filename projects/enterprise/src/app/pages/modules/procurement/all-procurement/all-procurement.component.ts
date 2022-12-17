@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { ProcurementApiService } from 'projects/enterprise/src/app/services/modules-api/procurement-api/procurement-api.service';
+
 
 @Component({
   selector: 'app-all-procurement',
@@ -13,6 +15,7 @@ export class AllProcurementComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private procurementApi: ProcurementApiService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -39,7 +42,26 @@ export class AllProcurementComponent implements OnInit {
   getAccountProcurement(page: any, size: any, sortField: any){
     this.isFetchingGridData =  true;
 
+    this.procurementApi.getAccountProcurement(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.procurementGridData = res.results;
 
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false          
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){

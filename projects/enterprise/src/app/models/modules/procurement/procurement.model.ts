@@ -1,4 +1,5 @@
 export class Procurement {
+    account!: string;
     procurement_code!: string;
     order_code!: string;
     order_type!: string;
