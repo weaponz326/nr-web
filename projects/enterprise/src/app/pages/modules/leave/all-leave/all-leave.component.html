@@ -40,7 +40,7 @@
                         <tbody>
                             <tr *ngFor="let data of leaveGridData" (dblclick)="viewLeave(data.id)" class="table-pointer">
                                 <td>{{data?.leave_code}}</td>
-                                <td>{{data?.employee.first_name}} {{data?.employee.last_name}}</td>
+                                <td>{{data?.employee?.first_name}} {{data?.employee?.last_name}}</td>
                                 <td>{{data?.leave_start}}</td>
                                 <td>{{data?.leave_end}}</td>
                             </tr>                          

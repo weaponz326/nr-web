@@ -5,6 +5,9 @@ import { LeaveFormComponent } from '../leave-form/leave-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { LeaveApiService } from 'projects/enterprise/src/app/services/modules-api/leave-api/leave-api.service';
+
+import { Leave } from 'projects/enterprise/src/app/models/modules/leave/leave.model';
 
 
 @Component({
@@ -17,6 +20,7 @@ export class AddLeaveComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private leaveApi: LeaveApiService
   ) { }
 
   @ViewChild('leaveFormComponentReference', { read: LeaveFormComponent, static: false }) leaveForm!: LeaveFormComponent;
@@ -35,8 +39,9 @@ export class AddLeaveComponent implements OnInit {
   postLeave(){
     console.log('u are saving a new leave');
 
-    var data = {
+    var data: Leave = {
       account: this.customCookie.getCookie('enterprise_id') as string,
+      employee: this.leaveForm.selectedEmployeeId,
       leave_code: this.leaveForm.leaveForm.controls.leaveCode.value as string,
       leave_type: this.leaveForm.leaveForm.controls.leaveType.value as string,
       leave_start: this.leaveForm.leaveForm.controls.leaveStart.value,
@@ -47,7 +52,21 @@ export class AddLeaveComponent implements OnInit {
     console.log(data);
     this.isLeaveaving = true;
 
-    
+    this.leaveApi.postLeave(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isLeaveaving = false;
+
+          sessionStorage.setItem('enterprise_leave_id', res.id);
+          this.router.navigateByUrl('/home/leave/view-leave');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLeaveaving = false;
+          this.connectionToast.openToast();
+        }
+      })    
   }
 
   getNewLeaveCodeConfig(){

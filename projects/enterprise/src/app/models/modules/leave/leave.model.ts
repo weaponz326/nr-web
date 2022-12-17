@@ -1,7 +1,7 @@
 export class Leave {
+    account!: string;
     leave_code!: string;
-    employee_code!: string;
-    employee_name!: string;
+    employee!: string;
     leave_type!: string;
     leave_start!: Date;
     leave_end!: Date;

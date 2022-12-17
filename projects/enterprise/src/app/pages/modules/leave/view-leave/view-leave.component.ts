@@ -6,6 +6,9 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { LeaveApiService } from 'projects/enterprise/src/app/services/modules-api/leave-api/leave-api.service';
+
+import { Leave } from 'projects/enterprise/src/app/models/modules/leave/leave.model';
 
 
 @Component({
@@ -18,6 +21,7 @@ export class ViewLeaveComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private leaveApi: LeaveApiService
   ) { }
 
   @ViewChild('leaveFormComponentReference', { read: LeaveFormComponent, static: false }) leaveForm!: LeaveFormComponent;
@@ -44,14 +48,35 @@ export class ViewLeaveComponent implements OnInit {
   getLeave(){
     this.isLeaveLoading = true;
 
-    
+    this.leaveApi.getLeave()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.leaveData = res;
+          this.isLeaveLoading = false;
+
+          this.leaveForm.leaveForm.controls.leaveCode.setValue(this.leaveData.leave_code);
+          this.leaveForm.leaveForm.controls.employeeCode.setValue(this.leaveData.employee?.employee_code);
+          this.leaveForm.leaveForm.controls.employeeName.setValue(this.leaveData.employee?.first_name + " " + this.leaveData.employee?.last_name);
+          this.leaveForm.leaveForm.controls.leaveType.setValue(this.leaveData.leave_type);
+          this.leaveForm.leaveForm.controls.leaveStart.setValue(this.leaveData.leave_start);
+          this.leaveForm.leaveForm.controls.leaveEnd.setValue(this.leaveData.leave_end);
+          this.leaveForm.leaveForm.controls.leaveStatus.setValue(this.leaveData.leave_status);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLeaveLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateLeave(){
     console.log('u are saving a new leave');
 
-    var data = {
+    var data: Leave = {
       account: this.customCookie.getCookie('enterprise_id') as string,
+      employee: this.leaveForm.selectedEmployeeId,
       leave_code: this.leaveForm.leaveForm.controls.leaveCode.value as string,
       leave_type: this.leaveForm.leaveForm.controls.leaveType.value as string,
       leave_start: this.leaveForm.leaveForm.controls.leaveStart.value,
@@ -62,7 +87,18 @@ export class ViewLeaveComponent implements OnInit {
     console.log(data);
     this.isLeaveaving = true;
 
-    
+    this.leaveApi.putLeave(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isLeaveaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLeaveaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -72,20 +108,17 @@ export class ViewLeaveComponent implements OnInit {
   deleteLeave(){
     this.isLeaveDeleting = true;
 
-    
-  }
-
-  putActiveLeave(){
-    this.isActiveLeaveaving = true;
-
-    let data = {
-      account: this.customCookie.getCookie('enterprise_id') as string,
-      leave: sessionStorage.getItem('enterprise_leave_id') as string,
-    };
-
-    console.log(data);
-
-    
+    this.leaveApi.deleteLeave()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/leave/all-leave');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   onPrint(){

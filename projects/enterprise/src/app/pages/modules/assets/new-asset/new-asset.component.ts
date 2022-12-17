@@ -60,7 +60,7 @@ export class NewAssetComponent implements OnInit {
           console.log(res);
           this.isAssetSaving = false;
 
-          sessionStorage.setItem('restaurant_asset_id', res.id);
+          sessionStorage.setItem('enterprise_asset_id', res.id);
           this.router.navigateByUrl('/home/assets/view-asset');
         },
         error: (err) => {

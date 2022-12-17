@@ -11,6 +11,8 @@ export class LeaveFormComponent implements OnInit {
 
   constructor() { }
 
+  selectedEmployeeId = "";
+
   leaveForm = new FormGroup({
     leaveCode: new FormControl(''),
     employeeCode: new FormControl(''),
