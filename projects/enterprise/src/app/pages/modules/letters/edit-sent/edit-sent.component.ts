@@ -1,6 +1,9 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+
 import { SentFormComponent } from '../sent-form/sent-form.component';
+import { SentLetter } from 'projects/enterprise/src/app/models/modules/letters/letters.model';
 
 
 @Component({
@@ -10,7 +13,7 @@ import { SentFormComponent } from '../sent-form/sent-form.component';
 })
 export class EditSentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customCookie: CustomCookieService) { }
 
   @Output() saveSentEvent = new EventEmitter<any>();
 
@@ -29,7 +32,7 @@ export class EditSentComponent implements OnInit {
   openModal(data: any){
     this.sentFormData = data;
 
-    this.sentForm.sentForm.controls.dateSent.setValue(new Date(this.sentFormData.date_sent).toISOString().slice(0, 16));
+    this.sentForm.sentForm.controls.dateSent.setValue(this.sentFormData.date_sent);
     this.sentForm.sentForm.controls.referenceNumber.setValue(this.sentFormData.reference_number);
     this.sentForm.sentForm.controls.recepient.setValue(this.sentFormData.recepient);
     this.sentForm.sentForm.controls.subject.setValue(this.sentFormData.subject);
@@ -38,9 +41,9 @@ export class EditSentComponent implements OnInit {
   }
 
   saveSent(){
-    // let data: Sent = {
-    let data = {
-      dateSent: this.sentForm.sentForm.controls.dateSent.value,
+    let data: SentLetter = {
+      account: this.customCookie.getCookie('enterprise_id') as string,
+      date_sent: this.sentForm.sentForm.controls.dateSent.value,
       reference_number: this.sentForm.sentForm.controls.referenceNumber.value as string,
       recepient: this.sentForm.sentForm.controls.recepient.value as string,
       subject: this.sentForm.sentForm.controls.subject.value as string,
@@ -51,7 +54,7 @@ export class EditSentComponent implements OnInit {
       data: data
     }
     
-    this.saveSentEvent.emit(data);
+    this.saveSentEvent.emit(sent);
   }
 
   resetForm(){

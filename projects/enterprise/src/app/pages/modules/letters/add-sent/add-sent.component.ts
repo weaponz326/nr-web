@@ -2,6 +2,9 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 
 import { SentFormComponent } from '../sent-form/sent-form.component';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { SentLetter } from 'projects/enterprise/src/app/models/modules/letters/letters.model';
+
 
 @Component({
   selector: 'app-add-sent',
@@ -10,7 +13,7 @@ import { SentFormComponent } from '../sent-form/sent-form.component';
 })
 export class AddSentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customCookie: CustomCookieService) { }
 
   @Output() saveSentEvent = new EventEmitter<any>();
 
@@ -29,9 +32,9 @@ export class AddSentComponent implements OnInit {
   }
 
   saveSent(){
-    // let data: Sent = {
-    let data = {
-      dateSent: this.sentForm.sentForm.controls.dateSent.value,
+    let data: SentLetter = {
+      account: this.customCookie.getCookie('enterprise_id') as string,
+      date_sent: this.sentForm.sentForm.controls.dateSent.value,
       reference_number: this.sentForm.sentForm.controls.referenceNumber.value as string,
       recepient: this.sentForm.sentForm.controls.recepient.value as string,
       subject: this.sentForm.sentForm.controls.subject.value as string,

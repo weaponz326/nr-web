@@ -1,6 +1,9 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+
 import { ReceivedFormComponent } from '../received-form/received-form.component';
+import { ReceivedLetter } from 'projects/enterprise/src/app/models/modules/letters/letters.model';
 
 
 @Component({
@@ -10,7 +13,7 @@ import { ReceivedFormComponent } from '../received-form/received-form.component'
 })
 export class AddReceivedComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customCookie: CustomCookieService) { }
 
   @Output() saveReceivedEvent = new EventEmitter<any>();
 
@@ -29,9 +32,9 @@ export class AddReceivedComponent implements OnInit {
   }
 
   saveReceived(){
-    // let data: Received = {
-    let data = {
-      dateReceived: this.receivedForm.receivedForm.controls.dateReceived.value,
+    let data: ReceivedLetter = {
+      account: this.customCookie.getCookie('enterprise_id') as string,
+      date_received: this.receivedForm.receivedForm.controls.dateReceived.value,
       reference_number: this.receivedForm.receivedForm.controls.referenceNumber.value as string,
       sender: this.receivedForm.receivedForm.controls.sender.value as string,
       subject: this.receivedForm.receivedForm.controls.subject.value as string,
@@ -46,6 +49,5 @@ export class AddReceivedComponent implements OnInit {
     this.receivedForm.receivedForm.controls.sender.setValue('');
     this.receivedForm.receivedForm.controls.subject.setValue('');
   }
-
 
 }

@@ -1,4 +1,5 @@
 export class SentLetter {
+    account!: string;
     date_sent!: Date; 
     reference_number!: string; 
     recepient!: string; 
@@ -6,6 +7,7 @@ export class SentLetter {
 }
 
 export class ReceivedLetter {
+    account!: string;
     date_received!: Date; 
     reference_number!: string; 
     sender!: string; 

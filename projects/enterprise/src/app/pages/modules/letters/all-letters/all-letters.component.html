@@ -43,7 +43,7 @@
                                         </th>
                                         <th width="30%" class="min-width-3">
                                             Sender
-                                            <app-table-sorting [sortField]="'recepient'" [currentField]="currentReceivedSortColumn" (sortDirection)="sortReceivedTable($event)"></app-table-sorting>
+                                            <app-table-sorting [sortField]="'sender'" [currentField]="currentReceivedSortColumn" (sortDirection)="sortReceivedTable($event)"></app-table-sorting>
                                         </th>
                                         <th width="40%" class="min-width-4">
                                             Subject
@@ -55,7 +55,7 @@
                                     <tr *ngFor="let data of receivedGridData" class="table-pointer" (dblclick)="openEditReceived(data)">
                                         <td>{{data?.date_received}}</td>
                                         <td>{{data?.reference_number}}</td>
-                                        <td>{{data?.recepient}}</td>
+                                        <td>{{data?.sender}}</td>
                                         <td>{{data?.subject}}</td>
                                     </tr>                          
                                     <tr *ngIf="isFetchingReceivedGridData || !isReceivedDataAvailable">
@@ -153,3 +153,13 @@
 <app-add-received #addReceivedComponentReference (saveReceivedEvent)="createReceived($event)"></app-add-received>
 
 <app-edit-received #editReceivedComponentReference (saveReceivedEvent)="updateReceived($event)"></app-edit-received>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal components -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteSent()"></app-delete-modal-one>
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteReceived()"></app-delete-modal-two>
