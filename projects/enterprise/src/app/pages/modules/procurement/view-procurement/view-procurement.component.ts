@@ -66,7 +66,6 @@ export class ViewProcurementComponent implements OnInit {
           this.procurementForm.procurementForm.controls.vendorPhone.setValue(this.procurementData.vendor_phone);
           this.procurementForm.procurementForm.controls.vendorEmail.setValue(this.procurementData.vendor_email);
           this.procurementForm.procurementForm.controls.vendorAddress.setValue(this.procurementData.vendor_address);
-
         },
         error: (err) => {
           console.log(err);

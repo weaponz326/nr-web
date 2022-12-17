@@ -2,10 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppraisalFormComponent } from '../appraisal-form/appraisal-form.component';
+import { AppraisalSheetComponent } from '../appraisal-sheet/appraisal-sheet.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AppraisalApiService } from 'projects/enterprise/src/app/services/modules-api/appraisal-api/appraisal-api.service';
+
+import { Appraisal } from 'projects/enterprise/src/app/models/modules/appraisal/appraisal.model';
 
 
 @Component({
@@ -18,9 +22,11 @@ export class ViewAppraisalComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private appraisalApi: AppraisalApiService
   ) { }
 
   @ViewChild('appraisalFormComponentReference', { read: AppraisalFormComponent, static: false }) appraisalForm!: AppraisalFormComponent;
+  @ViewChild('appraisalSheetComponentReference', { read: AppraisalSheetComponent, static: false }) appraisalSheet!: AppraisalSheetComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
@@ -32,10 +38,8 @@ export class ViewAppraisalComponent implements OnInit {
   appraisalData: any;
 
   isAppraisalLoading = false;
-  isAppraisalaving = false;
+  isAppraisalSaving = false;
   isAppraisalDeleting = false;
-
-  isActiveAppraisalaving = false;
 
   ngOnInit(): void {
     this.getAppraisal();
@@ -44,14 +48,35 @@ export class ViewAppraisalComponent implements OnInit {
   getAppraisal(){
     this.isAppraisalLoading = true;
 
-    
+    this.appraisalApi.getAppraisal()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.appraisalData = res;
+          this.isAppraisalLoading = false;
+
+          this.appraisalForm.appraisalForm.controls.appraisalCode.setValue(this.appraisalData.appraisal_code);
+          this.appraisalForm.appraisalForm.controls.appraisalName.setValue(this.appraisalData.appraisal_name);
+          this.appraisalForm.appraisalForm.controls.emplpoyeeCode.setValue(this.appraisalData.employee?.employee_code);
+          this.appraisalForm.appraisalForm.controls.employeeName.setValue(this.appraisalData.employee?.first_name + " " + this.appraisalData.employee?.last_name);
+          this.appraisalForm.appraisalForm.controls.startDate.setValue(this.appraisalData.start_date);
+          this.appraisalForm.appraisalForm.controls.endDate.setValue(this.appraisalData.end_date);
+          this.appraisalForm.appraisalForm.controls.supervisor.setValue(this.appraisalData.supervisor);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAppraisalLoading = false;
+          this.connectionToast.openToast();
+        }
+      })    
   }
 
   updateAppraisal(){
     console.log('u are saving a new appraisal');
 
-    var data = {
+    var data: Appraisal = {
       account: this.customCookie.getCookie('enterprise_id') as string,
+      employee: this.appraisalForm.selectedEmployeeId,
       appraisal_code: this.appraisalForm.appraisalForm.controls.appraisalCode.value as string,
       appraisal_name: this.appraisalForm.appraisalForm.controls.appraisalName.value as string,
       start_date: this.appraisalForm.appraisalForm.controls.startDate.value,
@@ -60,9 +85,22 @@ export class ViewAppraisalComponent implements OnInit {
     }
 
     console.log(data);
-    this.isAppraisalaving = true;
+    this.isAppraisalSaving = true;
 
-    
+    this.appraisalApi.putAppraisal(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isAppraisalSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAppraisalSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+
+    this.appraisalSheet.updateAppraisalSheet();
   }
 
   confirmDelete(){
@@ -72,20 +110,19 @@ export class ViewAppraisalComponent implements OnInit {
   deleteAppraisal(){
     this.isAppraisalDeleting = true;
 
-    
-  }
+    this.appraisalApi.deleteAppraisal()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/appraisal/all-appraisal');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      }) 
 
-  putActiveAppraisal(){
-    this.isActiveAppraisalaving = true;
-
-    let data = {
-      account: this.customCookie.getCookie('enterprise_id') as string,
-      appraisal: sessionStorage.getItem('enterprise_appraisal_id') as string,
-    };
-
-    console.log(data);
-
-    
+    this.appraisalSheet.deleteAppraisalSheet();
   }
 
   onPrint(){

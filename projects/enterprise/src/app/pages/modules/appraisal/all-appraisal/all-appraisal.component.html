@@ -20,7 +20,7 @@
                         <thead>
                             <tr class="bg-light">
                                 <th width="15%" class="min-width-2">
-                                    Appraisal ID.
+                                    Appraisal ID
                                     <app-table-sorting [sortField]="'appraisal_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="30%" class="min-width-3">
@@ -45,7 +45,7 @@
                             <tr *ngFor="let data of appraisalGridData" (dblclick)="viewAppraisal(data.id)" class="table-pointer">
                                 <td>{{data?.appraisal_code}}</td>
                                 <td>{{data?.appraisal_name}}</td>
-                                <td>{{data?.employee.first_name}} {{data?.employee.last_name}}</td>
+                                <td>{{data?.employee?.first_name}} {{data?.employee?.last_name}}</td>
                                 <td>{{data?.start_date}}</td>
                                 <td>{{data?.end_date}}</td>
                             </tr>                          

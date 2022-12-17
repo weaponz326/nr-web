@@ -5,6 +5,9 @@ import { AppraisalFormComponent } from '../appraisal-form/appraisal-form.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AppraisalApiService } from 'projects/enterprise/src/app/services/modules-api/appraisal-api/appraisal-api.service';
+
+import { Appraisal } from 'projects/enterprise/src/app/models/modules/appraisal/appraisal.model';
 
 
 @Component({
@@ -17,6 +20,7 @@ export class NewAppraisalComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private appraisalApi: AppraisalApiService
   ) { }
 
   @ViewChild('appraisalFormComponentReference', { read: AppraisalFormComponent, static: false }) appraisalForm!: AppraisalFormComponent;
@@ -35,8 +39,9 @@ export class NewAppraisalComponent implements OnInit {
   postAppraisal(){
     console.log('u are saving a new appraisal');
 
-    var data = {
+    var data: Appraisal = {
       account: this.customCookie.getCookie('enterprise_id') as string,
+      employee: this.appraisalForm.selectedEmployeeId,
       appraisal_code: this.appraisalForm.appraisalForm.controls.appraisalCode.value as string,
       appraisal_name: this.appraisalForm.appraisalForm.controls.appraisalName.value as string,
       start_date: this.appraisalForm.appraisalForm.controls.startDate.value,
@@ -47,7 +52,21 @@ export class NewAppraisalComponent implements OnInit {
     console.log(data);
     this.isAppraisalaving = true;
 
-    
+    this.appraisalApi.postAppraisal(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isAppraisalaving = false;
+
+          sessionStorage.setItem('enterprise_appraisal_id', res.id);
+          this.router.navigateByUrl('/home/appraisal/view-appraisal');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAppraisalaving = false;
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   getNewAppraisalCodeConfig(){

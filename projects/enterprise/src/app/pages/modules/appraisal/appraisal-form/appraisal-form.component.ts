@@ -11,6 +11,8 @@ export class AppraisalFormComponent implements OnInit {
 
   constructor() { }
 
+  selectedEmployeeId = "";
+
   appraisalForm = new FormGroup({
     appraisalCode: new FormControl(''),
     appraisalName: new FormControl(''),

@@ -1,4 +1,6 @@
 export class Appraisal {
+    account!: string;
+    employee!: string;
     appraisal_code!: string;
     appraisal_name!: string;
     start_date!: Date;

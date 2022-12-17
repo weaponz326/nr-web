@@ -27,7 +27,7 @@
             <div class="col-md-7">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/appraisal/all-appraisal">Cancel</button>
                 <button [disabled]="isAppraisalDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isAppraisalaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateAppraisal()">Save</button>
+                <button [disabled]="isAppraisalSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateAppraisal()">Save</button>
             </div>
         </div>
         <div *ngIf="isAppraisalLoading" class="row page-form">
@@ -49,4 +49,4 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteAppraisal()"></app-delete-modal> -->
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteAppraisal()"></app-delete-modal-one>
