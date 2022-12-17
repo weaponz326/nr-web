@@ -36,7 +36,7 @@ export class ViewLeaveComponent implements OnInit {
   leaveData: any;
 
   isLeaveLoading = false;
-  isLeaveaving = false;
+  isLeaveSaving = false;
   isLeaveDeleting = false;
 
   isActiveLeaveaving = false;
@@ -85,17 +85,17 @@ export class ViewLeaveComponent implements OnInit {
     }
 
     console.log(data);
-    this.isLeaveaving = true;
+    this.isLeaveSaving = true;
 
     this.leaveApi.putLeave(data)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.isLeaveaving = false;
+          this.isLeaveSaving = false;
         },
         error: (err) => {
           console.log(err);
-          this.isLeaveaving = false;
+          this.isLeaveSaving = false;
           this.connectionToast.openToast();
         }
       })

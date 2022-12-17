@@ -35,8 +35,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of attendanceGridData" (dblclick)="viewAttendance(data.id)" class="table-pointer">
-                                <td>{{data?.attendnace_code}}</td>
-                                <td>{{data?.attendnace_name}}</td>
+                                <td>{{data?.attendance_code}}</td>
+                                <td>{{data?.attendance_name}}</td>
                                 <td>{{data?.fiscal_year?.year_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

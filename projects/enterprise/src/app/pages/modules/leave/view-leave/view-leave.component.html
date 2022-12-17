@@ -11,7 +11,7 @@
             <div class="col-md-6">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/leave/all-leave">Cancel</button>
                 <button [disabled]="isLeaveDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isLeaveaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateLeave()">Save</button>
+                <button [disabled]="isLeaveSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateLeave()">Save</button>
             </div>
         </div>
         <div *ngIf="isLeaveLoading" class="row page-form">
