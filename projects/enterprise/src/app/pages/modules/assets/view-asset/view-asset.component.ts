@@ -6,6 +6,9 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AssetsApiService } from 'projects/enterprise/src/app/services/modules-api/assets-api/assets-api.service';
+
+import { Asset } from 'projects/enterprise/src/app/models/modules/assets/assets.model';
 
 
 @Component({
@@ -18,6 +21,7 @@ export class ViewAssetComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private assetsApi: AssetsApiService
   ) { }
 
   @ViewChild('assetFormComponentReference', { read: AssetFormComponent, static: false }) assetForm!: AssetFormComponent;
@@ -25,8 +29,8 @@ export class ViewAssetComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   navHeading: any[] = [
-    { text: "All Assets", url: "/home/asset/all-assets" },
-    { text: "View Asset", url: "/home/asset/view-asset" },
+    { text: "All Assets", url: "/home/assets/all-assets" },
+    { text: "View Asset", url: "/home/assets/view-asset" },
   ];
 
   assetData: any;
@@ -44,7 +48,28 @@ export class ViewAssetComponent implements OnInit {
   getAsset(){
     this.isAssetLoading = true;
 
-    
+    this.assetsApi.getAsset()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.assetData = res;
+          this.isAssetLoading = false;
+
+          this.assetForm.assetForm.controls.assetNumber.setValue(this.assetData.asset_number);
+          this.assetForm.assetForm.controls.assetName.setValue(this.assetData.asset_name);          
+          this.assetForm.assetForm.controls.category.setValue(this.assetData.category);          
+          this.assetForm.assetForm.controls.type.setValue(this.assetData.type);          
+          this.assetForm.assetForm.controls.model.setValue(this.assetData.model);          
+          this.assetForm.assetForm.controls.description.setValue(this.assetData.description);          
+          this.assetForm.assetForm.controls.datePurchased.setValue(this.assetData.date_purchased);          
+          this.assetForm.assetForm.controls.status.setValue(this.assetData.status);          
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAssetLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateAsset(){
@@ -65,7 +90,18 @@ export class ViewAssetComponent implements OnInit {
     console.log(data);
     this.isAssetSaving = true;
 
-    
+    this.assetsApi.putAsset(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isAssetSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAssetSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -75,20 +111,17 @@ export class ViewAssetComponent implements OnInit {
   deleteAsset(){
     this.isAssetDeleting = true;
 
-    
-  }
-
-  putActiveAsset(){
-    this.isActiveAssetSaving = true;
-
-    let data = {
-      account: this.customCookie.getCookie('enterprise_id') as string,
-      asset: sessionStorage.getItem('enterprise_asset_id') as string,
-    };
-
-    console.log(data);
-
-    
+    this.assetsApi.deleteAsset()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/assets/all-assets');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

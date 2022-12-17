@@ -1,4 +1,5 @@
 export class Asset {
+    account!: string;
     asset_number!: string;
     asset_name!: string;
     category!: string;

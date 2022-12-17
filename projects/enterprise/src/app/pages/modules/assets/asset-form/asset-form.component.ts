@@ -18,7 +18,7 @@ export class AssetFormComponent implements OnInit {
     type: new FormControl(''),
     model: new FormControl(''),
     description: new FormControl(''),
-    datePurchased: new FormControl(''),
+    datePurchased: new FormControl(),
     status: new FormControl(''),
   });
 

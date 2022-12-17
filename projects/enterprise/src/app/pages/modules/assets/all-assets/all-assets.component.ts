@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { AssetsApiService } from 'projects/enterprise/src/app/services/modules-api/assets-api/assets-api.service';
+
 
 @Component({
   selector: 'app-all-assets',
@@ -13,6 +15,7 @@ export class AllAssetsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private assetsApi: AssetsApiService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -39,7 +42,26 @@ export class AllAssetsComponent implements OnInit {
   getAccountAssets(page: any, size: any, sortField: any){
     this.isFetchingGridData =  true;
 
+    this.assetsApi.getAccountAsset(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.assetsGridData = res.results;
 
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false          
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
