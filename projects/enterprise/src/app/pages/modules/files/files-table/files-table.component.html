@@ -35,6 +35,15 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr class="bg-light">
+                        <td colspan="5">
+                            <app-table-paginator
+                            [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getFolderFiles($event, 20, '')"
+                            ></app-table-paginator>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 

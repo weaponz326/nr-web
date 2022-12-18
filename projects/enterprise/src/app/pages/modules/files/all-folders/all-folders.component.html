@@ -19,30 +19,30 @@
                     <table class="table table-bordered w-100 page-table">
                         <thead>
                             <tr class="bg-light">
-                                <th width="20%" class="min-width-4">
+                                <th width="20%" class="min-width-2">
                                     Folder No.
                                     <app-table-sorting [sortField]="'folder_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="40%" class="min-width-2">
+                                <th width="40%" class="min-width-4">
                                     Folder Name
                                     <app-table-sorting [sortField]="'folder_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="20%" class="min-width-2">
                                     Date Created
-                                    <app-table-sorting [sortField]="'date_created'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                    <app-table-sorting [sortField]="'created_at'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="20%" class="min-width-2">
-                                    Lasr Updated
-                                    <app-table-sorting [sortField]="'date_updated'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                    Last Updated
+                                    <app-table-sorting [sortField]="'updated_at'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of foldersGridData" (dblclick)="viewFolder(data?.id)" class="table-pointer">
-                                <td>{{data?.folder_number}}</td>
-                                <td>{{data?.folder_name}}<td>
-                                <td>{{data?.date_created}}<td>
-                                <td>{{data?.last_updated}}<td>
+                                <td>{{data.folder_number}}</td>
+                                <td>{{data.folder_name}}</td>
+                                <td>{{data.created_at | date: 'short'}}</td>
+                                <td>{{data.updated_at | date: 'short'}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="4">

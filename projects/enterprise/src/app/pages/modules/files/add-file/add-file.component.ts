@@ -2,6 +2,8 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 
 import { FileFormComponent } from '../file-form/file-form.component';
 
+import { File as FolderFile } from 'projects/enterprise/src/app/models/modules/files/files.model';
+
 
 @Component({
   selector: 'app-add-file',
@@ -25,19 +27,18 @@ export class AddFileComponent implements OnInit {
   }
 
   openModal(){
-    this.fileForm.fileForm.controls.dateAdded.setValue(new Date().toISOString().slice(0, 16));
+    this.fileForm.fileForm.controls.dateAdded.setValue(new Date().toISOString().slice(0, 10));
 
     this.addButton.nativeElement.click();
   }
 
   saveFile(){
-    // let data: File = {
-    let data = {
+    let data: FolderFile = {
+      folder: sessionStorage.getItem('enterprise_folder_id') as string,
       file_number: this.fileForm.fileForm.controls.fileNumber.value as string,
       file_name: this.fileForm.fileForm.controls.fileName.value as string,
       file_type: this.fileForm.fileForm.controls.fileType.value as string,
       date_added: this.fileForm.fileForm.controls.dateAdded.value,
-      account: sessionStorage.getItem('enterprise_folder_id') as string,
     }
 
     this.saveFileEvent.emit(data);
@@ -47,7 +48,7 @@ export class AddFileComponent implements OnInit {
     this.fileForm.fileForm.controls.fileNumber.setValue('');
     this.fileForm.fileForm.controls.fileName.setValue('');
     this.fileForm.fileForm.controls.fileType.setValue('');
-    this.fileForm.fileForm.controls.dateAdded.setValue(new Date().toISOString().slice(0, 16));
+    this.fileForm.fileForm.controls.dateAdded.setValue(new Date().toISOString().slice(0, 10));
   }
   
 }

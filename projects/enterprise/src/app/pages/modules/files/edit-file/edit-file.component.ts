@@ -2,6 +2,8 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 
 import { FileFormComponent } from '../file-form/file-form.component';
 
+import { File as FolderFile } from 'projects/enterprise/src/app/models/modules/files/files.model';
+
 
 @Component({
   selector: 'app-edit-file',
@@ -32,18 +34,18 @@ export class EditFileComponent implements OnInit {
     this.fileForm.fileForm.controls.fileNumber.setValue(this.fileFormData.file_number);
     this.fileForm.fileForm.controls.fileName.setValue(this.fileFormData.file_name);
     this.fileForm.fileForm.controls.fileType.setValue(this.fileFormData.file_type);
-    this.fileForm.fileForm.controls.dateAdded.setValue(new Date(this.fileFormData.date_added).toISOString().slice(0, 16));
+    this.fileForm.fileForm.controls.dateAdded.setValue(new Date(this.fileFormData.date_added).toISOString().slice(0, 10));
 
     this.editButton.nativeElement.click();
   }
 
   saveFile(){
-    let data = {
+    let data: FolderFile = {
+      folder: sessionStorage.getItem('enterprise_folder_id') as string,
       file_number: this.fileForm.fileForm.controls.fileNumber.value as string,
       file_name: this.fileForm.fileForm.controls.fileName.value as string,
       file_type: this.fileForm.fileForm.controls.fileType.value as string,
       date_added: this.fileForm.fileForm.controls.dateAdded.value,
-      account: sessionStorage.getItem('enterprise_folder_id') as string,
     }
 
     let file = {
