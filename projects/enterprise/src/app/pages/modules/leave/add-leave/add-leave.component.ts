@@ -30,7 +30,7 @@ export class AddLeaveComponent implements OnInit {
     { text: "Add Leave", url: "/home/leave/add-leave" },
   ];
 
-  isLeaveaving = false;
+  isLeaveSaving = false;
 
   ngOnInit(): void {
     this.getNewLeaveCodeConfig();
@@ -50,20 +50,20 @@ export class AddLeaveComponent implements OnInit {
     }
 
     console.log(data);
-    this.isLeaveaving = true;
+    this.isLeaveSaving = true;
 
     this.leaveApi.postLeave(data)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.isLeaveaving = false;
+          this.isLeaveSaving = false;
 
           sessionStorage.setItem('enterprise_leave_id', res.id);
           this.router.navigateByUrl('/home/leave/view-leave');
         },
         error: (err) => {
           console.log(err);
-          this.isLeaveaving = false;
+          this.isLeaveSaving = false;
           this.connectionToast.openToast();
         }
       })    
