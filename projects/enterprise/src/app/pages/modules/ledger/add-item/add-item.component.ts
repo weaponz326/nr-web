@@ -2,6 +2,8 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 
 import { ItemFormComponent } from '../item-form/item-form.component';
 
+import { LedgerItem } from 'projects/enterprise/src/app/models/modules/ledger/ledger.model';
+
 
 @Component({
   selector: 'app-add-item',
@@ -33,13 +35,13 @@ export class AddItemComponent implements OnInit {
   }
 
   saveItem(){
-    let data = {
+    let data: LedgerItem = {
+      ledger: sessionStorage.getItem('enterprise_ledger_id') as string,
       item_date: this.itemForm.itemForm.controls.itemDate.value,
       reference_number: this.itemForm.itemForm.controls.referenceNumber.value as string,
       description: this.itemForm.itemForm.controls.description.value as string,
       item_type: this.itemForm.itemForm.controls.itemType.value as string,
       amount: this.itemForm.itemForm.controls.amount.value as number,
-      account: sessionStorage.getItem('enterprise_ledger_id') as string,
     }
 
     this.saveItemEvent.emit(data);

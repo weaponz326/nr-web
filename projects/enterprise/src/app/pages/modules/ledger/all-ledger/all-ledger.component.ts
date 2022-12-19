@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { NewLedgerComponent } from '../new-ledger/new-ledger.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { LedgerApiService } from 'projects/enterprise/src/app/services/modules-api/ledger-api/ledger-api.service';
+
 
 @Component({
   selector: 'app-all-ledger',
@@ -14,6 +16,7 @@ export class AllLedgerComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private ledgerApi: LedgerApiService,
   ) { }
 
   @ViewChild('newLedgerComponentReference', { read: NewLedgerComponent, static: false }) newLedger!: NewLedgerComponent;
@@ -41,7 +44,25 @@ export class AllLedgerComponent implements OnInit {
   getUserLedger(page: any, size: any, sortField: any){
     this.isFetchingGridData =  true;
 
+    this.ledgerApi.getAccountLedger(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.ledgerGridData = res.results;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          this.connectionToast.openToast();
+          this.isFetchingGridData = false;
+          console.log(err);
+        }
+      })
   }
 
   sortTable(column: any){

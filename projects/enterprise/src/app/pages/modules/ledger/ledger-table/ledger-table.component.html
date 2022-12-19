@@ -25,7 +25,8 @@
                         <td>{{data?.reference_number}}</td>
                         <td>{{data?.description}}</td>
                         <td>{{data?.item_type}}</td>
-                        <td><span class="float-end">{{data?.amount}}</span></td>
+                        <td *ngIf="data?.item_type == 'Credit'"><span class="float-end">{{data?.amount}}</span></td>
+                        <td *ngIf="data?.item_type == 'Debit'"><span class="float-end">- {{data?.amount}}</span></td>
                         <td class="p-0">
                             <button class="btn btn-sm border w-50" (click)="openEditItem(data)"><i class="bi bi-pen"></i></button>
                             <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>

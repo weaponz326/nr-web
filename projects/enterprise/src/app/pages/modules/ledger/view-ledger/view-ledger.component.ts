@@ -6,6 +6,9 @@ import { LedgerTableComponent } from '../ledger-table/ledger-table.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { LedgerApiService } from 'projects/enterprise/src/app/services/modules-api/ledger-api/ledger-api.service';
+
+import { Ledger } from 'projects/enterprise/src/app/models/modules/ledger/ledger.model';
 
 
 @Component({
@@ -18,6 +21,7 @@ export class ViewLedgerComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private ledgerApi: LedgerApiService,
   ) { }
 
   @ViewChild('ledgerTableComponentReference', { read: LedgerTableComponent, static: false }) ledgerTables!: LedgerTableComponent;
@@ -52,14 +56,32 @@ export class ViewLedgerComponent implements OnInit {
   getLedger(){
     this.isLedgerLoading = true;
 
+    this.ledgerApi.getLedger()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.ledgerFormData = res;
 
+          this.ledgerForm.controls.ledgerCode.setValue(this.ledgerFormData.ledger_code);
+          this.ledgerForm.controls.ledgerName.setValue(this.ledgerFormData.ledger_name);
+          this.ledgerForm.controls.fromDate.setValue(this.ledgerFormData.from_date);
+          this.ledgerForm.controls.toDate.setValue(this.ledgerFormData.to_date);
+
+          this.isLedgerLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLedgerLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateLedger(){
-    let data = {
-      account: this.customCookie.getCookie('enteprise_id') as string,
-      ledger_name: this.ledgerForm.controls.ledgerCode.value as string,
-      ledger_code: this.ledgerForm.controls.ledgerName.value as string,
+    let data: Ledger = {
+      account: this.customCookie.getCookie('enterprise_id') as string,
+      ledger_code: this.ledgerForm.controls.ledgerCode.value as string,
+      ledger_name: this.ledgerForm.controls.ledgerName.value as string,
       from_date: this.ledgerForm.controls.fromDate.value,
       to_date: this.ledgerForm.controls.toDate.value,
     }
@@ -67,7 +89,18 @@ export class ViewLedgerComponent implements OnInit {
     console.log(data);
     this.isLedgerSaving = true;
 
-
+    this.ledgerApi.putLedger(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isLedgerSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isLedgerSaving = false;
+        }
+      })
   }
 
   confirmDelete(){
@@ -78,7 +111,19 @@ export class ViewLedgerComponent implements OnInit {
     this.isLedgerDeleting = true;
     console.log('deleting...');
 
-
+    this.ledgerApi.deleteLedger()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/ledger/all-ledger');
+          this.isLedgerDeleting = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLedgerDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getIoe(e: any){

@@ -6,6 +6,8 @@ import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/mo
 import { AddItemComponent } from '../add-item/add-item.component';
 import { EditItemComponent } from '../edit-item/edit-item.component';
 
+import { LedgerApiService } from 'projects/enterprise/src/app/services/modules-api/ledger-api/ledger-api.service';
+
 
 @Component({
   selector: 'app-ledger-table',
@@ -15,7 +17,7 @@ import { EditItemComponent } from '../edit-item/edit-item.component';
 export class LedgerTableComponent implements OnInit {
 
   constructor(
-    // private ledgersApi: LedgersApiService
+    private ledgerApi: LedgerApiService
   ) { }
 
   @Output() balanceEvent = new EventEmitter<any>();
@@ -53,82 +55,82 @@ export class LedgerTableComponent implements OnInit {
   getLedgerItem(){
     this.isFetchingGridData = true;
 
-    // this.ledgersApi.getLedgerItems()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.ledgerApi.getLedgerLedgerItem()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.itemsGridData = res;
-    //       this.isFetchingGridData = false;
-    //       this.calculateBalance();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.itemsGridData = res;
+          this.isFetchingGridData = false;
+          this.calculateBalance();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   createItem(data: any){
     console.log(data);
     this.addItem.isSaving = true;
 
-    // this.ledgersApi.postItem(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.ledgerApi.postLedgerItem(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.addItem.isSaving = false;
-    //       this.addItem.dismissButton.nativeElement.click();
-    //       this.addItem.resetForm();
-    //       this.getLedgerItem();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addItem.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.addItem.isSaving = false;
+          this.addItem.dismissButton.nativeElement.click();
+          this.addItem.resetForm();
+          this.getLedgerItem();
+        },
+        error: (err) => {
+          console.log(err);
+          this.addItem.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateItem(item: any){
     console.log(item);
     this.editItem.isSaving = true;
 
-    // this.ledgersApi.putItem(item.data, item.id)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editItem.dismissButton.nativeElement.click();
-    //       this.editItem.isSaving = false;
-    //       this.getLedgerItem();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editItem.isSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.ledgerApi.putLedgerItem(item.data, item.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editItem.dismissButton.nativeElement.click();
+          this.editItem.isSaving = false;
+          this.getLedgerItem();
+        },
+        error: (err) => {
+          console.log(err);
+          this.editItem.isSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteItem(){
     console.log(this.deleteId);
     this.isItemDeleting = true;
 
-    // this.ledgersApi.deleteItem(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //     this.isItemDeleting = false;
-    //     this.getLedgerItem();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isItemDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.ledgerApi.deleteLedgerItem(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        this.isItemDeleting = false;
+        this.getLedgerItem();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isItemDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditItem(data: any){
