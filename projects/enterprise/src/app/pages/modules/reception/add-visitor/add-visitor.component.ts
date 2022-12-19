@@ -4,7 +4,9 @@ import { VisitorFormComponent } from '../visitor-form/visitor-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-import { KitchenStockApiService } from 'projects/restaurant/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
+import { ReceptionApiService } from 'projects/enterprise/src/app/services/modules-api/reception-api/reception-api.service';
+
+import { Visitor } from 'projects/enterprise/src/app/models/modules/reception/reception.model';
 
 
 @Component({
@@ -16,7 +18,7 @@ export class AddVisitorComponent implements OnInit {
 
   constructor(
     private customCookie: CustomCookieService,
-    private kitchenStockApi: KitchenStockApiService
+    private receptionApi: ReceptionApiService
   ) { }
 
   @Output() saveVisitorEvent = new EventEmitter<any>();
@@ -35,7 +37,7 @@ export class AddVisitorComponent implements OnInit {
   getNewVisitorCodeConfig(){
     this.visitorForm.visitorForm.controls.visitCode.disable();
 
-    // this.visitorApi.getNewVisitorCodeConfig()
+    // this.receptionApi.getNewVisitorCodeConfig()
     //   .subscribe({
     //     next: (res) => {
     //       console.log(res);
@@ -55,11 +57,11 @@ export class AddVisitorComponent implements OnInit {
   openModal(){
     this.addButton.nativeElement.click();
     this.getNewVisitorCodeConfig();
-    this.visitorForm.visitorForm.controls.visitDate.setValue(new Date().toISOString().slice(0, 16));
+    this.visitorForm.visitorForm.controls.visitDate.setValue(new Date().toISOString().slice(0, 10));
   }
 
   saveVisitor(){
-    let data = {
+    let data: Visitor = {
       account: this.customCookie.getCookie('enterprise_id') as string,
       visit_code: this.visitorForm.visitorForm.controls.visitCode.value as string,
       visit_date: this.visitorForm.visitorForm.controls.visitDate.value,
@@ -76,7 +78,7 @@ export class AddVisitorComponent implements OnInit {
 
   resetForm(){
     this.visitorForm.visitorForm.controls.visitCode.setValue('');
-    this.visitorForm.visitorForm.controls.visitDate.setValue(new Date().toISOString().slice(0, 16));
+    this.visitorForm.visitorForm.controls.visitDate.setValue(new Date().toISOString().slice(0, 10));
     this.visitorForm.visitorForm.controls.visitorName.setValue('');
     this.visitorForm.visitorForm.controls.visitorPhone.setValue('');
     this.visitorForm.visitorForm.controls.arrival.setValue(null);

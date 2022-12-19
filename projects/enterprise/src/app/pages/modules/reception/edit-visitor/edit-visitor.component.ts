@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 import { VisitorFormComponent } from '../visitor-form/visitor-form.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { Visitor } from 'projects/enterprise/src/app/models/modules/reception/reception.model';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class EditVisitorComponent implements OnInit {
   }
 
   saveVisitor(){
-    let data = {
+    let data: Visitor = {
       account: this.customCookie.getCookie('enterprise_id') as string,
       visit_code: this.visitorForm.visitorForm.controls.visitCode.value as string,
       visit_date: this.visitorForm.visitorForm.controls.visitDate.value,

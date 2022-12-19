@@ -1,4 +1,5 @@
 export class Visitor {
+    account!: string;
     visit_code!: string;
     visit_date!: Date;
     visitor_name!: string;

@@ -6,6 +6,8 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { AddVisitorComponent } from '../add-visitor/add-visitor.component'
 import { EditVisitorComponent } from '../edit-visitor/edit-visitor.component'
 
+import { ReceptionApiService } from 'projects/enterprise/src/app/services/modules-api/reception-api/reception-api.service';
+
 
 @Component({
   selector: 'app-all-visitors',
@@ -16,6 +18,7 @@ export class AllVisitorsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private receptionApi: ReceptionApiService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -47,28 +50,28 @@ export class AllVisitorsComponent implements OnInit {
   getAccountVisitor(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.kitchenStockApi.getAccountVisitor(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.visitorsGridData = res.results;
+    this.receptionApi.getAccountVisitor(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.visitorsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalVisitors = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalVisitors = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalVisitors == 0)
-    //         this.isDataAvailable = false
-    //       else 
-    //         this.isDataAvailable = true
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalVisitors == 0)
+            this.isDataAvailable = false
+          else 
+            this.isDataAvailable = true
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -82,64 +85,64 @@ export class AllVisitorsComponent implements OnInit {
     console.log(data);
     this.addVisitor.isVisitorSaving = true;
 
-    // this.kitchenStockApi.postVisitor(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.receptionApi.postVisitor(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getAccountVisitor(1, 20, '-created_at');
-    //         this.addVisitor.isVisitorSaving = false;
-    //         this.addVisitor.addButton.nativeElement.click();
-    //         this.isDataAvailable = false;
+          if(res.id){
+            this.getAccountVisitor(1, 20, '-created_at');
+            this.addVisitor.isVisitorSaving = false;
+            this.addVisitor.addButton.nativeElement.click();
+            this.isDataAvailable = false;
 
-    //         this.addVisitor.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addVisitor.isVisitorSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addVisitor.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addVisitor.isVisitorSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putVisitor(visitor: any){
     console.log(visitor);
     this.editVisitor.isVisitorSaving = true;
 
-    // this.kitchenStockApi.putVisitor(visitor.id, visitor.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editVisitor.isVisitorSaving = false;
-    //       this.editVisitor.editButton.nativeElement.click();
-    //       this.getAccountVisitor(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addVisitor.isVisitorSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.receptionApi.putVisitor(visitor.id, visitor.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editVisitor.isVisitorSaving = false;
+          this.editVisitor.editButton.nativeElement.click();
+          this.getAccountVisitor(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.addVisitor.isVisitorSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteVisitor(){
     this.editVisitor.isVisitorDeleting = true;
 
-    // this.kitchenStockApi.deleteVisitor(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editVisitor.isVisitorDeleting = false;
-    //       this.getAccountVisitor(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editVisitor.isVisitorDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.receptionApi.deleteVisitor(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editVisitor.isVisitorDeleting = false;
+          this.getAccountVisitor(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.editVisitor.isVisitorDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditVisitor(data: any){
