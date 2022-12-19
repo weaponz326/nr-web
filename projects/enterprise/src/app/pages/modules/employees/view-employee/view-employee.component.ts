@@ -5,9 +5,10 @@ import { EmployeeFormComponent } from '../employee-form/employee-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-import { environment } from 'projects/school/src/environments/environment';
+import { environment } from 'projects/enterprise/src/environments/environment';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { EmployeesApiService } from 'projects/enterprise/src/app/services/modules-api/employees-api/employees-api.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ViewEmployeeComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private employeesApi: EmployeesApiService,
     // private employeesPrint: EmployeesPrintService,
   ) { }
 
@@ -45,45 +47,45 @@ export class ViewEmployeeComponent implements OnInit {
   getEmployee(){
     this.isEmployeeLoading = true;
 
-    // this.employeesApi.getEmployee()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.employeeData = res;
-    //       this.isEmployeeLoading = false;
+    this.employeesApi.getEmployee()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.employeeData = res;
+          this.isEmployeeLoading = false;
 
-    //       this.employeeForm.employeeForm.controls.employeeCode.setValue(this.employeeData.employee_code);
-    //       this.employeeForm.employeeForm.controls.firstName.setValue(this.employeeData.first_name);
-    //       this.employeeForm.employeeForm.controls.lastName.setValue(this.employeeData.last_name);
-    //       this.employeeForm.employeeForm.controls.sex.setValue(this.employeeData.sex);
-    //       this.employeeForm.employeeForm.controls.employeeCode.setValue(this.employeeData.employee_code);
-    //       this.employeeForm.employeeForm.controls.startedWork.setValue(this.employeeData.started_work);
-    //       this.employeeForm.employeeForm.controls.endedWork.setValue(this.employeeData.ended_work);
-    //       this.employeeForm.employeeForm.controls.workStatus.setValue(this.employeeData.work_status);
-    //       this.employeeForm.employeeForm.controls.department.setValue(this.employeeData.department);
-    //       this.employeeForm.employeeForm.controls.job.setValue(this.employeeData.job);
-    //       this.employeeForm.employeeForm.controls.payGrade.setValue(this.employeeData.pay_grade);
-    //       this.employeeForm.employeeForm.controls.ssnReference.setValue(this.employeeData.ssn_reference);
-    //       this.employeeForm.employeeForm.controls.nationality.setValue(this.employeeData.nationality);
-    //       this.employeeForm.employeeForm.controls.religion.setValue(this.employeeData.religion);
-    //       this.employeeForm.employeeForm.controls.phone.setValue(this.employeeData.phone);
-    //       this.employeeForm.employeeForm.controls.email.setValue(this.employeeData.email);
-    //       this.employeeForm.employeeForm.controls.address.setValue(this.employeeData.address);
-    //       this.employeeForm.employeeForm.controls.state.setValue(this.employeeData.state);
-    //       this.employeeForm.employeeForm.controls.city.setValue(this.employeeData.city);
-    //       this.employeeForm.employeeForm.controls.postCode.setValue(this.employeeData.post_code);
+          this.employeeForm.employeeForm.controls.employeeCode.setValue(this.employeeData.employee_code);
+          this.employeeForm.employeeForm.controls.firstName.setValue(this.employeeData.first_name);
+          this.employeeForm.employeeForm.controls.lastName.setValue(this.employeeData.last_name);
+          this.employeeForm.employeeForm.controls.sex.setValue(this.employeeData.sex);
+          this.employeeForm.employeeForm.controls.employeeCode.setValue(this.employeeData.employee_code);
+          this.employeeForm.employeeForm.controls.startedWork.setValue(this.employeeData.started_work);
+          this.employeeForm.employeeForm.controls.endedWork.setValue(this.employeeData.ended_work);
+          this.employeeForm.employeeForm.controls.workStatus.setValue(this.employeeData.work_status);
+          this.employeeForm.employeeForm.controls.department.setValue(this.employeeData.department);
+          this.employeeForm.employeeForm.controls.job.setValue(this.employeeData.job);
+          this.employeeForm.employeeForm.controls.payGrade.setValue(this.employeeData.pay_grade);
+          this.employeeForm.employeeForm.controls.ssnReference.setValue(this.employeeData.ssn_reference);
+          this.employeeForm.employeeForm.controls.nationality.setValue(this.employeeData.nationality);
+          this.employeeForm.employeeForm.controls.religion.setValue(this.employeeData.religion);
+          this.employeeForm.employeeForm.controls.phone.setValue(this.employeeData.phone);
+          this.employeeForm.employeeForm.controls.email.setValue(this.employeeData.email);
+          this.employeeForm.employeeForm.controls.address.setValue(this.employeeData.address);
+          this.employeeForm.employeeForm.controls.state.setValue(this.employeeData.state);
+          this.employeeForm.employeeForm.controls.city.setValue(this.employeeData.city);
+          this.employeeForm.employeeForm.controls.postCode.setValue(this.employeeData.post_code);
 
-    //       if (this.employeeData.photo != null)
-    //         this.employeeForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.employeeData.photo;
-    //       else
-    //         this.employeeForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isEmployeeLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if (this.employeeData.photo != null)
+            this.employeeForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.employeeData.photo;
+          else
+            this.employeeForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
+        },
+        error: (err) => {
+          console.log(err);
+          this.isEmployeeLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putEmployee(){
@@ -116,24 +118,24 @@ export class ViewEmployeeComponent implements OnInit {
     console.log(data);
     this.isEmployeeSaving = true;
 
-    // this.employeesApi.putEmployee(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.employeesApi.putEmployee(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(this.employeeForm.photo.isImageChanged){
-    //         this.putEmployeeImage();
-    //       }
-    //       else{
-    //         this.isEmployeeSaving = false;
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isEmployeeSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.employeeForm.photo.isImageChanged){
+            this.putEmployeeImage();
+          }
+          else{
+            this.isEmployeeSaving = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isEmployeeSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -141,35 +143,35 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   deleteEmployee(){
-  //   this.isEmployeeDeleting = true;
+    this.isEmployeeDeleting = true;
 
-  //   this.employeesApi.deleteEmployee()
-  //     .subscribe({
-  //       next: (res) => {
-  //         console.log(res);
-  //         this.isEmployeeDeleting = false;
-  //         this.router.navigateByUrl('/home/employees/all-employee');
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //         this.connectionToast.openToast();
-  //         this.isEmployeeDeleting = false;
-  //       }
-  //     })
+    this.employeesApi.deleteEmployee()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isEmployeeDeleting = false;
+          this.router.navigateByUrl('/home/employees/all-employee');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isEmployeeDeleting = false;
+        }
+      })
   }
 
   putEmployeeImage(){
-    // this.employeesApi.putEmployeePhoto(this.employeeForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isEmployeeSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.employeesApi.putEmployeePhoto(this.employeeForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isEmployeeSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

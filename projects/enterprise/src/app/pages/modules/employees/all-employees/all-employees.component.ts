@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 
+import { EmployeesApiService } from 'projects/enterprise/src/app/services/modules-api/employees-api/employees-api.service';
+
 
 @Component({
   selector: 'app-all-employees',
@@ -13,6 +15,7 @@ export class AllEmployeesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private employeesApi: EmployeesApiService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -39,7 +42,26 @@ export class AllEmployeesComponent implements OnInit {
   getAccountEmployee(page: any, size: any, sortField: any){
     this.isFetchingGridData =  true;
 
+    this.employeesApi.getAccountEmployee(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.employeesGridData = res.results;
 
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -53,7 +75,7 @@ export class AllEmployeesComponent implements OnInit {
     console.log(employeeId);
 
     sessionStorage.setItem("enterprise_employee_id", employeeId);
-    this.router.navigateByUrl("/home/employee/view-employee");
+    this.router.navigateByUrl("/home/employees/view-employee");
   }
 
   onPrint(){

@@ -40,7 +40,7 @@
                         <tbody>
                             <tr *ngFor="let data of employeesGridData" (dblclick)="viewEmployee(data.id)" class="table-pointer">
                                 <td>{{data?.employee_code}}</td>
-                                <td>{{data?.employee.first_name}} {{data?.employee.last_name}}</td>
+                                <td>{{data?.first_name}} {{data?.last_name}}</td>
                                 <td>{{data?.department}}</td>
                                 <td>{{data?.job}}</td>
                             </tr>                          

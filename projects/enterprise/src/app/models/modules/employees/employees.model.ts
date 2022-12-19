@@ -1,4 +1,5 @@
 export class Employees {
+    account!: string;
     firstName!: string;
     lastName!: string;
     sex!: string;

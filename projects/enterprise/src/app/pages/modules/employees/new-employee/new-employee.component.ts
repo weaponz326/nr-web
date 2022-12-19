@@ -5,6 +5,7 @@ import { EmployeeFormComponent } from '../employee-form/employee-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { EmployeesApiService } from 'projects/enterprise/src/app/services/modules-api/employees-api/employees-api.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class NewEmployeeComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private employeesApi: EmployeesApiService,
   ) { }
 
   @ViewChild('employeeFormComponentReference', { read: EmployeeFormComponent, static: false }) employeeForm!: EmployeeFormComponent;
@@ -26,7 +28,7 @@ export class NewEmployeeComponent implements OnInit {
     { text: "New Employee", url: "/home/employees/new-employee" },
   ];
 
-  storageBasePath = "/school/" + this.customCookie.getCookie('enterprise_id') + "/module_employees/";
+  storageBasePath = "/enterprise/" + this.customCookie.getCookie('enterprise_id') + "/module_employees/";
 
   isEmployeeSaving = false;
 
@@ -64,39 +66,39 @@ export class NewEmployeeComponent implements OnInit {
     console.log(data);
     this.isEmployeeSaving = true;
 
-    // this.employeesApi.postEmployee(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('school_employee_id', res.id);
+    this.employeesApi.postEmployee(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('enterprise_employee_id', res.id);
 
-    //       if(this.employeeForm.photo.isImageChanged){
-    //         this.putEmployeeImage();
-    //       }
-    //       else{
-    //         this.router.navigateByUrl('/home/employees/view-employee');                    
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isEmployeeSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.employeeForm.photo.isImageChanged){
+            this.putEmployeeImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/employees/view-employee');                    
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isEmployeeSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putEmployeeImage(){
-    // this.employeesApi.putEmployeePhoto(this.employeeForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/employees/view-employee');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.employeesApi.putEmployeePhoto(this.employeeForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/employees/view-employee');                    
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewEmployeeCodeConfig(){
