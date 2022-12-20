@@ -38,10 +38,10 @@ export class AllLedgerComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
-    this.getUserLedger(1,20, "");
+    this.getAccountLedger(1,20, "");
   }
 
-  getUserLedger(page: any, size: any, sortField: any){
+  getAccountLedger(page: any, size: any, sortField: any){
     this.isFetchingGridData =  true;
 
     this.ledgerApi.getAccountLedger(page, size, sortField)
@@ -67,7 +67,7 @@ export class AllLedgerComponent implements OnInit {
 
   sortTable(column: any){
     console.log(column);
-    this.getUserLedger(1, 20, column);
+    this.getAccountLedger(1, 20, column);
 
     this.currentSortColumn = column;
   }
