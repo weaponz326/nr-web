@@ -14,6 +14,9 @@ import { SelectBudgetComponent } from './select-budget/select-budget.component';
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectBudgetComponent
   ]
 })
 export class BudgetWindowsModule { }

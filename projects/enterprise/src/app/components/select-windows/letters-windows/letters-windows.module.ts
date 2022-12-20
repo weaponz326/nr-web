@@ -16,6 +16,10 @@ import { SelectReceivedLetterComponent } from './select-received-letter/select-r
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectSentLetterComponent,
+    SelectReceivedLetterComponent
   ]
 })
 export class LettersWindowsModule { }

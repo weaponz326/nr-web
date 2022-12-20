@@ -14,6 +14,9 @@ import { SelectFiscalYearComponent } from './select-fiscal-year/select-fiscal-ye
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectFiscalYearComponent
   ]
 })
 export class FiscalYearWindowsModule { }

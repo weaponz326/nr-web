@@ -14,6 +14,9 @@ import { SelectVisitorComponent } from './select-visitor/select-visitor.componen
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectVisitorComponent
   ]
 })
 export class ReceptionWindowsModule { }

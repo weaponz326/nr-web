@@ -16,6 +16,10 @@ import { SelectFileComponent } from './select-file/select-file.component';
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectFolderComponent,
+    SelectFileComponent
   ]
 })
 export class FilesWindowsModule { }

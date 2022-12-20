@@ -14,6 +14,9 @@ import { SelectLedgerComponent } from './select-ledger/select-ledger.component';
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectLedgerComponent
   ]
 })
 export class LedgerWindowsModule { }

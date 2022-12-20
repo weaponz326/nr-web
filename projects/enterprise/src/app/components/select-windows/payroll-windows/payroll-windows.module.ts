@@ -14,6 +14,9 @@ import { SelectPayrollComponent } from './select-payroll/select-payroll.componen
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectPayrollComponent
   ]
 })
 export class PayrollWindowsModule { }

@@ -14,6 +14,9 @@ import { SelectAssetComponent } from './select-asset/select-asset.component';
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectAssetComponent
   ]
 })
 export class AssetsWindowsModule { }

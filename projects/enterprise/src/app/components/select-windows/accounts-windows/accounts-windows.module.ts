@@ -14,6 +14,9 @@ import { SelectAccountComponent } from './select-account/select-account.componen
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectAccountComponent
   ]
 })
 export class AccountsWindowsModule { }

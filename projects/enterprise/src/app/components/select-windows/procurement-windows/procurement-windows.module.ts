@@ -14,6 +14,9 @@ import { SelectProcurementComponent } from './select-procurement/select-procurem
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectProcurementComponent
   ]
 })
 export class ProcurementWindowsModule { }

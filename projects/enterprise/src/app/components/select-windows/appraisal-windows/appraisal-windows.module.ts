@@ -14,6 +14,9 @@ import { SelectAppraisalComponent } from './select-appraisal/select-appraisal.co
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectAppraisalComponent
   ]
 })
 export class AppraisalWindowsModule { }

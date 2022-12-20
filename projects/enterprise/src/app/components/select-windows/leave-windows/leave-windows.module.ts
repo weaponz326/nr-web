@@ -14,6 +14,9 @@ import { SelectLeaveComponent } from './select-leave/select-leave.component';
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectLeaveComponent
   ]
 })
 export class LeaveWindowsModule { }
