@@ -14,6 +14,9 @@ import { SelectEmployeeComponent } from './select-employee/select-employee.compo
   imports: [
     CommonModule,
     ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectEmployeeComponent
   ]
 })
 export class EmployeesWindowsModule { }

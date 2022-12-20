@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+
+import { SelectEmployeeComponent } from 'projects/enterprise/src/app/components/select-windows/employees-windows/select-employee/select-employee.component';
 
 
 @Component({
@@ -10,6 +12,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class LeaveFormComponent implements OnInit {
 
   constructor() { }
+
+  @ViewChild('selectEmployeeComponentReference', { read: SelectEmployeeComponent, static: false }) selectEmployee!: SelectEmployeeComponent;
 
   selectedEmployeeId = "";
 
@@ -24,6 +28,19 @@ export class LeaveFormComponent implements OnInit {
   });
   
   ngOnInit(): void {
+  }
+
+  openEmployeeWindow(){
+    console.log("You are opening select employee window")
+    this.selectEmployee.openModal();
+  }
+
+  onEmployeeSelected(employeeData: any){
+    console.log(employeeData);
+
+    this.selectedEmployeeId = employeeData.id;
+    this.leaveForm.controls.employeeCode.setValue(employeeData?.employee_code);
+    this.leaveForm.controls.employeeName.setValue(employeeData?.first_name + " " + employeeData?.last_name);
   }
 
 }

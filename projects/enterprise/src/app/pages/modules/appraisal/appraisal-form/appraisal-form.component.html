@@ -27,7 +27,7 @@
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
                         <input formControlName="employeeCode" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" (click)="openEmployeeWindow()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -39,7 +39,7 @@
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
                         <input formControlName="employeeName" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" (click)="openEmployeeWindow()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -72,3 +72,7 @@
     </div>
 
 </form>
+
+<!-- select employee window component -->
+
+<app-select-employee #selectEmployeeComponentReference (rowSelected)="onEmployeeSelected($event)"></app-select-employee>

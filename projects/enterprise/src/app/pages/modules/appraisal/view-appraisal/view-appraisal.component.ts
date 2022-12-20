@@ -57,7 +57,7 @@ export class ViewAppraisalComponent implements OnInit {
 
           this.appraisalForm.appraisalForm.controls.appraisalCode.setValue(this.appraisalData.appraisal_code);
           this.appraisalForm.appraisalForm.controls.appraisalName.setValue(this.appraisalData.appraisal_name);
-          this.appraisalForm.appraisalForm.controls.emplpoyeeCode.setValue(this.appraisalData.employee?.employee_code);
+          this.appraisalForm.appraisalForm.controls.employeeCode.setValue(this.appraisalData.employee?.employee_code);
           this.appraisalForm.appraisalForm.controls.employeeName.setValue(this.appraisalData.employee?.first_name + " " + this.appraisalData.employee?.last_name);
           this.appraisalForm.appraisalForm.controls.startDate.setValue(this.appraisalData.start_date);
           this.appraisalForm.appraisalForm.controls.endDate.setValue(this.appraisalData.end_date);

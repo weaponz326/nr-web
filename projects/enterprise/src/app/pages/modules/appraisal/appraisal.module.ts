@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppraisalRoutingModule } from './appraisal-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { EmployeesWindowsModule } from '../../../components/select-windows/employees-windows/employees-windows.module';
 
 import { AppraisalPage } from './appraisal.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -36,6 +37,7 @@ import { AppraisalSheetComponent } from './appraisal-sheet/appraisal-sheet.compo
     AppraisalRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    EmployeesWindowsModule
   ]
 })
 export class AppraisalModule { }
