@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectLeaveComponent } from './select-leave/select-leave.component';
 
 
@@ -9,7 +12,8 @@ import { SelectLeaveComponent } from './select-leave/select-leave.component';
     SelectLeaveComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class LeaveWindowsModule { }

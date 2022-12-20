@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectProcurementComponent } from './select-procurement/select-procurement.component';
 
 
@@ -9,7 +12,8 @@ import { SelectProcurementComponent } from './select-procurement/select-procurem
     SelectProcurementComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class ProcurementWindowsModule { }

@@ -1,1 +1,71 @@
-<p>select-received-letter works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectReceivedLetterModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectReceivedLetterModal" tabindex="-1" aria-labelledby="selectReceivedLetterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectReceivedLetterModalLabel">Select Enterprise Received Letter</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="15%" class="min-width-2">
+                                Date Received
+                                <app-table-sorting [sortField]="'date_received'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="15%" class="min-width-2">
+                                Reference No.
+                                <app-table-sorting [sortField]="'reference_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="30%" class="min-width-3">
+                                Sender
+                                <app-table-sorting [sortField]="'sender'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="40%" class="min-width-4">
+                                Subject
+                                <app-table-sorting [sortField]="'bank_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of receivedLettersGridData" class="table-pointer" (dblclick)="selectRow(data)">
+                            <td>{{data?.date_received}}</td>
+                            <td>{{data?.reference_number}}</td>
+                            <td>{{data?.sender}}</td>
+                            <td>{{data?.subject}}</td>
+                        </tr>                          
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="4">
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="4">
+                                <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountReceivedLetters($event, 20, '')"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>                    
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectLedgerComponent } from './select-ledger/select-ledger.component';
 
 
@@ -9,7 +12,8 @@ import { SelectLedgerComponent } from './select-ledger/select-ledger.component';
     SelectLedgerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class LedgerWindowsModule { }

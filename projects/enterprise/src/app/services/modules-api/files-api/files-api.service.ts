@@ -48,8 +48,8 @@ export class FilesApiService {
 
   // files
 
-  public getAllFolderFiles(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.filesUrl + "all-file?folder=" + this.customCookie.getCookie('enterprise_id')
+  public getAllAccountFiles(page: any, size: any, sortField: any): Observable<any>{
+    return this.http.get(this.filesUrl + "all-file?account=" + this.customCookie.getCookie('enterprise_id')
       + "&page=" + page
       + "&size=" + size
       + "&ordering=" + sortField,

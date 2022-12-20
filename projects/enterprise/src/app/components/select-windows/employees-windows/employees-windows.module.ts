@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectEmployeeComponent } from './select-employee/select-employee.component';
 
 
@@ -9,7 +12,8 @@ import { SelectEmployeeComponent } from './select-employee/select-employee.compo
     SelectEmployeeComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class EmployeesWindowsModule { }
