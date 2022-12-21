@@ -2,55 +2,76 @@
 
     <h4 class="mb-3">Attendance Details</h4>
 
-    <div class="row mb-1">
-        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance ID :</label></div>
-        <div class="col-md-8">
-            <input formControlName="attendanceCode" class="form-control form-control-sm w-100">
-        </div>
-    </div>
+    <div class="row">
+        <div class="col">
 
-    <div class="row mb-1">
-        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance Name :</label></div>
-        <div class="col-md-8">
-            <input formControlName="attendanceName" class="form-control form-control-sm w-100">
-        </div>
-    </div>
-
-    <div class="row mb-1">
-        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
-        <div class="col-md-8">
-            <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100">
-        </div>
-    </div>
-
-    <div class="row mb-1">
-        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
-        <div class="col-md-8">
-            <input type="date" formControlName="toDate" class="form-control form-control-sm w-100">
-        </div>
-    </div>
-
-    <div class="row mb-1">
-        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Term Name :</label></div>
-        <div class="col-md-8">
-            <div class="input-group input-group-sm w-100">
-                <input formControlName="term" class="form-control">
-                <button type="button" class="btn btn-secondary" (click)="openTermWindow()">
-                    <i class="bi bi-three-dots"></i>
-                </button>
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="attendanceCode" class="form-control form-control-sm w-100">
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row mb-2">
-        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance Source :</label></div>
-        <div class="col-md-8">
-            <div class="input-group input-group-sm w-100">
-                <input formControlName="source" class="form-control">
-                <button [disabled]="isSourceDisabled" type="button" class="btn btn-secondary" (click)="openClassWindow()">
-                    <i class="bi bi-three-dots"></i>
-                </button>
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="attendanceName" class="form-control form-control-sm w-100">
+                </div>
             </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="toDate" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+        <div class="col">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Term Name :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="term" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openTermWindow()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4">
+                    <label class="float-md-end float-sm-start mt-1">Attendance Source :</label>
+                </div>
+                <div class="col-md-8">
+                    <select formControlName="attendanceSource" class="form-control form-control-sm w-100">
+                        <option>Students</option>
+                        <option>Teachers</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-2" *ngIf="attendanceForm.controls.attendanceSource.value == 'Students'">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Class :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="clase" class="form-control">
+                        <button [disabled]="isClassDisabled" type="button" class="btn btn-secondary" (click)="openClassWindow()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -60,8 +81,8 @@
 
 <!-- select term window component -->
 
-<!-- <app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term> -->
+<app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term>
 
 <!-- selec class component -->
 
-<!-- <app-select-class #selectClassComponentReference (rowSelected)="onClassSelected($event)"></app-select-class> -->
+<app-select-clase #selectClassComponentReference (rowSelected)="onClassSelected($event)"></app-select-clase>

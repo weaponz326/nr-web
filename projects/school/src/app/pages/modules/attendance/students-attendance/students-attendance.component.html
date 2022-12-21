@@ -1,0 +1,56 @@
+<div class="row mb-3">
+    <div class="col-md-10">
+
+        <div class="overflow-auto">
+            <table class="table table-bordered w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="15%" class="min-width-2">
+                            Attendance ID
+                            <app-table-sorting [sortField]="'attendance_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                        </th>
+                        <th width="35%" class="min-width-4">
+                            Attendance Name
+                            <app-table-sorting [sortField]="'attendance_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                        </th>
+                        <th width="25%" class="min-width-3">
+                            Term
+                            <app-table-sorting [sortField]="'term'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                        </th>
+                        <th width="25%" class="min-width-3">
+                            Class
+                            <app-table-sorting [sortField]="'clase'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of attendanceGridData" (dblclick)="viewAttendance(data.id)" class="table-pointer">
+                        <td>{{data?.attendance_code}}</td>
+                        <td>{{data?.attendance_name}}</td>
+                        <td>{{data?.term.term_name}}</td>
+                        <td>{{data?.clase.class_name}}</td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                        <td colspan="5">
+                            <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="bg-light">
+                        <td colspan="5">
+                            <app-table-paginator
+                            [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountStudentAttendance($event, 20, '')"
+                            ></app-table-paginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

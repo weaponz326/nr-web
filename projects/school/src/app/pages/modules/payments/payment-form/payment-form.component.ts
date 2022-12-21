@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { SelectBillComponent } from '../../../select-windows/fees-windows/select-bill/select-bill.component';
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
+// import { SelectBillComponent } from '../../../../components/select-windows/fees-windows/select-bill/select-bill.component';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
 
 
 @Component({
@@ -15,12 +15,10 @@ export class PaymentFormComponent implements OnInit {
   constructor() { }
 
   // @ViewChild('selectBillComponentReference', { read: SelectBillComponent, static: false }) selectBill!: SelectBillComponent;
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
   selectedBillId = "";
-  selectedBillData: any = {};
   selectedTermId = "";
-  selectedTermData: any = {};
 
   paymentForm = new FormGroup({
     paymentCode: new FormControl(''),
@@ -46,7 +44,6 @@ export class PaymentFormComponent implements OnInit {
     console.log(billData);
 
     this.selectedBillId = billData.id;
-    this.selectedBillData = billData.data();
 
     this.paymentForm.controls.billCode.setValue(billData.bill_code);
     this.paymentForm.controls.studentCode.setValue(billData.student.student_code);
@@ -56,15 +53,14 @@ export class PaymentFormComponent implements OnInit {
 
   openTermWindow(){
     console.log("You are opening select term window")
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){
     console.log(termData);
 
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
-    // this.paymentForm.controls.termCode.setValue(termData.data().term_name);
+    this.paymentForm.controls.term.setValue(termData.term_name);
   }
 
   setBalance(){

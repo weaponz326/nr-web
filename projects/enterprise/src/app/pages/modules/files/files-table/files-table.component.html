@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-9">
+
+        <h4 class="mb-3">Folder's Files</h4>
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="20%" class="min-width-3">File No.</th>
+                        <th width="35%" class="min-width-4">File Name</th>
+                        <th width="20%" class="min-width-2">File Type</th>
+                        <th width="15%" class="min-width-2">Date Added</th>
+                        <th width="10%" class="p-0 min-width-2">
+                            <button class="btn btn-secondary btn-sm w-100" (click)="addFile.openModal()">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of filesGridData">
+                        <td>{{data?.file_number}}</td>
+                        <td>{{data?.file_name}}</td>
+                        <td>{{data?.file_type}}</td>
+                        <td>{{data?.date_added | date:'short'}}</td>
+                        <td class="p-0">
+                            <button class="btn btn-sm border w-50" (click)="openEditFile(data)"><i class="bi bi-pen"></i></button>
+                            <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData">
+                        <td colspan="5">
+                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="true"></app-table-loading>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="bg-light">
+                        <td colspan="5">
+                            <app-table-paginator
+                            [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getFolderFiles($event, 20, '')"
+                            ></app-table-paginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- add and edit file modal components -->
+
+<app-add-file #addFileComponentReference (saveFileEvent)="createFile($event)"></app-add-file>
+
+<app-edit-file #editFileComponentReference (saveFileEvent)="updateFile($event)"></app-edit-file>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteFile()"></app-delete-modal-two>

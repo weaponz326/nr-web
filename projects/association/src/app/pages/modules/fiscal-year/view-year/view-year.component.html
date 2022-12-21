@@ -1,0 +1,43 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- year page form -->
+
+        <app-year-form #yearFormComponentReference></app-year-form>
+
+        <div *ngIf="!isYearLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/fiscal-year/all-years">Cancel</button>
+                <button [disabled]="isYearDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isYearSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateYear()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isYearLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="row page-form">
+            <div class="col-md-6 text-center">
+                <hr />
+                <button [disabled]="isActiveYearSaving" type="button" class="btn btn-secondary btn-sm px-3" (click)="putActiveYear()">Set as Default</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteYear()"></app-delete-modal> -->

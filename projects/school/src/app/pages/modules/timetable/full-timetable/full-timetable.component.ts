@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TimetableFormComponent } from '../timetable-form/timetable-form.component'
-import { EditTimetableComponent } from '../edit-timetable/edit-timetable.component'
+import { TimetableSheetComponent } from '../timetable-sheet/timetable-sheet.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { DeleteModalComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal/delete-modal.component'
+import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { TimetableApiService } from 'projects/school/src/app/services/modules/timetable-api/timetable-api.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { TimetableApiService } from 'projects/school/src/app/services/modules-api/timetable-api/timetable-api.service';
 // import { TimetablePrintService } from 'projects/school/src/app/services/printing/timetable-print/timetable-print.service';
 
-// import { Timetable } from 'projects/school/src/app/models/modules/timetable/timetable.model';
+import { Timetable } from 'projects/school/src/app/models/modules/timetable/timetable.model';
 
 
 @Component({
@@ -21,14 +22,15 @@ export class FullTimetableComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private timetableApi: TimetableApiService,
+    private customCookie: CustomCookieService,
+    private timetableApi: TimetableApiService,
     // private timetablePrint: TimetablePrintService
   ) { }
 
   @ViewChild('timetableFormComponentReference', { read: TimetableFormComponent, static: false }) timetableForm!: TimetableFormComponent;
-  @ViewChild('editTimetableComponentReference', { read: EditTimetableComponent, static: false }) editTimetable!: EditTimetableComponent;
+  @ViewChild('timetableSheetComponentReference', { read: TimetableSheetComponent, static: false }) timetableSheet!: TimetableSheetComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('deleteModalComponentReference', { read: DeleteModalComponent, static: false }) deleteModal!: DeleteModalComponent;
+  @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
 
   navHeading: any[] = [
     { text: "All Timetable", url: "/home/timetable/all-timetable" },
@@ -48,67 +50,67 @@ export class FullTimetableComponent implements OnInit {
   getTimetable(){
     this.isTimetableLoading = true;
 
-    // this.timetableApi.getTimetable()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.timetableData = res;
-    //       this.isTimetableLoading = false;
+    this.timetableApi.getTimetable()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.timetableData = res;
+          this.isTimetableLoading = false;
 
-    //       this.timetableForm.timetableForm.controls.timetableCode.setValue(this.timetableData.data().timetable_code);
-    //       this.timetableForm.timetableForm.controls.timetableName.setValue(this.timetableData.data().timetable_name);
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isTimetableLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          this.timetableForm.timetableForm.controls.timetableCode.setValue(this.timetableData.timetable_code);
+          this.timetableForm.timetableForm.controls.timetableName.setValue(this.timetableData.timetable_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isTimetableLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  updateTimetable(){
-    let data = {
-      timetable_code: this.timetableForm.timetableForm.controls.timetableCode.value,
-      timetable_name: this.timetableForm.timetableForm.controls.timetableName.value,
+  putTimetable(){
+    let data: Timetable = {
+      account: this.customCookie.getCookie('school_id') as string,
+      timetable_code: this.timetableForm.timetableForm.controls.timetableCode.value as string,
+      timetable_name: this.timetableForm.timetableForm.controls.timetableName.value as string,
       term: this.timetableForm.selectedTermId,
     }
 
     console.log(data);
     this.isTimetableSaving = true;
 
-    // this.timetableApi.updateTimetable(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isTimetableSaving = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isTimetableSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.timetableApi.putTimetable(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isTimetableSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isTimetableSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
-    // this.deleteModal.openModal();
+    this.deleteModal.openModal();
   }
 
   deleteTimetable(){
     this.isTimetableDeleting = true;
 
-    // this.timetableApi.deleteTimetable()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-
-    //       this.router.navigateByUrl('/home/timetable/all-timetable');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.timetableApi.deleteTimetable()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/timetable/all-timetable');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

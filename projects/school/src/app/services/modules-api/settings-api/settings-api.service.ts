@@ -23,29 +23,29 @@ export class SettingsApiService {
   // extended profile
 
   public getExtendedProfile(): Observable<any>{
-    return this.http.get(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
   public putExtendedProfile(extended: any): Observable<any>{
-    return this.http.put(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('restaurant_id'), extended, this.authHeaders.headers);
+    return this.http.put(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('school_id'), extended, this.authHeaders.headers);
   }
 
   public patchExtendedProfile(extended: any): Observable<any>{
-    return this.http.patch(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('restaurant_id'), extended, this.authHeaders.headers);
+    return this.http.patch(this.settingsUrl + "extended-profile/" + this.customCookie.getCookie('school_id'), extended, this.authHeaders.headers);
   }
 
   // subscriptions
 
   public getSubscription(): Observable<any>{
-    return this.http.get(this.settingsUrl + "subscription/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+    return this.http.get(this.settingsUrl + "subscription/" + this.customCookie.getCookie('school_id'), this.authHeaders.headers);
   }
 
   public putSubscription(subscription: any): Observable<any>{
-    return this.http.put(this.settingsUrl + "subscription/" + this.customCookie.getCookie('restaurant_id'), subscription, this.authHeaders.headers);
+    return this.http.put(this.settingsUrl + "subscription/" + this.customCookie.getCookie('school_id'), subscription, this.authHeaders.headers);
   }
 
   public patchSubscription(subscription: any): Observable<any>{
-    return this.http.patch(this.settingsUrl + "subscription/" + this.customCookie.getCookie('restaurant_id'), subscription, this.authHeaders.headers);
+    return this.http.patch(this.settingsUrl + "subscription/" + this.customCookie.getCookie('school_id'), subscription, this.authHeaders.headers);
   }
 
 }

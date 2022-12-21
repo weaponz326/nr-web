@@ -1,0 +1,165 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-10">
+
+                <nav class="settings-tabs">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-basic-tab" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" role="tab" aria-controls="nav-basic" aria-selected="true">
+                            Received Letters
+                        </button>
+                        <button class="nav-link" id="nav-logo-tab" data-bs-toggle="tab" data-bs-target="#nav-logo" type="button" role="tab" aria-controls="nav-logo" aria-selected="false">
+                            Sent Letters
+                        </button>
+                    </div>
+                </nav>
+
+                <div class="tab-content mt-3" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button class="btn btn-secondary page-add-btn px-1" (click)="addReceived.openModal()">Add Received Letter</button>
+                                <button [disabled]="isFetchingReceivedGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountReceivedLetters(1, 20, '')">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+        
+                        <div class="overflow-auto">
+                            <table class="table table-bordered w-100 page-table">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th width="15%" class="min-width-2">
+                                            Date Received
+                                            <app-table-sorting [sortField]="'date_received'" [currentField]="currentReceivedSortColumn" (sortDirection)="sortReceivedTable($event)"></app-table-sorting>
+                                        </th>
+                                        <th width="15%" class="min-width-2">
+                                            Reference No.
+                                            <app-table-sorting [sortField]="'reference_number'" [currentField]="currentReceivedSortColumn" (sortDirection)="sortReceivedTable($event)"></app-table-sorting>
+                                        </th>
+                                        <th width="30%" class="min-width-3">
+                                            Sender
+                                            <app-table-sorting [sortField]="'sender'" [currentField]="currentReceivedSortColumn" (sortDirection)="sortReceivedTable($event)"></app-table-sorting>
+                                        </th>
+                                        <th width="40%" class="min-width-4">
+                                            Subject
+                                            <app-table-sorting [sortField]="'bank_name'" [currentField]="currentReceivedSortColumn" (sortDirection)="sortReceivedTable($event)"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of receivedGridData" class="table-pointer" (dblclick)="openEditReceived(data)">
+                                        <td>{{data?.date_received}}</td>
+                                        <td>{{data?.reference_number}}</td>
+                                        <td>{{data?.sender}}</td>
+                                        <td>{{data?.subject}}</td>
+                                    </tr>                          
+                                    <tr *ngIf="isFetchingReceivedGridData || !isReceivedDataAvailable">
+                                        <td colspan="4">
+                                            <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingReceivedGridData" [isNoData]="isReceivedDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="bg-light">
+                                        <td colspan="4">
+                                            <app-table-paginator
+                                            [currentPage]="currentReceivedPage" [totalPages]="totalReceivedPages" (pageSelected)="getAccountReceivedLetters($event, 20, '')"
+                                            ></app-table-paginator>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>        
+
+                    </div>
+                    <div class="tab-pane fade" id="nav-logo" role="tabpanel" aria-labelledby="nav-logo-tab">
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button class="btn btn-secondary page-add-btn" (click)="addSent.openModal()">Add Sent Letter</button>
+                                <button [disabled]="isFetchingSentGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountSentLetters(1, 20, '')">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+        
+                        <div class="overflow-auto">
+                            <table class="table table-bordered w-100 page-table">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th width="15%" class="min-width-2">
+                                            Date Sent
+                                            <app-table-sorting [sortField]="'date_sent'" [currentField]="currentSentSortColumn" (sortDirection)="sortSentTable($event)"></app-table-sorting>
+                                        </th>
+                                        <th width="15%" class="min-width-2">
+                                            Reference No.
+                                            <app-table-sorting [sortField]="'reference_number'" [currentField]="currentSentSortColumn" (sortDirection)="sortSentTable($event)"></app-table-sorting>
+                                        </th>
+                                        <th width="30%" class="min-width-3">
+                                            Recepient
+                                            <app-table-sorting [sortField]="'recepient'" [currentField]="currentSentSortColumn" (sortDirection)="sortSentTable($event)"></app-table-sorting>
+                                        </th>
+                                        <th width="40%" class="min-width-4">
+                                            Subject
+                                            <app-table-sorting [sortField]="'bank_name'" [currentField]="currentSentSortColumn" (sortDirection)="sortSentTable($event)"></app-table-sorting>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of sentGridData" class="table-pointer" (dblclick)="openEditSent(data)">
+                                        <td>{{data?.date_sent}}</td>
+                                        <td>{{data?.reference_number}}</td>
+                                        <td>{{data?.recepient}}</td>
+                                        <td>{{data?.subject}}</td>
+                                    </tr>                          
+                                    <tr *ngIf="isFetchingSentGridData || !isSentDataAvailable">
+                                        <td colspan="4">
+                                            <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingSentGridData" [isNoData]="isSentDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="bg-light">
+                                        <td colspan="4">
+                                            <app-table-paginator
+                                            [currentPage]="currentSentPage" [totalPages]="totalSentPages" (pageSelected)="getAccountSentLetters($event, 20, '')"
+                                            ></app-table-paginator>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- add & edit letters components -->
+
+<app-add-sent #addSentComponentReference (saveSentEvent)="createSent($event)"></app-add-sent>
+
+<app-edit-sent #editSentComponentReference (saveSentEvent)="updateSent($event)"></app-edit-sent>
+
+<app-add-received #addReceivedComponentReference (saveReceivedEvent)="createReceived($event)"></app-add-received>
+
+<app-edit-received #editReceivedComponentReference (saveReceivedEvent)="updateReceived($event)"></app-edit-received>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal components -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteSent()"></app-delete-modal-one>
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteReceived()"></app-delete-modal-two>

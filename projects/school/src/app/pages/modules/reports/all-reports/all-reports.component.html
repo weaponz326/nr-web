@@ -9,7 +9,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <button class="btn btn-secondary page-add-btn" routerLink="/home/reports/new-report">New Report</button>
-                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountReport()">
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountReport(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -54,7 +54,7 @@
                             <tr class="bg-light">
                                 <td colspan="4">
                                     <app-table-paginator
-                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountReport()"
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountReport($event, 20, '')"
                                     ></app-table-paginator>
                                 </td>
                             </tr>

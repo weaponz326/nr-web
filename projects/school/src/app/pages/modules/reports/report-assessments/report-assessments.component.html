@@ -17,9 +17,9 @@
         </thead>
         <tbody>
             <tr *ngFor="let data of reportAssessmentsGridData; index as i">
-                <td>{{data?.data().clase.data.assessment_code}}</td>
-                <td>{{data?.data().clase.data.assessment_name}}</td>
-                <td>{{data?.data().clase.data.assessment_date}}</td>
+                <td>{{data?.clase.assessment_code}}</td>
+                <td>{{data?.clase.assessment_name}}</td>
+                <td>{{data?.clase.assessment_date}}</td>
                 <td class="p-0">
                     <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
                 </td>

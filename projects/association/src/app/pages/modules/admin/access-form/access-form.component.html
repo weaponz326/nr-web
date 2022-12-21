@@ -1,0 +1,79 @@
+<div class="row my-3">
+    <div class="col-md-12">
+        <h5>User Modules' Access</h5>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+
+        <table class="table table-sm page-table">
+            <thead>
+                <tr>
+                    <th width="70%">Module</th>
+                    <th width="30%">Access</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Accounts</td>
+                    <td><input [(ngModel)]="accessForm.accounts_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Action Plan</td>
+                    <td><input [(ngModel)]="accessForm.action_plan_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td><input [(ngModel)]="accessForm.admin_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Attendance</td>
+                    <td><input [(ngModel)]="accessForm.attendance_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Committees</td>
+                    <td><input [(ngModel)]="accessForm.committees_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Dues</td>
+                    <td><input [(ngModel)]="accessForm.dues_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Executives</td>
+                    <td><input [(ngModel)]="accessForm.executives_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Fiscal Year</td>
+                    <td><input [(ngModel)]="accessForm.fiscal_year_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Groups</td>
+                    <td><input [(ngModel)]="accessForm.groups_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Meetings</td>
+                    <td><input [(ngModel)]="accessForm.meetings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Members</td>
+                    <td><input [(ngModel)]="accessForm.members_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Portal</td>
+                    <td><input [(ngModel)]="accessForm.portal_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Settings</td>
+                    <td><input [(ngModel)]="accessForm.settings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

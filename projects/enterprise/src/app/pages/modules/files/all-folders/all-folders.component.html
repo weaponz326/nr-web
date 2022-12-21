@@ -1,0 +1,77 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" (click)="newFolder.openModal()">New Folder</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountFolder(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="20%" class="min-width-2">
+                                    Folder No.
+                                    <app-table-sorting [sortField]="'folder_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="40%" class="min-width-4">
+                                    Folder Name
+                                    <app-table-sorting [sortField]="'folder_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Date Created
+                                    <app-table-sorting [sortField]="'created_at'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Last Updated
+                                    <app-table-sorting [sortField]="'updated_at'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of foldersGridData" (dblclick)="viewFolder(data?.id)" class="table-pointer">
+                                <td>{{data.folder_number}}</td>
+                                <td>{{data.folder_name}}</td>
+                                <td>{{data.created_at | date: 'short'}}</td>
+                                <td>{{data.updated_at | date: 'short'}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="4">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="4">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountFolder($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- new budget modal component -->
+
+<app-new-folder #newFolderComponentReference></app-new-folder>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

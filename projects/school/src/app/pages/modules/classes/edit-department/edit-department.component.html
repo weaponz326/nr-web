@@ -1,30 +1,28 @@
-<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editDepartmentModal">
-    Launch demo modal
-</button>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
 
-<div class="modal fade form-modal" id="editDepartmentModal" tabindex="-1" aria-labelledby="editDepartmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<main>
+    <div class="container-fluid px-4">
 
-            <div class="modal-header bg-light">
-                <span class="modal-title" id="editDepartmentModalLabel">Edit Department</span>
-                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- department page form -->
+
+        <app-department-form #departmentFormComponentReference></app-department-form>
+
+        <div *ngIf="!isDepartmentLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/classes/all-classes">Cancel</button>
+                <button [disabled]="isDepartmentDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isDepartmentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putDepartment()">Save</button>
             </div>
-
-            <div class="modal-body">
-
-                <!-- department page form -->
-
-                <app-department-form #departmentFormComponentReference></app-department-form>
-
-            </div>
-
-            <div class="modal-footer">
-                <button [disabled]="isDepartmentSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveDepartment()">Save</button>
-                <button [disabled]="isDepartmentDeleting" class="btn btn-sm btn-secondary modal-form-btn" (click)="deleteDepartment()">Delete</button>
-                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
-            </div>
-
         </div>
+        <div *ngIf="isDepartmentLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
     </div>
-</div>
+</main>

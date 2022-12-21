@@ -5,7 +5,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { SubjectsApiService } from 'projects/school/src/app/services/modules/subjects-api/subjects-api.service';
+import { SubjectsApiService } from 'projects/school/src/app/services/modules-api/subjects-api/subjects-api.service';
 // import { SubjectsPrintService } from 'projects/school/src/app/services/printing/subjects-print/subjects-print.service';
 
 
@@ -19,7 +19,7 @@ export class AllSubjectsComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private subjectsApi: SubjectsApiService,
+    private subjectsApi: SubjectsApiService,
     // private subjectsPrint: SubjectsPrintService,
   ) { }
 
@@ -45,33 +45,41 @@ export class AllSubjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveTerm();
-    this.getAccountSubject();
+    this.getAccountSubject(1, 20, "-created_at");
   }
 
   getActiveTerm(){
     // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
   }
 
-  getAccountSubject(){
+  getAccountSubject(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.subjectsApi.getAccountSubject(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.subjectsGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.subjectsApi.getAccountSubject(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.subjectsGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountSubject();
+    this.getAccountSubject(1, 20, column);
 
     this.currentSortColumn = column;
   }
@@ -93,7 +101,7 @@ export class AllSubjectsComponent implements OnInit {
 
     // this.activeTerm.setActiveTerm(termData);
     this.getActiveTerm();
-    this.getAccountSubject();
+    this.getAccountSubject(1, 20, '-created_at');
   }
 
   onPrint(){

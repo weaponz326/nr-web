@@ -8,7 +8,7 @@ import { AllFeesComponent } from './all-fees/all-fees.component';
 import { ViewFeesComponent } from './view-fees/view-fees.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
-import { FeesItemsComponent } from './fees-items/fees-items.component';
+import { CreateFeesComponent } from './create-fees/create-fees.component';
 
 
 const routes: Routes = [
@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: "class-bills", component: ClassBillsComponent },
       { path: "student-bill", component: StudentBillComponent },
       { path: "all-fees", component: AllFeesComponent },
+      { path: "create-fees", component: CreateFeesComponent },
       { path: "view-fees", component: ViewFeesComponent }
     ]
   }

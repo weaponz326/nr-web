@@ -10,8 +10,7 @@
                         <th width="25%" class="min-width-2">Student ID</th>
                         <th width="60%" class="min-width-2">Student Name</th>
                         <th width="15%" class="p-0 min-width-1">
-                            <!-- <button class="btn btn-secondary btn-sm w-100" (click)="selectStudent.openModal()"> -->
-                            <button class="btn btn-secondary btn-sm w-100">
+                            <button class="btn btn-secondary btn-sm w-100" (click)="selectStudent.openModal()">
                                 <i class="bi bi-plus"></i>
                             </button>
                         </th>
@@ -19,8 +18,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of classStudentsGridData; index as i">
-                        <td>{{data?.data().student.data.student_code}}</td>
-                        <td>{{data?.data().student.data.frist_name}} {{data?.data().student.data.last_name}}</td>
+                        <td>{{data?.student.student_code}}</td>
+                        <td>{{data?.student.first_name}} {{data?.student.last_name}}</td>
                         <td class="p-0">
                             <button class="btn btn-sm border w-100" (click)="gotoStudent(data.id)"><i class="bi bi-eye"></i></button>
                             <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
@@ -66,6 +65,10 @@
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
 
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteSectionStudent()"></app-delete-modal-two>
+
 <!-- select table window component -->
 
-<!-- <app-select-student #selectStudentComponentReference (rowSelected)="createSectionStudent($event)"></app-select-student> -->
+<app-select-student #selectStudentComponentReference (rowSelected)="postSectionStudent($event)"></app-select-student>

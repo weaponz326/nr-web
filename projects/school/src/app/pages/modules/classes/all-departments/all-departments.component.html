@@ -8,8 +8,8 @@
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <button class="btn btn-secondary page-add-btn" (click)="addDepartment.openModal()">New Department</button>
-                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountDepartment()">
+                        <button class="btn btn-secondary page-add-btn" routerLink="/home/classes/new-department">New Department</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountDepartment(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -19,32 +19,27 @@
                     <table class="table table-bordered w-100 page-table">
                         <thead>
                             <tr class="bg-light">
-                                <th width="30%" class="min-width-2">
-                                    Department ID.
-                                    <app-table-sorting [sortField]="'department_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
-                                </th>
-                                <th width="70%" class="min-width-3">
+                                <th width="100%" class="min-width-3">
                                     Department Name
                                     <app-table-sorting [sortField]="'department_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of departmentsGridData" (dblclick)="editDepartment.openModal(data)" class="department-pointer">
-                                <td>{{data?.department_code}}</td>
+                            <tr *ngFor="let data of departmentsGridData" (dblclick)="viewDepartment(data.id)" class="table-pointer">
                                 <td>{{data?.department_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                                <td colspan="2">
+                                <td colspan="1">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-light">
-                                <td colspan="2">
+                                <td colspan="1">
                                     <app-table-paginator
-                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountDepartment()"
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountDepartment($event, 20, '')"
                                     ></app-table-paginator>
                                 </td>
                             </tr>
@@ -58,19 +53,9 @@
     </div>
 </main>
 
-<!-- add and edit department components -->
-
-<app-add-department #addDepartmentComponentReference (saveDepartmentEvent)="createDepartment($event)"></app-add-department>
-
-<app-edit-department #editDepartmentComponentReference (saveDepartmentEvent)="updateDepartment($event)" (deleteDepartmentEvent)="confirmDelete($event)"></app-edit-department>
-
 <!-- connection error prompt component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
-
-<!-- delete confirmation modal component -->
-
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteDepartment()"></app-delete-modal> -->
 
 <!-- select term window component -->
 

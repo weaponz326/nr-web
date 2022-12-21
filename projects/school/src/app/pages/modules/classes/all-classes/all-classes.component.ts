@@ -6,7 +6,7 @@ import { NewClassComponent } from '../new-class/new-class.component';
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { ClassesApiService } from 'projects/school/src/app/services/modules/classes-api/classes-api.service';
+import { ClassesApiService } from 'projects/school/src/app/services/modules-api/classes-api/classes-api.service';
 // import { ClassesPrintService } from 'projects/school/src/app/services/printing/classes-print/classes-print.service';
 
 
@@ -20,7 +20,7 @@ export class AllClassesComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private classesApi: ClassesApiService,
+    private classesApi: ClassesApiService,
     // private classesPrint: ClassesPrintService,
   ) { }
 
@@ -47,33 +47,41 @@ export class AllClassesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveTerm();
-    this.getAccountClass();
+    this.getAccountClass(1, 20, "-created_at");
   }
 
   getActiveTerm(){
     // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
   }
 
-  getAccountClass(){
+  getAccountClass(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.classesApi.getAccountClass(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.classesGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.classesApi.getAccountClass(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.classesGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountClass();
+    this.getAccountClass(1, 20, column);
 
     this.currentSortColumn = column;
   }
@@ -95,7 +103,7 @@ export class AllClassesComponent implements OnInit {
 
     // this.activeTerm.setActiveTerm(termData);
     this.getActiveTerm();
-    this.getAccountClass();
+    this.getAccountClass(1, 20, "-created_at");
   }
 
   onPrint(){

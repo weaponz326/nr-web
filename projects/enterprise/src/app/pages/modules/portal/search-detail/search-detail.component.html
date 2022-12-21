@@ -1,0 +1,43 @@
+<div class="row mt-4">
+    <div class="col-md-4 text-center align-middle">
+        <img *ngIf="searchDetail?.photo != null" [src]="searchDetail?.photo" alt="" width="120" height="120" class="rounded" />
+        <img *ngIf="searchDetail?.photo == null" src="../../../../../assets/images/utilities/logo-placeholder.jpg" alt="Company" width="120" height="120" class="rounded" />
+    </div>
+    <div class="col-md-8">
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <i class="bi bi-building me-2 text-muted"></i>
+                <em><small>Name :</small></em>
+            </div>
+            <div class="col-md-8">
+                <strong>{{searchDetail?.name}}</strong>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <i class="bi bi-geo-alt-fill me-2 text-muted"></i>
+                <em><small>Location :</small></em>
+            </div>
+            <div class="col-md-8">
+                {{searchDetail?.location}}
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <i class="bi bi-file-text-fill me-2 text-muted"></i>
+                <em><small>About :</small></em>
+            </div>
+            <div class="col-md-8">
+                {{searchDetail?.about}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row mt-2">
+    <div class="col-md-12 text-center">
+        <button class="btn btn-secondary page-add-btn" (click)="createRink()">Create Rink</button>
+    </div>
+</div>

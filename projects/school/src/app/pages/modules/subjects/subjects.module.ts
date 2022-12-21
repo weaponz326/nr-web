@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubjectsRoutingModule } from './subjects-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { TeachersWindowsModule } from '../../../components/select-windows/teachers-windows/teachers-windows.module';
+import { TermsWindowsModule } from '../../../components/select-windows/terms-windows/terms-windows.module';
+import { ClassesWindowsModule } from '../../../components/select-windows/classes-windows/classes-windows.module';
 
 import { SubjectsPage } from './subjects.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -34,6 +37,9 @@ import { SubjectTeachersComponent } from './subject-teachers/subject-teachers.co
     SubjectsRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    TeachersWindowsModule,
+    TermsWindowsModule,
+    ClassesWindowsModule
   ]
 })
 export class SubjectsModule { }

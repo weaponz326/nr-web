@@ -1,0 +1,68 @@
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectLessonPlanModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectLessonPlanModal" tabindex="-1" aria-labelledby="selectLessonPlanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectLessonPlanModalLabel">Select School LessonPlan</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="10%" class="min-width-2">
+                                Plan ID
+                                <app-table-sorting [sortField]="'plan_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="35%" class="min-width-4">
+                                Plan Name
+                                <app-table-sorting [sortField]="'plan_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="20%" class="min-width-3">
+                                Teacher
+                                <app-table-sorting [sortField]="'teacher'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of lessonPlanGridData" (dblclick)="selectRow(data)" class="table-pointer">
+                            <td>{{data?.plan_code}}</td>
+                            <td>{{data?.plan_name}}</td>
+                            <td>{{data?.plan_date}}</td>
+                            <td>{{data?.teacher.teacher_name}}</td>
+                            <td>{{data?.subject.subject_name}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="5">
+                                <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="3">
+                                <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountLessonPlan($event, 20, '')"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

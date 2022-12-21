@@ -1,0 +1,29 @@
+<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addFileModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="addFileModal" tabindex="-1" aria-labelledby="addFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="addFileModalLabel">Add File</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- file form component -->
+
+                <app-file-form #fileFormComponentReference></app-file-form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button [disabled]="isSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveFile()">Save</button>
+                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>

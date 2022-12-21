@@ -38,6 +38,9 @@
                 </div>
             </div>
 
+        </div>
+        <div class="col">
+        
             <div class="row mb-2">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Subject Name :</label></div>
                 <div class="col-md-8">
@@ -50,17 +53,33 @@
                 </div>
             </div>
 
-            <hr />
+            <div class="row mb-2">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Class Name :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="clase" class="form-control">
+                        <button type="button" class="btn btn-secondary" (click)="openClassWindow()">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
+
+    <hr />
 
 </form>
 
 <!-- select term window component -->
 
-<!-- <app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term> -->
+<app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term>
 
 <!-- select subject window component -->
 
-<!-- <app-select-subject #selectSubjectComponentReference (rowSelected)="onSubjectSelected($event)"></app-select-subject> -->
+<app-select-subject #selectSubjectComponentReference (rowSelected)="onSubjectSelected($event)"></app-select-subject>
+
+<!-- select class window component -->
+
+<app-select-clase #selectClassComponentReference (rowSelected)="onClassSelected($event)"></app-select-clase>

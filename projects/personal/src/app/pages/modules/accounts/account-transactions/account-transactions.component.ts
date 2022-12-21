@@ -1,9 +1,13 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
-import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
+
 import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
 import { EditTransactionComponent } from '../edit-transaction/edit-transaction.component';
+
+import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
+
 
 @Component({
   selector: 'app-account-transactions',

@@ -1,0 +1,52 @@
+<app-main-navbar
+    [navBrand]="'nR Enterprise'"
+    [source]="'Enterprise'"
+></app-main-navbar>
+
+<app-suite-scrollnav
+    (aboutEvent)="gotoAbout()"
+    (pricingEvent)="gotoPricing()"
+    (contactEvent)="gotoContact()"
+></app-suite-scrollnav>
+
+<app-guest-top #guestTopComopnentReference (watchDemo)="watchDemo()"
+    [suiteName]="'Enterprise'"
+    [primaryCaption]="'netRink Enterprise'"
+    [secondaryCaption]="'Everything you need to manage and run your business operations effectively'"
+    [demoVideoUrl]="'#'"
+    [features]="[
+        {
+            'title': 'Finance and accounting',
+            'description': 'Take care of all your financial operations in one place',
+            'imgLink': 'assets/images/features/finance.png'
+        },
+        {
+            'title': 'Human Resource',
+            'description': 'Manage all personnel related operations',
+            'imgLink': 'assets/images/features/personnel.png'
+        },
+        {
+            'title': 'Administrative operations',
+            'description': 'Efficiently handle all office and administrative activities',
+            'imgLink': 'assets/images/features/operations.png'
+        },
+        {
+            'title': 'Assets management',
+            'description': 'Manage and track all assets in your establishment',
+            'imgLink': 'assets/images/features/assets.png'
+        }
+    ]"
+></app-guest-top>
+
+<app-about id="aboutComponentReference"
+    [suiteName]="'Enterprise'"
+    [suiteDetails]="'netRink Enterprise helps manage all aspects of your catering establishment. Enterprise comes with a range of extensive modular apps that are designed to see you through your day-to-day operations effectively. The modular apps are well integrated with each, allowing you to bring all aspects of your enterprise operations into a single perspective.'"
+></app-about>
+
+<app-pricing id="pricingComponentReference"></app-pricing>
+
+<app-contact id="contactComponentReference"
+    [suiteName]="'Personal'"
+></app-contact>
+
+<app-main-footer></app-main-footer>

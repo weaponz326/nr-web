@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeachersRoutingModule } from './teachers-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { TermsWindowsModule } from '../../../components/select-windows/terms-windows/terms-windows.module';
+import { ClassesWindowsModule } from '../../../components/select-windows/classes-windows/classes-windows.module';
 
 import { TeachersPage } from './teachers.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -32,6 +34,8 @@ import { TeacherFormComponent } from './teacher-form/teacher-form.component';
     TeachersRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    TermsWindowsModule,
+    ClassesWindowsModule
   ]
 })
 export class TeachersModule { }

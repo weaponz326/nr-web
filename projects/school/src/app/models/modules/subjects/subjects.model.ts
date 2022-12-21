@@ -1,7 +1,6 @@
 export class Subject {
-  created_at!: any;
   account!: string;
-  terms!: any;
+  term!: string;
   department!: string;
   subject_code!: string;
   subject_name!: string;

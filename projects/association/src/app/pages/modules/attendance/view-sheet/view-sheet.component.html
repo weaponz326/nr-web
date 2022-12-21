@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <h4>Attendance Sheet</h4>
+
+        <div class="row mb-1">
+            <div class="col">
+                <button [disabled]="isSheetSaving" class="btn btn-secondary btn-sm border float-end ms-1 page-refresh-btn" (click)="updateAttendanceSheet()">
+                    <i class="bi bi-save"></i>
+                </button>
+                <button class="btn btn-light btn-sm border float-end ms-1 page-refresh-btn">
+                    <i class="bi bi-plus"></i>
+                </button>
+                <button class="btn btn-light btn-sm border float-end ms-1 page-refresh-btn" (click)="getAttendanceSheet()">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="15%" class="min-width-3">Member ID</th>
+                        <th width="35%" class="min-width-5">Member Name</th>
+                        <th *ngFor="let key of attendanceSheetData?.checks" class="min-width-2">
+                            {{stringToDate(key) | date:'shortDate'}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of attendanceSheetData; index as i">
+                        <td class="bg-light">{{data?.member.data.member_code}}</td>
+                        <td class="bg-light">{{data?.member.data.first_name}} {{data?.member.data.last_name}}</td>
+                        <td *ngFor="let key of Object.keys(data.checks)" class="p-0 text-center">
+                            <input [checked]="data.checks[key]" class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                            (change)="onCheckChange($event, i, key)">
+                        </td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData" class="text-center">
+                        <td colspan="2">
+                            <div class="spinner-grow m-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

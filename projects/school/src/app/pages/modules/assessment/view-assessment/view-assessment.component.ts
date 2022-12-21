@@ -2,15 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { DeleteModalComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal/delete-modal.component'
+import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { AssessmentFormComponent } from '../assessment-form/assessment-form.component';
 import { AssessmentSheetComponent } from '../assessment-sheet/assessment-sheet.component';
 import { AssessmentClassesComponent } from '../assessment-classes/assessment-classes.component';
 
-// import { AssessmentApiService } from 'projects/school/src/app/services/modules/assessment-api/assessment-api.service';
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AssessmentApiService } from 'projects/school/src/app/services/modules-api/assessment-api/assessment-api.service';
 // import { AssessmentPrintService } from 'projects/school/src/app/services/printing/assessment-print/assessment-print.service';
 
-// import { Assessment } from 'projects/school/src/app/models/modules/assessment/assessment.model';
+import { Assessment } from 'projects/school/src/app/models/modules/assessment/assessment.model';
 
 
 @Component({
@@ -22,12 +23,13 @@ export class ViewAssessmentComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private assessmentApi: AssessmentApiService,
+    private customCookie: CustomCookieService,
+    private assessmentApi: AssessmentApiService,
     // private assessmentPrint: AssessmentPrintService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('deleteModalComponentReference', { read: DeleteModalComponent, static: false }) deleteModal!: DeleteModalComponent;
+  @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('assessmentFormComponentReference', { read: AssessmentFormComponent, static: false }) assessmentForm!: AssessmentFormComponent;
   @ViewChild('assessmentTableComponentReference', { read: AssessmentSheetComponent, static: false }) assessmentTable!: AssessmentSheetComponent;
   @ViewChild('assessmentClassesComponentReference', { read: AssessmentClassesComponent, static: false }) assessmentClasses!: AssessmentClassesComponent;
@@ -50,56 +52,60 @@ export class ViewAssessmentComponent implements OnInit {
   getAssessment(){
     this.isAssessmentLoading = true;
 
-    // this.assessmentApi.getAssessment()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.assessmentFormData = res;
-    //       this.isAssessmentLoading = false;
+    this.assessmentApi.getAssessment()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.assessmentFormData = res;
+          this.isAssessmentLoading = false;
 
-    //       this.assessmentForm.assessmentForm.controls.assessmentCode.setValue(this.assessmentFormData.data().assessment_code);
-    //       this.assessmentForm.assessmentForm.controls.assessmentName.setValue(this.assessmentFormData.data().assessment_name);
-    //       this.assessmentForm.assessmentForm.controls.assessmentDate.setValue(this.assessmentFormData.data().assessment_date);
+          this.assessmentForm.selectedTermId = this.assessmentFormData.term?.id;
 
-    //       this.assessmentForm.selectedTermId = this.assessmentFormData.data().term.id;
-    //       this.assessmentForm.selectedTermData = this.assessmentFormData.data().term.data;
-    //       this.assessmentForm.assessmentForm.controls.term.setValue(this.assessmentFormData.data().term.data.term_name);
-    //       this.assessmentForm.selectedSubjectId = this.assessmentFormData.data().subject.id;
-    //       this.assessmentForm.selectedSubjectData = this.assessmentFormData.data().subject.data;
-    //       this.assessmentForm.assessmentForm.controls.subject.setValue(this.assessmentFormData.data().subject.data.subject_name);
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isAssessmentLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          this.assessmentForm.assessmentForm.controls.assessmentCode.setValue(this.assessmentFormData.assessment_code);
+          this.assessmentForm.assessmentForm.controls.assessmentName.setValue(this.assessmentFormData.assessment_name);
+          this.assessmentForm.assessmentForm.controls.assessmentDate.setValue(this.assessmentFormData.assessment_date);
+
+          this.assessmentForm.selectedTermId = this.assessmentFormData.term?.id;
+          this.assessmentForm.assessmentForm.controls.term.setValue(this.assessmentFormData.term?.term_name);
+          this.assessmentForm.selectedSubjectId = this.assessmentFormData.subject?.id;
+          this.assessmentForm.assessmentForm.controls.subject.setValue(this.assessmentFormData.subject?.subject_name);
+          this.assessmentForm.selectedClassId = this.assessmentFormData.clase?.id;
+          this.assessmentForm.assessmentForm.controls.clase.setValue(this.assessmentFormData.clase?.class_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAssessmentLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  updateAssessment(){
-    let data = {
-      assessment_code: this.assessmentForm.assessmentForm.controls.assessmentCode.value,
-      assessment_name: this.assessmentForm.assessmentForm.controls.assessmentName.value,
+  putAssessment(){
+    let data: Assessment = {
+      account: this.customCookie.getCookie('school_id') as string,
+      assessment_code: this.assessmentForm.assessmentForm.controls.assessmentCode.value as string,
+      assessment_name: this.assessmentForm.assessmentForm.controls.assessmentName.value as string,
       assessment_date: this.assessmentForm.assessmentForm.controls.assessmentDate.value,
-      term: "",
-      subject: ""
+      term: this.assessmentForm.selectedTermId,
+      subject: this.assessmentForm.selectedSubjectId,
+      clase: this.assessmentForm.selectedClassId
     }
 
     console.log(data);
     this.isAssessmentSaving = true;
 
-    // this.assessmentApi.updateAssessment(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isAssessmentSaving = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isAssessmentSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.assessmentApi.putAssessment(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isAssessmentSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAssessmentSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -109,18 +115,17 @@ export class ViewAssessmentComponent implements OnInit {
   deleteAssessment(){
     this.isAssessmentDeleting = true;
 
-    // this.assessmentApi.deleteAssessment()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-
-    //       this.router.navigateByUrl('/home/assessment/all-assessment');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.assessmentApi.deleteAssessment()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/assessment/all-assessment');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   refreshSheet(){

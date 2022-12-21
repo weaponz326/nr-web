@@ -28,7 +28,6 @@ import { environment } from '../environments/environment';
     }),
     AppRoutingModule,
   ],
-  // providers: [],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })

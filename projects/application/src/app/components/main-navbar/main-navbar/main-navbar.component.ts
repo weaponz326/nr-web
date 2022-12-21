@@ -50,6 +50,8 @@ export class MainNavbarComponent implements OnInit {
   }
 
   getUser(){
+    this.isAuthLoading = true;
+
     this.authApi.getUser()
       .subscribe({
         next: (res) => {

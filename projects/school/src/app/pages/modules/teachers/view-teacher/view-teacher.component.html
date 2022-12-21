@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/teachers/all-teachers">Cancel</button>
                 <button [disabled]="isTeacherDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isTeacherSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateTeacher()">Save</button>
+                <button [disabled]="isTeacherSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putTeacher()">Save</button>
             </div>
         </div>
         <div *ngIf="isTeacherLoading" class="row page-form">
@@ -33,4 +33,4 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteTeacher()"></app-delete-modal> -->
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteTeacher()"></app-delete-modal-one>

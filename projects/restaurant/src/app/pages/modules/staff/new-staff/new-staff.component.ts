@@ -71,12 +71,11 @@ export class NewStaffComponent implements OnInit {
           sessionStorage.setItem('restaurant_staff_id', res.id);
 
           if(this.staffForm.photo.isImageChanged){
-            this.putMenuItemImage();
+            this.putStaffImage();
           }
           else{
             this.router.navigateByUrl('/home/staff/view-staff');                    
           }
-
         },
         error: (err) => {
           console.log(err);
@@ -86,7 +85,7 @@ export class NewStaffComponent implements OnInit {
       })
   }
 
-  putMenuItemImage(){
+  putStaffImage(){
     this.staffApi.putStaffPhoto(this.staffForm.photo.image)
       .subscribe({
         next: (res) => {

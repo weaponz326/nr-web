@@ -11,6 +11,8 @@ export class FeesPage implements OnInit {
 
   navLinks: any[] = [
     { text: "All Fees", url: "/home/fees/all-fees", icon: "bi bi-list-ul" },
+    { text: "Create Fees", url: "/home/fees/create-fees", icon: "bi bi-plus-square" },
+    { text: "Bills", url: "/home/fees/class-bills", icon: "bi bi-list-ul" },
   ]
   
   ngOnInit(): void {

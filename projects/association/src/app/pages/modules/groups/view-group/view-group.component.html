@@ -1,0 +1,43 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- group form component -->
+
+        <app-group-form #groupFormComponentReference></app-group-form>
+
+        <div *ngIf="!isGroupLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/group/all-group">Cancel</button>
+                <button [disabled]="isGroupDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isGroupSaving" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putGroup()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isGroupLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <hr class="top-divider" />
+        <hr class="bottom-divider" />
+
+        <!-- group members component -->
+
+        <app-group-members #groupMembersComponentReference></app-group-members>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteGroup()"></app-delete-modal-one>

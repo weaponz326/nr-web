@@ -5,9 +5,9 @@ import { TermFormComponent } from '../term-form/term-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { TermsApiService } from 'projects/school/src/app/services/modules/terms-api/terms-api.service';
+import { TermsApiService } from 'projects/school/src/app/services/modules-api/terms-api/terms-api.service';
 
-// import { Term } from 'projects/school/src/app/models/modules/terms/terms.model';
+import { Term } from 'projects/school/src/app/models/modules/terms/terms.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class NewTermComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private termsApi: TermsApiService
+    private termsApi: TermsApiService
   ) { }
 
   @ViewChild('termFormComponentReference', { read: TermFormComponent, static: false }) termForm!: TermFormComponent;
@@ -33,39 +33,59 @@ export class NewTermComponent implements OnInit {
   isTermSaving = false;
 
   ngOnInit(): void {
+    this.getNewTermCodeConfig();
   }
 
-  createTerm(){
+  postTerm(){
     console.log('u are saving a new term');
 
-    // var data: Term = {
-    //   account: this.customCookie.getCookie('restaurant_id') as string,
-    //   term_code: this.termForm.termForm.controls.termCode.value,
-    //   term_name: this.termForm.termForm.controls.termName.value,
-    //   academic_year: this.termForm.termForm.controls.academicYear.value,
-    //   start_date: this.termForm.termForm.controls.startDate.value,
-    //   end_date: this.termForm.termForm.controls.endDate.value,
-    //   term_status: this.termForm.termForm.controls.termStatus.value,
-    // }
+    var data: Term = {
+      account: this.customCookie.getCookie('school_id') as string,
+      term_code: this.termForm.termForm.controls.termCode.value as string,
+      term_name: this.termForm.termForm.controls.termName.value as string,
+      academic_year: this.termForm.termForm.controls.academicYear.value as string,
+      start_date: this.termForm.termForm.controls.startDate.value,
+      end_date: this.termForm.termForm.controls.endDate.value,
+      term_status: this.termForm.termForm.controls.termStatus.value as string,
+    }
 
-    // console.log(data);
+    console.log(data);
     this.isTermSaving = true;
 
-    // this.termsApi.createTerm(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isTermSaving = false;
+    this.termsApi.postTerm(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isTermSaving = false;
 
-    //       sessionStorage.setItem('school_term_id', res.id);
-    //       this.router.navigateByUrl('/home/terms/view-term');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isTermSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          sessionStorage.setItem('school_term_id', res.id);
+          this.router.navigateByUrl('/home/terms/view-term');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isTermSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
+  getNewTermCodeConfig(){
+    this.termsApi.getNewTermCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.termForm.termForm.controls.termCode.disable();
+
+          if(res.code)
+            this.termForm.termForm.controls.termCode.setValue(res.code);
+          else
+            this.termForm.termForm.controls.termCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectStudentComponent } from '../../../select-windows/students-windows/select-student/select-student.component';
+import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
+import { SelectStudentComponent } from '../../../../components/select-windows/students-windows/select-student/select-student.component';
 
-// import { ParentsApiService } from 'projects/school/src/app/services/modules/parents-api/parents-api.service';
+import { ParentsApiService } from 'projects/school/src/app/services/modules-api/parents-api/parents-api.service';
 
-// import { ParentWard } from 'projects/school/src/app/models/modules/parents/parents.model';
+import { ParentWard } from 'projects/school/src/app/models/modules/parents/parents.model';
 
 
 @Component({
@@ -18,12 +19,12 @@ export class ParentWardsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private parentsApi: ParentsApiService,
+    private parentsApi: ParentsApiService,
   ) { }
 
-  @ViewChild('modalButtonElementReference', { read: ElementRef, static: false }) modalButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('selectStudentComponentReference', { read: SelectStudentComponent, static: false }) selectStudent!: SelectStudentComponent;
+  @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
+  @ViewChild('selectStudentComponentReference', { read: SelectStudentComponent, static: false }) selectStudent!: SelectStudentComponent;
 
   parentWardsGridData: any[] = [];
 
@@ -39,69 +40,61 @@ export class ParentWardsComponent implements OnInit {
   getParentParentWard(){
     this.isFetchingGridData = true;
 
-    // this.parentsApi.getParentParentWard()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isFetchingGridData = false;
-    //       this.parentWardsGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.parentsApi.getParentParentWard()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isFetchingGridData = false;
+          this.parentWardsGridData = res;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  createParentWard(wardData: any){
-    // let data: ParentWard = {
-    let data = {
+  postParentWard(wardData: any){
+    let data: ParentWard = {
       parent: sessionStorage.getItem('school_parent_id') as string,
-      ward: {
-        id: wardData.id,
-        data: {
-          student_code: wardData.data().student_code,
-          first_name: wardData.data().first_name,
-          last_name: wardData.data().last_name,
-        }
-      }
+      ward: wardData.id,
     }
 
     console.log(data);
 
-    // this.parentsApi.createParentWard(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
+    this.parentsApi.postParentWard(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getParentParentWard();
-    //       }
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          if(res.id){
+            this.getParentParentWard();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteParentWard(){
     this.isWardDeleting = true;
 
-    // this.parentsApi.deleteParentWard(this.deleteId)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.isWardDeleting = false;
-    //       this.getParentParentWard();
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isWardDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.parentsApi.deleteParentWard(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isWardDeleting = false;
+          this.getParentParentWard();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isWardDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   gotoStudent(id: any){
@@ -112,7 +105,7 @@ export class ParentWardsComponent implements OnInit {
 
   confirmDelete(id: any){
     this.deleteId = id;
-    this.modalButton.nativeElement.click();
+    this.deleteModal.openModal();
   }
 
 }

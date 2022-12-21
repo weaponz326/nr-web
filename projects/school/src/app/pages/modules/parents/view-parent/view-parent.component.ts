@@ -6,10 +6,13 @@ import { ParentWardsComponent } from '../parent-wards/parent-wards.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { ParentsApiService } from 'projects/school/src/app/services/modules/parents-api/parents-api.service';
+import { environment } from 'projects/school/src/environments/environment';
+
+import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { ParentsApiService } from 'projects/school/src/app/services/modules-api/parents-api/parents-api.service';
 // import { ParentsPrintService } from 'projects/school/src/app/services/printing/parents-print/parents-print.service';
 
-// import { Parent } from 'projects/school/src/app/models/modules/parents/parents.model';
+import { Parent } from 'projects/school/src/app/models/modules/parents/parents.model';
 
 
 @Component({
@@ -21,7 +24,8 @@ export class ViewParentComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private parentsApi: ParentsApiService,
+    private customCookie: CustomCookieService,
+    private parentsApi: ParentsApiService,
     // private parentsPrint: ParentsPrintService,
   ) { }
 
@@ -48,46 +52,51 @@ export class ViewParentComponent implements OnInit {
   getParent(){
     this.isParentLoading = true;
 
-    // this.parentsApi.getParent()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.parentData = res;
-    //       this.isParentLoading = false;
+    this.parentsApi.getParent()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.parentData = res;
+          this.isParentLoading = false;
 
-    //       this.parentForm.parentForm.controls.parentCode.setValue(this.parentData.data().parent_code);
-    //       this.parentForm.parentForm.controls.firstName.setValue(this.parentData.data().first_name);
-    //       this.parentForm.parentForm.controls.lastName.setValue(this.parentData.data().last_name);
-    //       this.parentForm.parentForm.controls.sex.setValue(this.parentData.data().sex);
-    //       this.parentForm.parentForm.controls.photo.setValue(this.parentData.data().photo);
-    //       this.parentForm.parentForm.controls.nationality.setValue(this.parentData.data().nationality);
-    //       this.parentForm.parentForm.controls.religion.setValue(this.parentData.data().religion);
-    //       this.parentForm.parentForm.controls.occupation.setValue(this.parentData.data().occupation);
-    //       this.parentForm.parentForm.controls.phone.setValue(this.parentData.data().phone);
-    //       this.parentForm.parentForm.controls.email.setValue(this.parentData.data().email);
-    //       this.parentForm.parentForm.controls.address.setValue(this.parentData.data().address);
-    //       this.parentForm.parentForm.controls.state.setValue(this.parentData.data().state);
-    //       this.parentForm.parentForm.controls.city.setValue(this.parentData.data().city);
-    //       this.parentForm.parentForm.controls.country.setValue(this.parentData.data().country);
-    //       this.parentForm.parentForm.controls.postCode.setValue(this.parentData.data().post_code);
+          this.parentForm.parentForm.controls.term.setValue(this.parentData.term?.term_name);
+          this.parentForm.parentForm.controls.parentCode.setValue(this.parentData.parent_code);
+          this.parentForm.parentForm.controls.firstName.setValue(this.parentData.first_name);
+          this.parentForm.parentForm.controls.lastName.setValue(this.parentData.last_name);
+          this.parentForm.parentForm.controls.sex.setValue(this.parentData.sex);
+          this.parentForm.parentForm.controls.photo.setValue(this.parentData.photo);
+          this.parentForm.parentForm.controls.nationality.setValue(this.parentData.nationality);
+          this.parentForm.parentForm.controls.religion.setValue(this.parentData.religion);
+          this.parentForm.parentForm.controls.occupation.setValue(this.parentData.occupation);
+          this.parentForm.parentForm.controls.phone.setValue(this.parentData.phone);
+          this.parentForm.parentForm.controls.email.setValue(this.parentData.email);
+          this.parentForm.parentForm.controls.address.setValue(this.parentData.address);
+          this.parentForm.parentForm.controls.state.setValue(this.parentData.state);
+          this.parentForm.parentForm.controls.city.setValue(this.parentData.city);
+          this.parentForm.parentForm.controls.country.setValue(this.parentData.country);
+          this.parentForm.parentForm.controls.postCode.setValue(this.parentData.post_code);
 
-    //       if (this.parentData.data().photo != ""){
-    //         this.parentForm.photo.imgSrc = this.parentData.data().photo;
-    //         this.parentForm.photo.isImageSet = true;
-    //       }
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isParentLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          this.parentForm.selectedTermId = this.parentData.term?.id;
+
+          if (this.parentData.photo != null)
+            this.parentForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.parentData.photo;
+          else
+            this.parentForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
+        },
+        error: (err) => {
+          console.log(err);
+          this.isParentLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  updateParent(){
+  putParent(){
     console.log('u are saving a new parent');
 
     var data = {
+      account: this.customCookie.getCookie('school_id') as string,
+      term: this.parentForm.selectedTermId,
       parent_code: this.parentForm.parentForm.controls.parentCode.value,
       first_name: this.parentForm.parentForm.controls.firstName.value,
       last_name: this.parentForm.parentForm.controls.lastName.value,
@@ -107,72 +116,58 @@ export class ViewParentComponent implements OnInit {
     console.log(data);
     this.isParentSaving = true;
 
-    // this.parentsApi.updateParent(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
+    this.parentsApi.putParent(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.updateTerm();
-    //       this.updateImage();
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isParentSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          if(this.parentForm.photo.isImageChanged){
+            this.putParentImage();
+          }
+          else{
+            this.isParentSaving = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isParentSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
     this.deleteModal.openModal();
   }
 
-  updateTerm(){
-    console.log('u are adding new term to term');
-
-    if (this.parentData.data().terms.include({id: this.parentForm.selectedTermId})){
-      console.log('lets go ahead with term update');
-
-      let data = {
-        terms: {
-          id: this.parentForm.selectedTermId,
-          data: this.parentForm.selectedTermData,
-        }
-      }
-
-      // this.parentsApi.updateParent(data)
-      //   .then(
-      //     (res: any) => {
-      //       console.log(res);
-      //       this.isParentSaving = false;
-      //     },
-      //     (err: any) => {
-      //       console.log(err);
-      //       this.isParentSaving = false;
-      //       this.connectionToast.openToast();
-      //     }
-      //   )
-    }
-    else{
-      console.log('no need to update term');
-      this.isParentSaving = false;
-    }
-  }
-
   deleteParent(){
     this.isParentDeleting = true;
 
-    // this.parentsApi.deleteParent()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/parents/all-parents');
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.parentsApi.deleteParent()
+      .subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/parents/all-parents');
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  putParentImage(){
+    this.parentsApi.putParentPhoto(this.parentForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isParentSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

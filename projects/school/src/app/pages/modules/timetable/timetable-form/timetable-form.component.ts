@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
-// import { SelectClassComponent } from '../../../select-windows/classes-windows/select-class/select-class.component';
-
-// import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
+import { SelectTermComponent } from '../../../../components/select-windows/terms-windows/select-term/select-term.component';
+import { SelectClaseComponent } from '../../../../components/select-windows/classes-windows/select-clase/select-clase.component';
 
 
 @Component({
@@ -14,15 +12,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class TimetableFormComponent implements OnInit {
 
-  constructor(
-    // private activeTerm: ActiveTermService
-  ) { }
+  constructor() { }
 
-  // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
-  // @ViewChild('selectClassComponentReference', { read: SelectClassComponent, static: false }) selectClass!: SelectClassComponent;
+  @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
+  @ViewChild('selectClassComponentReference', { read: SelectClaseComponent, static: false }) selectClass!: SelectClaseComponent;
 
   selectedTermId = "";
-  selectedTermData: any = {};
 
   timetableForm = new FormGroup({
     timetableCode: new FormControl(''),
@@ -33,17 +28,9 @@ export class TimetableFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    // let activeTerm = this.activeTerm.getActiveTerm();
-
-    // this.timetableForm.controls.term.setValue(activeTerm.data.term_name);
-    // this.selectedTermId = activeTerm.id;
-    // this.selectedTermData = activeTerm.data;
-  }
-
   openTermWindow(){
     console.log("You are opening select term window")
-    // this.selectTerm.openModal();
+    this.selectTerm.openModal();
   }
 
   onTermSelected(termData: any){
@@ -51,7 +38,6 @@ export class TimetableFormComponent implements OnInit {
 
     this.timetableForm.controls.term.setValue(termData.data().term.term_name);
     this.selectedTermId = termData.id;
-    this.selectedTermData = termData.data();
   }
 
 }

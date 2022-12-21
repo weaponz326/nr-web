@@ -5,7 +5,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { PaymentsApiService } from 'projects/school/src/app/services/modules/payments-api/payments-api.service';
+import { PaymentsApiService } from 'projects/school/src/app/services/modules-api/payments-api/payments-api.service';
 // import { PaymentsPrintService } from 'projects/school/src/app/services/printing/payments-print/payments-print.service';
 @Component({
   selector: 'app-all-payments',
@@ -17,7 +17,7 @@ export class AllPaymentsComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private paymentsApi: PaymentsApiService,
+    private paymentsApi: PaymentsApiService,
     // private paymentsPrint: PaymentsPrintService
   ) { }
 
@@ -43,33 +43,41 @@ export class AllPaymentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveTerm();
-    this.getAccountPayment();
+    this.getAccountPayment(1, 20, "-created_at");
   }
 
   getActiveTerm(){
     // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
   }
 
-  getAccountPayment(){
+  getAccountPayment(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.paymentsApi.getAccountPayment(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.paymentsGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.paymentsApi.getAccountPayment(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.paymentsGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountPayment();
+    this.getAccountPayment(1, 20, column);
 
     this.currentSortColumn = column;
   }
@@ -91,7 +99,7 @@ export class AllPaymentsComponent implements OnInit {
 
     // this.activeTerm.setActiveTerm(termData);
     this.getActiveTerm();
-    this.getAccountPayment();
+    this.getAccountPayment(1, 20, "-created_at");
   }
 
   onPrint(){

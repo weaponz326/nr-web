@@ -9,7 +9,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <button class="btn btn-secondary page-add-btn" routerLink="/home/assessment/new-assessment">New Assessment</button>
-                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountAssessment()">
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountAssessment(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -46,8 +46,8 @@
                                 <td>{{data?.assessment_code}}</td>
                                 <td>{{data?.assessment_name}}</td>
                                 <td>{{data?.assessment_date}}</td>
-                                <td>{{data?.term.term_name}}</td>
-                                <td>{{data?.subject.subject_name}}</td>
+                                <td>{{data?.term?.term_name}}</td>
+                                <td>{{data?.subject?.subject_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="5">
@@ -59,7 +59,7 @@
                             <tr class="bg-light">
                                 <td colspan="5">
                                     <app-table-paginator
-                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountAssessment()"
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountAssessment($event, 20, '')"
                                     ></app-table-paginator>
                                 </td>
                             </tr>

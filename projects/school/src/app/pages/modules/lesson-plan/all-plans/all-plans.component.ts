@@ -6,7 +6,7 @@ import { NewPlanComponent } from '../new-plan/new-plan.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { LessonPlanApiService } from 'projects/school/src/app/services/modules/lesson-plan-api/lesson-plan-api.service';
+import { LessonPlanApiService } from 'projects/school/src/app/services/modules-api/lesson-plan-api/lesson-plan-api.service';
 // import { LessonPlanPrintService } from 'projects/school/src/app/services/printing/lessonPlan-print/lessonPlan-print.service';
 
 
@@ -20,7 +20,7 @@ export class AllPlansComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private lessonPlanApi: LessonPlanApiService,
+    private lessonPlanApi: LessonPlanApiService,
     // private lessonPlanPrint: LessonPlanPrintService,
   ) { }
 
@@ -47,33 +47,41 @@ export class AllPlansComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveTerm();
-    this.getAccountLessonPlan();
+    this.getAccountLessonPlan(1, 20, "-created_at");
   }
 
   getActiveTerm(){
     // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
   }
 
-  getAccountLessonPlan(){
+  getAccountLessonPlan(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.lessonPlanApi.getAccountLessonPlan(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.lessonPlanGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.lessonPlanApi.getAccountLessonPlan(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.lessonPlanGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountLessonPlan();
+    this.getAccountLessonPlan(1, 20, column);
 
     this.currentSortColumn = column;
   }
@@ -95,7 +103,7 @@ export class AllPlansComponent implements OnInit {
 
     // this.activeTerm.setActiveTerm(termData);
     this.getActiveTerm();
-    this.getAccountLessonPlan();
+    this.getAccountLessonPlan(1, 20, "-created_at");
   }
 
   onPrint(){

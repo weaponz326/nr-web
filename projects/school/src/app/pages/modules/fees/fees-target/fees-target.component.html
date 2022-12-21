@@ -24,7 +24,7 @@
             </tr>
             <tr *ngIf="isFetchingGridData" class="text-center">
                 <td colspan="3">
-                    <div class="spinner-grow m-2" role="status">
+                    <div class="spinner-grow spinner-grow-sm m-2" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </td>
@@ -36,3 +36,11 @@
 <!-- select class component -->
 
 <!-- <app-select-class #selectClassComponentReference></app-select-class> -->
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteFeesTarget()"></app-delete-modal-two>

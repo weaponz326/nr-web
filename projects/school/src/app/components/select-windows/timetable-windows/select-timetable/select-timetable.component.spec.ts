@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { SelectTimetableComponent } from './select-timetable.component';
+
+describe('SelectTimetableComponent', () => {
+  let component: SelectTimetableComponent;
+  let fixture: ComponentFixture<SelectTimetableComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ SelectTimetableComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(SelectTimetableComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

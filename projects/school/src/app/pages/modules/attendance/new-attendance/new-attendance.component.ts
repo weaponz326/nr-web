@@ -5,10 +5,9 @@ import { AttendanceFormComponent } from '../attendance-form/attendance-form.comp
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { AttendanceApiService } from 'projects/school/src/app/services/modules/attendance-api/attendance-api.service';
-// import { ClassesApiService } from 'projects/school/src/app/services/modules/classes-api/classes-api.service';
+import { AttendanceApiService } from 'projects/school/src/app/services/modules-api/attendance-api/attendance-api.service';
 
-// import { Attendance } from 'projects/school/src/app/models/modules/attendance/attendance.model';
+import { StudentAttendance, TeacherAttendance } from 'projects/school/src/app/models/modules/attendance/attendance.model';
 
 
 @Component({
@@ -21,8 +20,7 @@ export class NewAttendanceComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private attendanceApi: AttendanceApiService,
-    // private classesApi: ClassesApiService,
+    private attendanceApi: AttendanceApiService,
   ) { }
 
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
@@ -37,101 +35,97 @@ export class NewAttendanceComponent implements OnInit {
   isAttendanceSaving = false;
 
   ngOnInit(): void {
+    this.getNewAttendanceCodeConfig();
+  }
+
+  ngAfterViewInit(): void {
+    let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
+    
+    this.attendanceForm.selectedTermId = activeTerm.term.id
+    this.attendanceForm.attendanceForm.controls.term.setValue(activeTerm.term.term_name);
   }
 
   createAttendance(){
-    // let data: Attendance = {
-    //   account: this.customCookie.getCookie('restaurant_id') as string,
-    //   attendance_code: this.attendanceForm.attendanceForm.controls.attendanceCode.value,
-    //   attendance_name: this.attendanceForm.attendanceForm.controls.attendanceName.value,
-    //   from_date: this.attendanceForm.attendanceForm.controls.fromDate.value,
-    //   to_date: this.attendanceForm.attendanceForm.controls.toDate.value,
-    //   term: this.attendanceForm.selectedTermId,        
-    //   source: this.attendanceForm.selectedClassId,        
-    // }
+    if(this.attendanceForm.attendanceForm.controls.attendanceSource.value == "Students")
+      this.postStudentAttendance()
+    else if(this.attendanceForm.attendanceForm.controls.attendanceSource.value == "Teachers")
+      this.postTeacherAttendance()
+  }
+
+  postStudentAttendance(){
+    let data: StudentAttendance = {
+      account: this.customCookie.getCookie('school_id') as string,
+      attendance_code: this.attendanceForm.attendanceForm.controls.attendanceCode.value as string,
+      attendance_name: this.attendanceForm.attendanceForm.controls.attendanceName.value as string,
+      from_date: this.attendanceForm.attendanceForm.controls.fromDate.value as string,
+      to_date: this.attendanceForm.attendanceForm.controls.toDate.value as string,
+      term: this.attendanceForm.selectedTermId,        
+      clase: this.attendanceForm.selectedClassId,        
+    }
 
     this.isAttendanceSaving = true;
 
-    // this.attendanceApi.createAttendance(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('school_attendance_id', res.id);
-    //       sessionStorage.setItem('school_class_id', this.attendanceForm.selectedClassId);
-    //       this.getClassClassStudent();
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isAttendanceSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.attendanceApi.postStudentAttendance(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('school_student_attendance_id', res.id);
+          sessionStorage.setItem('schoolAttendanceSource', "Students");
+          this.router.navigateByUrl('/home/attendance/view-attendance');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAttendanceSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  getClassClassStudent(){
-    // this.classesApi.getClassClassStudent()
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.setAttendanceSheet(res.docs);
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+  postTeacherAttendance(){
+    let data: TeacherAttendance = {
+      account: this.customCookie.getCookie('school_id') as string,
+      attendance_code: this.attendanceForm.attendanceForm.controls.attendanceCode.value as string,
+      attendance_name: this.attendanceForm.attendanceForm.controls.attendanceName.value as string,
+      from_date: this.attendanceForm.attendanceForm.controls.fromDate.value as string,
+      to_date: this.attendanceForm.attendanceForm.controls.toDate.value as string,
+      term: this.attendanceForm.selectedTermId,        
+    }
+
+    this.isAttendanceSaving = true;
+
+    this.attendanceApi.postTeacherAttendance(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('school_teacher_attendance_id', res.id);
+          sessionStorage.setItem('schoolAttendanceSource', "Teachers");
+          this.router.navigateByUrl('/home/attendance/view-attendance');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAttendanceSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  // // TODO: do something about it
-  // setAttendanceSheet(classStudents: any){
-  //   let classSheet: any = [];
+  getNewAttendanceCodeConfig(){
+    this.attendanceApi.getNewAttendanceCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.attendanceForm.attendanceForm.controls.attendanceCode.disable();
 
-  //   let sheetDateChecks: {[key: string]: any} = {};
-  //   var fromDate = moment(this.attendanceForm.attendanceForm.controls.fromDate.value);
-  //   var toDate = moment(this.attendanceForm.attendanceForm.controls.toDate.value);
-
-  //   while(fromDate <= toDate) {
-  //     fromDate.add(1, 'days');
-  //     sheetDateChecks[fromDate.toDate().toISOString().slice(0, 10)] = "";
-  //   }
-  //   console.log(sheetDateChecks);
-
-  //   classStudents.forEach((data: any) => {
-  //     let sheetRow = {
-  //       student: {
-  //         id: data.data().student.id,
-  //         data: {
-  //           student_code: data.data().student.data.student_code,
-  //           first_name: data.data().student.data.first_name,
-  //           last_name: data.data().student.data.last_name,
-  //         }
-  //       },
-  //       checks: sheetDateChecks
-  //     };
-
-  //     classSheet.push(sheetRow);
-  //   });
-
-  //   console.log(classSheet);
-  //   this.createAttendanceSheet(classSheet);
-  // }
-
-  createAttendanceSheet(classSheet: any){
-    let data = { sheet: classSheet };
-
-    // this.attendanceApi.createAttendanceSheet(data)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/attendance/view-attendance');
-    //       this.isAttendanceSaving = false;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isAttendanceSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+          if(res.code)
+            this.attendanceForm.attendanceForm.controls.attendanceCode.setValue(res.code);
+          else
+            this.attendanceForm.attendanceForm.controls.attendanceCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

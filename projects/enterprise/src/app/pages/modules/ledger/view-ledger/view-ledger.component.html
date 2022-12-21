@@ -1,0 +1,96 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row page-form">
+            <div class="col-md-12">
+
+                <form class="page-form" [formGroup]="ledgerForm" (ngSubmit)="updateLedger()">
+
+                    <h4 class="mb-3">Ledger Details</h4>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="row mb-1">
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1">Ledger ID :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input formControlName="ledgerCode" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1">Ledger Name :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input formControlName="ledgerName" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="row mb-1">
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1">From Date :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input formControlName="fromDate" type="date" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1">To Date :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input formControlName="toDate" type="date" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+
+                    
+                    <hr />
+
+                    <div *ngIf="!isLedgerLoading" class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/ledger/all-ledger">Cancel</button>
+                            <button [disabled]="isLedgerDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                            <button [disabled]="isLedgerSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn">Save</button>
+                        </div>
+                    </div>
+                    <div *ngIf="isLedgerLoading" class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <hr class="top-divider" />
+        <hr class="bottom-divider" />
+
+        <!-- ledger tables comopnent -->
+
+        <app-ledger-table #ledgerTableComponentReference (ioeEvent)="getIoe($event)"></app-ledger-table>
+        
+    </div>
+</main>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

@@ -6,16 +6,23 @@
         <div class="col-md-6">
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Class ID :</label></div>
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Class Name :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="classCode" class="form-control form-control-sm w-100">
+                    <input formControlName="className" class="form-control form-control-sm w-100">
                 </div>
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Class Name :</label></div>
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Class Abbreviation :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="className" class="form-control form-control-sm w-100">
+                    <input formControlName="classAbbreviation" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Grade :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="grade" class="form-control form-control-sm w-100">
                 </div>
             </div>
 
@@ -68,3 +75,15 @@
     </div>
 
 </form>
+
+<!-- select term window component -->
+
+<app-select-term #selectTermComponentReference (rowSelected)="onTermSelected($event)"></app-select-term>
+
+<!-- select subject window component -->
+
+<app-select-department #selectDepartmentComponentReference (rowSelected)="onDepartmentSelected($event)"></app-select-department>
+
+<!-- select-teacher -->
+
+<app-select-teacher #selectTeacherComponentReference (rowSelected)="onTeacherSelected($event)"></app-select-teacher>

@@ -5,7 +5,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { ParentsApiService } from 'projects/school/src/app/services/modules/parents-api/parents-api.service';
+import { ParentsApiService } from 'projects/school/src/app/services/modules-api/parents-api/parents-api.service';
 // import { ParentsPrintService } from 'projects/school/src/app/services/printing/parents-print/parents-print.service';
 
 
@@ -19,7 +19,7 @@ export class AllParentsComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private parentsApi: ParentsApiService,
+    private parentsApi: ParentsApiService,
     // private parentsPrint: ParentsPrintService,
   ) { }
 
@@ -45,33 +45,41 @@ export class AllParentsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getActiveTerm();
-    this.getAccountParent();
+    this.getAccountParent(1, 20, "-created_at");
   }
 
   getActiveTerm(){
     // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
   }
 
-  getAccountParent(){
+  getAccountParent(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.parentsApi.getAccountParent(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.parentsGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
+    this.parentsApi.getAccountParent(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.parentsGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
     console.log(column);
-    this.getAccountParent();
+    this.getAccountParent(1, 20, column);
 
     this.currentSortColumn = column;
   }
@@ -93,7 +101,7 @@ export class AllParentsComponent implements OnInit {
 
     // this.activeTerm.setActiveTerm(termData);
     this.getActiveTerm();
-    this.getAccountParent();
+    this.getAccountParent(1, 20, '-created_at');
   }
 
   onPrint(){

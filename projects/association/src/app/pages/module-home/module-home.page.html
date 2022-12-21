@@ -1,0 +1,175 @@
+<app-main-navbar [navBrand]="'nR Association'" [source]="'Association'"></app-main-navbar>
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar d-block mb-4 static-top shadow-sm">
+    <div class="text-center module-heading">
+        <a routerLink="./">
+            <p class="lead mt-2">
+                <i *ngIf="!isAccessLoading" class="bi bi-house-fill me-2"></i>
+                <span *ngIf="isAccessLoading" class="spinner-grow spinner-grow-sm me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                Home
+            </p>
+        </a>
+    </div>
+</nav>
+
+<div class="container home-div">
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="portal" routerLink="/home/portal/dashboard" (click)="checkAccess('portal')"
+            data-bs-toggle="tooltip" title="Connect to other associations throgh netRink portal">
+                <figure>
+                    <img src="assets/images/modules/portal.png" class="home-icons" />
+                    <figcaption>Portal</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="accounts" routerLink="/home/accounts/dashboard" (click)="checkAccess('accounts')"
+            data-bs-toggle="tooltip" title="Manage financial accounts and transactions">
+                <figure>
+                    <img src="assets/images/modules/accounts.png" class="home-icons" />
+                    <figcaption>Accounts</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="members" routerLink="/home/members/dashboard" (click)="checkAccess('members')"
+            data-bs-toggle="tooltip" title="Manage all members related operations">
+                <figure>
+                    <img src="assets/images/modules/members.png" class="home-icons" />
+                    <figcaption>Members</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="committees" routerLink="/home/committees/dashboard" (click)="checkAccess('committees')"
+            data-bs-toggle="tooltip" title="Manage the affairs of sub committees">
+                <figure>
+                    <img src="assets/images/modules/committees.png" class="home-icons" />
+                    <figcaption>Committees</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="dues" routerLink="/home/dues/dashboard" (click)="checkAccess('dues')"
+            data-bs-toggle="tooltip" title="Manage dues and financial obligations of members">
+                <figure>
+                    <img src="assets/images/modules/dues.png" class="home-icons" />
+                    <figcaption>Dues</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="meetings" routerLink="/home/meetings/dashboard" (click)="checkAccess('meetings')"
+            data-bs-toggle="tooltip" title="Plan and organize meetings">
+                <figure>
+                    <img src="assets/images/modules/meetings.png" class="home-icons" />
+                    <figcaption>Meetings</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------
+    row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="admin" routerLink="/home/admin/dashboard" (click)="checkAccess('admin')"
+            data-bs-toggle="tooltip" title="Manage users and access levels">
+                <figure>
+                    <img src="assets/images/modules/admin.png" class="home-icons" />
+                    <figcaption>Admin</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="executives" routerLink="/home/executives/dashboard" (click)="checkAccess('executives')"
+            data-bs-toggle="tooltip" title="Manage directors and executive members">
+                <figure>
+                    <img src="assets/images/modules/executives.png" class="home-icons" />
+                    <figcaption>Executives</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="actionPlan" routerLink="/home/action-plan/dashboard" (click)="checkAccess('action_plan')"
+            data-bs-toggle="tooltip" title="Plan and manage activities, goals and objectives">
+                <figure>
+                    <img src="assets/images/modules/action-plan.png" class="home-icons" />
+                    <figcaption>Action Plan</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="year" routerLink="/home/fiscal-year/dashboard" (click)="checkAccess('year')"
+            data-bs-toggle="tooltip" title="Plan and manage fiscal years, terms or tenures">
+                <figure>
+                    <img src="assets/images/modules/year.png" class="home-icons" />
+                    <figcaption>Fiscal Year</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="attendance" routerLink="/home/attendance/dashboard" (click)="checkAccess('attendance')"
+            data-bs-toggle="tooltip" title="Take attendance to meetings and events">
+                <figure>
+                    <img src="assets/images/modules/attendance.png" class="home-icons" />
+                    <figcaption>Attendance</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="groups" routerLink="/home/groups/dashboard" (click)="checkAccess('groups')"
+            data-bs-toggle="tooltip" title="Manage sub divisions within the association">
+                <figure>
+                    <img src="assets/images/modules/groups.png" class="home-icons" />
+                    <figcaption>Groups</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+    row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="settings" routerLink="/home/settings/dashboard" (click)="checkAccess('settings')"
+            data-bs-toggle="tooltip" title="Set configuarations for your modules">
+                <figure>
+                    <img src="assets/images/modules/settings.png" class="home-icons" />
+                    <figcaption>Settings</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- access denied prompt component -->
+
+<app-access-toast #accessToastComponentReference></app-access-toast>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

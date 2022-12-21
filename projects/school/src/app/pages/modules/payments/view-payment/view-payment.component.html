@@ -13,7 +13,7 @@
 
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/payments/all-payments">Cancel</button>
                 <button [disabled]="isPaymentDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isPaymentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updatePayment()">Save</button>
+                <button [disabled]="isPaymentSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="postPayment()">Save</button>
             </div>
         </div>
         <div *ngIf="isPaymentLoading" class="row page-form">

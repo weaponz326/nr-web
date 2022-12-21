@@ -1,0 +1,29 @@
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editSentModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="editSentModal" tabindex="-1" aria-labelledby="editSentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="editSentModalLabel">Edit Sent Letter</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- sent form component -->
+
+                <app-sent-form #sentFormComponentReference></app-sent-form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button [disabled]="isSaving" class="btn btn-sm btn-secondary modal-form-btn" (click)="saveSent()">Save</button>
+                <button class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>

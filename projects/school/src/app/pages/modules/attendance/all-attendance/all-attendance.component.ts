@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { StudentsAttendanceComponent } from '../students-attendance/students-attendance.component'
+import { TeachersAttendanceComponent } from '../teachers-attendance/teachers-attendance.component'
 import { NewAttendanceComponent } from '../new-attendance/new-attendance.component'
 // import { SelectTermComponent } from '../../../select-windows/terms-windows/select-term/select-term.component';
 
 // import { ActiveTermService } from 'projects/school/src/app/services/active-term/active-term.service';
-// import { AttendanceApiService } from 'projects/school/src/app/services/modules/attendance-api/attendance-api.service';
 // import { AttendancePrintService } from 'projects/school/src/app/services/printing/attendance-print/attendance-print.service';
 
 
@@ -20,11 +21,12 @@ export class AllAttendanceComponent implements OnInit {
   constructor(
     private router: Router,
     // private activeTerm: ActiveTermService,
-    // private attendanceApi: AttendanceApiService,
     // private attendancePrint: AttendancePrintService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('studentsAttendanceComponentReference', { read: StudentsAttendanceComponent, static: false }) studentsAttendance!: StudentsAttendanceComponent;
+  @ViewChild('teachersAttendanceComponentReference', { read: TeachersAttendanceComponent, static: false }) teachersAttendance!: TeachersAttendanceComponent;
   @ViewChild('newAttendanceComponentReference', { read: NewAttendanceComponent, static: false }) newAttendance!: NewAttendanceComponent;
   // @ViewChild('selectTermComponentReference', { read: SelectTermComponent, static: false }) selectTerm!: SelectTermComponent;
 
@@ -34,55 +36,21 @@ export class AllAttendanceComponent implements OnInit {
 
   activeTermName: any;
 
-  attendanceGridData: any[] = [];
-
-  isFetchingGridData: boolean =  false;
-  isDataAvailable: boolean =  true;
-
-  currentPage = 0;
-  totalPages = 0;
-  totalItems = 0;
-
-  currentSortColumn = "";
+  visibleAttendance = "Students";
 
   ngOnInit(): void {
     this.getActiveTerm();
-    this.getAccountAttendance();
+  }
+
+  getAccountAttendance(){
+    if(this.visibleAttendance == "Students")
+      this.studentsAttendance.getAccountStudentAttendance(1, 20, "-created_at")
+    else if(this.visibleAttendance == "Teachers")
+      this.teachersAttendance.getAccountTeacherAttendance(1, 20, "-created_at")
   }
 
   getActiveTerm(){
     // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
-  }
-
-  getAccountAttendance(){
-    this.isFetchingGridData = true;
-
-    // this.attendanceApi.getAccountAttendance(this.sortParams, 20)
-    //   .then(
-    //     (res: any) => {
-    //       console.log(res);
-    //       this.attendanceGridData = res.docs;
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   )
-  }
-
-  sortTable(column: any){
-    console.log(column);
-    this.getAccountAttendance();
-
-    this.currentSortColumn = column;
-  }
-
-  viewAttendance(attendanceId: any){
-    console.log(attendanceId);
-
-    sessionStorage.setItem('school_attendance_id', attendanceId);
-    this.router.navigateByUrl('/home/attendance/view-attendance');
   }
 
   openTermWindow(){
@@ -95,7 +63,6 @@ export class AllAttendanceComponent implements OnInit {
 
     // this.activeTerm.setActiveTerm(termData);
     this.getActiveTerm();
-    this.getAccountAttendance();
   }
 
   onPrint(){

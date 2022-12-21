@@ -1,0 +1,31 @@
+<app-main-navbar
+    [navBrand]="'nR Association'"
+    [source]="'Association'"
+></app-main-navbar>
+
+<app-suite-scrollnav
+    (aboutEvent)="gotoAbout()"
+    (pricingEvent)="gotoPricing()"
+    (contactEvent)="gotoContact()"
+></app-suite-scrollnav>
+
+<app-user-top #userTopComponentReference
+    [suiteName]="'Association'"
+    [accountsData]="accountsData"
+    [isAccountLoading]="isAccountLoading"
+    [isAccountChecking]="isAccountChecking"
+    (selectAccount)="checkAccountActive($event)"
+></app-user-top>
+
+<app-about id="aboutComponentReference"
+    [suiteName]="'Association'"
+    [suiteDetails]="''"
+></app-about>
+
+<app-pricing id="pricingComponentReference"></app-pricing>
+
+<app-contact id="contactComponentReference"
+    [suiteName]="'Association'"
+></app-contact>
+
+<app-main-footer></app-main-footer>

@@ -11,7 +11,7 @@
             <div class="col-md-6">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/subjects/all-subjects">Cancel</button>
                 <button [disabled]="isSubjectDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isSubjectSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateSubject()">Save</button>
+                <button [disabled]="isSubjectSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putSubject()">Save</button>
             </div>
         </div>
         <div *ngIf="isSubjectLoading" class="row page-form">
@@ -37,4 +37,4 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteSubject()"></app-delete-modal> -->
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteSubject()"></app-delete-modal-one>

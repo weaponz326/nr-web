@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AssessmentRoutingModule } from './assessment-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { TermsWindowsModule } from '../../../components/select-windows/terms-windows/terms-windows.module';
+import { SubjectsWindowsModule } from '../../../components/select-windows/subjects-windows/subjects-windows.module';
+import { ClassesWindowsModule } from '../../../components/select-windows/classes-windows/classes-windows.module';
 
 import { AssessmentPage } from './assessment.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -36,6 +39,9 @@ import { AssessmentClassesComponent } from './assessment-classes/assessment-clas
     AssessmentRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    TermsWindowsModule,
+    SubjectsWindowsModule,
+    ClassesWindowsModule
   ]
 })
 export class AssessmentModule { }

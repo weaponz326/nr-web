@@ -1,0 +1,215 @@
+<app-main-navbar [navBrand]="'nR Enterprise'" [source]="'Enterprise'"></app-main-navbar>
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar d-block mb-4 static-top shadow-sm">
+    <div class="text-center module-heading">
+        <a routerLink="./">
+            <p class="lead mt-2">
+                <i *ngIf="!isAccessLoading" class="bi bi-house-fill me-2"></i>
+                <span *ngIf="isAccessLoading" class="spinner-grow spinner-grow-sm me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                Home
+            </p>
+        </a>
+    </div>
+</nav>
+
+<div class="container home-div">
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="portal" routerLink="/home/portal/dashboard" (click)="checkAccess('portal')"
+            data-bs-toggle="tooltip" title="Connect to other businesses throgh netRink portal">
+                <figure>
+                    <img src="assets/images/modules/portal.png" class="home-icons" />
+                    <figcaption>Portal</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="accounts" routerLink="/home/accounts/dashboard" (click)="checkAccess('accounts')"
+            data-bs-toggle="tooltip" title="Manage financial accounts and transactions">
+                <figure>
+                    <img src="assets/images/modules/accounts.png" class="home-icons" />
+                    <figcaption>Accounts</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="payroll" routerLink="/home/payroll/dashboard" (click)="checkAccess('payroll')"
+            data-bs-toggle="tooltip" title="Implement payroll for all employees">
+                <figure>
+                    <img src="assets/images/modules/payroll.png" class="home-icons" />
+                    <figcaption>Payroll</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="letters" routerLink="/home/letters/dashboard" (click)="checkAccess('letters')"
+            data-bs-toggle="tooltip" title="Organise all incoming and outgoing letters">
+                <figure>
+                    <img src="assets/images/modules/letters.png" class="home-icons" />
+                    <figcaption>Letters</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="assets" routerLink="/home/assets/dashboard" (click)="checkAccess('assets')"
+            data-bs-toggle="tooltip" title="Manage and track assets">
+                <figure>
+                    <img src="assets/images/modules/assets.png" class="home-icons" />
+                    <figcaption>Assets</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="leave" routerLink="/home/leave/dashboard" (click)="checkAccess('leave')"
+            data-bs-toggle="tooltip" title="Manage employees' leave">
+                <figure>
+                    <img src="assets/images/modules/leave.png" class="home-icons" />
+                    <figcaption>Leave</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="admin" routerLink="/home/admin/dashboard" (click)="checkAccess('admin')"
+            data-bs-toggle="tooltip" title="Manage users and access levels">
+                <figure>
+                    <img src="assets/images/modules/admin.png" class="home-icons" />
+                    <figcaption>Admin</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="budget" routerLink="/home/budget/dashboard" (click)="checkAccess('budget')"
+            data-bs-toggle="tooltip" title="Plan and prepare company's budget">
+                <figure>
+                    <img src="assets/images/modules/budget.png" class="home-icons" />
+                    <figcaption>Budget</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="procurement" routerLink="/home/procurement/dashboard" (click)="checkAccess('procurement')"
+            data-bs-toggle="tooltip" title="Manage procurement operations">
+                <figure>
+                    <img src="assets/images/modules/procurement.png" class="home-icons" />
+                    <figcaption>Procurement</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="attendance" routerLink="/home/attendance/dashboard" (click)="checkAccess('attendance')"
+            data-bs-toggle="tooltip" title="Take attendance of employees">
+                <figure>
+                    <img src="assets/images/modules/attendance.png" class="home-icons" />
+                    <figcaption>Attendance</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="appraisal" routerLink="/home/appraisal/dashboard" (click)="checkAccess('appraisal')"
+            data-bs-toggle="tooltip" title="Conduct appraisal assessment for employees">
+                <figure>
+                    <img src="assets/images/modules/appraisal.png" class="home-icons" />
+                    <figcaption>Appraisal</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="files" routerLink="/home/files/dashboard" (click)="checkAccess('files')"
+            data-bs-toggle="tooltip" title="Organise all types of files">
+                <figure>
+                    <img src="assets/images/modules/files.png" class="home-icons" />
+                    <figcaption>Files</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="settings" routerLink="/home/settings/dashboard" (click)="checkAccess('settings')"
+            data-bs-toggle="tooltip" title="Set configuarations for your modules">
+                <figure>
+                    <img src="assets/images/modules/settings.png" class="home-icons" />
+                    <figcaption>Settings</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="employees" routerLink="/home/employees/dashboard" (click)="checkAccess('employees')"
+            data-bs-toggle="tooltip" title="Manage all employees">
+                <figure>
+                    <img src="assets/images/modules/employees.png" class="home-icons" />
+                    <figcaption>Employees</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="ledger" routerLink="/home/ledger/dashboard" (click)="checkAccess('ledger')"
+            data-bs-toggle="tooltip" title="Prepare general ledger">
+                <figure>
+                    <img src="assets/images/modules/ledger.png" class="home-icons" />
+                    <figcaption>Ledger</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="reception" routerLink="/home/reception/dashboard" (click)="checkAccess('reception')"
+            data-bs-toggle="tooltip" title="Receive and manage visitors at front desk">
+                <figure>
+                    <img src="assets/images/modules/reception.png" class="home-icons" />
+                    <figcaption>Reception</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="fiscalYear" routerLink="/home/fiscal-year/dashboard" (click)="checkAccess('fiscal_year')"
+            data-bs-toggle="tooltip" title="Plan and manage fiscal years">
+                <figure>
+                    <img src="assets/images/modules/fiscal_year.png" class="home-icons" />
+                    <figcaption>Fiscal Year</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- access denied prompt component -->
+
+<app-access-toast #accessToastComponentReference></app-access-toast>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

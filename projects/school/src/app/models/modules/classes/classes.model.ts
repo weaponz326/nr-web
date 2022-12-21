@@ -4,6 +4,7 @@ export class Clase {
   department!: string;
   terms!: any;
   class_name!: string;
+  class_abbreviation!: string;
   grade!: string;
   location!: string;
 }
@@ -19,4 +20,10 @@ export class Department {
   department_head!: string;
   department_name!: string;
   department_description!: string;
+}
+
+export class DepartmentClass {
+  account!: string;
+  department!: string;
+  clase!: string;
 }

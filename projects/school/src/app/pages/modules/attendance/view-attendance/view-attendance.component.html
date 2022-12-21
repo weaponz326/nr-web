@@ -4,19 +4,19 @@
     <div class="container-fluid px-4">
 
         <div class="row page-form">
-            <div class="col-md-6">
+            <div class="col">
 
                 <!-- attendance form component -->
 
                 <app-attendance-form #attendanceFormComponentReference
-                [isDateDisabled]="true" [isSourceDisabled]="true"
+                [isDateDisabled]="true" [isClassDisabled]="true"
                 ></app-attendance-form>
 
                 <div *ngIf="!isAttendanceLoading" class="row">
                     <div class="col-md-12">
                         <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/attendance/all-attendance">Cancel</button>
                         <button [disabled]="isAttendanceDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                        <button [disabled]="isAttendanceSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="updateAttendance()">Save</button>
+                        <button [disabled]="isAttendanceSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putAttendance()">Save</button>
                     </div>
                 </div>
                 <div *ngIf="isAttendanceLoading" class="row">
@@ -48,4 +48,4 @@
 
 <!-- delete confirmation modal component -->
 
-<!-- <app-delete-modal #deleteModalComponentReference (confirmEvent)="deleteAttendance()"></app-delete-modal> -->
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteAttendance()"></app-delete-modal-one>

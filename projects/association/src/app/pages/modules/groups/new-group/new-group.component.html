@@ -1,0 +1,22 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- group form component -->
+
+        <app-group-form #groupFormComponentReference></app-group-form>
+
+        <div class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/group/all-group">Cancel</button>
+                <button [disabled]="isGroupSaving" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="postGroup()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

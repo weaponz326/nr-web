@@ -1,0 +1,56 @@
+<form class="page-form" [formGroup]="attendanceForm">
+
+    <h4 class="mb-3">Attendance Details</h4>
+
+    <div class="row">
+        <div class="col">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="attendanceCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Attendance Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="attendanceName" class="form-control form-control-sm w-100">
+                </div>
+            </div>            
+
+        </div>
+        <div class="col">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Date :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="fromDate" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">To Date :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="toDate" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+            
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Fiscal Year :</label></div>
+                <div class="col-md-8">
+                    <div class="input-group input-group-sm w-100">
+                        <input formControlName="fiscalYear" class="form-control">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+<hr />

@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { LedgerTableComponent } from './ledger-table.component';
+
+describe('LedgerTableComponent', () => {
+  let component: LedgerTableComponent;
+  let fixture: ComponentFixture<LedgerTableComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ LedgerTableComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(LedgerTableComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
