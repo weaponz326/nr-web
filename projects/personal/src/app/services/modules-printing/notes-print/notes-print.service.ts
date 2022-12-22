@@ -35,7 +35,6 @@ export class NotesPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Notes',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -45,7 +44,8 @@ export class NotesPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Notes';
+    this.pdfPrint.openPdf(header, content);
   }
 
 }

@@ -33,7 +33,6 @@ export class TasksPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Task Groups',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -43,7 +42,8 @@ export class TasksPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Task Groups';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // all task items
@@ -67,7 +67,6 @@ export class TasksPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Task Items',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -77,7 +76,8 @@ export class TasksPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Task Items';
+    this.pdfPrint.openPdf(header, content);
   }
 
 }

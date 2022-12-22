@@ -46,7 +46,8 @@ export class OrdersPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - ';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view order
@@ -105,7 +106,8 @@ export class OrdersPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Menu Items';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // print roll

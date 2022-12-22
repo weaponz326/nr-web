@@ -13,8 +13,8 @@ export class PdfPrintService {
 
   constructor() { }
 
-  openPdf(content: any) {
-    const def = { content: content };
+  openPdf(header: any, content: any) {
+    const def = { header: header, content: content };
     pdfMake.createPdf(def).open();
   }
 

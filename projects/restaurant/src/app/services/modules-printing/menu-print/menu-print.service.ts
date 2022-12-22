@@ -43,7 +43,8 @@ export class MenuPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Menu Group';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view menu group
@@ -91,7 +92,8 @@ export class MenuPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - View Menu Group';
+    this.pdfPrint.openPdf(header, content);
   }
 
   async printAllMenuItems(){
@@ -123,7 +125,8 @@ export class MenuPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Menu Items';
+    this.pdfPrint.openPdf(header, content);
   }
 
 }

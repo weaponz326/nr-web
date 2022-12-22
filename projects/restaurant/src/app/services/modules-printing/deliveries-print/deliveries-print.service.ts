@@ -46,7 +46,8 @@ export class DeliveriesPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Deliveries';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view delivery
@@ -73,7 +74,8 @@ export class DeliveriesPrintService {
       },
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - View Delivery';
+    this.pdfPrint.openPdf(header, content);
   }
   
 }

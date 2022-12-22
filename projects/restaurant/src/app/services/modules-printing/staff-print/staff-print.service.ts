@@ -43,7 +43,8 @@ export class StaffPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Staff';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view staff
@@ -99,7 +100,8 @@ export class StaffPrintService {
       },
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - View Staff';
+    this.pdfPrint.openPdf(header, content);
   }
 
 }

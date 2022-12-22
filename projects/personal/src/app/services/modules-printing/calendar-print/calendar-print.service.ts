@@ -34,7 +34,6 @@ export class CalendarPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Calendars',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -44,7 +43,8 @@ export class CalendarPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Calendars';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // all schedules
@@ -68,7 +68,6 @@ export class CalendarPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Schedules',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -78,7 +77,8 @@ export class CalendarPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Schedules';
+    this.pdfPrint.openPdf(header, content);
   }
 
 }

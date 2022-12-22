@@ -46,7 +46,8 @@ export class KitchenStockPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Stock Items';
+    this.pdfPrint.openPdf(header, content);
   }
   
 }

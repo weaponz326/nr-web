@@ -37,7 +37,6 @@ export class PaymentsPrintService {
 
     let content = [
       {
-        header: 'netRink Restaurant - All Payments',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -47,7 +46,8 @@ export class PaymentsPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Payments';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view payment
@@ -75,7 +75,8 @@ export class PaymentsPrintService {
       },
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - View Payment';
+    this.pdfPrint.openPdf(header, content);
   }
 
   async printPaymentRoll(){

@@ -34,7 +34,6 @@ export class AccountsPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Accounts',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -44,7 +43,8 @@ export class AccountsPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Accounts';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view account
@@ -52,11 +52,21 @@ export class AccountsPrintService {
   async printViewAccount(){
     const accountFormResults$ = this.accountsApi.getAccount();
     const transactionsGridResults$ = this.accountsApi.getAccountTransactions();
-    // const [accountFormData, transactionsGridData] = await Promise.all([accountFormPromise, transactionsGridPromise]);
     const accountFormData: any = await lastValueFrom(accountFormResults$);
     const transactionsGridData: any = await lastValueFrom(transactionsGridResults$);
     
-    var body = [['Transaction Date', 'Description', 'Transaction Type', 'Amount']];
+    // account
+
+    var accountBody = [
+      ['Account Name', ':', accountFormData.account_name],
+      ['Account No', ':', accountFormData.account_number],
+      ['Bank Name', ':', accountFormData.bank_name],
+      ['Account Type', ':', accountFormData.account_type],
+    ]
+
+    // transaction
+
+    var tranctionBody = [['Transaction Date', 'Description', 'Transaction Type', 'Amount']];
 
     for (let data of transactionsGridData){
       var row = [];
@@ -65,7 +75,7 @@ export class AccountsPrintService {
       row.push(rowData.description);
       row.push(rowData.transaction_type);
       row.push(rowData.amount);
-      body.push(row);
+      tranctionBody.push(row);
     }
 
     let balance = 0;
@@ -76,17 +86,20 @@ export class AccountsPrintService {
       else
         balance -= +rowData.amount
     }
-    body.push(['', '', '', balance.toString()]);
+    tranctionBody.push(['', '', '', balance.toString()]);
 
     let content = [
       {
-        header: 'netRink Personal - View Account',
         columns: [
           [
-            { text: 'Account Name: ' + accountFormData.account_name },
-            { text: 'Account No: ' + accountFormData.account_number },
-            { text: 'Bank Name: ' + accountFormData.bank_name },
-            { text: 'Account Type: ' + accountFormData.account_type },
+            {
+              layout: 'noBorders',
+              table: {
+                headerRows: 0,
+                widths: ['33%', '2%', '65%'],
+                body: accountBody
+              }
+            }
           ],
           [
             { text: 'Account Balance', bold: true, alignment: 'center' },
@@ -100,12 +113,13 @@ export class AccountsPrintService {
         table: {
           headerRows: 1,
           widths: ['25%', '35%', '20%', '20%'],
-          body: body
+          body: tranctionBody
         }
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - View Account';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // all transaction
@@ -131,7 +145,6 @@ export class AccountsPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Transactions',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -141,7 +154,8 @@ export class AccountsPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Transactions';
+    this.pdfPrint.openPdf('', content);
   }
 
 }
