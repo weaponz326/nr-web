@@ -1,1 +1,61 @@
-<p>select-member works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectMemberModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectMemberModal" tabindex="-1" aria-labelledby="selectMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectMemberModalLabel">Select Association Member</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">                    
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="30%" class="min-width-2">
+                                Member ID
+                                <!-- <app-table-sorting [sortField]="'member_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting> -->
+                            </th>
+                            <th width="70%" class="min-width-4">
+                                Member Name
+                                <!-- <app-table-sorting [sortField]="'member_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting> -->
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of membersGridData" (dblclick)="selectRow(data)" class="table-pointer">
+                            <td>{{data?.member_code}}</td>
+                            <td>{{data?.first_name}} {{data?.last_name}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="2">
+                                <!-- <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="2">
+                                <!-- <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountMember($event, 20, '')"
+                                ></app-table-paginator> -->
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<!-- <app-connection-toast #connectionToastComponentReference></app-connection-toast> -->
