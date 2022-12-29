@@ -5,6 +5,9 @@ import { CommitteeFormComponent } from '../committee-form/committee-form.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { CommitteesApiService } from 'projects/association/src/app/services/modules-api/committees-api/committees-api.service';
+
+import { Committee } from 'projects/association/src/app/models/modules/committees/committees.model';
 
 
 @Component({
@@ -17,6 +20,7 @@ export class NewCommitteeComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private committeesApi: CommitteesApiService
   ) { }
 
   @ViewChild('committeeFormComponentReference', { read: CommitteeFormComponent, static: false }) committeeForm!: CommitteeFormComponent;
@@ -25,8 +29,6 @@ export class NewCommitteeComponent implements OnInit {
   navHeading: any[] = [
     { text: "New Committee", url: "/home/committees/new-committee" },
   ];
-
-  storageBasePath = "/school/" + this.customCookie.getCookie('restaurant_id') + "/module_committees/";
 
   isCommitteeSaving = false;
 
@@ -37,32 +39,33 @@ export class NewCommitteeComponent implements OnInit {
   postCommittee(){
     console.log('u are saving a new committee');
 
-    var data = {
+    var data: Committee = {
       account: this.customCookie.getCookie('association_id') as string,
-      first_name: this.committeeForm.committeeForm.controls.committeeName.value as string,
-      last_name: this.committeeForm.committeeForm.controls.description.value as string,
-      sex: this.committeeForm.committeeForm.controls.dateCommissioned.value as string,
-      committee_code: this.committeeForm.committeeForm.controls.dateDecommissioned.value as string,
+      committee_name: this.committeeForm.committeeForm.controls.committeeName.value as string,
+      description: this.committeeForm.committeeForm.controls.description.value as string,
+      date_commissioned: this.committeeForm.committeeForm.controls.dateCommissioned.value,
+      date_decommissioned: this.committeeForm.committeeForm.controls.dateDecommissioned.value,
+      committee_chairman: this.committeeForm.committeeForm.controls.committeeChairman.value as string,
     }
 
     console.log(data);
     this.isCommitteeSaving = true;
 
-        
-  }
+    this.committeesApi.postCommittee(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isCommitteeSaving = false;
 
-  putCommitteeImage(){
-    // this.committeesApi.putCommitteePhoto(this.committeeForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/committees/view-committee');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          sessionStorage.setItem('restaurant_committee_id', res.id);
+          this.router.navigateByUrl('/home/committees/view-committee');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCommitteeSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewCommitteeCodeConfig(){

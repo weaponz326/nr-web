@@ -5,9 +5,11 @@ import { CommitteeFormComponent } from '../committee-form/committee-form.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-import { environment } from 'projects/school/src/environments/environment';
-
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { CommitteesApiService } from 'projects/association/src/app/services/modules-api/committees-api/committees-api.service';
+// import { CommitteesPrintService } from 'projects/association/src/app/services/modules-printing/committees-print/committees-print.service';
+
+import { Committee } from 'projects/association/src/app/models/modules/committees/committees.model';
 
 
 @Component({
@@ -20,6 +22,8 @@ export class ViewCommitteeComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private committeesApi: CommitteesApiService,
+    // private committeesPrint: CommitteesPrintService,
   ) { }
 
   @ViewChild('committeeFormComponentReference', { read: CommitteeFormComponent, static: false }) committeeForm!: CommitteeFormComponent;
@@ -44,24 +48,54 @@ export class ViewCommitteeComponent implements OnInit {
   getCommittee(){
     this.isCommitteeLoading = true;
 
-    
+    this.committeesApi.getCommittee()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.committeeData = res;
+          this.isCommitteeLoading = false;
+
+          this.committeeForm.committeeForm.controls.committeeName.setValue(this.committeeData.committee_name);
+          this.committeeForm.committeeForm.controls.description.setValue(this.committeeData.description);
+          this.committeeForm.committeeForm.controls.dateCommissioned.setValue(this.committeeData.date_commissioned);
+          this.committeeForm.committeeForm.controls.dateDecommissioned.setValue(this.committeeData.date_decommissioned);
+          this.committeeForm.committeeForm.controls.committeeChairman.setValue(this.committeeData.committee_chairman);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCommitteeLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putCommittee(){
     console.log('u are saving a new committee');
 
-    var data = {
+    var data: Committee = {
       account: this.customCookie.getCookie('association_id') as string,
-      first_name: this.committeeForm.committeeForm.controls.committeeName.value as string,
-      last_name: this.committeeForm.committeeForm.controls.description.value as string,
-      sex: this.committeeForm.committeeForm.controls.dateCommissioned.value as string,
-      committee_code: this.committeeForm.committeeForm.controls.dateDecommissioned.value as string,
+      committee_name: this.committeeForm.committeeForm.controls.committeeName.value as string,
+      description: this.committeeForm.committeeForm.controls.description.value as string,
+      date_commissioned: this.committeeForm.committeeForm.controls.dateCommissioned.value,
+      date_decommissioned: this.committeeForm.committeeForm.controls.dateDecommissioned.value,
+      committee_chairman: this.committeeForm.committeeForm.controls.committeeChairman.value as string,
     }
 
     console.log(data);
     this.isCommitteeSaving = true;
 
-    
+    this.committeesApi.putCommittee(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isCommitteeSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCommitteeSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -71,8 +105,17 @@ export class ViewCommitteeComponent implements OnInit {
   deleteCommittee(){
     this.isCommitteeDeleting = true;
 
-    
-    
+    this.committeesApi.deleteCommittee()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/committees/all-committees');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })    
   }
 
   onPrint(){
