@@ -65,7 +65,7 @@ export class AddYearComponent implements OnInit {
           this.isYearSaving = false;
           this.connectionToast.openToast();
         }
-      })        
+      })
   }
 
   getNewYearCodeConfig(){
