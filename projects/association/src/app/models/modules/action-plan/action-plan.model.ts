@@ -8,6 +8,6 @@ export class ActionPlan {
 
 export class PlanStep {
     action_plan!: string;
-    stepNumber!: string;
-    stepDescription!: string;
+    step_number!: string;
+    step_description!: string;
 }

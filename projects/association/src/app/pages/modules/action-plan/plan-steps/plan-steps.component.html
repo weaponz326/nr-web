@@ -42,6 +42,6 @@
 
 <!-- add and edit step components -->
 
-<app-add-step #addStepComponentReference (saveStepEvent)="postStep($event)"></app-add-step>
+<app-add-step #addStepComponentReference (saveStepEvent)="createStep($event)"></app-add-step>
 
-<app-edit-step #editStepComponentReference (saveStepEvent)="putStep($event)"></app-edit-step>
+<app-edit-step #editStepComponentReference (saveStepEvent)="updateStep($event)"></app-edit-step>
