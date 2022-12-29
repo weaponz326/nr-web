@@ -30,8 +30,6 @@ export class AddExecutiveComponent implements OnInit {
     { text: "New Executive", url: "/home/executives/new-executive" },
   ];
 
-  storageBasePath = "/school/" + this.customCookie.getCookie('restaurant_id') + "/module_executives/";
-
   isExecutiveSaving = false;
 
   ngOnInit(): void {
@@ -55,7 +53,7 @@ export class AddExecutiveComponent implements OnInit {
           console.log(res);
           this.isExecutiveSaving = false;
 
-          sessionStorage.setItem('restaurant_executive_id', res.id);
+          sessionStorage.setItem('association_executive_id', res.id);
           this.router.navigateByUrl('/home/executives/view-executive');
         },
         error: (err) => {

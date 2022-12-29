@@ -5,6 +5,9 @@ import { GroupFormComponent } from '../group-form/group-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { GroupsApiService } from 'projects/association/src/app/services/modules-api/groups-api/groups-api.service';
+
+import { Group } from 'projects/association/src/app/models/modules/groups/groups.model';
 
 
 @Component({
@@ -17,6 +20,7 @@ export class NewGroupComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private groupsApi: GroupsApiService,
   ) { }
 
   @ViewChild('groupFormComponentReference', { read: GroupFormComponent, static: false }) groupForm!: GroupFormComponent;
@@ -33,7 +37,7 @@ export class NewGroupComponent implements OnInit {
   }
 
   postGroup(){
-    let data = {
+    let data: Group = {
       account: this.customCookie.getCookie('association_id') as string,
       group_code: this.groupForm.groupForm.controls.groupCode.value as string,
       group_name: this.groupForm.groupForm.controls.groupName.value as string,
@@ -41,7 +45,21 @@ export class NewGroupComponent implements OnInit {
 
     this.isGroupSaving = true;
 
-    
+    this.groupsApi.postGroup(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isGroupSaving = false;
+
+          sessionStorage.setItem('association_group_id', res.id);
+          this.router.navigateByUrl('/home/groups/view-group');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isGroupSaving = false;
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   getNewGroupCodeConfig(){

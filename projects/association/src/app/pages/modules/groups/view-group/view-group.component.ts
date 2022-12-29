@@ -7,6 +7,10 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { GroupsApiService } from 'projects/association/src/app/services/modules-api/groups-api/groups-api.service';
+// import { GroupsPrintService } from 'projects/association/src/app/services/modules-printing/groups-print/groups-print.service';
+
+import { Group } from 'projects/association/src/app/models/modules/groups/groups.model';
 
 
 @Component({
@@ -19,6 +23,8 @@ export class ViewGroupComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private groupsApi: GroupsApiService,
+    // private groupsPrint: GroupsPrintService,
   ) { }
 
   @ViewChild('groupFormComponentReference', { read: GroupFormComponent, static: false }) groupForm!: GroupFormComponent;
@@ -44,11 +50,26 @@ export class ViewGroupComponent implements OnInit {
   getGroup(){
     this.isGroupLoading = true;
 
-    
+    this.groupsApi.getGroup()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.groupData = res;
+          this.isGroupLoading = false;
+
+          this.groupForm.groupForm.controls.groupCode.setValue(this.groupData.group_code);
+          this.groupForm.groupForm.controls.groupName.setValue(this.groupData.group_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isGroupLoading = false;
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   putGroup(){
-    let data = {
+    let data: Group = {
       account: this.customCookie.getCookie('association_id') as string,
       group_code: this.groupForm.groupForm.controls.groupCode.value as string,
       group_name: this.groupForm.groupForm.controls.groupName.value as string,
@@ -57,7 +78,18 @@ export class ViewGroupComponent implements OnInit {
     console.log(data);
     this.isGroupSaving = true;
 
-    
+    this.groupsApi.putGroup(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isGroupSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isGroupSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -67,7 +99,17 @@ export class ViewGroupComponent implements OnInit {
   deleteGroup(){
     this.isGroupDeleting = true;
 
-    
+    this.groupsApi.deleteGroup()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/groups/all-groups');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   onPrint(){
