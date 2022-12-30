@@ -55,7 +55,12 @@ export class ViewExecutiveComponent implements OnInit {
           this.executiveData = res;
           this.isExecutiveLoading = false;
 
+          this.executiveForm.executiveForm.controls.name.setValue(this.executiveData.name?.first_name + " " + this.executiveData.name?.last_name);
           this.executiveForm.executiveForm.controls.position.setValue(this.executiveData.position);
+          this.executiveForm.executiveForm.controls.fiscalYear.setValue(this.executiveData.fiscal_year?.year_name);
+
+          this.executiveForm.selectedMemberId = this.executiveData.executive_chairman.id
+          this.executiveForm.selectedYearId = this.executiveData.fiscal_year.id
         },
         error: (err) => {
           console.log(err);
@@ -68,10 +73,11 @@ export class ViewExecutiveComponent implements OnInit {
   putExecutive(){
     console.log('u are saving a new executive');
 
-    // var data: Executive = {
-    var data = {
+    var data: Executive = {
       account: this.customCookie.getCookie('association_id') as string,
+      name: this.executiveForm.selectedMemberId,
       position: this.executiveForm.executiveForm.controls.position.value as string,
+      fiscal_year: this.executiveForm.selectedYearId
     }
 
     console.log(data);

@@ -45,7 +45,7 @@ export class NewCommitteeComponent implements OnInit {
       description: this.committeeForm.committeeForm.controls.description.value as string,
       date_commissioned: this.committeeForm.committeeForm.controls.dateCommissioned.value,
       date_decommissioned: this.committeeForm.committeeForm.controls.dateDecommissioned.value,
-      committee_chairman: this.committeeForm.committeeForm.controls.committeeChairman.value as string,
+      committee_chairman: this.committeeForm.selectedMemberId,
     }
 
     console.log(data);

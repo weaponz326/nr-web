@@ -38,10 +38,11 @@ export class AddExecutiveComponent implements OnInit {
   postExecutive(){
     console.log('u are saving a new executive');
 
-    // var data: Executive = {
-    var data = {
+    var data: Executive = {
       account: this.customCookie.getCookie('association_id') as string,
+      name: this.executiveForm.selectedMemberId,
       position: this.executiveForm.executiveForm.controls.position.value as string,
+      fiscal_year: this.executiveForm.selectedYearId
     }
 
     console.log(data);

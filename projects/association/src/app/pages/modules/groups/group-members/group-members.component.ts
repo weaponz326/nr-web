@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
-// import { SelectMemberComponent } from '../../../../components/select-windows/members-windows/select-member/select-member.component';
+import { SelectMemberComponent } from '../../../../components/select-windows/members-windows/select-member/select-member.component';
 
 import { GroupsApiService } from 'projects/association/src/app/services/modules-api/groups-api/groups-api.service';
 import { GroupMember } from 'projects/association/src/app/models/modules/groups/groups.model';
@@ -23,6 +23,7 @@ export class GroupMembersComponent implements OnInit {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
+  @ViewChild('selectMemberComponentReference', { read: SelectMemberComponent, static: false }) selectMember!: SelectMemberComponent;
 
   membersGridData: any[] = [];
 

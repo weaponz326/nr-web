@@ -17,11 +17,11 @@
                         <tr class="bg-light">
                             <th width="30%" class="min-width-2">
                                 Member ID
-                                <!-- <app-table-sorting [sortField]="'member_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting> -->
+                                <app-table-sorting [sortField]="'member_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                             <th width="70%" class="min-width-4">
                                 Member Name
-                                <!-- <app-table-sorting [sortField]="'member_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting> -->
+                                <app-table-sorting [sortField]="'member_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                             </th>
                         </tr>
                     </thead>
@@ -32,16 +32,16 @@
                         </tr>
                         <tr *ngIf="isFetchingGridData || !isDataAvailable">
                             <td colspan="2">
-                                <!-- <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading> -->
+                                <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr class="bg-light">
                             <td colspan="2">
-                                <!-- <app-table-paginator
+                                <app-table-paginator
                                 [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountMember($event, 20, '')"
-                                ></app-table-paginator> -->
+                                ></app-table-paginator>
                             </td>
                         </tr>
                     </tfoot>
@@ -58,4 +58,4 @@
 
 <!-- connection error toast component -->
 
-<!-- <app-connection-toast #connectionToastComponentReference></app-connection-toast> -->
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

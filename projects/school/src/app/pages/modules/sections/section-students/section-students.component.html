@@ -21,8 +21,8 @@
                         <td>{{data?.student.student_code}}</td>
                         <td>{{data?.student.first_name}} {{data?.student.last_name}}</td>
                         <td class="p-0">
-                            <button class="btn btn-sm border w-100" (click)="gotoStudent(data.id)"><i class="bi bi-eye"></i></button>
-                            <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-sm border w-50" (click)="gotoStudent(data.id)"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="isFetchingGridData" class="text-center">

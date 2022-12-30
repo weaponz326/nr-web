@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommitteesRoutingModule } from './committees-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { MembersWindowsModule } from '../../../components/select-windows/members-windows/members-windows.module';
 
 import { CommitteesPage } from './committees.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -33,7 +34,8 @@ import { CommitteeMembersComponent } from './committee-members/committee-members
     ReactiveFormsModule,
     CommitteesRoutingModule,
     MainNavbarModule,
-    ModuleUtilitiesModule
+    ModuleUtilitiesModule,
+    MembersWindowsModule
   ]
 })
 export class CommitteesModule { }
