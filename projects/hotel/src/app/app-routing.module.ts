@@ -41,24 +41,24 @@ const routes: Routes = [
         path: "",
         loadChildren: () => import("./pages/module-home/module-home.module").then(m => m.ModuleHomeModule)
       },
-      // {
-      //   path: "admin",
-      //   // canActivate: [AdminGuard, ConfigAccessGuard],
-      //   // canActivateChild: [AdminGuard, ConfigAccessGuard],
-      //   loadChildren: () => import("./pages/modules/admin/admin.module").then(m => m.AdminModule)
-      // },
-      // {
-      //   path: "portal",
-      //   // canActivate: [PortalGuard, ConfigAccessGuard],
-      //   // canActivateChild: [PortalGuard, ConfigAccessGuard],
-      //   loadChildren: () => import("./pages/modules/portal/portal.module").then(m => m.PortalModule)
-      // },
-      // {
-      //   path: "settings",
-      //   // canActivate: [SettingsGuard, ConfigAccessGuard],
-      //   // canActivateChild: [SettingsGuard, ConfigAccessGuard],
-      //   loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
-      // },
+      {
+        path: "admin",
+        // canActivate: [AdminGuard, ConfigAccessGuard],
+        // canActivateChild: [AdminGuard, ConfigAccessGuard],
+        loadChildren: () => import("./pages/modules/admin/admin.module").then(m => m.AdminModule)
+      },
+      {
+        path: "portal",
+        // canActivate: [PortalGuard, ConfigAccessGuard],
+        // canActivateChild: [PortalGuard, ConfigAccessGuard],
+        loadChildren: () => import("./pages/modules/portal/portal.module").then(m => m.PortalModule)
+      },
+      {
+        path: "settings",
+        // canActivate: [SettingsGuard, ConfigAccessGuard],
+        // canActivateChild: [SettingsGuard, ConfigAccessGuard],
+        loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
+      },
 
     ]
   }

@@ -1,0 +1,83 @@
+<div class="row my-3">
+    <div class="col-md-12">
+        <h5>User Modules' Access</h5>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+
+        <table class="table table-sm page-table">
+            <thead>
+                <tr>
+                    <th width="70%">Module</th>
+                    <th width="30%">Access</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Accounts</td>
+                    <td><input [(ngModel)]="accessForm.admin_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Assets</td>
+                    <td><input [(ngModel)]="accessForm.assets_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="assetsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Bills</td>
+                    <td><input [(ngModel)]="accessForm.bills_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="billsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Bookings</td>
+                    <td><input [(ngModel)]="accessForm.bookings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="bookingsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Check-In</td>
+                    <td><input [(ngModel)]="accessForm.checkin_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="checkinCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Guests</td>
+                    <td><input [(ngModel)]="accessForm.guests_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="guestsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>House Keeping</td>
+                    <td><input [(ngModel)]="accessForm.house_keeping_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="houseKeepingCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Payments</td>
+                    <td><input [(ngModel)]="accessForm.payments_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="paymentsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Portal</td>
+                    <td><input [(ngModel)]="accessForm.portal_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="portalCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Rooms</td>
+                    <td><input [(ngModel)]="accessForm.rooms_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="roomsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Letters</td>
+                    <td><input [(ngModel)]="accessForm.roster_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="rosterCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Services</td>
+                    <td><input [(ngModel)]="accessForm.services_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="servicesCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Settings</td>
+                    <td><input [(ngModel)]="accessForm.settings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="settingsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Staff</td>
+                    <td><input [(ngModel)]="accessForm.staff_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="staffCheckbox"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
