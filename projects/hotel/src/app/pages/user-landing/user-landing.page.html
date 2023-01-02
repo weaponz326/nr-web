@@ -1,0 +1,31 @@
+<app-main-navbar
+    [navBrand]="'nR Hotel'"
+    [source]="'Hotel'"
+></app-main-navbar>
+
+<app-suite-scrollnav
+    (aboutEvent)="gotoAbout()"
+    (pricingEvent)="gotoPricing()"
+    (contactEvent)="gotoContact()"
+></app-suite-scrollnav>
+
+<app-user-top #userTopComponentReference
+    [suiteName]="'Hotel'"
+    [accountsData]="accountsData"
+    [isAccountLoading]="isAccountLoading"
+    [isAccountChecking]="isAccountChecking"
+    (selectAccount)="checkAccountActive($event)"
+></app-user-top>
+
+<app-about id="aboutComponentReference"
+    [suiteName]="'Hotel'"
+    [suiteDetails]="''"
+></app-about>
+
+<app-pricing id="pricingComponentReference"></app-pricing>
+
+<app-contact id="contactComponentReference"
+    [suiteName]="'Hotel'"
+></app-contact>
+
+<app-main-footer></app-main-footer>
