@@ -9,6 +9,11 @@ export class CheckinPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Check-In", url: "/home/checkin/all-checkin", icon: "bi bi-list-ul" },
+    { text: "New Check-In", url: "/home/checkin/new-checkin", icon: "bi bi-plus-square" },
+  ]
+  
   ngOnInit(): void {
   }
 

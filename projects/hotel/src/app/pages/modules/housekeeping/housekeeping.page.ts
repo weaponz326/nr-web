@@ -9,6 +9,10 @@ export class HousekeepingPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All House Keeping", url: "/home/housekeeping/all-housekeeping", icon: "bi bi-list-ul" },
+  ]
+  
   ngOnInit(): void {
   }
 

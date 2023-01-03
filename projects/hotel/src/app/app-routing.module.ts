@@ -59,7 +59,50 @@ const routes: Routes = [
         // canActivateChild: [SettingsGuard, ConfigAccessGuard],
         loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
       },
-
+      {
+        path: "assets",
+        loadChildren: () => import("./pages/modules/assets/assets.module").then(m => m.AssetsModule)
+      },
+      {
+        path: "bills",
+        loadChildren: () => import("./pages/modules/bills/bills.module").then(m => m.BillsModule)
+      },
+      {
+        path: "bookings",
+        loadChildren: () => import("./pages/modules/bookings/bookings.module").then(m => m.BookingsModule)
+      },
+      {
+        path: "checkin",
+        loadChildren: () => import("./pages/modules/checkin/checkin.module").then(m => m.CheckinModule)
+      },
+      {
+        path: "guests",
+        loadChildren: () => import("./pages/modules/guests/guests.module").then(m => m.GuestsModule)
+      },
+      {
+        path: "housekeeping",
+        loadChildren: () => import("./pages/modules/housekeeping/housekeeping.module").then(m => m.HousekeepingModule)
+      },
+      {
+        path: "payments",
+        loadChildren: () => import("./pages/modules/payments/payments.module").then(m => m.PaymentsModule)
+      },
+      {
+        path: "rooms",
+        loadChildren: () => import("./pages/modules/rooms/rooms.module").then(m => m.RoomsModule)
+      },
+      {
+        path: "roster",
+        loadChildren: () => import("./pages/modules/roster/roster.module").then(m => m.RosterModule)
+      },
+      {
+        path: "services",
+        loadChildren: () => import("./pages/modules/services/services.module").then(m => m.ServicesModule)
+      },
+      {
+        path: "staff",
+        loadChildren: () => import("./pages/modules/staff/staff.module").then(m => m.StaffModule)
+      },
     ]
   }
 ]

@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BillsRoutingModule } from './bills-routing.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { BillsPage } from './bills.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -23,7 +27,11 @@ import { BillTablesComponent } from './bill-tables/bill-tables.component';
   ],
   imports: [
     CommonModule,
-    BillsRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    BillsRoutingModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class BillsModule { }
