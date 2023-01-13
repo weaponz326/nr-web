@@ -210,6 +210,7 @@ export class ViewOrderComponent implements OnInit {
       })
   }
 
+  // TODO: implement at backend with django signals
   createDelivery(){
     let data: Delivery = {
       id: sessionStorage.getItem('restaurant_order_id') as string,
