@@ -1,1 +1,36 @@
-<p>view-room works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- room page form -->
+
+        <app-room-form #roomFormComponentReference></app-room-form>
+
+        <div *ngIf="!isRoomLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/rooms/all-rooms">Cancel</button>
+                <button [disabled]="isRoomDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isRoomSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putRoom()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isRoomLoading" class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteRoom()"></app-delete-modal-one>

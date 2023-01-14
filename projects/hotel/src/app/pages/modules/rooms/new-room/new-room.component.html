@@ -1,1 +1,22 @@
-<p>new-room works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- room page form -->
+
+        <app-room-form #roomFormComponentReference></app-room-form>
+
+        <div class="row page-form">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/rooms/all-rooms">Cancel</button>
+                <button [disabled]="isRoomSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="createRoom()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
