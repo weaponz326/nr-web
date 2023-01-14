@@ -1,1 +1,68 @@
-<p>service-items works!</p>
+<div class="row">
+    <div class="col-md-8">
+
+        <hr class="top-divider" />
+        <hr class="bottom-divider" />
+
+        <h4 class="mb-3">Service Items</h4>
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="7%" class="min-width-1">No.</th>
+                        <th width="20%" class="min-width-3">Item Date</th>
+                        <th width="45%" class="min-width-2">Description</th>
+                        <th width="20%" class="min-width-2">Amount</th>
+                        <th width="8%" class="p-0 min-width-2">
+                            <button class="btn btn-secondary btn-sm w-100" (click)="addItem.openModal(lastItem)">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of itemsGridData; index as i" (dblClick)="openEditItem(i)">
+                        <td>{{data?.item_number}}</td>
+                        <td>{{data?.item_date}}</td>
+                        <td>{{data?.description}}</td>
+                        <td>{{data?.amount}}</td>
+                        <td class="p-0">
+                            <button class="btn btn-sm bservice w-50" (click)="openEditItem(data)"><i class="bi bi-pen"></i></button>
+                            <button [disabled]="isItemDeleting" class="btn btn-sm bservice w-50" (click)="confirmDelete(data.id)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData" class="text-center">
+                        <td colspan="5">
+                            <div class="spinner-grow m-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="bg-light">
+                        <td colspan="3"></td>
+                        <td>{{totalAmount}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- add and edit item modal components -->
+
+<app-add-item #addItemComponentReference (saveItemEvent)="postItem($event)"></app-add-item>
+
+<app-edit-item #editItemComponentReference (saveItemEvent)="putItem($event)"></app-edit-item>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteItem()"></app-delete-modal-two>

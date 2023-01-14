@@ -15,6 +15,7 @@ import { ViewServiceComponent } from './view-service/view-service.component';
 import { ServiceItemsComponent } from './service-items/service-items.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
+import { ItemFormComponent } from './item-form/item-form.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EditItemComponent } from './edit-item/edit-item.component';
     ViewServiceComponent,
     ServiceItemsComponent,
     AddItemComponent,
-    EditItemComponent
+    EditItemComponent,
+    ItemFormComponent
   ],
   imports: [
     CommonModule,
