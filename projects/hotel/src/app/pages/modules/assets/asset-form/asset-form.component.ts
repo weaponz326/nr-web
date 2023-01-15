@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-asset-form',
@@ -8,6 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class AssetFormComponent implements OnInit {
 
   constructor() { }
+
+  assetForm = new FormGroup({
+    assetNumber: new FormControl(''),
+    assetName: new FormControl(''),
+    category: new FormControl(''),
+    type: new FormControl(''),
+    model: new FormControl(''),
+    description: new FormControl(''),
+    datePurchased: new FormControl(),
+    condition: new FormControl(''),
+  });
 
   ngOnInit(): void {
   }
