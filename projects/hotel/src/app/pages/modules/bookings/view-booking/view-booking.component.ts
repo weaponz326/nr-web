@@ -84,13 +84,13 @@ export class ViewBookingComponent implements OnInit {
 
   putBooking(){
     // let data: Booking = {
-      let data = {
-        account: this.customCookie.getCookie('hotel_id') as string,
-        booking_code: this.bookingForm.controls.bookingCode.value as string,
-        booking_date: this.bookingForm.controls.bookingDate.value as string,
-        expected_arrival: this.bookingForm.controls.expectedArrival.value as string,
-        booking_status: this.bookingForm.controls.bookingStatus.value as string,
-      }
+    let data = {
+      account: this.customCookie.getCookie('hotel_id') as string,
+      booking_code: this.bookingForm.controls.bookingCode.value as string,
+      booking_date: this.bookingForm.controls.bookingDate.value as string,
+      expected_arrival: this.bookingForm.controls.expectedArrival.value as string,
+      booking_status: this.bookingForm.controls.bookingStatus.value as string,
+    }
 
     console.log(data);
     this.isBookingSaving = true;
