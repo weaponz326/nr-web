@@ -15,6 +15,7 @@ import { ViewBookingComponent } from './view-booking/view-booking.component';
 import { BookedRoomsComponent } from './booked-rooms/booked-rooms.component';
 import { AddBookedRoomComponent } from './add-booked-room/add-booked-room.component';
 import { EditBookedRoomComponent } from './edit-booked-room/edit-booked-room.component';
+import { BookedRoomFormComponent } from './booked-room-form/booked-room-form.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EditBookedRoomComponent } from './edit-booked-room/edit-booked-room.com
     ViewBookingComponent,
     BookedRoomsComponent,
     AddBookedRoomComponent,
-    EditBookedRoomComponent
+    EditBookedRoomComponent,
+    BookedRoomFormComponent
   ],
   imports: [
     CommonModule,

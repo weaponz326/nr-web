@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
+
+import { BookedRoomFormComponent } from '../booked-room-form/booked-room-form.component'
+
 
 @Component({
   selector: 'app-add-booked-room',
@@ -9,7 +12,35 @@ export class AddBookedRoomComponent implements OnInit {
 
   constructor() { }
 
+  @Output() saveItemEvent = new EventEmitter<any>();
+
+  @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
+  @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
+
+  @ViewChild('bookedRoomFormComponentReference', { read: BookedRoomFormComponent, static: false }) bookedRoomForm!: BookedRoomFormComponent;
+
+  isItemSaving = false;
+
   ngOnInit(): void {
+  }
+
+  openModal(){
+    this.addButton.nativeElement.click();
+  }
+
+  saveItem(){
+    let data = {
+      persons_number: this.bookedRoomForm.bookedRoomForm.controls.personsNumber.value as number,
+    }
+
+    this.saveItemEvent.emit(data);
+  }
+
+  resetForm(){
+    this.bookedRoomForm.bookedRoomForm.controls.roomNumber.setValue('');
+    this.bookedRoomForm.bookedRoomForm.controls.roomType.setValue('');
+    this.bookedRoomForm.bookedRoomForm.controls.rate.setValue(0.00);
+    this.bookedRoomForm.bookedRoomForm.controls.personsNumber.setValue(1);
   }
 
 }
