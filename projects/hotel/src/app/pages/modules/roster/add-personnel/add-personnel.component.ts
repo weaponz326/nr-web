@@ -9,22 +9,21 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 
 
 @Component({
-  selector: 'app-edit-personnel',
-  templateUrl: './edit-personnel.component.html',
-  styleUrls: ['./edit-personnel.component.scss']
+  selector: 'app-add-personnel',
+  templateUrl: './add-personnel.component.html',
+  styleUrls: ['./add-personnel.component.scss']
 })
-export class EditPersonnelComponent implements OnInit {
+export class AddPersonnelComponent implements OnInit {
+
+  constructor() { }
 
   @Output() savePersonnelEvent = new EventEmitter<any>();
-  @Output() deletePersonnelEvent = new EventEmitter<any>();
 
-  @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
+  @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismssButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   // @ViewChild('selectStaffComponentReference', { read: SelectStaffComponent, static: false }) selectStaff!: SelectStaffComponent;
   // @ViewChild('selectShiftComponentReference', { read: SelectShiftComponent, static: false }) selectShift!: SelectShiftComponent;
-
-  personnelData: any
 
   selectedStaffId: any;
   selectedShftId: any;
@@ -40,27 +39,24 @@ export class EditPersonnelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openModal(data: any){
-    this.personnelData = data;
-
-    this.personnelForm.controls.personnelCode.setValue(data.personnel_code);
-    this.personnelForm.controls.personnelName.setValue(data.personnel_name);
-
-    this.editButton.nativeElement.click();
+  openModal(){
+    this.addButton.nativeElement.click();
   }
 
   savePersonnel(){
+    // let data: Personnel = {
     let data = {
-      batch_symbol: this.personnelForm.controls.batchSymbol.value,
-      staff: this.selectedStaffId,
+      roster: sessionStorage.getItem('hotel_roster_id') as string,      
+      batch_symbol: this.personnelForm.controls.batchSymbol.value as string,
+      staff: this.selectedStaffId
     }
+    this.savePersonnelEvent.emit(data);
+  }
 
-    let personnel = {
-      id: this.personnelData.id,
-      data: data
-    }
-
-    this.savePersonnelEvent.emit(personnel);
+  resetForm(){
+    this.personnelForm.controls.personnelCode.setValue('');
+    this.personnelForm.controls.personnelName.setValue('');
+    this.personnelForm.controls.batchSymbol.setValue('');
   }
 
   onStaffSelected(staffData: any){
@@ -76,5 +72,5 @@ export class EditPersonnelComponent implements OnInit {
     console.log("You are opening select staff window")
     // this.selectStaff.openModal();
   }
-
+  
 }

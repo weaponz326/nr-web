@@ -1,4 +1,4 @@
-<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#addPersonnelModal">
+<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addPersonnelModal">
     Launch demo modal
 </button>
 
@@ -7,8 +7,8 @@
         <div class="modal-content">
 
             <div class="modal-header bg-light">
-                <span class="modal-title" id="addPersonnelModalLabel">Edit Personnel</span>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <span class="modal-title" id="addPersonnelModalLabel">Add Personnel</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 
-                </form>
+                </form>                
 
             </div>
 
@@ -68,4 +68,4 @@
 
 <!-- select staff window component reference -->
 
-<!-- <app-select-staff #selectStaffComponentReference [closeTarget]="'#editPersonnelModal'" (rowSelected)="onStaffSelected($event)"></app-select-staff> -->
+<!-- <app-select-staff #selectStaffComponentReference [closeTarget]="'#addPersonnelModal'" (rowSelected)="onStaffSelected($event)"></app-select-staff> -->

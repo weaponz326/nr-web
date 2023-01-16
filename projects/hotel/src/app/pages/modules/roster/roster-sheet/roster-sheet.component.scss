@@ -1,0 +1,15 @@
+.day-cell:hover{
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.sheet-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.pinned-column{
+    position: sticky;
+    left: 0;
+}
+  
