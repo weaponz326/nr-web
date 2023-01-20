@@ -5,9 +5,9 @@ import { GuestFormComponent } from '../guest-form/guest-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { GuestsApiService } from 'projects/hotel/src/app/services/modules-api/guests-api/guests-api.service';
+import { GuestsApiService } from 'projects/hotel/src/app/services/modules-api/guests-api/guests-api.service';
 
-// import { Guest } from 'projects/hotel/src/app/models/modules/guests/guests.model';
+import { Guest } from 'projects/hotel/src/app/models/modules/guests/guests.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class NewGuestComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private guestsApi: GuestsApiService
+    private guestsApi: GuestsApiService
   ) { }
 
   @ViewChild('guestFormComponentReference', { read: GuestFormComponent, static: false }) guestForm!: GuestFormComponent;
@@ -42,8 +42,7 @@ export class NewGuestComponent implements OnInit {
   createGuest(){
     console.log('u are saving a new guest');
 
-    // let data: Guest = {
-    let data = {
+    let data: Guest = {
       account: this.customCookie.getCookie('hotel_id') as string,
       guest_code: this.guestForm.guestForm.controls.guestCode.value as string,
       guest_name: this.guestForm.guestForm.controls.guestName.value as string,
@@ -58,21 +57,21 @@ export class NewGuestComponent implements OnInit {
     console.log(data);
     this.isGuestSaving = true;
 
-    // this.guestsApi.postGuest(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isGuestSaving = false;
+    this.guestsApi.postGuest(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isGuestSaving = false;
 
-    //       sessionStorage.setItem('hotel_guest_id', res.id);
-    //       this.router.navigateByUrl('/home/guests/view-guest');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isGuestSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          sessionStorage.setItem('hotel_guest_id', res.id);
+          this.router.navigateByUrl('/home/guests/view-guest');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isGuestSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewguestCodeConfig(){

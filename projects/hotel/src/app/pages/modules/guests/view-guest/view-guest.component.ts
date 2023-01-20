@@ -6,10 +6,10 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { GuestsApiService } from 'projects/hotel/src/app/services/modules-api/guests-api/guests-api.service';
+import { GuestsApiService } from 'projects/hotel/src/app/services/modules-api/guests-api/guests-api.service';
 // import { GuestsPrintService } from 'projects/hotel/src/app/services/modules-printing/guests-print/guests-print.service';
 
-// import { Guest } from 'projects/hotel/src/app/models/modules/guests/guests.model';
+import { Guest } from 'projects/hotel/src/app/models/modules/guests/guests.model';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ViewGuestComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private guestsApi: GuestsApiService,
+    private guestsApi: GuestsApiService,
     // private guestsPrint: GuestsPrintService,
   ) { }
 
@@ -48,35 +48,34 @@ export class ViewGuestComponent implements OnInit {
   getGuest(){
     this.isGuestLoading = true;
 
-    // this.guestsApi.getGuest()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.guestData = res;
-    //       this.isGuestLoading = false;
+    this.guestsApi.getGuest()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.guestData = res;
+          this.isGuestLoading = false;
 
-    //       this.guestForm.guestForm.controls.guestCode.setValue(this.guestData.guest_code);
-    //       this.guestForm.guestForm.controls.guestName.setValue(this.guestData.guest_name);
-    //       this.guestForm.guestForm.controls.guestType.setValue(this.guestData.guest_type);
-    //       this.guestForm.guestForm.controls.phone.setValue(this.guestData.phone);
-    //       this.guestForm.guestForm.controls.email.setValue(this.guestData.email);
-    //       this.guestForm.guestForm.controls.address.setValue(this.guestData.address);
-    //       this.guestForm.guestForm.controls.state.setValue(this.guestData.state);
-    //       this.guestForm.guestForm.controls.city.setValue(this.guestData.city);
-    //    },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isGuestLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.guestForm.guestForm.controls.guestCode.setValue(this.guestData.guest_code);
+          this.guestForm.guestForm.controls.guestName.setValue(this.guestData.guest_name);
+          this.guestForm.guestForm.controls.guestType.setValue(this.guestData.guest_type);
+          this.guestForm.guestForm.controls.phone.setValue(this.guestData.phone);
+          this.guestForm.guestForm.controls.email.setValue(this.guestData.email);
+          this.guestForm.guestForm.controls.address.setValue(this.guestData.address);
+          this.guestForm.guestForm.controls.state.setValue(this.guestData.state);
+          this.guestForm.guestForm.controls.city.setValue(this.guestData.city);
+       },
+        error: (err) => {
+          console.log(err);
+          this.isGuestLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putGuest(){
     console.log('u are saving a new guest');
 
-    // let data: Guest = {
-    let data = {
+    let data: Guest = {
       account: this.customCookie.getCookie('hotel_id') as string,
       guest_code: this.guestForm.guestForm.controls.guestCode.value as string,
       guest_name: this.guestForm.guestForm.controls.guestName.value as string,
@@ -91,18 +90,18 @@ export class ViewGuestComponent implements OnInit {
     console.log(data);
     this.isGuestSaving = true;
 
-    // this.guestsApi.putGuest(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isGuestSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isGuestSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.guestsApi.putGuest(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isGuestSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isGuestSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -112,17 +111,17 @@ export class ViewGuestComponent implements OnInit {
   deleteGuest(){
     this.isGuestDeleting = true;
 
-    // this.guestsApi.deleteGuest()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/guests/all-guests');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.guestsApi.deleteGuest()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/guests/all-guests');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){
