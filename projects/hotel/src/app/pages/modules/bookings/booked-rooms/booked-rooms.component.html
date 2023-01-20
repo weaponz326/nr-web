@@ -38,12 +38,6 @@
                             </div>
                         </td>
                     </tr>
-                    <tr class="bg-light">
-                        <td colspan="2"></td>
-                        <td>{{totalAmount}}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -53,9 +47,9 @@
 
 <!-- add and edit item modal components -->
 
-<app-add-booked-room #addBookedRoomComponentReference (saveItemEvent)="postItem($event)"></app-add-booked-room>
+<app-add-booked-room #addBookedRoomComponentReference (saveItemEvent)="postBookedRoom($event)"></app-add-booked-room>
 
-<app-edit-booked-room #editBookedRoomComponentReference (saveItemEvent)="putItem($event)"></app-edit-booked-room>
+<app-edit-booked-room #editBookedRoomComponentReference (saveItemEvent)="putBookedRoom($event)"></app-edit-booked-room>
 
 <!-- connection error toast component -->
 
@@ -63,4 +57,4 @@
 
 <!-- delete confirmation modal component -->
 
-<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteItem()"></app-delete-modal-two>
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteBookedRoom()"></app-delete-modal-two>

@@ -11,8 +11,8 @@ export class BookedRoomFormComponent implements OnInit {
 
   constructor() { }
 
-  selectedMenuItemId = "";
-  selectedMenuItemData: any;
+  selectedRoomId = "";
+  selectedRoomData: any;
 
   bookedRoomForm = new FormGroup({
     roomNumber: new FormControl({value: "", disabled: true}),

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 
 import { BookedRoomFormComponent } from '../booked-room-form/booked-room-form.component'
 
+import { BookedRoom } from 'projects/hotel/src/app/models/modules/bookings/bookings.model';
+
 
 @Component({
   selector: 'app-add-booked-room',
@@ -29,7 +31,9 @@ export class AddBookedRoomComponent implements OnInit {
   }
 
   saveItem(){
-    let data = {
+    let data: BookedRoom = {
+      booking: sessionStorage.getItem('hotel_booking_id') as string,
+      room: this.bookedRoomForm.selectedRoomId,
       persons_number: this.bookedRoomForm.bookedRoomForm.controls.personsNumber.value as number,
     }
 

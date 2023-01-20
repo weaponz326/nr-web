@@ -7,10 +7,10 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { BookedRoomsComponent } from '../booked-rooms/booked-rooms.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { BookingsApiService } from 'projects/hotel/src/app/services/modules-api/bookings-api/bookings-api.service';
+import { BookingsApiService } from 'projects/hotel/src/app/services/modules-api/bookings-api/bookings-api.service';
 // import { BookingsPrintService } from 'projects/hotel/src/app/services/modules-printing/bookings-print/bookings-print.service';
 
-// import { Booking } from 'projects/hotel/src/app/models/modules/bookings/bookings.model';
+import { Booking } from 'projects/hotel/src/app/models/modules/bookings/bookings.model';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class ViewBookingComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private bookingsApi: BookingsApiService,
+    private bookingsApi: BookingsApiService,
     // private bookingsPrint: BookingsPrintService
   ) { }
 
@@ -54,6 +54,8 @@ export class ViewBookingComponent implements OnInit {
     bookingStatus: new FormControl(''),
   })
 
+  selectedGuestId = '';
+
   ngOnInit(): void {
     this.getBooking();
   }
@@ -61,52 +63,52 @@ export class ViewBookingComponent implements OnInit {
   getBooking(){
     this.isBookingLoading = true;
 
-    // this.bookingsApi.getBooking()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.bookingsApi.getBooking()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.bookingFormData = res;
-    //       this.isBookingLoading = false;
+          this.bookingFormData = res;
+          this.isBookingLoading = false;
 
-    //       this.bookingForm.controls.bookingCode.setValue(this.bookingFormData.booking_code);
-    //       this.bookingForm.controls.bookingDate.setValue(new Date(this.bookingFormData.booking_date).toISOString().slice(0, 16));
-    //       this.bookingForm.controls.expectedArrival.setValue(new Date(this.bookingFormData.expected_arrival).toISOString().slice(0, 16));
-    //       this.bookingForm.controls.bookingStatus.setValue(this.bookingFormData.booking_status);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBookingLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.bookingForm.controls.bookingCode.setValue(this.bookingFormData.booking_code);
+          this.bookingForm.controls.bookingDate.setValue(new Date(this.bookingFormData.booking_date).toISOString().slice(0, 16));
+          this.bookingForm.controls.expectedArrival.setValue(new Date(this.bookingFormData.expected_arrival).toISOString().slice(0, 16));
+          this.bookingForm.controls.bookingStatus.setValue(this.bookingFormData.booking_status);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isBookingLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putBooking(){
-    // let data: Booking = {
-    let data = {
+    let data: Booking = {
       account: this.customCookie.getCookie('hotel_id') as string,
+      guest: this.selectedGuestId,
       booking_code: this.bookingForm.controls.bookingCode.value as string,
-      booking_date: this.bookingForm.controls.bookingDate.value as string,
-      expected_arrival: this.bookingForm.controls.expectedArrival.value as string,
+      booking_date: this.bookingForm.controls.bookingDate.value,
+      expected_arrival: this.bookingForm.controls.expectedArrival.value,
       booking_status: this.bookingForm.controls.bookingStatus.value as string,
     }
 
     console.log(data);
     this.isBookingSaving = true;
 
-    // this.bookingsApi.putBooking(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isBookingSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBookingSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.bookingsApi.putBooking(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isBookingSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isBookingSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -116,18 +118,18 @@ export class ViewBookingComponent implements OnInit {
   deleteBooking(){
     this.isBookingDeleting = true;
 
-    // this.bookingsApi.deleteBooking()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.bookingsApi.deleteBooking()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/bookings/all-bookings');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/bookings/all-bookings');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

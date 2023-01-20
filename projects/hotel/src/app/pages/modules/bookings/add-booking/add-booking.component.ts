@@ -5,9 +5,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { BookingsApiService } from 'projects/hotel/src/app/services/modules-api/bookings-api/bookings-api.service';
+import { BookingsApiService } from 'projects/hotel/src/app/services/modules-api/bookings-api/bookings-api.service';
 
-// import { Booking } from 'projects/hotel/src/app/models/modules/bookings/bookings.model';
+import { Booking } from 'projects/hotel/src/app/models/modules/bookings/bookings.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AddBookingComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private bookingsApi: BookingsApiService,
+    private bookingsApi: BookingsApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -38,6 +38,7 @@ export class AddBookingComponent implements OnInit {
     bookingStatus: new FormControl(''),
   })
 
+  selectedGuestId = '';
 
   ngOnInit(): void {
   }
@@ -49,37 +50,37 @@ export class AddBookingComponent implements OnInit {
   }
 
   createBooking(){
-    // let data: Booking = {
-    let data = {
+    let data: Booking = {
       account: this.customCookie.getCookie('hotel_id') as string,
+      guest: this.selectedGuestId,
       booking_code: this.bookingForm.controls.bookingCode.value as string,
-      booking_date: this.bookingForm.controls.bookingDate.value as string,
-      expected_arrival: this.bookingForm.controls.expectedArrival.value as string,
+      booking_date: this.bookingForm.controls.bookingDate.value,
+      expected_arrival: this.bookingForm.controls.expectedArrival.value,
       booking_status: this.bookingForm.controls.bookingStatus.value as string,
     }
 
     console.log(data);
     this.isBookingSaving = true;
 
-    // this.bookingsApi.postBooking(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.bookingsApi.postBooking(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hotel_booking_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hotel_booking_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isBookingSaving = false;
-    //         this.router.navigateByUrl('/home/bookings/view-booking');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBookingSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isBookingSaving = false;
+            this.router.navigateByUrl('/home/bookings/view-booking');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isBookingSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
@@ -87,21 +88,21 @@ export class AddBookingComponent implements OnInit {
   getNewBookingCodeConfig(){
     this.bookingForm.controls.bookingCode.disable();
 
-    // this.bookingsApi.getNewBookingCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.bookingsApi.getNewBookingCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.code)
-    //         this.bookingForm.controls.bookingCode.setValue(res.code);
-    //       else
-    //         this.bookingForm.controls.bookingCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.bookingForm.controls.bookingCode.setValue(res.code);
+          else
+            this.bookingForm.controls.bookingCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
   
 }
