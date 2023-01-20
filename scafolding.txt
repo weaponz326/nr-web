@@ -1498,6 +1498,22 @@
 				+ assets print (S)
 				+ housekeeping print (S)
 		+ models
+			+ account (Cm)
+            + modules
+			    + admin (Cm)
+			    + portal (Cm)
+			    + settings (Cm)
+			    + bills (Cm)
+				+ staff (Cm)
+				+ roster (Cm)
+				+ guests (Cm)
+				+ payments (Cm)
+				+ services (Cm)
+				+ checkin (Cm)
+				+ bookings (Cm)
+				+ rooms (Cm)
+				+ assets (Cm)
+				+ housekeeping (Cm)
 		+ guards
     + hospital (A)
     + shop (A)
