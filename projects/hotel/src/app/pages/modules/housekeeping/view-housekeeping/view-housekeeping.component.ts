@@ -7,10 +7,10 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { HousekeepingChecklistComponent } from '../housekeeping-checklist/housekeeping-checklist.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { HousekeepingsApiService } from 'projects/hotel/src/app/services/modules-api/housekeepings-api/housekeepings-api.service';
-// import { HousekeepingsPrintService } from 'projects/hotel/src/app/services/modules-printing/housekeepings-print/housekeepings-print.service';
+import { HousekeepingApiService } from 'projects/hotel/src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+// import { HousekeepingPrintService } from 'projects/hotel/src/app/services/modules-printing/housekeeping-print/housekeeping-print.service';
 
-// import { Housekeeping } from 'projects/hotel/src/app/models/modules/housekeepings/housekeepings.model';
+import { Housekeeping } from 'projects/hotel/src/app/models/modules/housekeeping/housekeeping.model';
 
 
 @Component({
@@ -23,8 +23,8 @@ export class ViewHousekeepingComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private housekeepingsApi: HousekeepingsApiService,
-    // private housekeepingsPrint: HousekeepingsPrintService
+    private housekeepingApi: HousekeepingApiService,
+    // private housekeepingPrint: HousekeepingPrintService
   ) { }
 
   @ViewChild('existButtonElementReference', { read: ElementRef, static: false }) existButtonElement!: ElementRef;
@@ -34,14 +34,14 @@ export class ViewHousekeepingComponent implements OnInit {
   @ViewChild('housekeepingChecklistComponentReference', { read: HousekeepingChecklistComponent, static: false }) housekeepingChecklist!: HousekeepingChecklistComponent;
 
   navHeading: any[] = [
-    { text: "All Housekeepings", url: "/home/housekeepings/all-housekeepings" },
-    { text: "View Housekeeping", url: "/home/housekeepings/view-housekeeping" },
+    { text: "All Housekeeping", url: "/home/housekeeping/all-housekeeping" },
+    { text: "View Housekeeping", url: "/home/housekeeping/view-housekeeping" },
   ];
 
   housekeepingFormData: any;
 
   isHousekeepingLoading: boolean = false;
-  isHousekeepingSaving: boolean = false;
+  isHousekeepingaving: boolean = false;
   isHousekeepingDeleting: boolean = false;
   isCheckingDelivery: boolean = false;
 
@@ -51,6 +51,8 @@ export class ViewHousekeepingComponent implements OnInit {
     roomNumber: new FormControl({value: '', disabled: true}),
   })
 
+  selectedRoomId = '';
+
   ngOnInit(): void {
     this.getHousekeeping();
   }
@@ -58,49 +60,49 @@ export class ViewHousekeepingComponent implements OnInit {
   getHousekeeping(){
     this.isHousekeepingLoading = true;
 
-    // this.housekeepingsApi.getHousekeeping()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.housekeepingApi.getHousekeeping()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.housekeepingFormData = res;
-    //       this.isHousekeepingLoading = false;
+          this.housekeepingFormData = res;
+          this.isHousekeepingLoading = false;
 
-    //       this.housekeepingForm.controls.housekeepingCode.setValue(this.housekeepingFormData.housekeeping_code);
-    //       this.housekeepingForm.controls.housekeepingDate.setValue(new Date(this.housekeepingFormData.housekeeping_date).toISOString().slice(0, 16));
-    //       this.housekeepingForm.controls.roomNumber.setValue(this.housekeepingFormData.room_number);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isHousekeepingLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.housekeepingForm.controls.housekeepingCode.setValue(this.housekeepingFormData.housekeeping_code);
+          this.housekeepingForm.controls.housekeepingDate.setValue(new Date(this.housekeepingFormData.housekeeping_date).toISOString().slice(0, 16));
+          this.housekeepingForm.controls.roomNumber.setValue(this.housekeepingFormData.room_number);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isHousekeepingLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putHousekeeping(){
-    // let data: Housekeeping = {
-    let data = {
+    let data: Housekeeping = {
       account: this.customCookie.getCookie('hotel_id') as string,
+      room: this.selectedRoomId,
       housekeeping_code: this.housekeepingForm.controls.housekeepingCode.value as string,
-      housekeeping_date: this.housekeepingForm.controls.housekeepingDate.value as string,
+      housekeeping_date: this.housekeepingForm.controls.housekeepingDate.value,
     }
 
     console.log(data);
-    this.isHousekeepingSaving = true;
+    this.isHousekeepingaving = true;
 
-    // this.housekeepingsApi.putHousekeeping(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isHousekeepingSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isHousekeepingSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.housekeepingApi.putHousekeeping(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isHousekeepingaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isHousekeepingaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -110,28 +112,23 @@ export class ViewHousekeepingComponent implements OnInit {
   deleteHousekeeping(){
     this.isHousekeepingDeleting = true;
 
-    // this.housekeepingsApi.deleteHousekeeping()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.housekeepingApi.deleteHousekeeping()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/housekeepings/all-housekeepings');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/housekeeping/all-housekeeping');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){
     console.log("lets start printing...");
-    // this.housekeepingsPrint.printViewHousekeeping();
-  }
-
-  onPrintRoll(){
-    console.log("lets start printing roll...");
-    // this.housekeepingsPrint.printHousekeepingRoll();
+    // this.housekeepingPrint.printViewHousekeeping();
   }
 
 }

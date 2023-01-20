@@ -5,7 +5,7 @@ import { EditChecklistComponent } from '../edit-checklist/edit-checklist.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
 
-// import { HousekeepingApiService } from 'projects/hotel/src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
+import { HousekeepingApiService } from 'projects/hotel/src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/mo
 export class HousekeepingChecklistComponent implements OnInit {
 
   constructor(
-    // private housekeepingApi: HousekeepingApiService
+    private housekeepingApi: HousekeepingApiService
   ) { }
 
   @ViewChild('addChecklistComponentReference', { read: AddChecklistComponent, static: false }) addChecklist!: AddChecklistComponent;
@@ -40,89 +40,89 @@ export class HousekeepingChecklistComponent implements OnInit {
   getHousekeepingChecklist(){
     this.isFetchingGridData = true;
 
-    // this.housekeepingApi.getHousekeepingChecklist()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.checklistsGridData = res;
+    this.housekeepingApi.getHousekeepingChecklist()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.checklistsGridData = res;
 
-    //       try { this.lastChecklist = Number((res[res.length - 1]).checklist_number) }
-    //       catch{ this.lastChecklist = 0 }
+          try { this.lastChecklist = Number((res[res.length - 1]).checklist_number) }
+          catch{ this.lastChecklist = 0 }
 
-    //       this.isFetchingGridData = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   postChecklist(data: any){
     console.log(data);
     this.addChecklist.isItemSaving = true;
 
-    // this.housekeepingApi.postChecklist(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.housekeepingApi.postChecklist(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getHousekeepingChecklist();
+          if(res.id){
+            this.getHousekeepingChecklist();
 
-    //         this.addChecklist.isItemSaving = false;
-    //         this.addChecklist.dismissButton.nativeElement.click();
-    //         this.addChecklist.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addChecklist.isItemSaving = false;
-    //       this.addChecklist.dismissButton.nativeElement.click();
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addChecklist.isItemSaving = false;
+            this.addChecklist.dismissButton.nativeElement.click();
+            this.addChecklist.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addChecklist.isItemSaving = false;
+          this.addChecklist.dismissButton.nativeElement.click();
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putChecklist(housekeeping_checklist: any){
     console.log(housekeeping_checklist);
     this.editChecklist.isItemSaving = true;
 
-    // this.housekeepingApi.putChecklist(housekeeping_checklist.id, housekeeping_checklist.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.housekeepingApi.putChecklist(housekeeping_checklist.id, housekeeping_checklist.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.editChecklist.isItemSaving = false;
-    //       this.editChecklist.dismissButton.nativeElement.click();
-    //       this.getHousekeepingChecklist();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editChecklist.isItemSaving = false;
-    //       this.editChecklist.dismissButton.nativeElement.click();
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.editChecklist.isItemSaving = false;
+          this.editChecklist.dismissButton.nativeElement.click();
+          this.getHousekeepingChecklist();
+        },
+        error: (err) => {
+          console.log(err);
+          this.editChecklist.isItemSaving = false;
+          this.editChecklist.dismissButton.nativeElement.click();
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteChecklist(){
     this.isChecklistDeleting = true;
 
-    // this.housekeepingApi.deleteChecklist(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isChecklistDeleting = false;
-    //       this.getHousekeepingChecklist();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isChecklistDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.housekeepingApi.deleteChecklist(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isChecklistDeleting = false;
+          this.getHousekeepingChecklist();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isChecklistDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditChecklist(data: any){

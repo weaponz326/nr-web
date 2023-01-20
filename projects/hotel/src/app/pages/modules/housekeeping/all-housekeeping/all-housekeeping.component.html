@@ -8,7 +8,7 @@
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <button class="btn btn-secondary page-new-btn" (click)="newHousekeeping.openModal()">New House Keeping</button>
+                        <button class="btn btn-secondary page-add-btn px-1" (click)="newHousekeeping.openModal()">New House Keeping</button>
                         <button [disabled]="isFetchingGridData" class="btn btn-light bhousekeeping float-end page-refresh-btn" (click)="getAccountHousekeeping(1, 20, '')">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -34,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of housekeepingsGridData" (dblclick)="viewHousekeeping(data.id)" class="table-pointer">
+                            <tr *ngFor="let data of housekeepingGridData" (dblclick)="viewHousekeeping(data.id)" class="table-pointer">
                                 <td>{{data?.housekeeping_code}}</td>
                                 <td>{{data?.housekeeping_date | date: 'short'}}</td>
                                 <td>{{data?.room?.room_number}}</td>

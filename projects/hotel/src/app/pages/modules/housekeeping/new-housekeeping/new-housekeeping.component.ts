@@ -5,9 +5,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { HousekeepingsApiService } from 'projects/hotel/src/app/services/modules-api/housekeepings-api/housekeepings-api.service';
+import { HousekeepingApiService } from 'projects/hotel/src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
 
-// import { Housekeeping } from 'projects/hotel/src/app/models/modules/housekeepings/housekeepings.model';
+import { Housekeeping } from 'projects/hotel/src/app/models/modules/housekeeping/housekeeping.model';
 
 
 @Component({
@@ -20,14 +20,14 @@ export class NewHousekeepingComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private housekeepingsApi: HousekeepingsApiService,
+    private housekeepingApi: HousekeepingApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  isHousekeepingSaving = false;
+  isHousekeepingaving = false;
 
   housekeepingForm = new FormGroup({
     housekeepingCode: new FormControl(''),
@@ -35,6 +35,7 @@ export class NewHousekeepingComponent implements OnInit {
     roomNumber: new FormControl({value: '', disabled: true}),
   })
 
+  selectedRoomId = '';
 
   ngOnInit(): void {
   }
@@ -46,35 +47,35 @@ export class NewHousekeepingComponent implements OnInit {
   }
 
   createHousekeeping(){
-    // let data: Housekeeping = {
-    let data = {
+    let data: Housekeeping = {
       account: this.customCookie.getCookie('hotel_id') as string,
+      room: this.selectedRoomId,
       housekeeping_code: this.housekeepingForm.controls.housekeepingCode.value as string,
-      housekeeping_date: this.housekeepingForm.controls.housekeepingDate.value as string,
+      housekeeping_date: this.housekeepingForm.controls.housekeepingDate.value,
     }
 
     console.log(data);
-    this.isHousekeepingSaving = true;
+    this.isHousekeepingaving = true;
 
-    // this.housekeepingsApi.postHousekeeping(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.housekeepingApi.postHousekeeping(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hotel_housekeeping_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hotel_housekeeping_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isHousekeepingSaving = false;
-    //         this.router.navigateByUrl('/home/housekeepings/view-housekeeping');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isHousekeepingSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isHousekeepingaving = false;
+            this.router.navigateByUrl('/home/housekeeping/view-housekeeping');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isHousekeepingaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
@@ -82,7 +83,7 @@ export class NewHousekeepingComponent implements OnInit {
   getNewHousekeepingCodeConfig(){
     this.housekeepingForm.controls.housekeepingCode.disable();
 
-    // this.housekeepingsApi.getNewHousekeepingCodeConfig()
+    // this.housekeepingApi.getNewHousekeepingCodeConfig()
     //   .subscribe({
     //     next: (res) => {
     //       console.log(res);

@@ -43,11 +43,9 @@
 
             <div *ngIf="!isHousekeepingLoading" class="row">
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-secondary btn-sm page-form-btn" (click)="onPrintRoll()"><i class="bi bi-receipt me-2"></i>Print</button>
-
-                    <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/housekeepings/all-housekeepings">Cancel</button>
+                    <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/housekeeping/all-housekeeping">Cancel</button>
                     <button [disabled]="isHousekeepingDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                    <button [disabled]="isHousekeepingSaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn">Save</button>
+                    <button [disabled]="isHousekeepingaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn">Save</button>
                 </div>
             </div>
             <div *ngIf="isHousekeepingLoading" class="row">
