@@ -8,10 +8,10 @@ import { BillTablesComponent } from '../bill-tables/bill-tables.component';
 // import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { BillsApiService } from 'projects/hotel/src/app/services/modules-api/bills-api/bills-api.service';
+import { BillsApiService } from 'projects/hotel/src/app/services/modules-api/bills-api/bills-api.service';
 // import { BillsPrintService } from 'projects/hotel/src/app/services/modules-printing/bills-print/bills-print.service';
 
-// import { Bill } from 'projects/hotel/src/app/models/modules/bills/bills.model';
+import { Bill } from 'projects/hotel/src/app/models/modules/bills/bills.model';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class ViewBillComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private billsApi: BillsApiService,
+    private billsApi: BillsApiService,
     // private billsPrint: BillsPrintService
   ) { }
 
@@ -66,32 +66,31 @@ export class ViewBillComponent implements OnInit {
   getBill(){
     this.isBillLoading = true;
 
-    // this.billsApi.getBill()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.billsApi.getBill()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.billFormData = res;
-    //       this.isBillLoading = false;
+          this.billFormData = res;
+          this.isBillLoading = false;
 
-    //       this.billForm.controls.billCode.setValue(this.billFormData.bill_code);
-    //       this.billForm.controls.billDate.setValue(new Date(this.billFormData.bill_date).toISOString().slice(0, 16));
+          this.billForm.controls.billCode.setValue(this.billFormData.bill_code);
+          this.billForm.controls.billDate.setValue(new Date(this.billFormData.bill_date).toISOString().slice(0, 16));
 
-    //       this.selectedGuestId = this.billFormData.guest?.id;
-    //       this.selectedGuestName = this.billFormData.guest_name;
-    //       this.billForm.controls.guestName.setValue(this.billFormData.guest_name);
-    //    },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBillLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.selectedGuestId = this.billFormData.guest?.id;
+          this.selectedGuestName = this.billFormData.guest_name;
+          this.billForm.controls.guestName.setValue(this.billFormData.guest_name);
+       },
+        error: (err) => {
+          console.log(err);
+          this.isBillLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putBill(){
-    // let data: Bill = {
-    let data = {
+    let data: Bill = {
       account: this.customCookie.getCookie('hotel_id') as string,
       guest: this.selectedGuestId,
       bill_code: this.billForm.controls.billCode.value as string,
@@ -102,18 +101,18 @@ export class ViewBillComponent implements OnInit {
     console.log(data);
     this.isBillSaving = true;
 
-    // this.billsApi.putBill(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isBillSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBillSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.billsApi.putBill(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isBillSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isBillSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -123,18 +122,18 @@ export class ViewBillComponent implements OnInit {
   deleteBill(){
     this.isBillDeleting = true;
 
-    // this.billsApi.deleteBill()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.billsApi.deleteBill()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/bills/all-bills');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/bills/all-bills');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openGuestWindow(){

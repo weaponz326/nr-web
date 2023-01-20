@@ -6,9 +6,9 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 // import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { BillsApiService } from 'projects/hotel/src/app/services/modules-api/bills-api/bills-api.service';
+import { BillsApiService } from 'projects/hotel/src/app/services/modules-api/bills-api/bills-api.service';
 
-// import { Bill } from 'projects/hotel/src/app/models/modules/bills/bills.model';
+import { Bill } from 'projects/hotel/src/app/models/modules/bills/bills.model';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class NewBillComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private billsApi: BillsApiService,
+    private billsApi: BillsApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -53,8 +53,7 @@ export class NewBillComponent implements OnInit {
   }
 
   createBill(){
-    // let data: Bill = {
-    let data = {
+    let data: Bill = {
       account: this.customCookie.getCookie('hotel_id') as string,
       guest: this.selectedGuestId,
       bill_code: this.billForm.controls.billCode.value as string,
@@ -65,25 +64,25 @@ export class NewBillComponent implements OnInit {
     console.log(data);
     this.isBillSaving = true;
 
-    // this.billsApi.postBill(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.billsApi.postBill(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hotel_bill_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hotel_bill_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isBillSaving = false;
-    //         this.router.navigateByUrl('/home/bills/view-bill');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBillSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isBillSaving = false;
+            this.router.navigateByUrl('/home/bills/view-bill');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isBillSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
