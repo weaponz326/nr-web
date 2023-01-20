@@ -1434,6 +1434,7 @@
 					+ new checkin (C)
 					+ view checkin (C)
 					+ checkin form (C)
+					+ checkin rooms
 				+ bookings (Mr)(Mp)
 					+ dashboard (C)
 					+ configuration  (C)

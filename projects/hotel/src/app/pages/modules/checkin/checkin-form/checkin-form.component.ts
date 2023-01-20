@@ -11,6 +11,8 @@ export class CheckinFormComponent implements OnInit {
 
   constructor() { }
 
+  selectedGuestId = '';
+  
   checkinForm = new FormGroup({
     checkinCode: new FormControl(''),
     guestCode: new FormControl({ value: '', disabled: true }),

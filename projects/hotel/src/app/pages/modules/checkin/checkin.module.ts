@@ -13,6 +13,7 @@ import { AllCheckinComponent } from './all-checkin/all-checkin.component';
 import { NewCheckinComponent } from './new-checkin/new-checkin.component';
 import { ViewCheckinComponent } from './view-checkin/view-checkin.component';
 import { CheckinFormComponent } from './checkin-form/checkin-form.component';
+import { CheckinRoomsComponent } from './checkin-rooms/checkin-rooms.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CheckinFormComponent } from './checkin-form/checkin-form.component';
     AllCheckinComponent,
     NewCheckinComponent,
     ViewCheckinComponent,
-    CheckinFormComponent
+    CheckinFormComponent,
+    CheckinRoomsComponent
   ],
   imports: [
     CommonModule,

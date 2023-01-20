@@ -5,9 +5,9 @@ import { CheckinFormComponent } from '../checkin-form/checkin-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { CheckinApiService } from 'projects/hotel/src/app/services/modules-api/checkin-api/checkin-api.service';
+import { CheckinApiService } from 'projects/hotel/src/app/services/modules-api/checkin-api/checkin-api.service';
 
-// import { Checkin } from 'projects/hotel/src/app/models/modules/checkin/checkin.model';
+import { Checkin } from 'projects/hotel/src/app/models/modules/checkin/checkin.model';
 
 
 
@@ -21,7 +21,7 @@ export class NewCheckinComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private checkinApi: CheckinApiService
+    private checkinApi: CheckinApiService
   ) { }
 
   @ViewChild('checkinFormComponentReference', { read: CheckinFormComponent, static: false }) checkinForm!: CheckinFormComponent;
@@ -40,35 +40,35 @@ export class NewCheckinComponent implements OnInit {
   postCheckin(){
     console.log('u are saving a new checkin');
 
-    // var data: Checkin = {
-    var data = {
+    var data: Checkin = {
       account: this.customCookie.getCookie('hotel_id') as string,
+      guest: this.checkinForm.selectedGuestId,
       checkin_code: this.checkinForm.checkinForm.controls.checkinCode.value as string,
       from_booking: this.checkinForm.checkinForm.controls.fromBooking.value,
-      booking_code: this.checkinForm.checkinForm.controls.bookingCode.value,
+      booking_code: this.checkinForm.checkinForm.controls.bookingCode.value as string,
       checkin_date: this.checkinForm.checkinForm.controls.checkinDate.value,
-      checkout_date: this.checkinForm.checkinForm.controls.checkoutDate.value as string,
+      checkout_date: this.checkinForm.checkinForm.controls.checkoutDate.value,
       number_nights: this.checkinForm.checkinForm.controls.numberNights.value as string,
     }
 
     console.log(data);
     this.isCheckinSaving = true;
 
-    // this.checkinApi.postCheckin(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isCheckinSaving = false;
+    this.checkinApi.postCheckin(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isCheckinSaving = false;
 
-    //       sessionStorage.setItem('hotel_checkin_id', res.id);
-    //       this.router.navigateByUrl('/home/checkin/view-checkin');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isCheckinSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })    
+          sessionStorage.setItem('hotel_checkin_id', res.id);
+          this.router.navigateByUrl('/home/checkin/view-checkin');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCheckinSaving = false;
+          this.connectionToast.openToast();
+        }
+      })    
   }
 
   getNewCheckinCodeConfig(){
