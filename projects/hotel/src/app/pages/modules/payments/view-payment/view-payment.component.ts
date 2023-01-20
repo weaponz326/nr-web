@@ -6,10 +6,10 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PaymentsApiService } from 'projects/hotel/src/app/services/modules-api/payments-api/payments-api.service';
+import { PaymentsApiService } from 'projects/hotel/src/app/services/modules-api/payments-api/payments-api.service';
 // import { PaymentsPrintService } from 'projects/hotel/src/app/services/modules-printing/payments-print/payments-print.service';
 
-// import { Payment } from 'projects/hotel/src/app/models/modules/payments/payments.model';
+import { Payment } from 'projects/hotel/src/app/models/modules/payments/payments.model';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ViewPaymentComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private paymentsApi: PaymentsApiService,
+    private paymentsApi: PaymentsApiService,
     // private paymentsPrint: PaymentsPrintService,
   ) { }
 
@@ -48,38 +48,38 @@ export class ViewPaymentComponent implements OnInit {
   getPayment(){
     this.isPaymentLoading = true;
 
-    // this.paymentsApi.getPayment()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.paymentsApi.getPayment()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.paymentData = res;
-    //       this.isPaymentLoading = false;
+          this.paymentData = res;
+          this.isPaymentLoading = false;
 
-    //       this.paymentForm.paymentForm.controls.paymentCode.setValue(res.payment_code);
-    //       this.paymentForm.paymentForm.controls.paymentDate.setValue(new Date(res.payment_date).toISOString().slice(0, 16));
-    //       this.paymentForm.paymentForm.controls.amountPaid.setValue(res.amount_paid);
-    //       this.paymentForm.paymentForm.controls.billCode.setValue(res.bill.bill_code);
-    //       this.paymentForm.paymentForm.controls.guestCode.setValue(res.bill.guest_code);
-    //       this.paymentForm.paymentForm.controls.guestName.setValue(res.bill.guest_name);
-    //       this.paymentForm.paymentForm.controls.totalAmount.setValue(res.bill.bill_total);
+          this.paymentForm.paymentForm.controls.paymentCode.setValue(res.payment_code);
+          this.paymentForm.paymentForm.controls.paymentDate.setValue(new Date(res.payment_date).toISOString().slice(0, 16));
+          this.paymentForm.paymentForm.controls.amountPaid.setValue(res.amount_paid);
+          this.paymentForm.paymentForm.controls.billCode.setValue(res.bill.bill_code);
+          this.paymentForm.paymentForm.controls.guestCode.setValue(res.bill.guest_code);
+          this.paymentForm.paymentForm.controls.guestName.setValue(res.bill.guest_name);
+          this.paymentForm.paymentForm.controls.totalAmount.setValue(res.bill.bill_total);
 
-    //       this.paymentForm.setBalance()
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPaymentLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.paymentForm.setBalance()
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPaymentLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updatePayment(){
     console.log('u are saving a new payment');
 
-    // var data: Payment = {
-    var data = {
+    var data: Payment = {
       account: this.customCookie.getCookie('hotel_id') as string,
+      bill: this.paymentForm.selectedBillId,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
       payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,
       amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as number,
@@ -88,18 +88,18 @@ export class ViewPaymentComponent implements OnInit {
     console.log(data);
     this.isPaymentSaving = true;
 
-    // this.paymentsApi.putPayment(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isPaymentSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPaymentSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.paymentsApi.putPayment(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isPaymentSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPaymentSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -109,18 +109,18 @@ export class ViewPaymentComponent implements OnInit {
   deletePayment(){
     this.isPaymentDeleting = true;
 
-    // this.paymentsApi.deletePayment()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.paymentsApi.deletePayment()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/payments/all-payments');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/payments/all-payments');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

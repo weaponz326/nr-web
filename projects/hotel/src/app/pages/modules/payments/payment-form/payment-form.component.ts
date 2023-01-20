@@ -11,6 +11,8 @@ export class PaymentFormComponent implements OnInit {
 
   constructor() { }
 
+  selectedBillId = '';
+
   paymentForm = new FormGroup({
     paymentCode: new FormControl(''),
     paymentDate: new FormControl(),
