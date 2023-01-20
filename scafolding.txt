@@ -1469,6 +1469,34 @@
 					+ checklist form (C)
 		+ components
 		+ services
+			+ account api (S)
+			+ modules api
+				+ admin api (S)
+				+ portal api (S)
+				+ settings api (S)
+				+ bills api (S)
+				+ staff api (S)
+				+ roster api (S)
+				+ guests api (S)
+				+ payments api (S)
+				+ services api (S)
+				+ checkin api (S)
+				+ bookings api (S)
+				+ rooms api (S)
+				+ assets api (S)
+				+ housekeeping api (S)
+            + modules printing
+				+ bills print (S)
+				+ staff print (S)
+				+ roster print (S)
+				+ guests print (S)
+				+ payments print (S)
+				+ services print (S)
+				+ checkin print (S)
+				+ bookings print (S)
+				+ rooms print (S)
+				+ assets print (S)
+				+ housekeeping print (S)
 		+ models
 		+ guards
     + hospital (A)
