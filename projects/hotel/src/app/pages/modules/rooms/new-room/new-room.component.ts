@@ -5,9 +5,9 @@ import { RoomFormComponent } from '../room-form/room-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { RoomsApiService } from 'projects/hotel/src/app/services/modules-api/rooms-api/rooms-api.service';
+import { RoomsApiService } from 'projects/hotel/src/app/services/modules-api/rooms-api/rooms-api.service';
 
-// import { Room } from 'projects/hotel/src/app/models/modules/rooms/rooms.model';
+import { Room } from 'projects/hotel/src/app/models/modules/rooms/rooms.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class NewRoomComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private roomsApi: RoomsApiService
+    private roomsApi: RoomsApiService
   ) { }
 
   @ViewChild('roomFormComponentReference', { read: RoomFormComponent, static: false }) roomForm!: RoomFormComponent;
@@ -38,8 +38,7 @@ export class NewRoomComponent implements OnInit {
   createRoom(){
     console.log('u are saving a new room');
 
-    // let data: Room = {
-    let data = {
+    let data: Room = {
       account: this.customCookie.getCookie('hotel_id') as string,
       room_number: this.roomForm.roomForm.controls.roomNumber.value as string,
       room_type: this.roomForm.roomForm.controls.roomType.value as string,
@@ -52,21 +51,21 @@ export class NewRoomComponent implements OnInit {
     console.log(data);
     this.isRoomSaving = true;
 
-    // this.roomsApi.postRoom(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isRoomSaving = false;
+    this.roomsApi.postRoom(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isRoomSaving = false;
 
-    //       sessionStorage.setItem('hotel_room_id', res.id);
-    //       this.router.navigateByUrl('/home/rooms/view-room');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isRoomSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          sessionStorage.setItem('hotel_room_id', res.id);
+          this.router.navigateByUrl('/home/rooms/view-room');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isRoomSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

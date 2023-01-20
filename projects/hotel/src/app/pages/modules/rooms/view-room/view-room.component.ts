@@ -6,10 +6,10 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { RoomsApiService } from 'projects/hotel/src/app/services/modules-api/rooms-api/rooms-api.service';
+import { RoomsApiService } from 'projects/hotel/src/app/services/modules-api/rooms-api/rooms-api.service';
 // import { RoomsPrintService } from 'projects/hotel/src/app/services/modules-printing/rooms-print/rooms-print.service';
 
-// import { Room } from 'projects/hotel/src/app/models/modules/rooms/rooms.model';
+import { Room } from 'projects/hotel/src/app/models/modules/rooms/rooms.model';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ViewRoomComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private roomsApi: RoomsApiService,
+    private roomsApi: RoomsApiService,
     // private roomsPrint: RoomsPrintService,
   ) { }
 
@@ -48,33 +48,32 @@ export class ViewRoomComponent implements OnInit {
   getRoom(){
     this.isRoomLoading = true;
 
-    // this.roomsApi.getRoom()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.roomData = res;
-    //       this.isRoomLoading = false;
+    this.roomsApi.getRoom()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.roomData = res;
+          this.isRoomLoading = false;
 
-    //       this.roomForm.roomForm.controls.roomNumber.setValue(this.roomData.room_number);
-    //       this.roomForm.roomForm.controls.roomType.setValue(this.roomData.room_type);
-    //       this.roomForm.roomForm.controls.location.setValue(this.roomData.location);
-    //       this.roomForm.roomForm.controls.rate.setValue(this.roomData.rate);
-    //       this.roomForm.roomForm.controls.features.setValue(this.roomData.features);
-    //       this.roomForm.roomForm.controls.roomStatus.setValue(this.roomData.room_status);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isRoomLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.roomForm.roomForm.controls.roomNumber.setValue(this.roomData.room_number);
+          this.roomForm.roomForm.controls.roomType.setValue(this.roomData.room_type);
+          this.roomForm.roomForm.controls.location.setValue(this.roomData.location);
+          this.roomForm.roomForm.controls.rate.setValue(this.roomData.rate);
+          this.roomForm.roomForm.controls.features.setValue(this.roomData.features);
+          this.roomForm.roomForm.controls.roomStatus.setValue(this.roomData.room_status);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isRoomLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putRoom(){
     console.log('u are saving a new room');
 
-    // let data: Room = {
-      let data = {
+    let data: Room = {
         account: this.customCookie.getCookie('hotel_id') as string,
         room_number: this.roomForm.roomForm.controls.roomNumber.value as string,
         room_type: this.roomForm.roomForm.controls.roomType.value as string,
@@ -87,18 +86,18 @@ export class ViewRoomComponent implements OnInit {
     console.log(data);
     this.isRoomSaving = true;
 
-    // this.roomsApi.putRoom(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isRoomSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isRoomSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.roomsApi.putRoom(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isRoomSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isRoomSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -108,17 +107,17 @@ export class ViewRoomComponent implements OnInit {
   deleteRoom(){
     this.isRoomDeleting = true;
 
-    // this.roomsApi.deleteRoom()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/rooms/all-rooms');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.roomsApi.deleteRoom()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/rooms/all-rooms');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){
