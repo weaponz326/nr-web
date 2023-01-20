@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 
 import { ItemFormComponent } from '../item-form/item-form.component'
 
+import { ServiceItem } from 'projects/hotel/src/app/models/modules/services/services.model';
+
 
 @Component({
   selector: 'app-edit-item',
@@ -38,7 +40,7 @@ export class EditItemComponent implements OnInit {
   }
 
   saveItem(){
-    let data = {
+    let data: ServiceItem = {
       service: sessionStorage.getItem('hotel_service_id') as string,
       item_number: this.itemForm.itemForm.controls.itemNumber.value as number,
       item_date: this.itemForm.itemForm.controls.itemDate.value,

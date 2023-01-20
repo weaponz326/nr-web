@@ -5,9 +5,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { ServicesApiService } from 'projects/hotel/src/app/services/modules-api/services-api/services-api.service';
+import { ServicesApiService } from 'projects/hotel/src/app/services/modules-api/services-api/services-api.service';
 
-// import { Service } from 'projects/hotel/src/app/models/modules/services/services.model';
+import { Service } from 'projects/hotel/src/app/models/modules/services/services.model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AddServiceComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private servicesApi: ServicesApiService,
+    private servicesApi: ServicesApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -37,6 +37,7 @@ export class AddServiceComponent implements OnInit {
     guestName: new FormControl({value: '', disabled: true}),
   })
 
+  selectedGuestId = '';
 
   ngOnInit(): void {
   }
@@ -47,36 +48,37 @@ export class AddServiceComponent implements OnInit {
   }
 
   createService(){
-    // let data: Service = {
-    let data = {
+    let data: Service = {
       account: this.customCookie.getCookie('hotel_id') as string,
+      guest: this.selectedGuestId,
       service_code: this.serviceForm.controls.serviceCode.value as string,
       service_name: this.serviceForm.controls.serviceName.value as string,
       service_type: this.serviceForm.controls.serviceType.value as string,
+      service_total: 0
     }
 
     console.log(data);
     this.isServiceSaving = true;
 
-    // this.servicesApi.postService(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.servicesApi.postService(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hotel_service_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hotel_service_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isServiceSaving = false;
-    //         this.router.navigateByUrl('/home/services/view-service');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isServiceSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isServiceSaving = false;
+            this.router.navigateByUrl('/home/services/view-service');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isServiceSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }

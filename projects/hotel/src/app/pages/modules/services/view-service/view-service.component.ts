@@ -7,10 +7,10 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { ServiceItemsComponent } from '../service-items/service-items.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { ServicesApiService } from 'projects/hotel/src/app/services/modules-api/services-api/services-api.service';
+import { ServicesApiService } from 'projects/hotel/src/app/services/modules-api/services-api/services-api.service';
 // import { ServicesPrintService } from 'projects/hotel/src/app/services/modules-printing/services-print/services-print.service';
 
-// import { Service } from 'projects/hotel/src/app/models/modules/services/services.model';
+import { Service } from 'projects/hotel/src/app/models/modules/services/services.model';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class ViewServiceComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private servicesApi: ServicesApiService,
+    private servicesApi: ServicesApiService,
     // private servicesPrint: ServicesPrintService
   ) { }
 
@@ -53,6 +53,8 @@ export class ViewServiceComponent implements OnInit {
     guestName: new FormControl({value: '', disabled: true}),
   })
 
+  selectedGuestId = '';
+
   ngOnInit(): void {
     this.getService();
   }
@@ -60,50 +62,51 @@ export class ViewServiceComponent implements OnInit {
   getService(){
     this.isServiceLoading = true;
 
-    // this.servicesApi.getService()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.servicesApi.getService()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.serviceFormData = res;
-    //       this.isServiceLoading = false;
+          this.serviceFormData = res;
+          this.isServiceLoading = false;
 
-    //       this.serviceForm.controls.serviceCode.setValue(this.serviceFormData.service_code);
-    //       this.serviceForm.controls.serviceName.setValue(this.serviceFormData.service_name);
-    //       this.serviceForm.controls.serviceType.setValue(this.serviceFormData.service_type);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isServiceLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.serviceForm.controls.serviceCode.setValue(this.serviceFormData.service_code);
+          this.serviceForm.controls.serviceName.setValue(this.serviceFormData.service_name);
+          this.serviceForm.controls.serviceType.setValue(this.serviceFormData.service_type);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isServiceLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putService(){
-    // let data: Service = {
-      let data = {
-        account: this.customCookie.getCookie('hotel_id') as string,
-        service_code: this.serviceForm.controls.serviceCode.value as string,
-        service_name: this.serviceForm.controls.serviceName.value as string,
-        service_type: this.serviceForm.controls.serviceType.value as string,
-      }
+    let data: Service = {
+      account: this.customCookie.getCookie('hotel_id') as string,
+      guest: this.selectedGuestId,
+      service_code: this.serviceForm.controls.serviceCode.value as string,
+      service_name: this.serviceForm.controls.serviceName.value as string,
+      service_type: this.serviceForm.controls.serviceType.value as string,
+      service_total: 0
+    }
 
     console.log(data);
     this.isServiceSaving = true;
 
-    // this.servicesApi.putService(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isServiceSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isServiceSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.servicesApi.putService(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isServiceSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isServiceSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -113,18 +116,18 @@ export class ViewServiceComponent implements OnInit {
   deleteService(){
     this.isServiceDeleting = true;
 
-    // this.servicesApi.deleteService()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.servicesApi.deleteService()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/services/all-services');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/services/all-services');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){
