@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectAssetComponent } from './select-asset/select-asset.component';
 
 
@@ -9,7 +12,11 @@ import { SelectAssetComponent } from './select-asset/select-asset.component';
     SelectAssetComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectAssetComponent
   ]
 })
 export class AssetsWindowsModule { }

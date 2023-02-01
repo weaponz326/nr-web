@@ -1,1 +1,76 @@
-<p>select-booking works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectBookingModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectBookingModal" tabindex="-1" aria-labelledby="selectBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectBookingModalLabel">Select Hotel Booking</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+                <table class="table table-bordered table-sm w-100 page-table">
+                    <thead>
+                        <tr class="bg-light">
+                            <th width="15%" class="min-width-2">
+                                Booking ID
+                                <app-table-sorting [sortField]="'booking_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="20%" class="min-width-2">
+                                Booking Date
+                                <app-table-sorting [sortField]="'booking_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="15%" class="min-width-2">
+                                Guest ID
+                                <app-table-sorting [sortField]="'guest_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="30%" class="min-width-3">
+                                Guest Name
+                                <app-table-sorting [sortField]="'guest_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                            <th width="20%" class="min-width-2">
+                                Booking Status
+                                <app-table-sorting [sortField]="'booking_status'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of bookingsGridData" (dblclick)="selectRow(data.id)" class="table-pointer">
+                            <td>{{data?.booking_code}}</td>
+                            <td>{{data?.booking_date | date: 'short'}}</td>
+                            <td>{{data?.guest?.guest_code}}</td>
+                            <td>{{data?.guest?.guest_name}}</td>
+                            <td>{{data?.booking_status}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                            <td colspan="6">
+                                <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-light">
+                            <td colspan="6">
+                                <app-table-paginator
+                                [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountBooking($event, 20, '')"
+                                ></app-table-paginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
