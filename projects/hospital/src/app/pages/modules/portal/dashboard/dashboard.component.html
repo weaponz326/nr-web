@@ -1,0 +1,55 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+    
+        <div class="row mb-3">
+
+            <div class="col-md-3 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center">
+                            <div class="col mr-2">
+                                <div class="h6 mb-3">Rink Ins <span class="text-muted">| this month</span></div>
+                                <div class="h4 mb-0">{{rinkInMonthCount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-3 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center">
+                            <div class="col mr-2">
+                                <div class="h6 mb-3">Rink Outs <span class="text-muted">| this month</span></div>
+                                <div class="h4 mb-0">{{rinkOutMonthCount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="h6 m-0">Rinks <span class="text-muted">| this month</span></div>
+
+                        <div class="chart-area">
+                            <canvas id="rinkLineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

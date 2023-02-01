@@ -1552,6 +1552,55 @@
 				+ housekeeping (Cm)
 		+ guards
     + hospital (A)
+		+ pages
+			+ guest landing (Mr)(Mp)
+			+ user landing (Mr)(Mp)
+			+ register (Mr)(Mp)
+		    + apps download (Mr)(Cp)
+			+ module home (Mr)(Mp)
+			+ modules
+				+ admin (Mr)(Mp)
+					+ dashboard (C)
+					+ all users (C)
+					+ view user (C)
+					+ access form (C)
+					+ user search (C)
+					+ search results (C)
+					+ search detail (C)
+					+ invitations (C)
+					+ view invitation (C)
+				+ portal (Mr)(Mp)
+					+ dashboard (C)
+					+ search view (C)
+					+ search results (C)
+					+ search detail (C)
+					+ new rink (C)
+					+ timeline (C)
+					+ view rink (C)
+				+ settings (Mr)(Mp)
+					+ dashboard (C)
+					+ profile (C)
+					+ billing (C)
+					+ payments history
+					+ profile content
+						+ basic (C)
+						+ logo (C)
+						+ location (C)
+						+ contact (C)
+		+ components
+		+ services
+			+ account api (S)
+			+ modules api
+				+ admin api (S)
+				+ portal api (S)
+				+ settings api (S)
+		+ models
+			+ account (Cm)
+            + modules
+			    + admin (Cm)
+			    + portal (Cm)
+			    + settings (Cm)
+		+ guards
     + shop (A)
     + production (A)
 	+ farm (A)

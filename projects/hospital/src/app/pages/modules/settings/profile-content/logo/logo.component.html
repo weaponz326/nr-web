@@ -1,0 +1,34 @@
+<div class="row m-2 page-form">
+    <div class="col-md-6">
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <h5>Profile Logo</h5>
+            </div>
+        </div>
+
+        <div class="row mt-3 page-form-div">
+            <div class="col-md-12">
+                <app-image-input #imageInputComponentReference
+                [width]="175" [height]="160" [imgType]="'logo'"
+                ></app-image-input>
+            </div>
+        </div>
+
+        <div  *ngIf="!isAccountLoading" class="row mt-3 page-form-div">
+            <div class="col-md-12">
+                <button [disabled]="isAccountSaving" class="btn btn-secondary btn-sm page-form-btn" (click)="updateLogo()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isAccountLoading" class="row mt-3">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

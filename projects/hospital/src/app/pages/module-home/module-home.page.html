@@ -1,0 +1,225 @@
+<app-main-navbar [navBrand]="'nR Hospital'" [source]="'Hospital'"></app-main-navbar>
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar d-block mb-4 static-top shadow-sm">
+    <div class="text-center module-heading">
+        <a routerLink="./">
+            <p class="lead mt-2">
+                <i *ngIf="!isAccessLoading" class="bi bi-house-fill me-2"></i>
+                <span *ngIf="isAccessLoading" class="spinner-grow spinner-grow-sm me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                Home
+            </p>
+        </a>
+    </div>
+</nav>
+
+<div class="container home-div">
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="portal" routerLink="/home/portal/dashboard" (click)="checkAccess('portal')"
+            data-bs-toggle="tooltip" title="Interact with customers through netRink portal">
+                <figure>
+                    <img src="assets/images/modules/portal.png" class="home-icons" />
+                    <figcaption>Portal</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="patients" routerLink="/home/patients/dashboard" (click)="checkAccess('patients')"
+            data-bs-toggle="tooltip" title="Manage all patient related operations">
+                <figure>
+                    <img src="assets/images/modules/patients.png" class="home-icons" />
+                    <figcaption>Patients</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="appointments" routerLink="/home/appointments/dashboard" (click)="checkAccess('appointments')"
+            data-bs-toggle="tooltip" title="Schedule appointments between doctors and patients">
+                <figure>
+                    <img src="assets/images/modules/appointments.png" class="home-icons" />
+                    <figcaption>Appointments</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="diagnosis" routerLink="/home/diagnosis/dashboard" (click)="checkAccess('diagnosis')"
+            data-bs-toggle="tooltip" title="Manage all forms patients diagnosis">
+                <figure>
+                    <img src="assets/images/modules/diagnosis.png" class="home-icons" />
+                    <figcaption>Diagnosis</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="bills" routerLink="/home/bills/dashboard" (click)="checkAccess('bills')"
+            data-bs-toggle="tooltip" title="generate medical bills for patients">
+                <figure>
+                    <img src="assets/images/modules/bills.png" class="home-icons" />
+                    <figcaption>Bills</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="doctors" routerLink="/home/doctors/dashboard" (click)="checkAccess('doctors')"
+            data-bs-toggle="tooltip" title="Manage medical doctors of your facility">
+                <figure>
+                    <img src="assets/images/modules/doctors.png" class="home-icons" />
+                    <figcaption>Doctors</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="admin" routerLink="/home/admin/dashboard" (click)="checkAccess('admin')"
+            data-bs-toggle="tooltip" title="Manage users and access levels">
+                <figure>
+                    <img src="assets/images/modules/admin.png" class="home-icons" />
+                    <figcaption>Admin</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="laboratory" routerLink="/home/laboratory/dashboard" (click)="checkAccess('laboratory')"
+            data-bs-toggle="tooltip" title="Manage patients' laboratory sessions">
+                <figure>
+                    <img src="assets/images/modules/laboratory.png" class="home-icons" />
+                    <figcaption>Laboratory</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="dispensary" routerLink="/home/dispensary/dashboard" (click)="checkAccess('dispensary')"
+            data-bs-toggle="tooltip" title="Manage dispensations of drugs to patients">
+                <figure>
+                    <img src="assets/images/modules/dispensary.png" class="home-icons" />
+                    <figcaption>Dispensary</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="nurses" routerLink="/home/nurses/dashboard" (click)="checkAccess('nurses')"
+            data-bs-toggle="tooltip" title="Manage nurses of your facility">
+                <figure>
+                    <img src="assets/images/modules/nurses.png" class="home-icons" />
+                    <figcaption>Nurses</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="prescriptions" routerLink="/home/prescriptions/dashboard" (click)="checkAccess('prescriptions')"
+            data-bs-toggle="tooltip" title="Prescribe medications for patients">
+                <figure>
+                    <img src="assets/images/modules/prescriptions.png" class="home-icons" />
+                    <figcaption>Prescriptions</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="staff" routerLink="/home/staff/dashboard" (click)="checkAccess('staff')"
+            data-bs-toggle="tooltip" title="Manage all other medical and non medical staff">
+                <figure>
+                    <img src="assets/images/modules/staff.png" class="home-icons" />
+                    <figcaption>Staff</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- -----------------------------------------------------------------------------
+    new row -->
+
+    <div class="row my-3">
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="settings" routerLink="/home/settings/dashboard" (click)="checkAccess('settings')"
+            data-bs-toggle="tooltip" title="Set configuarations for your modules">
+                <figure>
+                    <img src="assets/images/modules/settings.png" class="home-icons" />
+                    <figcaption>Settings</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="drugs" routerLink="/home/drugs/dashboard" (click)="checkAccess('drugs')"
+            data-bs-toggle="tooltip" title="Manage all pharmaceutical drugs">
+                <figure>
+                    <img src="assets/images/modules/drugs.png" class="home-icons" />
+                    <figcaption>Drugs</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="admissions" routerLink="/home/admissions/dashboard" (click)="checkAccess('admissions')"
+            data-bs-toggle="tooltip" title="Manage patients' admission sessions">
+                <figure>
+                    <img src="assets/images/modules/admissions.png" class="home-icons" />
+                    <figcaption>Admissions</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="roster" routerLink="/home/roster/dashboard" (click)="checkAccess('roster')"
+            data-bs-toggle="tooltip" title="Plan and manage staff shift and schedules">
+                <figure>
+                    <img src="assets/images/modules/roster.png" class="home-icons" />
+                    <figcaption>Roster</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="wards" routerLink="/home/wards/dashboard" (click)="checkAccess('wards')"
+            data-bs-toggle="tooltip" title="Manage operations of patients' wards">
+                <figure>
+                    <img src="assets/images/modules/wards.png" class="home-icons" />
+                    <figcaption>Wards</figcaption>
+                </figure>
+            </a>
+        </div>
+
+        <div class="col-md-2 col-sm-6 text-center">
+            <a id="payments" routerLink="/home/payments/dashboard" (click)="checkAccess('payments')"
+            data-bs-toggle="tooltip" title="Recieve payment of bills from patients">
+                <figure>
+                    <img src="assets/images/modules/payments.png" class="home-icons" />
+                    <figcaption>Payments</figcaption>
+                </figure>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- access denied prompt component -->
+
+<app-access-toast #accessToastComponentReference></app-access-toast>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
