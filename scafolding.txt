@@ -1554,3 +1554,5 @@
     + hospital (A)
     + shop (A)
     + production (A)
+	+ farm (A)
+	+ transport (A)
