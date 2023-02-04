@@ -92,6 +92,12 @@ export class MainNavbarComponent implements OnInit {
           this.customCookie.removeCookie('personal_id');
           this.customCookie.removeCookie('restaurant_id');
           this.customCookie.removeCookie('school_id');
+          this.customCookie.removeCookie('association_id');
+          this.customCookie.removeCookie('enterprise_id');
+          this.customCookie.removeCookie('hotel_id');
+          this.customCookie.removeCookie('hospital_id');
+          this.customCookie.removeCookie('shop_id');
+          this.customCookie.removeCookie('production_id');
 
           localStorage.clear();
           sessionStorage.clear();

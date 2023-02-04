@@ -12,12 +12,12 @@ export class MainLandingPage implements OnInit {
   constructor() { }
   
   personalUrl = environment.personalUrl;
-  hospitalUrl = environment.hospitalUrl;
   restaurantUrl = environment.restaurantUrl;
   schoolUrl = environment.schoolUrl;
-  enterpriseUrl = environment.enterpriseUrl;
   associationUrl = environment.associationUrl;
+  enterpriseUrl = environment.enterpriseUrl;
   hotelUrl = environment.hotelUrl;
+  hospitalUrl = environment.hospitalUrl;
   shopUrl = environment.shopUrl;
   productionUrl = environment.productionUrl;
 
