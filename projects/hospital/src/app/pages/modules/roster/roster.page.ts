@@ -9,6 +9,10 @@ export class RosterPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Rosters", url: "/home/roster/all-rosters", icon: "bi bi-list-ul" },
+  ]
+  
   ngOnInit(): void {
   }
 

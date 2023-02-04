@@ -9,6 +9,11 @@ export class AdmissionsPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Admissions", url: "/home/admissions/all-admissions", icon: "bi bi-list-ul" },
+    { text: "New Admission", url: "/home/admissions/new-admission", icon: "bi bi-plus-square" }
+  ]
+  
   ngOnInit(): void {
   }
 

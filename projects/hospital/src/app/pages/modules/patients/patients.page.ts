@@ -9,6 +9,11 @@ export class PatientsPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Patients", url: "/home/patients/all-patients", icon: "bi bi-list-ul" },
+    { text: "New Patient", url: "/home/patients/new-patient", icon: "bi bi-plus-square" }
+  ]
+  
   ngOnInit(): void {
   }
 

@@ -9,6 +9,10 @@ export class DispensaryPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Dispenses", url: "/home/dispensary/all-dispenses", icon: "bi bi-list-ul" },
+  ]
+
   ngOnInit(): void {
   }
 

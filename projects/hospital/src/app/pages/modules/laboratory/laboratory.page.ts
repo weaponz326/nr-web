@@ -9,6 +9,10 @@ export class LaboratoryPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Laboaratory", url: "/home/laboratory/all-labs", icon: "bi bi-list-ul" },
+  ]
+
   ngOnInit(): void {
   }
 
