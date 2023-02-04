@@ -59,6 +59,67 @@ const routes: Routes = [
         // canActivateChild: [SettingsGuard, ConfigAccessGuard],
         loadChildren: () => import("./pages/modules/settings/settings.module").then(m => m.SettingsModule)
       },
+      {
+        path: "patients",
+        loadChildren: () => import("./pages/modules/patients/patients.module").then(m => m.PatientsModule)
+      },
+      
+      {
+        path: "appointments",
+        loadChildren: () => import("./pages/modules/appointments/appointments.module").then(m => m.AppointmentsModule)
+      },
+      {
+        path: "staff",
+        loadChildren: () => import("./pages/modules/staff/staff.module").then(m => m.StaffModule)
+      },
+      {
+        path: "bills",
+        loadChildren: () => import("./pages/modules/bills/bills.module").then(m => m.BillsModule)
+      },
+      {
+        path: "doctors",
+        loadChildren: () => import("./pages/modules/doctors/doctors.module").then(m => m.DoctorsModule)
+      },
+      {
+        path: "laboratory",
+        loadChildren: () => import("./pages/modules/laboratory/laboratory.module").then(m => m.LaboratoryModule)
+      },
+      {
+        path: "payments",
+        loadChildren: () => import("./pages/modules/payments/payments.module").then(m => m.PaymentsModule)
+      },
+      {
+        path: "nurses",
+        loadChildren: () => import("./pages/modules/nurses/nurses.module").then(m => m.NursesModule)
+      },
+      {
+        path: "prescriptions",
+        loadChildren: () => import("./pages/modules/prescriptions/prescriptions.module").then(m => m.PrescriptionsModule)
+      },
+      {
+        path: "diagnosis",
+        loadChildren: () => import("./pages/modules/diagnosis/diagnosis.module").then(m => m.DiagnosisModule)
+      },
+      {
+        path: "drugs",
+        loadChildren: () => import("./pages/modules/drugs/drugs.module").then(m => m.DrugsModule)
+      },
+      {
+        path: "wards",
+        loadChildren: () => import("./pages/modules/wards/wards.module").then(m => m.WardsModule)
+      },
+      {
+        path: "admissions",
+        loadChildren: () => import("./pages/modules/admissions/admissions.module").then(m => m.AdmissionsModule)
+      },
+      {
+        path: "dispensary",
+        loadChildren: () => import("./pages/modules/dispensary/dispensary.module").then(m => m.DispensaryModule)
+      },
+      {
+        path: "roster",
+        loadChildren: () => import("./pages/modules/roster/roster.module").then(m => m.RosterModule)
+      }
     ]
   }
 ]

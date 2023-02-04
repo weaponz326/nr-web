@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PrescriptionsRoutingModule } from './prescriptions-routing.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { PrescriptionsPage } from './prescriptions.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -29,7 +33,11 @@ import { ItemFormComponent } from './item-form/item-form.component';
   ],
   imports: [
     CommonModule,
-    PrescriptionsRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    PrescriptionsRoutingModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class PrescriptionsModule { }
