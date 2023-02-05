@@ -57,7 +57,6 @@ export class ViewStudentComponent implements OnInit {
           this.studentData = res;
           this.isStudentLoading = false;
 
-          this.studentForm.studentForm.controls.studentCode.setValue(this.studentData.student_code);
           this.studentForm.studentForm.controls.firstName.setValue(this.studentData.first_name);
           this.studentForm.studentForm.controls.lastName.setValue(this.studentData.last_name);
           this.studentForm.studentForm.controls.sex.setValue(this.studentData.sex);
