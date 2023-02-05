@@ -1,1 +1,68 @@
-<p>appointment-form works!</p>
+<form class="page-form" [formGroup]="appointmentForm">
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">appointment ID :</label></div>
+        <div class="col-md-8">
+            <input formControlName="appointmentCode" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Patient Name :</label></div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="patientName" class="form-control">
+                <button type="button" class="btn btn-secondary">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Patient No. :</label></div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="patientNumber" class="form-control">
+                <button type="button" class="btn btn-secondary">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Consultant Name :</label></div>
+        <div class="col-md-8">
+            <input formControlName="consultantName" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Appointment Date :</label></div>
+        <div class="col-md-8">
+            <input type="datetime-local" formControlName="appointmentDate" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Appointment Status :</label></div>
+        <div class="col-md-8">
+            <select formControlName="appointmentStatus" class="form-control form-control-sm w-100">
+                <option value="" selected></option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Finished">Finished</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Remarks :</label></div>
+        <div class="col-md-8">
+            <textarea formControlName="remarks" rows="3" class="form-control form-control-sm w-100"></textarea>
+        </div>
+    </div>    
+
+</form>
