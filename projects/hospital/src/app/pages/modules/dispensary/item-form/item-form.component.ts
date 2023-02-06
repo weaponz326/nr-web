@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-item-form',
@@ -8,6 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class ItemFormComponent implements OnInit {
 
   constructor() { }
+
+  @Output() openDrugWindow = new EventEmitter<any>();
+
+  itemForm = new FormGroup({
+    itemNumber: new FormControl(),
+    drugName: new FormControl({value: '', disabled: true}),
+    ndcNumber: new FormControl({value: '', disabled: true}),
+    remarks: new FormControl('')
+  })
 
   ngOnInit(): void {
   }
