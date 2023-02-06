@@ -12,6 +12,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { AllLabsComponent } from './all-labs/all-labs.component';
 import { NewLabComponent } from './new-lab/new-lab.component';
 import { ViewLabComponent } from './view-lab/view-lab.component';
+import { LabAttachmentsComponent } from './lab-attachments/lab-attachments.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ViewLabComponent } from './view-lab/view-lab.component';
     ConfigurationComponent,
     AllLabsComponent,
     NewLabComponent,
-    ViewLabComponent
+    ViewLabComponent,
+    LabAttachmentsComponent
   ],
   imports: [
     CommonModule,
