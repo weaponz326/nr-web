@@ -1,1 +1,160 @@
-<p>drug-form works!</p>
+<form class="page-form" [formGroup]="drugForm">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4>Drug Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">NDC No. :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="ndcNumber" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Drug Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="drugName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Generic name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="genericName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Unit Dose :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="unitDose" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Manufacturer :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="manufacturer" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Unit Price :</label></div>
+                <div class="col-md-8">
+                    <input type="number" min="1" formControlName="unitPrice" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Drug Category :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="drugCategory" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Drug Type :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="drugType" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+    <!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4>Batch Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Batch No. :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="batchNumber" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchased Date :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="purchasedDate" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Initial Quantity :</label></div>
+                <div class="col-md-8">
+                    <input type="number" formControlName="initialQuantity" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Dispensed Quantity :</label></div>
+                <div class="col-md-8">
+                    <input type="number" formControlName="dispensedQuantity" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Remaining Quantity :</label></div>
+                <div class="col-md-8">
+                    <input type="number" formControlName="remainingQuantity" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Manufacturing Date :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="manufacturingDate" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Storage Location :</label></div>
+                <div class="col-md-8">
+                    <input type="date" formControlName="storageLocation" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Storage Bin :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="storageBin" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Refill Ordered :</label></div>
+                <div class="col-md-8">
+                    <input type="number" formControlName="refillOrdered" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+</form>

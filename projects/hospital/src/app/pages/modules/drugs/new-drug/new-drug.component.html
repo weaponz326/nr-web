@@ -1,1 +1,22 @@
-<p>new-drug works!</p>
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="containerfluid px-4">
+
+        <!-- drug page form -->
+
+        <app-drug-form #drugFormComponentReference></app-drug-form>
+
+        <div class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/drugs/all-drugs">Cancel</button>
+                <button [disabled]="isDrugSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="postDrug()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
