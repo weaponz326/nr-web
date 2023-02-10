@@ -41,7 +41,6 @@ export class ViewPrescriptionComponent implements OnInit {
   isPrescriptionLoading: boolean = false;
   isPrescriptionSaving: boolean = false;
   isPrescriptionDeleting: boolean = false;
-  isCheckingDelivery: boolean = false;
 
   prescriptionForm = new FormGroup({
     prescriptionCode: new FormControl(''),
