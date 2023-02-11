@@ -1733,5 +1733,3 @@
 		+ guards
     + shop (A)
     + production (A)
-	+ farm (A)
-	+ transport (A)
