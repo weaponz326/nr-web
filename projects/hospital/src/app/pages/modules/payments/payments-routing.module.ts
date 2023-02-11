@@ -4,9 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { PaymentsPage } from './payments.page';
 import { AllPaymentsComponent } from './all-payments/all-payments.component';
 import { ViewPaymentComponent } from './view-payment/view-payment.component';
-import { PaymentsHistoryComponent } from './payments-history/payments-history.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { NewPaymentComponent } from './new-payment/new-payment.component';
 
 
 const routes: Routes = [
@@ -18,8 +18,8 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'configuration', component: ConfigurationComponent },
       { path: "all-payments", component: AllPaymentsComponent },
+      { path: "new-payment", component: NewPaymentComponent },
       { path: "view-payment", component: ViewPaymentComponent },
-      { path: "payments-history", component: PaymentsHistoryComponent }
     ]
   }
 ];

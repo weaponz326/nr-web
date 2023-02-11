@@ -1637,7 +1637,7 @@
 					+ all payments (C)
 					+ new payment (C)
 					+ view payment (C)
-					+ payments history (C)
+					+ payments form (C)
 				+ nurses (Mr)(Cp)
 					+ dashboard
 					+ configuration  (C)
