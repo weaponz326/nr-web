@@ -23,7 +23,6 @@ export class DoctorFormComponent implements OnInit {
     sex: new FormControl(''),
     nationality: new FormControl(''),
     religion: new FormControl(''),
-    occupation: new FormControl(''),
     doctorCode: new FormControl(''),
     speciality: new FormControl(''),
     department: new FormControl(''),

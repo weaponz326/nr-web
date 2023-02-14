@@ -23,7 +23,6 @@ export class NurseFormComponent implements OnInit {
     sex: new FormControl(''),
     nationality: new FormControl(''),
     religion: new FormControl(''),
-    occupation: new FormControl(''),
     nurseCode: new FormControl(''),
     department: new FormControl(''),
     phone: new FormControl(''),
