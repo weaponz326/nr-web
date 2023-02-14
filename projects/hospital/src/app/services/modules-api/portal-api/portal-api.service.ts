@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from 'projects/hotel/src/environments/environment';
+import { environment } from 'projects/hospital/src/environments/environment';
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 
@@ -18,19 +18,19 @@ export class PortalApiService {
     private customCookie: CustomCookieService
   ) { }
 
-  portalUrl = environment.apiUrl + 'hotel-modules/portal/';
+  portalUrl = environment.apiUrl + 'hospital-modules/portal/';
 
   // rink
 
   public getAllRinks(page: any, size: any, sortField: any): Observable<any>{
-    return this.http.get(this.portalUrl + "rink-list?account=" + this.customCookie.getCookie('hotel_id')
+    return this.http.get(this.portalUrl + "rink-list?account=" + this.customCookie.getCookie('hospital_id')
       + "&page=" + page
       + "&size" + size
       + "&ordering=" + sortField, this.authHeaders.headers);
   }
 
   public getRink(): Observable<any>{
-    return this.http.get(this.portalUrl + "rink/" + sessionStorage.getItem('hotel_rink_id'), this.authHeaders.headers);
+    return this.http.get(this.portalUrl + "rink/" + sessionStorage.getItem('hospital_rink_id'), this.authHeaders.headers);
   }
 
   public postRink(rink: any): Observable<any>{
@@ -38,21 +38,21 @@ export class PortalApiService {
   }
 
   public putRink(rink: any): Observable<any>{
-    return this.http.put(this.portalUrl + "rink/" + sessionStorage.getItem('hotel_rink_id'), rink, this.authHeaders.headers);
+    return this.http.put(this.portalUrl + "rink/" + sessionStorage.getItem('hospital_rink_id'), rink, this.authHeaders.headers);
   }
 
   public deleteRink(): Observable<any>{
-    return this.http.delete(this.portalUrl + "rink/" + sessionStorage.getItem('hotel_rink_id'), this.authHeaders.headers);
+    return this.http.delete(this.portalUrl + "rink/" + sessionStorage.getItem('hospital_rink_id'), this.authHeaders.headers);
   }
 
   // dashboard
 
   public getRinkShareCount(): Observable<any>{
-    return this.http.get(this.portalUrl + "dashboard/rink-share-count?account=" + this.customCookie.getCookie('hotel_id'), this.authHeaders.headers);
+    return this.http.get(this.portalUrl + "dashboard/rink-share-count?account=" + this.customCookie.getCookie('hospital_id'), this.authHeaders.headers);
   }
 
   public getRinkShareAnnotate(): Observable<any>{
-    return this.http.get(this.portalUrl + "dashboard/rink-share-annotate?account=" + this.customCookie.getCookie('hotel_id'), this.authHeaders.headers);
+    return this.http.get(this.portalUrl + "dashboard/rink-share-annotate?account=" + this.customCookie.getCookie('hospital_id'), this.authHeaders.headers);
   }
 
 }

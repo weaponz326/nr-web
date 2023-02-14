@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from 'projects/hotel/src/environments/environment';
+import { environment } from 'projects/hospital/src/environments/environment';
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 
@@ -18,28 +18,28 @@ export class AccountApiService {
     private customCookie: CustomCookieService,
   ) { }
 
-  accountUrl = environment.apiUrl + 'hotel-accounts/';
+  accountUrl = environment.apiUrl + 'hospital-accounts/';
 
   public postAccount(account: any): Observable<any>{
     return this.http.post(this.accountUrl + "account/", account, this.authHeaders.headers);
   }
 
   public putAccount(account: any): Observable<any>{
-    return this.http.put(this.accountUrl + "account/" + this.customCookie.getCookie('hotel_id'), account, this.authHeaders.headers);
+    return this.http.put(this.accountUrl + "account/" + this.customCookie.getCookie('hospital_id'), account, this.authHeaders.headers);
   }
 
   public patchAccount(account: any): Observable<any>{
-    return this.http.patch(this.accountUrl + "account/" + this.customCookie.getCookie('hotel_id'), account, this.authHeaders.headers);
+    return this.http.patch(this.accountUrl + "account/" + this.customCookie.getCookie('hospital_id'), account, this.authHeaders.headers);
   }
 
   public getAccount(): Observable<any>{
-    return this.http.get(this.accountUrl + "account/" + this.customCookie.getCookie('hotel_id'), this.authHeaders.headers);
+    return this.http.get(this.accountUrl + "account/" + this.customCookie.getCookie('hospital_id'), this.authHeaders.headers);
   }
 
   public putLogo(logo: File) {
     let formParams = new FormData();
     formParams.append('logo', logo);
-    return this.http.put(this.accountUrl + "account/" + this.customCookie.getCookie('hotel_id'), formParams, this.authHeaders.headers)
+    return this.http.put(this.accountUrl + "account/" + this.customCookie.getCookie('hospital_id'), formParams, this.authHeaders.headers)
   }
   
   public hasAccount(): Observable<any>{
@@ -54,7 +54,7 @@ export class AccountApiService {
   // search
 
   public getSearchResults(input: string, page: any, size: any): Observable<any>{
-    return this.http.get(this.accountUrl + "search-list?account=" + this.customCookie.getCookie('hotel_id') 
+    return this.http.get(this.accountUrl + "search-list?account=" + this.customCookie.getCookie('hospital_id') 
       + "&search=" + input
       + "&page=" + page
       + "&size=" + size,
