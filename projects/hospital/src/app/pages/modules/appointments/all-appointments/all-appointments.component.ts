@@ -5,7 +5,7 @@ import { EditAppointmentComponent } from '../edit-appointment/edit-appointment.c
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { AppointmentApiService } from 'projects/hospital/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
+import { AppointmentsApiService } from 'projects/hospital/src/app/services/modules-api/appointments-api/appointments-api.service';
 // import { AppointmentPrintService } from 'projects/hospital/src/app/services/modules-printing/kitchen-stock-print/kitchen-stock-print.service';
 
 
@@ -17,7 +17,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 export class AllAppointmentsComponent implements OnInit {
 
   constructor(
-    // private appointmentApi: AppointmentApiService,
+    private appointmentsApi: AppointmentsApiService,
     // private appointmentPrint: AppointmentPrintService
   ) { }
 
@@ -50,28 +50,28 @@ export class AllAppointmentsComponent implements OnInit {
   getAccountAppointment(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.appointmentApi.getAccountAppointment(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.appointmentsGridData = res.results;
+    this.appointmentsApi.getAccountAppointment(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.appointmentsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalAppointments = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalAppointments = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalAppointments == 0)
-    //         this.isDataAvailable = false
-    //       else 
-    //         this.isDataAvailable = true
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalAppointments == 0)
+            this.isDataAvailable = false
+          else 
+            this.isDataAvailable = true
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -85,64 +85,64 @@ export class AllAppointmentsComponent implements OnInit {
     console.log(data);
     this.addAppointment.isAppointmentSaving = true;
 
-    // this.appointmentApi.postAppointment(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.appointmentsApi.postAppointment(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getAccountAppointment(1, 20, '-created_at');
-    //         this.addAppointment.isAppointmentSaving = false;
-    //         this.addAppointment.addButton.nativeElement.click();
-    //         this.isDataAvailable = false;
+          if(res.id){
+            this.getAccountAppointment(1, 20, '-created_at');
+            this.addAppointment.isAppointmentSaving = false;
+            this.addAppointment.addButton.nativeElement.click();
+            this.isDataAvailable = false;
 
-    //         this.addAppointment.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addAppointment.isAppointmentSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addAppointment.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addAppointment.isAppointmentSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putAppointment(appointment: any){
     console.log(appointment);
     this.editAppointment.isAppointmentSaving = true;
 
-    // this.appointmentApi.putAppointment(appointment.id, appointment.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editAppointment.isAppointmentSaving = false;
-    //       this.editAppointment.editButton.nativeElement.click();
-    //       this.getAccountAppointment(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addAppointment.isAppointmentSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.appointmentsApi.putAppointment(appointment.id, appointment.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editAppointment.isAppointmentSaving = false;
+          this.editAppointment.editButton.nativeElement.click();
+          this.getAccountAppointment(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.addAppointment.isAppointmentSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteAppointment(){
     this.editAppointment.isAppointmentDeleting = true;
 
-    // this.appointmentApi.deleteAppointment(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editAppointment.isAppointmentDeleting = false;
-    //       this.getAccountAppointment(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editAppointment.isAppointmentDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.appointmentsApi.deleteAppointment(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editAppointment.isAppointmentDeleting = false;
+          this.getAccountAppointment(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.editAppointment.isAppointmentDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditAppointment(data: any){

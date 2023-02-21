@@ -8,7 +8,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { environment } from 'projects/hospital/src/environments/environment';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { DoctorsApiService } from 'projects/hospital/src/app/services/modules-api/doctors-api/doctors-api.service';
+import { DoctorsApiService } from 'projects/hospital/src/app/services/modules-api/doctors-api/doctors-api.service';
 // import { DoctorsPrintService } from 'projects/hospital/src/app/services/printing/doctors-print/doctors-print.service';
 
 // import { Doctor } from 'projects/hospital/src/app/models/modules/doctors/doctors.model';
@@ -24,7 +24,7 @@ export class ViewDoctorComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private doctorsApi: DoctorsApiService,
+    private doctorsApi: DoctorsApiService,
     // private doctorsPrint: DoctorsPrintService,
   ) { }
 
@@ -50,39 +50,39 @@ export class ViewDoctorComponent implements OnInit {
   getDoctor(){
     this.isDoctorLoading = true;
 
-    // this.doctorsApi.getDoctor()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.doctorData = res;
-    //       this.isDoctorLoading = false;
+    this.doctorsApi.getDoctor()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.doctorData = res;
+          this.isDoctorLoading = false;
 
-    //       this.doctorForm.doctorForm.controls.firstName.setValue(this.doctorData.first_name);
-    //       this.doctorForm.doctorForm.controls.lastName.setValue(this.doctorData.last_name);
-    //       this.doctorForm.doctorForm.controls.sex.setValue(this.doctorData.sex);
-    //       this.doctorForm.doctorForm.controls.doctorCode.setValue(this.doctorData.doctor_code);
-    //       this.doctorForm.doctorForm.controls.department.setValue(this.doctorData.department);
-    //       this.doctorForm.doctorForm.controls.speciality.setValue(this.doctorData.speciality);
-    //       this.doctorForm.doctorForm.controls.nationality.setValue(this.doctorData.nationality);
-    //       this.doctorForm.doctorForm.controls.religion.setValue(this.doctorData.religion);
-    //       this.doctorForm.doctorForm.controls.phone.setValue(this.doctorData.phone);
-    //       this.doctorForm.doctorForm.controls.email.setValue(this.doctorData.email);
-    //       this.doctorForm.doctorForm.controls.address.setValue(this.doctorData.address);
-    //       this.doctorForm.doctorForm.controls.state.setValue(this.doctorData.state);
-    //       this.doctorForm.doctorForm.controls.city.setValue(this.doctorData.city);
-    //       this.doctorForm.doctorForm.controls.postCode.setValue(this.doctorData.post_code);
+          this.doctorForm.doctorForm.controls.firstName.setValue(this.doctorData.first_name);
+          this.doctorForm.doctorForm.controls.lastName.setValue(this.doctorData.last_name);
+          this.doctorForm.doctorForm.controls.sex.setValue(this.doctorData.sex);
+          this.doctorForm.doctorForm.controls.doctorCode.setValue(this.doctorData.doctor_code);
+          this.doctorForm.doctorForm.controls.department.setValue(this.doctorData.department);
+          this.doctorForm.doctorForm.controls.speciality.setValue(this.doctorData.speciality);
+          this.doctorForm.doctorForm.controls.nationality.setValue(this.doctorData.nationality);
+          this.doctorForm.doctorForm.controls.religion.setValue(this.doctorData.religion);
+          this.doctorForm.doctorForm.controls.phone.setValue(this.doctorData.phone);
+          this.doctorForm.doctorForm.controls.email.setValue(this.doctorData.email);
+          this.doctorForm.doctorForm.controls.address.setValue(this.doctorData.address);
+          this.doctorForm.doctorForm.controls.state.setValue(this.doctorData.state);
+          this.doctorForm.doctorForm.controls.city.setValue(this.doctorData.city);
+          this.doctorForm.doctorForm.controls.postCode.setValue(this.doctorData.post_code);
 
-    //       if (this.doctorData.photo != null)
-    //         this.doctorForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.doctorData.photo;
-    //       else
-    //         this.doctorForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDoctorLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if (this.doctorData.photo != null)
+            this.doctorForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.doctorData.photo;
+          else
+            this.doctorForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDoctorLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putDoctor(){
@@ -110,24 +110,24 @@ export class ViewDoctorComponent implements OnInit {
     console.log(data);
     this.isDoctorSaving = true;
 
-    // this.doctorsApi.putDoctor(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.doctorsApi.putDoctor(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(this.doctorForm.photo.isImageChanged){
-    //         this.putDoctorImage();
-    //       }
-    //       else{
-    //         this.isDoctorSaving = false;
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDoctorSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.doctorForm.photo.isImageChanged){
+            this.putDoctorImage();
+          }
+          else{
+            this.isDoctorSaving = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDoctorSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -137,33 +137,33 @@ export class ViewDoctorComponent implements OnInit {
   deleteDoctor(){
     this.isDoctorDeleting = true;
 
-    // this.doctorsApi.deleteDoctor()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isDoctorDeleting = false;
-    //       this.router.navigateByUrl('/home/doctors/all-doctor');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isDoctorDeleting = false;
-    //     }
-    //   })
+    this.doctorsApi.deleteDoctor()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isDoctorDeleting = false;
+          this.router.navigateByUrl('/home/doctors/all-doctor');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isDoctorDeleting = false;
+        }
+      })
   }
 
   putDoctorImage(){
-    // this.doctorsApi.putDoctorPhoto(this.doctorForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isDoctorSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.doctorsApi.putDoctorPhoto(this.doctorForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isDoctorSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

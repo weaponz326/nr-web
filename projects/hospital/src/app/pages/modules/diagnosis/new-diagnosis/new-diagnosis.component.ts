@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { DiagnosissApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
+import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
 
 // import { Diagnosis } from 'projects/hospital/src/app/models/modules/diagnosis/diagnosis.model';
 
@@ -20,7 +20,7 @@ export class NewDiagnosisComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private diagnosisApi: DiagnosissApiService,
+    private diagnosisApi: DiagnosisApiService,
     // private deliveriesApi: DeliveriesApiService
   ) { }
 
@@ -59,25 +59,25 @@ export class NewDiagnosisComponent implements OnInit {
     console.log(data);
     this.isDiagnosisSaving = true;
 
-    // this.diagnosisApi.postDiagnosis(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.diagnosisApi.postDiagnosis(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hospital_diagnosis_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hospital_diagnosis_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isDiagnosisSaving = false;
-    //         this.router.navigateByUrl('/home/diagnosis/view-diagnosis');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDiagnosisSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isDiagnosisSaving = false;
+            this.router.navigateByUrl('/home/diagnosis/view-diagnosis');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDiagnosisSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
@@ -85,21 +85,21 @@ export class NewDiagnosisComponent implements OnInit {
   getNewDiagnosisCodeConfig(){
     this.diagnosisForm.controls.diagnosisCode.disable();
 
-    // this.diagnosisApi.getNewDiagnosisCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.diagnosisApi.getNewDiagnosisCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.code)
-    //         this.diagnosisForm.controls.diagnosisCode.setValue(res.code);
-    //       else
-    //         this.diagnosisForm.controls.diagnosisCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.diagnosisForm.controls.diagnosisCode.setValue(res.code);
+          else
+            this.diagnosisForm.controls.diagnosisCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
  
 }

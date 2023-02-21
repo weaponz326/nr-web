@@ -43,7 +43,7 @@ export class EditAppointmentComponent implements OnInit {
     this.appointmentForm.appointmentForm.controls.patientName.setValue(data.patent?.first_name + " " + data.patent?.last_name);
     this.appointmentForm.appointmentForm.controls.patientNumber.setValue(data.patient?.clinical_number);
     this.appointmentForm.appointmentForm.controls.consultantName.setValue(data.consultant_name);
-    this.appointmentForm.appointmentForm.controls.appointmentDate.setValue(data.appointment_date);
+    this.appointmentForm.appointmentForm.controls.appointmentDate.setValue(new Date(data.appointment_date).toISOString().slice(0, 16));
     this.appointmentForm.appointmentForm.controls.appointmentStatus.setValue(data.appointment_status);
     this.appointmentForm.appointmentForm.controls.remarks.setValue(data.remarks);
 

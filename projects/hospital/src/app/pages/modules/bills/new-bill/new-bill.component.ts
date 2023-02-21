@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { BillsApiService } from 'projects/hospital/src/app/services/modules-api/bills-api/bills-api.service';
+import { BillsApiService } from 'projects/hospital/src/app/services/modules-api/bills-api/bills-api.service';
 
 // import { Bill } from 'projects/hospital/src/app/models/modules/bills/bills.model';
 
@@ -20,7 +20,7 @@ export class NewBillComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private billsApi: BillsApiService,
+    private billsApi: BillsApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -60,25 +60,25 @@ export class NewBillComponent implements OnInit {
     console.log(data);
     this.isBillSaving = true;
 
-    // this.billsApi.postBill(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.billsApi.postBill(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hospital_bill_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hospital_bill_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isBillSaving = false;
-    //         this.router.navigateByUrl('/home/bills/view-bill');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isBillSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isBillSaving = false;
+            this.router.navigateByUrl('/home/bills/view-bill');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isBillSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
@@ -86,21 +86,21 @@ export class NewBillComponent implements OnInit {
   getNewBillCodeConfig(){
     this.billForm.controls.billCode.disable();
 
-    // this.billsApi.getNewBillCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.billsApi.getNewBillCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.code)
-    //         this.billForm.controls.billCode.setValue(res.code);
-    //       else
-    //         this.billForm.controls.billCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.billForm.controls.billCode.setValue(res.code);
+          else
+            this.billForm.controls.billCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

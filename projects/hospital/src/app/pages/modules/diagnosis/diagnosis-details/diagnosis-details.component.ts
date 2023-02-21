@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
+import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 export class DiagnosisDetailsComponent implements OnInit {
 
   constructor(
-    // private diagnosisApi: DiagnosisApiService,
+    private diagnosisApi: DiagnosisApiService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -35,36 +35,35 @@ export class DiagnosisDetailsComponent implements OnInit {
   bloodGroupOptions = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
   ngOnInit(): void {
-    this.getDiagnosisDetails();
+    this.getDiagnosisReport();
   }
 
-  getDiagnosisDetails(){
-    // this.diagnosisApi.getDiagnosisDetails()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+  getDiagnosisReport(){
+    this.diagnosisApi.getDiagnosisReport()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.diagnosisDetailsForm.controls.bloodGroup.setValue(res.blood_group);
-    //       this.diagnosisDetailsForm.controls.temperature.setValue(res.temperature);
-    //       this.diagnosisDetailsForm.controls.weight.setValue(res.weight);
-    //       this.diagnosisDetailsForm.controls.height.setValue(res.height);
-    //       this.diagnosisDetailsForm.controls.bloodPressure.setValue(res.blood_pressure);
-    //       this.diagnosisDetailsForm.controls.pulse.setValue(res.pulse);
-    //       this.diagnosisDetailsForm.controls.diagnosis.setValue(res.diagnosis_details);
-    //       this.diagnosisDetailsForm.controls.treatment.setValue(res.treatment);
-    //       this.diagnosisDetailsForm.controls.remarks.setValue(res.remarks);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.diagnosisDetailsForm.controls.bloodGroup.setValue(res.blood_group);
+          this.diagnosisDetailsForm.controls.temperature.setValue(res.temperature);
+          this.diagnosisDetailsForm.controls.weight.setValue(res.weight);
+          this.diagnosisDetailsForm.controls.height.setValue(res.height);
+          this.diagnosisDetailsForm.controls.bloodPressure.setValue(res.blood_pressure);
+          this.diagnosisDetailsForm.controls.pulse.setValue(res.pulse);
+          this.diagnosisDetailsForm.controls.diagnosis.setValue(res.diagnosis_details);
+          this.diagnosisDetailsForm.controls.treatment.setValue(res.treatment);
+          this.diagnosisDetailsForm.controls.remarks.setValue(res.remarks);
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   saveDiagnosisDetail(){
-    // let data: DiagnosisDetails = {
+    // let data: DiagnosisReport = {
     let data = {
-      diagnosis: sessionStorage.getItem('hospital_diagnosis_id'),
       blood_group: this.diagnosisDetailsForm.controls.bloodGroup.value as string,
       temperature: this.diagnosisDetailsForm.controls.temperature.value as string,
       weight: this.diagnosisDetailsForm.controls.weight.value as string,
@@ -78,18 +77,16 @@ export class DiagnosisDetailsComponent implements OnInit {
 
     console.log(data);
 
-    // this.diagnosisApi.putDiagnosis(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isDiagnosisaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDiagnosisaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.diagnosisApi.putDiagnosis(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

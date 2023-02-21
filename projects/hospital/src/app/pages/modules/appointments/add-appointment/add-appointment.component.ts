@@ -56,6 +56,7 @@ export class AddAppointmentComponent implements OnInit {
   
   openModal(){
     this.addButton.nativeElement.click();
+    this.appointmentForm.appointmentForm.controls.appointmentDate.setValue(new Date().toISOString().slice(0, 16))
     this.getNewAppointmentCodeConfig();
   }
 

@@ -5,7 +5,7 @@ import { PatientFormComponent } from '../patient-form/patient-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PatientsApiService } from 'projects/hospital/src/app/services/modules-api/patients-api/patients-api.service';
+import { PatientsApiService } from 'projects/hospital/src/app/services/modules-api/patients-api/patients-api.service';
 
 // import { Patient } from 'projects/hospital/src/app/models/modules/patients/patients.model';
 
@@ -20,7 +20,7 @@ export class NewPatientComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private patientsApi: PatientsApiService,
+    private patientsApi: PatientsApiService,
   ) { }
 
   @ViewChild('patientFormComponentReference', { read: PatientFormComponent, static: false }) patientForm!: PatientFormComponent;
@@ -63,59 +63,59 @@ export class NewPatientComponent implements OnInit {
     console.log(data);
     this.isPatientSaving = true;
 
-    // this.patientsApi.postPatient(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('hospital_patient_id', res.id);
+    this.patientsApi.postPatient(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('hospital_patient_id', res.id);
 
-    //       if(this.patientForm.photo.isImageChanged){
-    //         this.putPatientImage();
-    //       }
-    //       else{
-    //         this.router.navigateByUrl('/home/patients/view-patient');                    
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPatientSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.patientForm.photo.isImageChanged){
+            this.putPatientImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/patients/view-patient');                    
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPatientSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putPatientImage(){
-    // this.patientsApi.putPatientPhoto(this.patientForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/patients/view-patient');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.patientsApi.putPatientPhoto(this.patientForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/patients/view-patient');                    
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewPatientCodeConfig(){
-    // this.patientsApi.getNewPatientCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.patientsApi.getNewPatientCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.patientForm.patientForm.controls.clinicalNumber.disable();
+          this.patientForm.patientForm.controls.clinicalNumber.disable();
 
-    //       if(res.code)
-    //         this.patientForm.patientForm.controls.clinicalNumber.setValue(res.code);
-    //       else
-    //         this.patientForm.patientForm.controls.clinicalNumber.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.patientForm.patientForm.controls.clinicalNumber.setValue(res.code);
+          else
+            this.patientForm.patientForm.controls.clinicalNumber.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

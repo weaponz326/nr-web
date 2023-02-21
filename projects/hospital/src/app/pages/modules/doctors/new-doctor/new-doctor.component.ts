@@ -5,7 +5,7 @@ import { DoctorFormComponent } from '../doctor-form/doctor-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { DoctorsApiService } from 'projects/hospital/src/app/services/modules-api/doctors-api/doctors-api.service';
+import { DoctorsApiService } from 'projects/hospital/src/app/services/modules-api/doctors-api/doctors-api.service';
 
 // import { Doctor } from 'projects/hospital/src/app/models/modules/doctors/doctors.model';
 
@@ -20,7 +20,7 @@ export class NewDoctorComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private doctorsApi: DoctorsApiService,
+    private doctorsApi: DoctorsApiService,
   ) { }
 
   @ViewChild('doctorFormComponentReference', { read: DoctorFormComponent, static: false }) doctorForm!: DoctorFormComponent;
@@ -63,59 +63,59 @@ export class NewDoctorComponent implements OnInit {
     console.log(data);
     this.isDoctorSaving = true;
 
-    // this.doctorsApi.postDoctor(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('hospital_doctor_id', res.id);
+    this.doctorsApi.postDoctor(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('hospital_doctor_id', res.id);
 
-    //       if(this.doctorForm.photo.isImageChanged){
-    //         this.putDoctorImage();
-    //       }
-    //       else{
-    //         this.router.navigateByUrl('/home/doctors/view-doctor');                    
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDoctorSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.doctorForm.photo.isImageChanged){
+            this.putDoctorImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/doctors/view-doctor');                    
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDoctorSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putDoctorImage(){
-    // this.doctorsApi.putDoctorPhoto(this.doctorForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/doctors/view-doctor');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.doctorsApi.putDoctorPhoto(this.doctorForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/doctors/view-doctor');                    
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewDoctorCodeConfig(){
-    // this.doctorsApi.getNewDoctorCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.doctorsApi.getNewDoctorCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.doctorForm.doctorForm.controls.clinicalNumber.disable();
+          this.doctorForm.doctorForm.controls.doctorCode.disable();
 
-    //       if(res.code)
-    //         this.doctorForm.doctorForm.controls.clinicalNumber.setValue(res.code);
-    //       else
-    //         this.doctorForm.doctorForm.controls.clinicalNumber.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.doctorForm.doctorForm.controls.doctorCode.setValue(res.code);
+          else
+            this.doctorForm.doctorForm.controls.doctorCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

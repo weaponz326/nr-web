@@ -7,7 +7,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { DiagnosisDetailsComponent } from '../diagnosis-details/diagnosis-details.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
+import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
 // import { DiagnosisPrintService } from 'projects/hospital/src/app/services/modules-printing/diagnosis-print/diagnosis-print.service';
 
 // import { Diagnosis } from 'projects/hospital/src/app/models/modules/diagnosis/diagnosis.model';
@@ -23,7 +23,7 @@ export class ViewDiagnosisComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private diagnosisApi: DiagnosisApiService,
+    private diagnosisApi: DiagnosisApiService,
     // private diagnosisPrint: DiagnosisPrintService
   ) { }
 
@@ -60,26 +60,26 @@ export class ViewDiagnosisComponent implements OnInit {
   getDiagnosis(){
     this.isDiagnosisLoading = true;
 
-    this.diagnosisDetails.getDiagnosisDetails();
+    // this.diagnosisDetails.getDiagnosisReport();
 
-    // this.diagnosisApi.getDiagnosis()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.diagnosisApi.getDiagnosis()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.diagnosisFormData = res;
-    //       this.isDiagnosisLoading = false;
+          this.diagnosisFormData = res;
+          this.isDiagnosisLoading = false;
 
-    //       this.diagnosisForm.controls.diagnosisCode.setValue(this.diagnosisFormData.diagnosis_code);
-    //       this.diagnosisForm.controls.diagnosisDate.setValue(new Date(this.diagnosisFormData.diagnosis_date).toISOString().slice(0, 16));
-    //       this.diagnosisForm.controls.consultantName.setValue(this.diagnosisFormData.consultant_name);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDiagnosisLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.diagnosisForm.controls.diagnosisCode.setValue(this.diagnosisFormData.diagnosis_code);
+          this.diagnosisForm.controls.diagnosisDate.setValue(new Date(this.diagnosisFormData.diagnosis_date).toISOString().slice(0, 16));
+          this.diagnosisForm.controls.consultantName.setValue(this.diagnosisFormData.consultant_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDiagnosisLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putDiagnosis(){
@@ -95,18 +95,18 @@ export class ViewDiagnosisComponent implements OnInit {
 
     this.diagnosisDetails.saveDiagnosisDetail();
 
-    // this.diagnosisApi.putDiagnosis(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isDiagnosisaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDiagnosisaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.diagnosisApi.putDiagnosis(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isDiagnosisaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDiagnosisaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -116,18 +116,18 @@ export class ViewDiagnosisComponent implements OnInit {
   deleteDiagnosis(){
     this.isDiagnosisDeleting = true;
 
-    // this.diagnosisApi.deleteDiagnosis()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.diagnosisApi.deleteDiagnosis()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/diagnosis/all-diagnosis');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/diagnosis/all-diagnosis');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

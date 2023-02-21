@@ -8,7 +8,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { environment } from 'projects/hospital/src/environments/environment';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PatientsApiService } from 'projects/hospital/src/app/services/modules-api/patients-api/patients-api.service';
+import { PatientsApiService } from 'projects/hospital/src/app/services/modules-api/patients-api/patients-api.service';
 // import { PatientsPrintService } from 'projects/hospital/src/app/services/printing/patients-print/patients-print.service';
 
 // import { Patient } from 'projects/hospital/src/app/models/modules/patients/patients.model';
@@ -24,7 +24,7 @@ export class ViewPatientComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private patientsApi: PatientsApiService,
+    private patientsApi: PatientsApiService,
     // private patientsPrint: PatientsPrintService,
   ) { }
 
@@ -50,39 +50,39 @@ export class ViewPatientComponent implements OnInit {
   getPatient(){
     this.isPatientLoading = true;
 
-    // this.patientsApi.getPatient()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.patientData = res;
-    //       this.isPatientLoading = false;
+    this.patientsApi.getPatient()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.patientData = res;
+          this.isPatientLoading = false;
 
-    //       this.patientForm.patientForm.controls.firstName.setValue(this.patientData.first_name);
-    //       this.patientForm.patientForm.controls.lastName.setValue(this.patientData.last_name);
-    //       this.patientForm.patientForm.controls.sex.setValue(this.patientData.sex);
-    //       this.patientForm.patientForm.controls.clinicalNumber.setValue(this.patientData.clinical_number);
-    //       this.patientForm.patientForm.controls.insuranceType.setValue(this.patientData.insurance_type);
-    //       this.patientForm.patientForm.controls.insuranceNumber.setValue(this.patientData.insurance_number);
-    //       this.patientForm.patientForm.controls.nationality.setValue(this.patientData.nationality);
-    //       this.patientForm.patientForm.controls.religion.setValue(this.patientData.religion);
-    //       this.patientForm.patientForm.controls.phone.setValue(this.patientData.phone);
-    //       this.patientForm.patientForm.controls.email.setValue(this.patientData.email);
-    //       this.patientForm.patientForm.controls.address.setValue(this.patientData.address);
-    //       this.patientForm.patientForm.controls.state.setValue(this.patientData.state);
-    //       this.patientForm.patientForm.controls.city.setValue(this.patientData.city);
-    //       this.patientForm.patientForm.controls.postCode.setValue(this.patientData.post_code);
+          this.patientForm.patientForm.controls.firstName.setValue(this.patientData.first_name);
+          this.patientForm.patientForm.controls.lastName.setValue(this.patientData.last_name);
+          this.patientForm.patientForm.controls.sex.setValue(this.patientData.sex);
+          this.patientForm.patientForm.controls.clinicalNumber.setValue(this.patientData.clinical_number);
+          this.patientForm.patientForm.controls.insuranceType.setValue(this.patientData.insurance_type);
+          this.patientForm.patientForm.controls.insuranceNumber.setValue(this.patientData.insurance_number);
+          this.patientForm.patientForm.controls.nationality.setValue(this.patientData.nationality);
+          this.patientForm.patientForm.controls.religion.setValue(this.patientData.religion);
+          this.patientForm.patientForm.controls.phone.setValue(this.patientData.phone);
+          this.patientForm.patientForm.controls.email.setValue(this.patientData.email);
+          this.patientForm.patientForm.controls.address.setValue(this.patientData.address);
+          this.patientForm.patientForm.controls.state.setValue(this.patientData.state);
+          this.patientForm.patientForm.controls.city.setValue(this.patientData.city);
+          this.patientForm.patientForm.controls.postCode.setValue(this.patientData.post_code);
 
-    //       if (this.patientData.photo != null)
-    //         this.patientForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.patientData.photo;
-    //       else
-    //         this.patientForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPatientLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if (this.patientData.photo != null)
+            this.patientForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.patientData.photo;
+          else
+            this.patientForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPatientLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putPatient(){
@@ -110,24 +110,24 @@ export class ViewPatientComponent implements OnInit {
     console.log(data);
     this.isPatientSaving = true;
 
-    // this.patientsApi.putPatient(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.patientsApi.putPatient(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(this.patientForm.photo.isImageChanged){
-    //         this.putPatientImage();
-    //       }
-    //       else{
-    //         this.isPatientSaving = false;
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPatientSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.patientForm.photo.isImageChanged){
+            this.putPatientImage();
+          }
+          else{
+            this.isPatientSaving = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPatientSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -137,33 +137,33 @@ export class ViewPatientComponent implements OnInit {
   deletePatient(){
     this.isPatientDeleting = true;
 
-    // this.patientsApi.deletePatient()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isPatientDeleting = false;
-    //       this.router.navigateByUrl('/home/patients/all-patient');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isPatientDeleting = false;
-    //     }
-    //   })
+    this.patientsApi.deletePatient()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isPatientDeleting = false;
+          this.router.navigateByUrl('/home/patients/all-patient');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isPatientDeleting = false;
+        }
+      })
   }
 
   putPatientImage(){
-    // this.patientsApi.putPatientPhoto(this.patientForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isPatientSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.patientsApi.putPatientPhoto(this.patientForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isPatientSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){
