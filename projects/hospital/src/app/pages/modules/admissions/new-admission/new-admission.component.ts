@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { AdmissionsApiService } from 'projects/hospital/src/app/services/modules-api/admissions-api/admissions-api.service';
+import { AdmissionsApiService } from 'projects/hospital/src/app/services/modules-api/admissions-api/admissions-api.service';
 
 // import { Admission } from 'projects/hospital/src/app/models/modules/admissions/admissions.model';
 
@@ -20,7 +20,7 @@ export class NewAdmissionComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private admissionsApi: AdmissionsApiService,
+    private admissionsApi: AdmissionsApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -61,25 +61,25 @@ export class NewAdmissionComponent implements OnInit {
     console.log(data);
     this.isAdmissionSaving = true;
 
-    // this.admissionsApi.postAdmission(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.admissionsApi.postAdmission(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hospital_admission_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hospital_admission_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isAdmissionSaving = false;
-    //         this.router.navigateByUrl('/home/admissions/view-admission');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isAdmissionSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isAdmissionSaving = false;
+            this.router.navigateByUrl('/home/admissions/view-admission');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAdmissionSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
@@ -87,21 +87,21 @@ export class NewAdmissionComponent implements OnInit {
   getNewAdmissionCodeConfig(){
     this.admissionForm.controls.admissionCode.disable();
 
-    // this.admissionsApi.getNewAdmissionCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.admissionsApi.getNewAdmissionCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.code)
-    //         this.admissionForm.controls.admissionCode.setValue(res.code);
-    //       else
-    //         this.admissionForm.controls.admissionCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.admissionForm.controls.admissionCode.setValue(res.code);
+          else
+            this.admissionForm.controls.admissionCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

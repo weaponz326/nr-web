@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { NewWardComponent } from '../new-ward/new-ward.component'
 
-// import { WardsApiService } from 'projects/association/src/app/services/modules-api/wards-api/wards-api.service';
+import { WardsApiService } from 'projects/hospital/src/app/services/modules-api/wards-api/wards-api.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class AllWardsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private wardsApi: WardsApiService,
+    private wardsApi: WardsApiService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -46,26 +46,26 @@ export class AllWardsComponent implements OnInit {
   getAccountWard(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.wardsApi.getAccountWard(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.wardsGridData = res.results;
+    this.wardsApi.getAccountWard(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.wardsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })    
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })    
   }
 
   sortTable(column: any){

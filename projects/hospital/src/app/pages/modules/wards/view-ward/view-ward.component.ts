@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { WardsApiService } from 'projects/hospital/src/app/services/modules-api/wards-api/wards-api.service';
+import { WardsApiService } from 'projects/hospital/src/app/services/modules-api/wards-api/wards-api.service';
 // import { WardsPrintService } from 'projects/hospital/src/app/services/modules-printing/wards-print/wards-print.service';
 
 // import { Ward } from 'projects/hospital/src/app/models/modules/wards/wards.model';
@@ -23,7 +23,7 @@ export class ViewWardComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private wardsApi: WardsApiService,
+    private wardsApi: WardsApiService,
     // private wardsPrint: WardsPrintService,
   ) { }
 
@@ -50,25 +50,25 @@ export class ViewWardComponent implements OnInit {
   getWard(){
     this.isWardLoading = true;
 
-    // this.wardsApi.getWard()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.wardData = res;
-    //       this.isWardLoading = false;
+    this.wardsApi.getWard()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.wardData = res;
+          this.isWardLoading = false;
 
-    //       this.wardForm.wardForm.controls.wardNumber.setValue(this.wardData.ward_code);
-    //       this.wardForm.wardForm.controls.wardName.setValue(this.wardData.ward_name);
-    //       this.wardForm.wardForm.controls.wardType.setValue(this.wardData.ward_type);
-    //       this.wardForm.wardForm.controls.location.setValue(this.wardData.location);
-    //       this.wardForm.wardForm.controls.capacity.setValue(this.wardData.capacity);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isWardLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   }) 
+          this.wardForm.wardForm.controls.wardNumber.setValue(this.wardData.ward_code);
+          this.wardForm.wardForm.controls.wardName.setValue(this.wardData.ward_name);
+          this.wardForm.wardForm.controls.wardType.setValue(this.wardData.ward_type);
+          this.wardForm.wardForm.controls.location.setValue(this.wardData.location);
+          this.wardForm.wardForm.controls.capacity.setValue(this.wardData.capacity);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isWardLoading = false;
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   putWard(){
@@ -85,18 +85,18 @@ export class ViewWardComponent implements OnInit {
     console.log(data);
     this.isWardSaving = true;
 
-    // this.wardsApi.putWard(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isWardSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isWardSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.wardsApi.putWard(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isWardSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isWardSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -106,17 +106,17 @@ export class ViewWardComponent implements OnInit {
   deleteWard(){
     this.isWardDeleting = true;
 
-    // this.wardsApi.deleteWard()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/wards/all-wards');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   }) 
+    this.wardsApi.deleteWard()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/wards/all-wards');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   onPrint(){

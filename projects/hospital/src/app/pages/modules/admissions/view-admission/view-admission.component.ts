@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { AdmissionsApiService } from 'projects/hospital/src/app/services/modules-api/admissions-api/admissions-api.service';
+import { AdmissionsApiService } from 'projects/hospital/src/app/services/modules-api/admissions-api/admissions-api.service';
 // import { AdmissionsPrintService } from 'projects/hospital/src/app/services/modules-printing/admissions-print/admissions-print.service';
 
 // import { Admission } from 'projects/hospital/src/app/models/modules/admissions/admissions.model';
@@ -22,7 +22,7 @@ export class ViewAdmissionComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private admissionsApi: AdmissionsApiService,
+    private admissionsApi: AdmissionsApiService,
     // private admissionsPrint: AdmissionsPrintService
   ) { }
 
@@ -58,25 +58,25 @@ export class ViewAdmissionComponent implements OnInit {
   getAdmission(){
     this.isAdmissionLoading = true;
 
-    // this.admissionsApi.getAdmission()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.admissionsApi.getAdmission()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.admissionFormData = res;
-    //       this.isAdmissionLoading = false;
+          this.admissionFormData = res;
+          this.isAdmissionLoading = false;
 
-    //       this.admissionForm.controls.admissionCode.setValue(this.admissionFormData.admission_code);
-    //       this.admissionForm.controls.admissionDate.setValue(new Date(this.admissionFormData.admission_date).toISOString().slice(0, 16));
-    //       this.admissionForm.controls.dischargeDate.setValue(new Date(this.admissionFormData.discharge_date).toISOString().slice(0, 16));
-    //       this.admissionForm.controls.admissionStatus.setValue(this.admissionFormData.admission_status);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isAdmissionLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.admissionForm.controls.admissionCode.setValue(this.admissionFormData.admission_code);
+          this.admissionForm.controls.admissionDate.setValue(new Date(this.admissionFormData.admission_date).toISOString().slice(0, 16));
+          this.admissionForm.controls.dischargeDate.setValue(new Date(this.admissionFormData.discharge_date).toISOString().slice(0, 16));
+          this.admissionForm.controls.admissionStatus.setValue(this.admissionFormData.admission_status);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAdmissionLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putAdmission(){
@@ -92,18 +92,18 @@ export class ViewAdmissionComponent implements OnInit {
     console.log(data);
     this.isAdmissionSaving = true;
 
-    // this.admissionsApi.putAdmission(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isAdmissionSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isAdmissionSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.admissionsApi.putAdmission(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isAdmissionSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isAdmissionSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -113,18 +113,18 @@ export class ViewAdmissionComponent implements OnInit {
   deleteAdmission(){
     this.isAdmissionDeleting = true;
 
-    // this.admissionsApi.deleteAdmission()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.admissionsApi.deleteAdmission()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/admissions/all-admissions');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/admissions/all-admissions');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

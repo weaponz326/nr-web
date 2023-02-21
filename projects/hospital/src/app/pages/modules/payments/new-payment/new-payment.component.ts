@@ -5,7 +5,7 @@ import { PaymentFormComponent } from '../payment-form/payment-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PaymentsApiService } from 'projects/hospital/src/app/services/modules-api/payments-api/payments-api.service';
+import { PaymentsApiService } from 'projects/hospital/src/app/services/modules-api/payments-api/payments-api.service';
 
 // import { Payment } from 'projects/hospital/src/app/models/modules/payments/payments.model';
 
@@ -20,7 +20,7 @@ export class NewPaymentComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private paymentsApi: PaymentsApiService
+    private paymentsApi: PaymentsApiService
   ) { }
 
   @ViewChild('paymentFormComponentReference', { read: PaymentFormComponent, static: false }) paymentForm!: PaymentFormComponent;
@@ -53,41 +53,41 @@ export class NewPaymentComponent implements OnInit {
 
     console.log(data);
 
-    // this.paymentsApi.postPayment(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isPaymentSaving = false;
+    this.paymentsApi.postPayment(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isPaymentSaving = false;
 
-    //       sessionStorage.setItem('hospital_payment_id', res.id);
-    //       this.router.navigateByUrl('/home/payments/view-payment');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPaymentSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          sessionStorage.setItem('hospital_payment_id', res.id);
+          this.router.navigateByUrl('/home/payments/view-payment');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPaymentSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewpaymentCodeConfig(){
     this.paymentForm.paymentForm.controls.paymentCode.disable();
 
-    // this.paymentsApi.getNewPaymentCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.paymentsApi.getNewPaymentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.code)
-    //         this.paymentForm.paymentForm.controls.paymentCode.setValue(res.code);
-    //       else
-    //         this.paymentForm.paymentForm.controls.paymentCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.paymentForm.paymentForm.controls.paymentCode.setValue(res.code);
+          else
+            this.paymentForm.paymentForm.controls.paymentCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

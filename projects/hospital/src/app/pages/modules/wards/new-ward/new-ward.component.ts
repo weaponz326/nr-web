@@ -5,7 +5,7 @@ import { WardFormComponent } from '../ward-form/ward-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { WardsApiService } from 'projects/hospital/src/app/services/modules-api/wards-api/wards-api.service';
+import { WardsApiService } from 'projects/hospital/src/app/services/modules-api/wards-api/wards-api.service';
 
 // import { Ward } from 'projects/hospital/src/app/models/modules/wards/wards.model';
 
@@ -20,7 +20,7 @@ export class NewWardComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private wardsApi: WardsApiService,
+    private wardsApi: WardsApiService,
   ) { }
 
   @ViewChild('wardFormComponentReference', { read: WardFormComponent, static: false }) wardForm!: WardFormComponent;
@@ -49,21 +49,21 @@ export class NewWardComponent implements OnInit {
 
     this.isWardSaving = true;
 
-    // this.wardsApi.postWard(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isWardSaving = false;
+    this.wardsApi.postWard(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isWardSaving = false;
 
-    //       sessionStorage.setItem('hospital_ward_id', res.id);
-    //       this.router.navigateByUrl('/home/wards/view-ward');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isWardSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   }) 
+          sessionStorage.setItem('hospital_ward_id', res.id);
+          this.router.navigateByUrl('/home/wards/view-ward');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isWardSaving = false;
+          this.connectionToast.openToast();
+        }
+      }) 
   }
 
   getNewWardCodeConfig(){

@@ -5,7 +5,7 @@ import { DrugFormComponent } from '../drug-form/drug-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { DrugsApiService } from 'projects/hospital/src/app/services/modules-api/drugs-api/drugs-api.service';
+import { DrugsApiService } from 'projects/hospital/src/app/services/modules-api/drugs-api/drugs-api.service';
 
 // import { Drug } from 'projects/hospital/src/app/models/modules/drugs/drugs.model';
 
@@ -20,7 +20,7 @@ export class NewDrugComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private drugsApi: DrugsApiService,
+    private drugsApi: DrugsApiService,
   ) { }
 
   @ViewChild('drugFormComponentReference', { read: DrugFormComponent, static: false }) drugForm!: DrugFormComponent;
@@ -66,59 +66,40 @@ export class NewDrugComponent implements OnInit {
     console.log(data);
     this.isDrugSaving = true;
 
-    // this.drugsApi.postDrug(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('hospital_drug_id', res.id);
+    this.drugsApi.postDrug(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('hospital_drug_id', res.id);
 
-    //       if(this.drugForm.photo.isImageChanged){
-    //         this.putDrugImage();
-    //       }
-    //       else{
-    //         this.router.navigateByUrl('/home/drugs/view-drug');                    
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDrugSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
-
-  putDrugImage(){
-    // this.drugsApi.putDrugPhoto(this.drugForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/drugs/view-drug');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/drugs/view-drug');                    
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDrugSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewDrugCodeConfig(){
-    // this.drugsApi.getNewDrugCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.drugsApi.getNewDrugCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.drugForm.drugForm.controls.clinicalNumber.disable();
+          this.drugForm.drugForm.controls.ndcNumber.disable();
 
-    //       if(res.code)
-    //         this.drugForm.drugForm.controls.clinicalNumber.setValue(res.code);
-    //       else
-    //         this.drugForm.drugForm.controls.clinicalNumber.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.drugForm.drugForm.controls.ndcNumber.setValue(res.code);
+          else
+            this.drugForm.drugForm.controls.ndcNumber.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

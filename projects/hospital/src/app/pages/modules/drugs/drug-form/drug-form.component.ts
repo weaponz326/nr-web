@@ -26,7 +26,7 @@ export class DrugFormComponent implements OnInit {
     dispensedQuantity: new FormControl(),
     remainingQuantity: new FormControl(),
     manufacturingDate: new FormControl(),
-    expiryDate: new FormControl(''),
+    expiryDate: new FormControl(),
     storageLocation: new FormControl(''),
     storageBin: new FormControl(''),
     refillOrdered: new FormControl(),
