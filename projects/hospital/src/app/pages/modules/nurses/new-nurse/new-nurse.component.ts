@@ -5,7 +5,7 @@ import { NurseFormComponent } from '../nurse-form/nurse-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { NursesApiService } from 'projects/hospital/src/app/services/modules-api/nurses-api/nurses-api.service';
+import { NursesApiService } from 'projects/hospital/src/app/services/modules-api/nurses-api/nurses-api.service';
 
 // import { Nurse } from 'projects/hospital/src/app/models/modules/nurses/nurses.model';
 
@@ -20,7 +20,7 @@ export class NewNurseComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private nursesApi: NursesApiService,
+    private nursesApi: NursesApiService,
   ) { }
 
   @ViewChild('nurseFormComponentReference', { read: NurseFormComponent, static: false }) nurseForm!: NurseFormComponent;
@@ -62,59 +62,59 @@ export class NewNurseComponent implements OnInit {
     console.log(data);
     this.isNurseSaving = true;
 
-    // this.nursesApi.postNurse(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('hospital_nurse_id', res.id);
+    this.nursesApi.postNurse(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('hospital_nurse_id', res.id);
 
-    //       if(this.nurseForm.photo.isImageChanged){
-    //         this.putNurseImage();
-    //       }
-    //       else{
-    //         this.router.navigateByUrl('/home/nurses/view-nurse');                    
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isNurseSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.nurseForm.photo.isImageChanged){
+            this.putNurseImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/nurses/view-nurse');                    
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isNurseSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putNurseImage(){
-    // this.nursesApi.putNursePhoto(this.nurseForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/nurses/view-nurse');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.nursesApi.putNursePhoto(this.nurseForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/nurses/view-nurse');                    
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewNurseCodeConfig(){
-    // this.nursesApi.getNewNurseCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.nursesApi.getNewNurseCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.nurseForm.nurseForm.controls.clinicalNumber.disable();
+          this.nurseForm.nurseForm.controls.nurseCode.disable();
 
-    //       if(res.code)
-    //         this.nurseForm.nurseForm.controls.clinicalNumber.setValue(res.code);
-    //       else
-    //         this.nurseForm.nurseForm.controls.clinicalNumber.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.nurseForm.nurseForm.controls.nurseCode.setValue(res.code);
+          else
+            this.nurseForm.nurseForm.controls.nurseCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

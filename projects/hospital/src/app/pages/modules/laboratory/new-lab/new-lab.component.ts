@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { LaboratoryApiService } from 'projects/hospital/src/app/services/modules-api/laboratory-api/laboratory-api.service';
+import { LaboratoryApiService } from 'projects/hospital/src/app/services/modules-api/laboratory-api/laboratory-api.service';
 
 // import { Lab } from 'projects/hospital/src/app/models/modules/laboratory/laboratory.model';
 
@@ -20,7 +20,7 @@ export class NewLabComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private labsApi: LaboratoryApiService,
+    private labApi: LaboratoryApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -59,25 +59,25 @@ export class NewLabComponent implements OnInit {
     console.log(data);
     this.isLabSaving = true;
 
-    // this.labsApi.postLab(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.labApi.postLab(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hospital_lab_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hospital_lab_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isLabSaving = false;
-    //         this.router.navigateByUrl('/home/labs/view-lab');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isLabSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isLabSaving = false;
+            this.router.navigateByUrl('/home/laboratory/view-lab');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLabSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
@@ -85,21 +85,21 @@ export class NewLabComponent implements OnInit {
   getNewLabCodeConfig(){
     this.labForm.controls.labCode.disable();
 
-    // this.labsApi.getNewLabCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.labApi.getNewLabCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.code)
-    //         this.labForm.controls.labCode.setValue(res.code);
-    //       else
-    //         this.labForm.controls.labCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.labForm.controls.labCode.setValue(res.code);
+          else
+            this.labForm.controls.labCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
   
 }

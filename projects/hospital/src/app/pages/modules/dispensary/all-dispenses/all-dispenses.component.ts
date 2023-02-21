@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NewDispenseComponent } from '../new-dispense/new-dispense.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-// import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
+import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
 // import { DispensaryPrintService } from 'projects/hospital/src/app/services/modules-printing/dispensary-print/dispensary-print.service';
 
 
@@ -17,8 +17,8 @@ export class AllDispensesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private dispensesApi: DispensaryApiService,
-    // private dispensesPrint: DispensaryPrintService
+    private dispensaryApi: DispensaryApiService,
+    // private dispensaryPrint: DispensaryPrintService
   ) { }
 
   @ViewChild('newDispenseComponentReference', { read: NewDispenseComponent, static: false }) newDispense!: NewDispenseComponent;
@@ -46,26 +46,26 @@ export class AllDispensesComponent implements OnInit {
   getAccountDispense(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.dispensesApi.getAccountDispense(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.dispensesGridData = res.results;
+    this.dispensaryApi.getAccountDispense(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.dispensesGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvaidispensele = false
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvaidispensele = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -79,7 +79,7 @@ export class AllDispensesComponent implements OnInit {
     console.log(dispenseId);
 
     sessionStorage.setItem("hospital_dispense_id", dispenseId);
-    this.router.navigateByUrl("/home/dispenses/view-dispense");
+    this.router.navigateByUrl("/home/dispensary/view-dispense");
   }
 
   onPrint(){

@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PrescriptionsApiService } from 'projects/hospital/src/app/services/modules-api/prescriptions-api/prescriptions-api.service';
+import { PrescriptionsApiService } from 'projects/hospital/src/app/services/modules-api/prescriptions-api/prescriptions-api.service';
 // import { PrescriptionsPrintService } from 'projects/hospital/src/app/services/modules-printing/prescriptions-print/prescriptions-print.service';
 
 // import { Prescription } from 'projects/hospital/src/app/models/modules/prescriptions/prescriptions.model';
@@ -22,7 +22,7 @@ export class ViewPrescriptionComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private prescriptionsApi: PrescriptionsApiService,
+    private prescriptionsApi: PrescriptionsApiService,
     // private prescriptionsPrint: PrescriptionsPrintService
   ) { }
 
@@ -57,24 +57,24 @@ export class ViewPrescriptionComponent implements OnInit {
   getPrescription(){
     this.isPrescriptionLoading = true;
 
-    // this.prescriptionsApi.getPrescription()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.prescriptionsApi.getPrescription()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.prescriptionFormData = res;
-    //       this.isPrescriptionLoading = false;
+          this.prescriptionFormData = res;
+          this.isPrescriptionLoading = false;
 
-    //       this.prescriptionForm.controls.prescriptionCode.setValue(this.prescriptionFormData.prescription_code);
-    //       this.prescriptionForm.controls.prescriptionDate.setValue(new Date(this.prescriptionFormData.prescription_date).toISOString().slice(0, 16));
-    //       this.prescriptionForm.controls.consultantName.setValue(this.prescriptionFormData.consultant_name);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPrescriptionLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.prescriptionForm.controls.prescriptionCode.setValue(this.prescriptionFormData.prescription_code);
+          this.prescriptionForm.controls.prescriptionDate.setValue(new Date(this.prescriptionFormData.prescription_date).toISOString().slice(0, 16));
+          this.prescriptionForm.controls.consultantName.setValue(this.prescriptionFormData.consultant_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPrescriptionLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putPrescription(){
@@ -89,18 +89,18 @@ export class ViewPrescriptionComponent implements OnInit {
     console.log(data);
     this.isPrescriptionSaving = true;
 
-    // this.prescriptionsApi.putPrescription(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isPrescriptionSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPrescriptionSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.prescriptionsApi.putPrescription(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isPrescriptionSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPrescriptionSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -110,18 +110,18 @@ export class ViewPrescriptionComponent implements OnInit {
   deletePrescription(){
     this.isPrescriptionDeleting = true;
 
-    // this.prescriptionsApi.deletePrescription()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.prescriptionsApi.deletePrescription()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/prescriptions/all-prescriptions');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/prescriptions/all-prescriptions');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

@@ -7,7 +7,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { DispenseItemsComponent } from '../dispense-items/dispense-items.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
+import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
 // import { DispensaryPrintService } from 'projects/hospital/src/app/services/modules-printing/dispensary-print/dispensary-print.service';
 
 // import { Dispense } from 'projects/hospital/src/app/models/modules/dispensary/dispensary.model';
@@ -23,8 +23,8 @@ export class ViewDispenseComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private dispensesApi: DispensaryApiService,
-    // private dispensesPrint: DispensaryPrintService
+    private dispensaryApi: DispensaryApiService,
+    // private dispensaryPrint: DispensaryPrintService
   ) { }
 
   @ViewChild('existButtonElementReference', { read: ElementRef, static: false }) existButtonElement!: ElementRef;
@@ -64,48 +64,48 @@ export class ViewDispenseComponent implements OnInit {
   getDispense(){
     this.isDispenseLoading = true;
 
-    // this.dispensesApi.getDispense()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.dispensaryApi.getDispense()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.dispenseFormData = res;
-    //       this.isDispenseLoading = false;
+          this.dispenseFormData = res;
+          this.isDispenseLoading = false;
 
-    //       this.dispenseForm.controls.dispenseCode.setValue(this.dispenseFormData.dispense_code);
-    //       this.dispenseForm.controls.dispenseDate.setValue(new Date(this.dispenseFormData.dispense_date).toISOString().slice(0, 16));
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDispenseLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.dispenseForm.controls.dispenseCode.setValue(this.dispenseFormData.dispense_code);
+          this.dispenseForm.controls.dispenseDate.setValue(new Date(this.dispenseFormData.dispense_date).toISOString().slice(0, 10));
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDispenseLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putDispense(){
     // let data: Dispense = {
-      let data = {
-        account: this.customCookie.getCookie('hospital_id') as string,
-        dispense_code: this.dispenseForm.controls.dispenseCode.value as string,
-        dispense_date: this.dispenseForm.controls.dispenseDate.value as string,
-      }
+    let data = {
+      account: this.customCookie.getCookie('hospital_id') as string,
+      dispense_code: this.dispenseForm.controls.dispenseCode.value as string,
+      dispense_date: this.dispenseForm.controls.dispenseDate.value as string,
+    }
 
     console.log(data);
     this.isDispenseSaving = true;
 
-    // this.dispensesApi.putDispense(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isDispenseSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isDispenseSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.dispensaryApi.putDispense(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isDispenseSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isDispenseSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -115,18 +115,18 @@ export class ViewDispenseComponent implements OnInit {
   deleteDispense(){
     this.isDispenseDeleting = true;
 
-    // this.dispensesApi.deleteDispense()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.dispensaryApi.deleteDispense()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/dispenses/all-dispenses');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/dispenses/all-dispenses');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

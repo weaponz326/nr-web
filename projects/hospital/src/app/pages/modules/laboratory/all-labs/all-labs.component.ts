@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NewLabComponent } from '../new-lab/new-lab.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-// import { LaboratoryApiService } from 'projects/hospital/src/app/services/modules-api/laboratory-api/laboratory-api.service';
+import { LaboratoryApiService } from 'projects/hospital/src/app/services/modules-api/laboratory-api/laboratory-api.service';
 // import { LaboratoryPrintService } from 'projects/hospital/src/app/services/modules-printing/laboratory-print/laboratory-print.service';
 
 
@@ -17,8 +17,8 @@ export class AllLabsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private labsApi: LaboratoryApiService,
-    // private labsPrint: LaboratoryPrintService
+    private labApi: LaboratoryApiService,
+    // private labPrint: LaboratoryPrintService
   ) { }
 
   @ViewChild('newLabComponentReference', { read: NewLabComponent, static: false }) newLab!: NewLabComponent;
@@ -46,26 +46,26 @@ export class AllLabsComponent implements OnInit {
   getAccountLab(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.labsApi.getAccountLab(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.labsGridData = res.results;
+    this.labApi.getAccountLab(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.labsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -79,12 +79,12 @@ export class AllLabsComponent implements OnInit {
     console.log(labId);
 
     sessionStorage.setItem("hospital_lab_id", labId);
-    this.router.navigateByUrl("/home/labs/view-lab");
+    this.router.navigateByUrl("/home/laboratory/view-lab");
   }
 
   onPrint(){
     console.log("lets start printing...");
-    // this.laboratoryPrintService.printAllLabs();
+    // this.labPrintService.printAllLabs();
   }
 
 }

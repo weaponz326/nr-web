@@ -8,7 +8,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { environment } from 'projects/hospital/src/environments/environment';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { NursesApiService } from 'projects/hospital/src/app/services/modules-api/nurses-api/nurses-api.service';
+import { NursesApiService } from 'projects/hospital/src/app/services/modules-api/nurses-api/nurses-api.service';
 // import { NursesPrintService } from 'projects/hospital/src/app/services/printing/nurses-print/nurses-print.service';
 
 // import { Nurse } from 'projects/hospital/src/app/models/modules/nurses/nurses.model';
@@ -24,7 +24,7 @@ export class ViewNurseComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private nursesApi: NursesApiService,
+    private nursesApi: NursesApiService,
     // private nursesPrint: NursesPrintService,
   ) { }
 
@@ -50,38 +50,38 @@ export class ViewNurseComponent implements OnInit {
   getNurse(){
     this.isNurseLoading = true;
 
-    // this.nursesApi.getNurse()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.nurseData = res;
-    //       this.isNurseLoading = false;
+    this.nursesApi.getNurse()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.nurseData = res;
+          this.isNurseLoading = false;
 
-    //       this.nurseForm.nurseForm.controls.firstName.setValue(this.nurseData.first_name);
-    //       this.nurseForm.nurseForm.controls.lastName.setValue(this.nurseData.last_name);
-    //       this.nurseForm.nurseForm.controls.sex.setValue(this.nurseData.sex);
-    //       this.nurseForm.nurseForm.controls.nurseCode.setValue(this.nurseData.nurse_code);
-    //       this.nurseForm.nurseForm.controls.department.setValue(this.nurseData.department);
-    //       this.nurseForm.nurseForm.controls.nationality.setValue(this.nurseData.nationality);
-    //       this.nurseForm.nurseForm.controls.religion.setValue(this.nurseData.religion);
-    //       this.nurseForm.nurseForm.controls.phone.setValue(this.nurseData.phone);
-    //       this.nurseForm.nurseForm.controls.email.setValue(this.nurseData.email);
-    //       this.nurseForm.nurseForm.controls.address.setValue(this.nurseData.address);
-    //       this.nurseForm.nurseForm.controls.state.setValue(this.nurseData.state);
-    //       this.nurseForm.nurseForm.controls.city.setValue(this.nurseData.city);
-    //       this.nurseForm.nurseForm.controls.postCode.setValue(this.nurseData.post_code);
+          this.nurseForm.nurseForm.controls.firstName.setValue(this.nurseData.first_name);
+          this.nurseForm.nurseForm.controls.lastName.setValue(this.nurseData.last_name);
+          this.nurseForm.nurseForm.controls.sex.setValue(this.nurseData.sex);
+          this.nurseForm.nurseForm.controls.nurseCode.setValue(this.nurseData.nurse_code);
+          this.nurseForm.nurseForm.controls.department.setValue(this.nurseData.department);
+          this.nurseForm.nurseForm.controls.nationality.setValue(this.nurseData.nationality);
+          this.nurseForm.nurseForm.controls.religion.setValue(this.nurseData.religion);
+          this.nurseForm.nurseForm.controls.phone.setValue(this.nurseData.phone);
+          this.nurseForm.nurseForm.controls.email.setValue(this.nurseData.email);
+          this.nurseForm.nurseForm.controls.address.setValue(this.nurseData.address);
+          this.nurseForm.nurseForm.controls.state.setValue(this.nurseData.state);
+          this.nurseForm.nurseForm.controls.city.setValue(this.nurseData.city);
+          this.nurseForm.nurseForm.controls.postCode.setValue(this.nurseData.post_code);
 
-    //       if (this.nurseData.photo != null)
-    //         this.nurseForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.nurseData.photo;
-    //       else
-    //         this.nurseForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isNurseLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if (this.nurseData.photo != null)
+            this.nurseForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.nurseData.photo;
+          else
+            this.nurseForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
+        },
+        error: (err) => {
+          console.log(err);
+          this.isNurseLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putNurse(){
@@ -108,24 +108,24 @@ export class ViewNurseComponent implements OnInit {
     console.log(data);
     this.isNurseSaving = true;
 
-    // this.nursesApi.putNurse(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.nursesApi.putNurse(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(this.nurseForm.photo.isImageChanged){
-    //         this.putNurseImage();
-    //       }
-    //       else{
-    //         this.isNurseSaving = false;
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isNurseSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.nurseForm.photo.isImageChanged){
+            this.putNurseImage();
+          }
+          else{
+            this.isNurseSaving = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isNurseSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -135,33 +135,33 @@ export class ViewNurseComponent implements OnInit {
   deleteNurse(){
     this.isNurseDeleting = true;
 
-    // this.nursesApi.deleteNurse()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isNurseDeleting = false;
-    //       this.router.navigateByUrl('/home/nurses/all-nurse');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isNurseDeleting = false;
-    //     }
-    //   })
+    this.nursesApi.deleteNurse()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isNurseDeleting = false;
+          this.router.navigateByUrl('/home/nurses/all-nurse');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isNurseDeleting = false;
+        }
+      })
   }
 
   putNurseImage(){
-    // this.nursesApi.putNursePhoto(this.nurseForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isNurseSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.nursesApi.putNursePhoto(this.nurseForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isNurseSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

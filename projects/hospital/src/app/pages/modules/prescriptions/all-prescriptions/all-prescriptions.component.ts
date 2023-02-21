@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NewPrescriptionComponent } from '../new-prescription/new-prescription.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-// import { PrescriptionsApiService } from 'projects/hospital/src/app/services/modules-api/prescriptions-api/prescriptions-api.service';
+import { PrescriptionsApiService } from 'projects/hospital/src/app/services/modules-api/prescriptions-api/prescriptions-api.service';
 // import { PrescriptionsPrintService } from 'projects/hospital/src/app/services/modules-printing/prescriptions-print/prescriptions-print.service';
 
 
@@ -17,7 +17,7 @@ export class AllPrescriptionsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private prescriptionsApi: PrescriptionsApiService,
+    private prescriptionsApi: PrescriptionsApiService,
     // private prescriptionsPrint: PrescriptionsPrintService
   ) { }
 
@@ -46,26 +46,26 @@ export class AllPrescriptionsComponent implements OnInit {
   getAccountPrescription(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.prescriptionsApi.getAccountPrescription(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.prescriptionsGridData = res.results;
+    this.prescriptionsApi.getAccountPrescription(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.prescriptionsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){

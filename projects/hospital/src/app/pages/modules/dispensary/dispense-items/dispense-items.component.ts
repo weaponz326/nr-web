@@ -5,7 +5,7 @@ import { EditItemComponent } from '../edit-item/edit-item.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
 
-// import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
+import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/mo
 export class DispenseItemsComponent implements OnInit {
 
   constructor(
-    // private dispensaryApi: DispensaryApiService
+    private dispensaryApi: DispensaryApiService
   ) { }
 
   @ViewChild('addItemComponentReference', { read: AddItemComponent, static: false }) addItem!: AddItemComponent;
@@ -35,95 +35,95 @@ export class DispenseItemsComponent implements OnInit {
   isFetchingGridData = false;
 
   ngOnInit(): void {
-    this.getOrderItem();
+    this.getDispenseItem();
   }
 
-  getOrderItem(){
+  getDispenseItem(){
     this.isFetchingGridData = true;
 
-    // this.dispensaryApi.getOrderItem()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.itemsGridData = res;
+    this.dispensaryApi.getDispenseItem()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.itemsGridData = res;
 
-    //       try { this.lastItem = Number((res[res.length - 1]).item_number) }
-    //       catch{ this.lastItem = 0 }
+          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastItem = 0 }
 
-    //       this.isFetchingGridData = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   postItem(data: any){
     console.log(data);
     this.addItem.isItemSaving = true;
 
-    // this.dispensaryApi.postItem(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.dispensaryApi.postItem(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getOrderItem();
+          if(res.id){
+            this.getDispenseItem();
 
-    //         this.addItem.isItemSaving = false;
-    //         this.addItem.dismissButton.nativeElement.click();
-    //         this.addItem.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addItem.isItemSaving = false;
-    //       this.addItem.dismissButton.nativeElement.click();
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addItem.isItemSaving = false;
+            this.addItem.dismissButton.nativeElement.click();
+            this.addItem.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addItem.isItemSaving = false;
+          this.addItem.dismissButton.nativeElement.click();
+          this.connectionToast.openToast();
+        }
+      })
   }
 
-  putItem(order_item: any){
-    console.log(order_item);
+  putItem(dispense_item: any){
+    console.log(dispense_item);
     this.editItem.isItemSaving = true;
 
-    // this.dispensaryApi.putItem(order_item.id, order_item.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.dispensaryApi.putItem(dispense_item.id, dispense_item.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.editItem.isItemSaving = false;
-    //       this.editItem.dismissButton.nativeElement.click();
-    //       this.getOrderItem();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editItem.isItemSaving = false;
-    //       this.editItem.dismissButton.nativeElement.click();
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.editItem.isItemSaving = false;
+          this.editItem.dismissButton.nativeElement.click();
+          this.getDispenseItem();
+        },
+        error: (err) => {
+          console.log(err);
+          this.editItem.isItemSaving = false;
+          this.editItem.dismissButton.nativeElement.click();
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteItem(){
     this.isItemDeleting = true;
 
-    // this.dispensaryApi.deleteItem(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isItemDeleting = false;
-    //       this.getOrderItem();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isItemDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.dispensaryApi.deleteItem(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isItemDeleting = false;
+          this.getDispenseItem();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isItemDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditItem(data: any){

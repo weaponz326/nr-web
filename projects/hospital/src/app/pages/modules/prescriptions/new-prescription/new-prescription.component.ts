@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PrescriptionsApiService } from 'projects/hospital/src/app/services/modules-api/prescriptions-api/prescriptions-api.service';
+import { PrescriptionsApiService } from 'projects/hospital/src/app/services/modules-api/prescriptions-api/prescriptions-api.service';
 
 // import { Prescription } from 'projects/hospital/src/app/models/modules/prescriptions/prescriptions.model';
 
@@ -20,7 +20,7 @@ export class NewPrescriptionComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private prescriptionsApi: PrescriptionsApiService,
+    private prescriptionsApi: PrescriptionsApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -36,7 +36,6 @@ export class NewPrescriptionComponent implements OnInit {
     patientNumber: new FormControl(''),
     consultantName: new FormControl(''),
   })
-
 
   ngOnInit(): void {
   }
@@ -59,25 +58,25 @@ export class NewPrescriptionComponent implements OnInit {
     console.log(data);
     this.isPrescriptionSaving = true;
 
-    // this.prescriptionsApi.postPrescription(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.prescriptionsApi.postPrescription(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('hospital_prescription_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('hospital_prescription_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isPrescriptionSaving = false;
-    //         this.router.navigateByUrl('/home/prescriptions/view-prescription');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPrescriptionSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isPrescriptionSaving = false;
+            this.router.navigateByUrl('/home/prescriptions/view-prescription');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPrescriptionSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
@@ -85,21 +84,21 @@ export class NewPrescriptionComponent implements OnInit {
   getNewPrescriptionCodeConfig(){
     this.prescriptionForm.controls.prescriptionCode.disable();
 
-    // this.prescriptionsApi.getNewPrescriptionCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.prescriptionsApi.getNewPrescriptionCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.code)
-    //         this.prescriptionForm.controls.prescriptionCode.setValue(res.code);
-    //       else
-    //         this.prescriptionForm.controls.prescriptionCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code)
+            this.prescriptionForm.controls.prescriptionCode.setValue(res.code);
+          else
+            this.prescriptionForm.controls.prescriptionCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }
