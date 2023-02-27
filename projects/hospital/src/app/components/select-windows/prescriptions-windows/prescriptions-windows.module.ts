@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectPrescriptionComponent } from './select-prescription/select-prescription.component';
 
 
@@ -9,7 +12,11 @@ import { SelectPrescriptionComponent } from './select-prescription/select-prescr
     SelectPrescriptionComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule
+  ],
+  exports: [
+    SelectPrescriptionComponent
   ]
 })
 export class PrescriptionsWindowsModule { }
