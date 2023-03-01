@@ -964,9 +964,16 @@
               "projects/shop/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "projects/personal/src/assets/styles/main.scss",
               "projects/shop/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "projects/personal/src/assets/scripts/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -1032,9 +1039,16 @@
               "projects/shop/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "projects/personal/src/assets/styles/main.scss",
               "projects/shop/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "projects/personal/src/assets/scripts/main.js"
+            ]
           }
         }
       }
