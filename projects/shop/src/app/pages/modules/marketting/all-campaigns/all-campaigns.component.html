@@ -1,1 +1,73 @@
-<p>all-campaigns works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" routerLink="/home/marketting/new-campaign">New Campaign</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountCampaign(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="15%" class="min-width-2">
+                                    Campaign ID
+                                    <app-table-sorting [sortField]="'campaign_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="40%" class="min-width-4">
+                                    Campaign Name
+                                    <app-table-sorting [sortField]="'campaign_type'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="25%" class="min-width-4">
+                                    Campaign Type
+                                    <app-table-sorting [sortField]="'campaign_type'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Campaign Status
+                                    <app-table-sorting [sortField]="'campaign_status'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of campaignsGridData" (dblclick)="viewCampaign(data.id)" class="table-pointer">
+                                <td>{{data?.campaign_number}}</td>
+                                <td>{{data?.campaign_name}}</td>
+                                <td>{{data?.campaign_type}}</td>
+                                <td>{{data?.campaign_status}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="4">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="4">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountCampaign($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
