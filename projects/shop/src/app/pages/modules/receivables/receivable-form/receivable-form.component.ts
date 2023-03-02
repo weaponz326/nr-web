@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-receivable-form',
@@ -8,6 +10,16 @@ import { Component, OnInit } from '@angular/core';
 export class ReceivableFormComponent implements OnInit {
 
   constructor() { }
+
+  receivableForm = new FormGroup({
+    receivableCode: new FormControl(''),
+    receivableDate: new FormControl(),
+    dueDate: new FormControl(),
+    invoiceNumber: new FormControl(''),
+    customerName: new FormControl(''),
+    amount: new FormControl(0.00),
+    dateReceived: new FormControl(),
+  })
 
   ngOnInit(): void {
   }
