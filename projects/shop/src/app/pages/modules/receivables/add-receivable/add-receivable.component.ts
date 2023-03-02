@@ -85,5 +85,4 @@ export class AddReceivableComponent implements OnInit {
     this.receivableForm.receivableForm.controls.dateReceived.setValue('');
   }
 
-
 }

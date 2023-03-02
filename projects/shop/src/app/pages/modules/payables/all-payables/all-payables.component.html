@@ -1,1 +1,98 @@
-<p>all-payables works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" (click)="addPayable.openModal()">Add Payable</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountPayable(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="10%" class="min-width-2">
+                                    Payable ID
+                                    <app-table-sorting [sortField]="'item_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-4">
+                                    Payable Date
+                                    <app-table-sorting [sortField]="'payable_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-2">
+                                    Due Date
+                                    <app-table-sorting [sortField]="'due_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-2">
+                                    Invoice No.
+                                    <app-table-sorting [sortField]="'invoice_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="25%" class="min-width-3">
+                                    Customer Name
+                                    <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-2">
+                                    Amount
+                                    <app-table-sorting [sortField]="'amount'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-2">
+                                    Due Date
+                                    <app-table-sorting [sortField]="'due_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of itemsGridData; index as i" (dblclick)="openEditItem(data)" class="table-pointer">
+                                <td>{{data?.payable_code}}</td>
+                                <td>{{data?.payable_date}}</td>
+                                <td>{{data?.due_date}}</td>
+                                <td>{{data?.invoice?.invoice_number}}</td>
+                                <td>{{data?.customer_name}}</td>
+                                <td>{{data?.amount}}</td>
+                                <td>{{data?.due_date}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="7">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="7">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountPayable($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- add and edit item modal components -->
+
+<app-add-payable #addPayableComponentReference (saveItemEvent)="postPayable($event)"></app-add-payable>
+
+<app-edit-payable #editPayableComponentReference (saveItemEvent)="putPayable($event)" (deleteItemEvent)="confirmDelete($event)"></app-edit-payable>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference [closeTarget]="'#editItemModal'" (confirmEvent)="deletePayable()"></app-delete-modal-one>
