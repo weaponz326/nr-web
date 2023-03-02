@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class ConfigurationComponent implements OnInit {
 
   constructor() { }
+  
+  navHeading: any[] = [
+    { text: "Configuration", url: "/home/invoice/configuration" },
+  ];
 
   ngOnInit(): void {
   }
