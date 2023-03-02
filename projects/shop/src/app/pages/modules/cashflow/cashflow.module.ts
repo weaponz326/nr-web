@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CashflowRoutingModule } from './cashflow-routing.module';
+import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { CashflowPage } from './cashflow.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -33,7 +37,11 @@ import { QuarterlyComponent } from './sheet-types/quarterly/quarterly.component'
   ],
   imports: [
     CommonModule,
-    CashflowRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    CashflowRoutingModule,
+    MainNavbarModule,
+    ModuleUtilitiesModule,
   ]
 })
 export class CashflowModule { }

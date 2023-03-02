@@ -9,6 +9,10 @@ export class SalesPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Sales", url: "/home/sales/all-sales", icon: "bi bi-list-ul" },
+  ]
+  
   ngOnInit(): void {
   }
 

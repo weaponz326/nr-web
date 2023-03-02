@@ -9,6 +9,10 @@ export class PayablesPage implements OnInit {
 
   constructor() { }
 
+  navLinks: any[] = [
+    { text: "All Payables", url: "/home/payables/all-payables", icon: "bi bi-list-ul" },
+  ]
+  
   ngOnInit(): void {
   }
 
