@@ -1,1 +1,99 @@
-<p>all-inventory works!</p>
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" (click)="addInventory.openModal()">Add Inventory</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light border float-end page-refresh-btn" (click)="getAccountInventory(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="15%" class="min-width-2">
+                                    Inventory ID
+                                    <app-table-sorting [sortField]="'inventory_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>                                
+                                <th width="25%" class="min-width-2">
+                                    Product Name
+                                    <app-table-sorting [sortField]="'product_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-2">
+                                    Product ID
+                                    <app-table-sorting [sortField]="'product_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-2">
+                                    Unit Price
+                                    <app-table-sorting [sortField]="'unit_price'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-2">
+                                    Stock
+                                    <app-table-sorting [sortField]="'stock'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Location
+                                    <app-table-sorting [sortField]="'location'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="10%" class="min-width-3">
+                                    Batch Number
+                                    <app-table-sorting [sortField]="'batch_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of itemsGridData; index as i" (dblclick)="openEditItem(data)" class="table-pointer">
+                                <td>{{data?.inventory_code}}</td>
+                                <td>{{data?.product?.product_name}}</td>
+                                <td>{{data?.product?.product_code}}</td>
+                                <td>{{data?.product?.price}}</td>
+                                <td>{{data?.stock}}</td>
+                                <td>{{data?.location}}</td>
+                                <td>{{data?.batch_number}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="7">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="7">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountInventory($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- add and edit item modal components -->
+
+<app-add-inventory #addInventoryComponentReference (saveItemEvent)="postInventory($event)"></app-add-inventory>
+
+<app-edit-inventory #editInventoryComponentReference (saveItemEvent)="putInventory($event)" (deleteItemEvent)="confirmDelete($event)"></app-edit-inventory>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference [closeTarget]="'#editItemModal'" (confirmEvent)="deleteInventory()"></app-delete-modal-one>

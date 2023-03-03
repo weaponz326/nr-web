@@ -63,8 +63,8 @@ export class AddSalesComponent implements OnInit {
     // let data: Sales = {
     let data = {
       account: this.customCookie.getCookie('shop_id') as string,
-      recevable_code: this.salesForm.salesForm.controls.salesCode.value as string,
-      recevable_date: this.salesForm.salesForm.controls.salesDate.value,
+      sales_code: this.salesForm.salesForm.controls.salesCode.value as string,
+      sales_date: this.salesForm.salesForm.controls.salesDate.value,
       productCode: this.salesForm.salesForm.controls.productCode.value as string,
       productName: this.salesForm.salesForm.controls.productName.value as string,
       unit_price: this.salesForm.salesForm.controls.unitPrice.value as number,
