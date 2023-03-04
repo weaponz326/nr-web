@@ -1,0 +1,43 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- ward form component -->
+
+        <app-ward-form #wardFormComponentReference></app-ward-form>
+
+        <div *ngIf="!isWardLoading" class="row page-form">
+            <div class="col">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/ward/all-ward">Cancel</button>
+                <button [disabled]="isWardDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isWardSaving" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putWard()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isWardLoading" class="row page-form">
+            <div class="col">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <hr class="top-divider" />
+        <hr class="bottom-divider" />
+
+        <!-- ward patients component -->
+
+        <app-ward-patients #wardPatientsComponentReference></app-ward-patients>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteWard()"></app-delete-modal-one>

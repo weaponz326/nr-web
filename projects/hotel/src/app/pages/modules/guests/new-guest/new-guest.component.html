@@ -1,0 +1,22 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- guest page form -->
+
+        <app-guest-form #guestFormComponentReference></app-guest-form>
+
+        <div class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/guests/all-guests">Cancel</button>
+                <button [disabled]="isGuestSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="createGuest()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

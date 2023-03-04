@@ -1,0 +1,127 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <form class="page-form" [formGroup]="purchasingForm" (ngSubmit)="putPurchasing()">
+
+            <h4 class="mb-3">Purchasing Details</h4>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="purchasingCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="purchasingDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing Status :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="status" class="form-control form-control-sm w-100">
+                                <option>Processing</option>
+                                <option>Approved</option>
+                                <option>Completed</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Supplier Code :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="supplierName" class="form-control">
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Supplier Name :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="supplierName" class="form-control">
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Supplier Contact :</label></div>
+                        <div class="col-md-8">
+                            <textarea rows="3" formControlName="supplierContact" class="form-control form-control-sm w-100"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Invoice No. :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="invoiceNumber" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                </div>                
+            </div>
+
+            <hr />
+
+            <div *ngIf="!isPurchasingLoading" class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-secondary btn-sm page-form-btn" (click)="onPrintRoll()"><i class="bi bi-receipt me-2"></i>Print</button>
+
+                    <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/purchasing/all-purchasing">Cancel</button>
+                    <button [disabled]="isPurchasingDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                    <button [disabled]="isPurchasingaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn">Save</button>
+                </div>
+            </div>
+            <div *ngIf="isPurchasingLoading" class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                        <div class="spinner-grow spinner-grow-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
+                </div>
+            </div>  
+            
+            <hr class="top-divider" />
+            <hr class="bottom-divider" />
+
+        </form>
+
+        <!-- purchasing items component -->
+
+        <app-purchasing-items #purchasingItemsComponentReference></app-purchasing-items>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deletePurchasing()"></app-delete-modal-one>
+
+<!-- select supplier window component -->
+
+<!-- <app-select-supplier #selectSupplierComponentReference (rowSelected)="onSupplierSelected($event)"></app-select-supplier> -->

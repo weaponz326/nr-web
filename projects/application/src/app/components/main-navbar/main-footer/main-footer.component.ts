@@ -15,8 +15,8 @@ export class MainFooterComponent implements OnInit {
   personalUrl: string = environment.personalUrl;
   restaurantUrl: string = environment.restaurantUrl;
   schoolUrl: string = environment.schoolUrl;
-  enterpriseUrl: string = environment.enterpriseUrl;
   associationUrl: string = environment.associationUrl;
+  enterpriseUrl: string = environment.enterpriseUrl;
   hospitalUrl: string = environment.hospitalUrl;
   hotelUrl: string = environment.hotelUrl;
   shopUrl: string = environment.shopUrl;

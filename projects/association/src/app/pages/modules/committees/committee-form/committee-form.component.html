@@ -45,7 +45,7 @@
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
                         <input formControlName="committeeChairman" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" (click)="openMemberWindow()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -59,3 +59,7 @@
     <hr />
 
 </form>
+
+<!-- select member component -->
+
+<app-select-member #selectMemberComponentReference (rowSelected)="onMemberSelected($event)"></app-select-member>

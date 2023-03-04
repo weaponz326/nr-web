@@ -1,0 +1,77 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-5">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" (click)="newPrescription.openModal()">New Prescription</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light bprescription float-end page-refresh-btn" (click)="getAccountPrescription(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="20%" class="min-width-2">
+                                    Prescription ID
+                                    <app-table-sorting [sortField]="'prescription_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Prescription Date
+                                    <app-table-sorting [sortField]="'prescription_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="40%" class="min-width-3">
+                                    Patient Name
+                                    <app-table-sorting [sortField]="'patient_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-2">
+                                    Patient No.
+                                    <app-table-sorting [sortField]="'patient_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of prescriptionsGridData" (dblclick)="viewPrescription(data.id)" class="table-pointer">
+                                <td>{{data?.prescription_code}}</td>
+                                <td>{{data?.prescription_date | date: 'short'}}</td>
+                                <td>{{data?.patient?.first_name}} {{data?.patient?.last_name}}</td>
+                                <td>{{data?.patient?.patient_number}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="4">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="4">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountPrescription($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- new prescription modal component -->
+
+<app-new-prescription #newPrescriptionComponentReference></app-new-prescription>

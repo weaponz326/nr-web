@@ -1,6 +1,8 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
+import { PlanStep } from 'projects/association/src/app/models/modules/action-plan/action-plan.model';
+
 
 @Component({
   selector: 'app-edit-step',
@@ -39,9 +41,10 @@ export class EditStepComponent implements OnInit {
   }
 
   saveStep(){
-    let data = {
-      item_number: this.editStepForm.controls.stepNumber.value as string,
-      item_description: this.editStepForm.controls.stepDescription.value as string,
+    let data: PlanStep = {
+      action_plan: sessionStorage.getItem('association_action_plan_id') as string,
+      step_number: this.editStepForm.controls.stepNumber.value as string,
+      step_description: this.editStepForm.controls.stepDescription.value as string,
     }
 
     let step = {

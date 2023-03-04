@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { NewGroupComponent } from '../new-group/new-group.component'
 
+import { GroupsApiService } from 'projects/association/src/app/services/modules-api/groups-api/groups-api.service';
+
 
 @Component({
   selector: 'app-all-groups',
@@ -14,6 +16,7 @@ export class AllGroupsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private groupsApi: GroupsApiService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -37,18 +40,32 @@ export class AllGroupsComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
-    this.getActiveTerm();
     this.getAccountGroup(1, 20, "-created_at");
-  }
-
-  getActiveTerm(){
-    // this.activeTermName = this.activeTerm.getActiveTerm().data.term_name;
   }
 
   getAccountGroup(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    
+    this.groupsApi.getAccountGroup(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.groupsGridData = res.results;
+
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })    
   }
 
   sortTable(column: any){

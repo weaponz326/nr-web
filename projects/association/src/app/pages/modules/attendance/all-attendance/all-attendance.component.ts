@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { NewAttendanceComponent } from '../new-attendance/new-attendance.component'
 
+import { AttendanceApiService } from 'projects/association/src/app/services/modules-api/attendance-api/attendance-api.service';
+
 
 @Component({
   selector: 'app-all-attendance',
@@ -14,6 +16,7 @@ export class AllAttendanceComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private attendanceApi: AttendanceApiService
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -35,12 +38,32 @@ export class AllAttendanceComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
+    this.getAccountAttendance(1, 20, "-created_at");
   }
 
   getAccountAttendance(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
+    this.attendanceApi.getAccountAttendance(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.attendanceGridData = res.results;
 
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false          
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -56,7 +79,6 @@ export class AllAttendanceComponent implements OnInit {
     sessionStorage.setItem('association_attendance_id', attendanceId);
     this.router.navigateByUrl('/home/attendance/view-attendance');
   }
-
 
   onPrint(){
     console.log("lets start printing...");

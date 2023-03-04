@@ -1,0 +1,42 @@
+<div class="row page-form">
+    
+    <div class="col-md-12">
+
+        <h4 class="mb-3">Supplier Products</h4>
+
+        <div class="overflow-auto">
+            <table class="table table-bordered table-sm w-100 page-table">
+                <thead>
+                    <tr class="bg-light">
+                        <th width="25%" class="min-width-2">Product ID</th>
+                        <th width="60%" class="min-width-2">Product Name</th>
+                        <th width="15%" class="p-0 min-width-1">
+                            <button class="btn btn-secondary btn-sm w-100">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of productProductsGridData; index as i">
+                        <td>{{data?.product.product_code}}</td>
+                        <td>{{data?.product.first_name}} {{data?.product.last_name}}</td>
+                        <td class="p-0">
+                            <button class="btn btn-sm border w-50" (click)="gotoProduct(data.id)"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="isFetchingGridData" class="text-center">
+                        <td colspan="3">
+                            <div class="spinner-grow m-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>

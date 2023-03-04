@@ -33,7 +33,6 @@ export class BudgetPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - All Budgets',
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
@@ -43,7 +42,8 @@ export class BudgetPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - All Budgets';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view budget
@@ -57,6 +57,12 @@ export class BudgetPrintService {
     const incomeGridData: any = await lastValueFrom(incomeGridResults$);
     const expenditureGridData: any = await lastValueFrom(expenditureGridResults$);
 
+    // budget
+
+    var budgetBody = [
+      ['Budget Name',  ':', budgetFormData.budget_name],
+      ['Budget Type',  ':', budgetFormData.budget_type],
+    ];
 
     // income
 
@@ -100,11 +106,16 @@ export class BudgetPrintService {
 
     let content = [
       {
-        header: 'netRink Personal - View Budget',
         columns: [
           [
-            { text: 'Budget Name: ' + budgetFormData.budget_name },
-            { text: 'Budget Type: ' + budgetFormData.budget_type },
+            {
+              layout: 'noBorders',
+              table: {
+                headerRows: 0,
+                widths: ['33%', '2%', '65%'],
+                body: budgetBody
+              }
+            }
           ],
           [
             { text: 'Income over Expenditure', bold: true, alignment: 'center' },
@@ -112,6 +123,7 @@ export class BudgetPrintService {
           ]
         ]
       },
+
       {
         columns: [
           [
@@ -141,7 +153,8 @@ export class BudgetPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Personal - View Budget';
+    this.pdfPrint.openPdf(header, content);
   }
 
 }

@@ -1,0 +1,51 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-md-6">
+
+                <!-- supplier page form -->
+
+                <app-supplier-form #supplierFormComponentReference></app-supplier-form>
+
+                <hr>
+                
+                <div *ngIf="!isSupplierLoading" class="row page-form">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/suppliers/all-suppliers">Cancel</button>
+                        <button [disabled]="isSupplierDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                        <button [disabled]="isSupplierSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putSupplier()">Save</button>
+                    </div>
+                </div>
+                <div *ngIf="isSupplierLoading" class="row page-form">
+                    <div class="col">
+                        <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            
+            <div class="col-md-6">
+
+                <app-supplier-products #supplierProductsComponentReference></app-supplier-products>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteSupplier()"></app-delete-modal-one>

@@ -113,7 +113,7 @@ export class ViewAttendanceComponent implements OnInit {
           console.log(err);
           this.connectionToast.openToast();
         }
-      })  
+      })
   }
 
   // printing

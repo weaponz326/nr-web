@@ -10,19 +10,19 @@
                         <th width="25%" class="min-width-2">Member ID</th>
                         <th width="60%" class="min-width-2">Member Name</th>
                         <th width="15%" class="p-0 min-width-1">
-                            <button class="btn btn-secondary btn-sm w-100">
+                            <button class="btn btn-secondary btn-sm w-100" (click)="selectMember.openModal()">
                                 <i class="bi bi-plus"></i>
                             </button>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of classMembersGridData; index as i">
+                    <tr *ngFor="let data of membersGridData; index as i">
                         <td>{{data?.member.member_code}}</td>
                         <td>{{data?.member.first_name}} {{data?.member.last_name}}</td>
                         <td class="p-0">
-                            <button class="btn btn-sm border w-100" (click)="gotoMember(data.id)"><i class="bi bi-eye"></i></button>
-                            <button class="btn btn-sm border w-100" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-sm border w-50" (click)="gotoMember(data.id)"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="isFetchingGridData" class="text-center">
@@ -68,3 +68,7 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteGroupMember()"></app-delete-modal-two>
+
+<!-- select table window component -->
+
+<app-select-member #selectMemberComponentReference (rowSelected)="postGroupMember($event)"></app-select-member>

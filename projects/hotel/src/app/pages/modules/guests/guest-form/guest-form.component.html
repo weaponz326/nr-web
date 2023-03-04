@@ -1,0 +1,82 @@
+<form class="page-form" [formGroup]="guestForm">
+
+    <div class="row page-form">
+
+        <div class="col-md-12">
+            <h4 class="mb-3">Guest Details</h4>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Guest ID :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="guestCode" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Guest Name :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="guestName" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Guest Type :</label></div>
+                <div class="col-md-8">
+                    <select formControlName="guestType" class="form-control form-control-sm w-100">
+                        <option>Individual</option>
+                        <option>Organization</option>
+                        <option>Group</option>
+                        <option>Couple</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Phone No. :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="phone" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Email :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="email" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Address :</label></div>
+                <div class="col-md-8">
+                    <textarea formControlName="address" class="form-control form-control-sm w-100" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">State/Region :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="state" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">City/Town :</label></div>
+                <div class="col-md-8">
+                    <input formControlName="city" class="form-control form-control-sm w-100">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+</form>

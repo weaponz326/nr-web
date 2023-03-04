@@ -1,0 +1,14 @@
+<app-main-navbar [navBrand]="'nR Shop'" [source]="'Shop'"></app-main-navbar>
+
+<div class="row flex-nowrap g-0">
+    <div class="col-auto col-md-3 col-xl-2">
+
+        <app-module-sidenav [navLinks]="navLinks" [heading]="'Payments'"></app-module-sidenav>
+
+    </div>
+    <div class="col">
+        
+        <router-outlet></router-outlet>
+
+    </div>
+</div>

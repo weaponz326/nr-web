@@ -1,0 +1,95 @@
+<div class="row my-3">
+    <div class="col-md-12">
+        <h5>User Modules' Access</h5>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+
+        <table class="table table-sm page-table">
+            <thead>
+                <tr>
+                    <th width="70%">Module</th>
+                    <th width="30%">Access</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Accounts</td>
+                    <td><input [(ngModel)]="accessForm.admin_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Cash Flow</td>
+                    <td><input [(ngModel)]="accessForm.cashflow_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="cashflowCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Customers</td>
+                    <td><input [(ngModel)]="accessForm.customers_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="customersCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Inventory</td>
+                    <td><input [(ngModel)]="accessForm.inventory_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="inventoryCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Invoice</td>
+                    <td><input [(ngModel)]="accessForm.invoice_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="invoiceCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Marketting</td>
+                    <td><input [(ngModel)]="accessForm.marketting_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="markettingCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Orders</td>
+                    <td><input [(ngModel)]="accessForm.orders_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="ordersCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Payables</td>
+                    <td><input [(ngModel)]="accessForm.payables_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="payablesCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Payments</td>
+                    <td><input [(ngModel)]="accessForm.payments_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="paymentsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Portal</td>
+                    <td><input [(ngModel)]="accessForm.portal_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="portalCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Products</td>
+                    <td><input [(ngModel)]="accessForm.products_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="productsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Purchasing</td>
+                    <td><input [(ngModel)]="accessForm.purchasing_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="purchasingCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Receivables</td>
+                    <td><input [(ngModel)]="accessForm.receivables_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="receivablesCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Sales</td>
+                    <td><input [(ngModel)]="accessForm.sales_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="salesCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Settings</td>
+                    <td><input [(ngModel)]="accessForm.settings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="settingsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Staff</td>
+                    <td><input [(ngModel)]="accessForm.staff_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="staffCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Suppliers</td>
+                    <td><input [(ngModel)]="accessForm.suppliers_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="suppliersCheckbox"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

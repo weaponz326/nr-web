@@ -1,0 +1,59 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <div class="row mb-3">
+            <div class="col-md-8">
+
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+
+                        <form (ngSubmit)="doSearch(1)">
+                            <div class="input-group">
+                                <input [(ngModel)]="searchInput" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Search for users" aria-label="Search for users" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="submit" id="button-addon2">
+                                        Search <i class="bi bi-search ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div *ngIf="isSearchResultsReady">
+                    <app-search-results #searchResultsComponentReference
+                    (viewDetailEvent)="gotoSearchDetail($event)"
+                    (nextPageEvent)="doSearch(currentPage + 1)"
+                    (prevPageEvent)="doSearch(currentPage - 1)"
+                    [searchQuery]="searchQuery"
+                    [searchResults]="searchResultsData"
+                    [isNextDisabled]="isNextDisabled"
+                    [isPrevDisabled]="isPrevDisabled"
+                    ></app-search-results>
+                </div>
+
+                <div *ngIf="isSearchDetailReady">
+                    <app-search-detail #searchDetailComponentReference
+                        (sendInvitationEvent)="checkSubscriptionStatus()"
+                        [searchDetail]="searchDetailData"
+                    ></app-search-detail>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

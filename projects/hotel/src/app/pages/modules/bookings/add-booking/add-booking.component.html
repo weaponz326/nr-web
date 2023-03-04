@@ -1,0 +1,87 @@
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#addBookingModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="addBookingModal" tabindex="-1" aria-labelledby="addBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="page-form" [formGroup]="bookingForm" (ngSubmit)="createBooking()">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="addBookingModalLabel">Add New Booking</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Booking ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="bookingCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Booking Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="bookingDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Guest ID :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="guestCode" class="form-control">
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Guest Name :</label></div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="guestName" class="form-control">
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Expected Arrival :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="expectedArrival" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Booking Status :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="bookingStatus" class="form-control form-control-sm w-100">
+                                <option>Waiting</option>
+                                <option>Arrived</option>
+                                <option>Cancelld</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button [disabled]="isBookingSaving" type="submit" class="btn btn-sm btn-secondary modal-form-btn">Save</button>
+                    <button type="button" class="btn btn-sm btn-secondary modal-form-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

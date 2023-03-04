@@ -25,7 +25,7 @@ export class SectionStudentsComponent implements OnInit {
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
   @ViewChild('selectStudentComponentReference', { read: SelectStudentComponent, static: false }) selectStudent!: SelectStudentComponent;
 
-  classStudentsGridData: any[] = [];
+  studentStudentsGridData: any[] = [];
 
   deleteId = "";
 
@@ -44,7 +44,7 @@ export class SectionStudentsComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.isFetchingGridData = false;
-          this.classStudentsGridData = res;
+          this.studentStudentsGridData = res;
         },
         error: (err) => {
           console.log(err);

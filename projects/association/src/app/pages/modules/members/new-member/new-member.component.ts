@@ -5,6 +5,8 @@ import { MemberFormComponent } from '../member-form/member-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { MembersApiService } from 'projects/association/src/app/services/modules-api/members-api/members-api.service';
+import { Member } from 'projects/association/src/app/models/modules/members/members.model';
 
 
 @Component({
@@ -17,6 +19,7 @@ export class NewMemberComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private membersApi: MembersApiService,
   ) { }
 
   @ViewChild('memberFormComponentReference', { read: MemberFormComponent, static: false }) memberForm!: MemberFormComponent;
@@ -38,7 +41,7 @@ export class NewMemberComponent implements OnInit {
     console.log('u are saving a new member');
 
     var data = {
-      account: this.customCookie.getCookie('asssociation_id') as string,
+      account: this.customCookie.getCookie('association_id') as string,
       first_name: this.memberForm.memberForm.controls.firstName.value as string,
       last_name: this.memberForm.memberForm.controls.lastName.value as string,
       sex: this.memberForm.memberForm.controls.sex.value as string,
@@ -56,21 +59,39 @@ export class NewMemberComponent implements OnInit {
     console.log(data);
     this.isMemberSaving = true;
 
-        
+    this.membersApi.postMember(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('association_member_id', res.id);
+
+          if(this.memberForm.photo.isImageChanged){
+            this.putMemberImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/members/view-member');                    
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isMemberSaving = false;
+          this.connectionToast.openToast();
+        }
+      })    
   }
 
   putMemberImage(){
-    // this.membersApi.putMemberPhoto(this.memberForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/members/view-member');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.membersApi.putMemberPhoto(this.memberForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/members/view-member');                    
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewMemberCodeConfig(){

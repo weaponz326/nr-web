@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ViewNurseComponent } from './view-nurse.component';
+
+describe('ViewNurseComponent', () => {
+  let component: ViewNurseComponent;
+  let fixture: ComponentFixture<ViewNurseComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ ViewNurseComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ViewNurseComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

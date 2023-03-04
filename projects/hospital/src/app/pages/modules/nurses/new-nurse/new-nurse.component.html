@@ -1,0 +1,22 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="containerfluid px-4">
+
+        <!-- nurse page form -->
+
+        <app-nurse-form #nurseFormComponentReference></app-nurse-form>
+
+        <div class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/nurses/all-nurses">Cancel</button>
+                <button [disabled]="isNurseSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="postNurse()">Save</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

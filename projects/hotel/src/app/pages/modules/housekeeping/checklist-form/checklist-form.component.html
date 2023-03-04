@@ -1,0 +1,43 @@
+<form class="page-form" [formGroup]="checklistForm">
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Item No. :</label>
+        </div>
+        <div class="col-md-8">
+            <input type="number" min="1" formControlName="itemNumber" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Item Description :</label>
+        </div>
+        <div class="col-md-8">
+            <input formControlName="itemDescription" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Item Status :</label>
+        </div>
+        <div class="col-md-8">
+            <select formControlName="itemStatus" class="form-control form-control-sm w-100">
+                <option value="">Needs Cleaning</option>
+                <option value="">Cleaned</option>
+                <option value="">Broken</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Remarks :</label>
+        </div>
+        <div class="col-md-8">
+            <textarea formControlName="remarks" class="form-control form-control-sm w-100" rows="3"></textarea>
+        </div>
+    </div>
+
+</form>

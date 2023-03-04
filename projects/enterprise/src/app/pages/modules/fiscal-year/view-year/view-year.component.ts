@@ -115,7 +115,7 @@ export class ViewYearComponent implements OnInit {
           console.log(err);
           this.connectionToast.openToast();
         }
-      }) 
+      })
   }
 
   putActiveYear(){

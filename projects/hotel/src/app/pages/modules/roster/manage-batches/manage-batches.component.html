@@ -1,0 +1,115 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <form class="page-form" [formGroup]="rosterForm">
+
+            <div class="row page-form">
+
+                <div class="col-md-12">
+                    <h4 class="mb-3">Roster Details</h4>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Roster ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="rosterCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Roster Name :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="rosterName" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+        <hr class="top-divider" />
+        <hr class="bottom-divider" />
+
+        <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <button class="btn btn-secondary float-end nr-standard-font" routerLink="/home/roster/view-roster">
+                    <i class="bi bi-arrow-left-right me-2"></i> Roster Sheet
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+
+                <h4 class="mb-3">Roster Batches</h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="overflow-auto">
+                            <table class="table table-bordered table-sm w-100 page-table">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th width="55%" class="min-width-3">Batch Name</th>
+                                        <th width="30%" class="min-width-2">Batch Symbol</th>
+                                        <th width="15%" class="p-0 min-width-2">
+                                            <button class="btn btn-secondary btn-sm w-100" (click)="addBatch.openModal()">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of batchesGridData">
+                                        <td>{{data?.batch_name}}</td>
+                                        <td>{{data?.batch_symbol}}</td>
+                                        <td class="p-0">
+                                            <button class="btn btn-sm border w-50" (click)="openEditBatch(data)"><i class="bi bi-pen"></i></button>
+                                            <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="isFetchingGridData">
+                                        <td colspan="3">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="false"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <!-- manage personnel component -->
+
+                <app-manage-personnel #managePersonnelComponentReference></app-manage-personnel>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- add and edit batch modal components -->
+
+<app-add-batch #addBatchComponentReference (saveBatchEvent)="postBatch($event)"></app-add-batch>
+
+<app-edit-batch #editBatchComponentReference (saveBatchEvent)="putBatch($event)" (deleteBatch)="confirmDelete($event)"></app-edit-batch>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deleteBatch()"></app-delete-modal-one>

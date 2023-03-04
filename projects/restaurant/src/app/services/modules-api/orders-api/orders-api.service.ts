@@ -59,7 +59,7 @@ export class OrdersApiService {
     return this.http.post(this.ordersUrl + "order-item/", item, this.authHeaders.headers);
   }
 
-  public gettem(itemId: any): Observable<any>{
+  public getItem(itemId: any): Observable<any>{
     return this.http.get(this.ordersUrl + "order-item/" + itemId, this.authHeaders.headers);
   }
 

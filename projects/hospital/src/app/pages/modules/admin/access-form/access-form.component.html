@@ -1,0 +1,99 @@
+<div class="row my-3">
+    <div class="col-md-12">
+        <h5>User Modules' Access</h5>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+
+        <table class="table table-sm page-table">
+            <thead>
+                <tr>
+                    <th width="70%">Module</th>
+                    <th width="30%">Access</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Admin</td>
+                    <td><input [(ngModel)]="accessForm.admin_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="adminCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Admissions</td>
+                    <td><input [(ngModel)]="accessForm.admissions_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="admissionsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Appointments</td>
+                    <td><input [(ngModel)]="accessForm.appointments_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="appointmentsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Bills</td>
+                    <td><input [(ngModel)]="accessForm.bills_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="billsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Diagnosis</td>
+                    <td><input [(ngModel)]="accessForm.diagnosis_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="diagnosisCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Dispensary</td>
+                    <td><input [(ngModel)]="accessForm.dispensary_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="dispensaryCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Doctors</td>
+                    <td><input [(ngModel)]="accessForm.doctors_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="doctorsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Drugs</td>
+                    <td><input [(ngModel)]="accessForm.drugs_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="drugsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Laboratory</td>
+                    <td><input [(ngModel)]="accessForm.laboratory_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="laboratoryCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Nurses</td>
+                    <td><input [(ngModel)]="accessForm.nurses_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="nursesCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Patients</td>
+                    <td><input [(ngModel)]="accessForm.patients_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="patientsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Payments</td>
+                    <td><input [(ngModel)]="accessForm.payments_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="paymentsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Portal</td>
+                    <td><input [(ngModel)]="accessForm.portal_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="portalCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Prescriptions</td>
+                    <td><input [(ngModel)]="accessForm.prescriptions_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="prescritionsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Roster</td>
+                    <td><input [(ngModel)]="accessForm.roster_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="rosterCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Settings</td>
+                    <td><input [(ngModel)]="accessForm.settings_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="settingsCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Staff</td>
+                    <td><input [(ngModel)]="accessForm.staff_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="staffCheckbox"></td>
+                </tr>
+                <tr>
+                    <td>Wards</td>
+                    <td><input [(ngModel)]="accessForm.wards_access" [disabled]="isCreator" type="checkbox" class="form-check-input" id="wardsCheckbox"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

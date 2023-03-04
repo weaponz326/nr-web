@@ -44,7 +44,8 @@ export class CustomersPrintService {
       }
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - All Customers';
+    this.pdfPrint.openPdf(header, content);
   }
 
   // view customer
@@ -74,7 +75,8 @@ export class CustomersPrintService {
       },
     ]
 
-    this.pdfPrint.openPdf(content);
+    var header = 'netRink Restaurant - View Customer';
+    this.pdfPrint.openPdf(header, content);
   }
   
 }

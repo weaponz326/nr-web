@@ -61,7 +61,7 @@ export class NewAttendanceComponent implements OnInit {
           console.log(err);
           this.connectionToast.openToast();
         }
-      })    
+      })
   }
 
   getNewAttendanceCodeConfig(){

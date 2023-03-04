@@ -1,0 +1,48 @@
+<form class="page-form" [formGroup]="wardPatientForm">
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Patient Name :</label></div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="patientName" class="form-control">
+                <button type="button" class="btn btn-secondary">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Patient No. :</label></div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="patientNumber" class="form-control">
+                <button type="button" class="btn btn-secondary">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Check-In Date :</label></div>
+        <div class="col-md-8">
+            <input type="date" formControlName="checkinDate" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Check-Out Date :</label></div>
+        <div class="col-md-8">
+            <input type="date" formControlName="checkoutDate" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Bed No. :</label></div>
+        <div class="col-md-8">
+            <input formControlName="bedNumber" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+</form>

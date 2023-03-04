@@ -5,6 +5,9 @@ import { ExecutiveFormComponent } from '../executive-form/executive-form.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { ExecutivesApiService } from 'projects/association/src/app/services/modules-api/executives-api/executives-api.service';
+
+import { Executive } from 'projects/association/src/app/models/modules/executives/executives.model';
 
 
 @Component({
@@ -17,6 +20,7 @@ export class AddExecutiveComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
+    private executivesApi: ExecutivesApiService,
   ) { }
 
   @ViewChild('executiveFormComponentReference', { read: ExecutiveFormComponent, static: false }) executiveForm!: ExecutiveFormComponent;
@@ -26,8 +30,6 @@ export class AddExecutiveComponent implements OnInit {
     { text: "New Executive", url: "/home/executives/new-executive" },
   ];
 
-  storageBasePath = "/school/" + this.customCookie.getCookie('restaurant_id') + "/module_executives/";
-
   isExecutiveSaving = false;
 
   ngOnInit(): void {
@@ -36,15 +38,31 @@ export class AddExecutiveComponent implements OnInit {
   postExecutive(){
     console.log('u are saving a new executive');
 
-    var data = {
-      account: this.customCookie.getCookie('asssociation_id') as string,
+    var data: Executive = {
+      account: this.customCookie.getCookie('association_id') as string,
+      name: this.executiveForm.selectedMemberId,
       position: this.executiveForm.executiveForm.controls.position.value as string,
+      fiscal_year: this.executiveForm.selectedYearId
     }
 
     console.log(data);
     this.isExecutiveSaving = true;
 
-        
+    this.executivesApi.postExecutive(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isExecutiveSaving = false;
+
+          sessionStorage.setItem('association_executive_id', res.id);
+          this.router.navigateByUrl('/home/executives/view-executive');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isExecutiveSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

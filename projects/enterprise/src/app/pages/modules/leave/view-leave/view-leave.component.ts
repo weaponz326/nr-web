@@ -62,6 +62,8 @@ export class ViewLeaveComponent implements OnInit {
           this.leaveForm.leaveForm.controls.leaveStart.setValue(this.leaveData.leave_start);
           this.leaveForm.leaveForm.controls.leaveEnd.setValue(this.leaveData.leave_end);
           this.leaveForm.leaveForm.controls.leaveStatus.setValue(this.leaveData.leave_status);
+
+          this.leaveForm.selectedEmployeeId = this.leaveData.employee.id;
         },
         error: (err) => {
           console.log(err);

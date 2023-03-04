@@ -16,8 +16,8 @@ export class AttendanceFormComponent implements OnInit {
   attendanceForm = new FormGroup({
     attendanceCode: new FormControl(''),
     attendanceName: new FormControl(''),
-    fromDate: new FormControl(''),
-    toDate: new FormControl(''),
+    fromDate: new FormControl(),
+    toDate: new FormControl(),
     fiscalYear: new FormControl({value: "", disabled: true}),
   })
 

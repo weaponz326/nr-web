@@ -1,0 +1,36 @@
+<app-module-topnav [headings]="navHeading"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-4">
+
+        <!-- doctor page form -->
+
+        <app-doctor-form #doctorFormComponentReference></app-doctor-form>
+
+        <div *ngIf="!isDoctorLoading" class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/doctors/all-doctors">Cancel</button>
+                <button [disabled]="isDoctorDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
+                <button [disabled]="isDoctorSaving" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putDoctor()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="isDoctorLoading" class="row page-form">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm float-end ms-1 btn-light page-form-btn">
+                    <div class="spinner-grow spinner-grow-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteDoctor()"></app-delete-modal-one>

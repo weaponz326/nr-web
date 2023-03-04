@@ -1,0 +1,82 @@
+<app-module-topnav [headings]="navHeading" [showPrint]="true" (print)="onPrint()"></app-module-topnav>
+
+<main>
+    <div class="container-fluid px-5">
+
+        <div class="row">
+            <div class="col-md-10">
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary page-add-btn" (click)="addService.openModal()">Add New Service</button>
+                        <button [disabled]="isFetchingGridData" class="btn btn-light bservice float-end page-refresh-btn" (click)="getAccountService(1, 20, '')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-auto">
+                    <table class="table table-bordered w-100 page-table">
+                        <thead>
+                            <tr class="bg-light">
+                                <th width="15%" class="min-width-2">
+                                    Service ID
+                                    <app-table-sorting [sortField]="'service_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="25%" class="min-width-3">
+                                    Service Name
+                                    <app-table-sorting [sortField]="'service_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="20%" class="min-width-3">
+                                    Service Type
+                                    <app-table-sorting [sortField]="'service_type'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-2">
+                                    Guest ID
+                                    <app-table-sorting [sortField]="'guest_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="25%" class="min-width-2">
+                                    Guest Name
+                                    <app-table-sorting [sortField]="'guest_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of servicesGridData" (dblclick)="viewService(data.id)" class="table-pointer">
+                                <td>{{data?.service_code}}</td>
+                                <td>{{data?.service_name}}</td>
+                                <td>{{data?.service_type}}</td>
+                                <td>{{data?.guest?.guest_code}}</td>
+                                <td>{{data?.guest?.guest_name}}</td>
+                            </tr>
+                            <tr *ngIf="isFetchingGridData || !isDataAvailable">
+                                <td colspan="5">
+                                    <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="5">
+                                    <app-table-paginator
+                                    [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountService($event, 20, '')"
+                                    ></app-table-paginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- add service modal component -->
+
+<app-add-service #addServiceComponentReference></app-add-service>

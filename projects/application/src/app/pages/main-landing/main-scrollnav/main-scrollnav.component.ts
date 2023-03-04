@@ -10,12 +10,12 @@ export class MainScrollnavComponent implements OnInit {
   constructor() { }
 
   @Output() personalEvent = new EventEmitter();
-  @Output() hospitalEvent = new EventEmitter();
   @Output() restaurantEvent = new EventEmitter();
   @Output() schoolEvent = new EventEmitter();
-  @Output() enterpriseEvent = new EventEmitter();
   @Output() associationEvent = new EventEmitter();
+  @Output() enterpriseEvent = new EventEmitter();
   @Output() hotelEvent = new EventEmitter();
+  @Output() hospitalEvent = new EventEmitter();
   @Output() shopEvent = new EventEmitter();
   @Output() productionEvent = new EventEmitter();
 

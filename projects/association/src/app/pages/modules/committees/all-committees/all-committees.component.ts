@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
+import { CommitteesApiService } from 'projects/association/src/app/services/modules-api/committees-api/committees-api.service';
+// import { CommitteesPrintService } from 'projects/association/src/app/services/modules-printing/committees-print/committees-print.service';
+
 
 @Component({
   selector: 'app-all-committees',
@@ -13,6 +16,8 @@ export class AllCommitteesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private committeesApi: CommitteesApiService,
+    // private committeesPrint: CommitteesPrintService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -33,12 +38,32 @@ export class AllCommitteesComponent implements OnInit {
   currentSortColumn = "";
 
   ngOnInit(): void {
+    this.getAccountCommittee(1, 20, "-created_at");
   }
 
   getAccountCommittee(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
+    this.committeesApi.getAccountCommittee(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.committeesGridData = res.results;
 
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
+
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false          
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
