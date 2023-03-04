@@ -21,7 +21,7 @@
             </li>
 
             <li *ngIf="showConf" class="nav-item">
-                <a href="#" class="nav-link align-middle px-0 mb-3" (click)="gotoConfig($event)">
+                <a href="#" class="nav-link align-middle px-0 mb-3" (click)="checkConfigAccess()">
                     <i class="bi bi-gear"></i>
                     <span class="ms-2 d-none d-sm-inline">Configuration</span>
                 </a>
@@ -30,3 +30,7 @@
 
     </div>
 </nav>
+
+<!-- access denied prompt component -->
+
+<app-access-toast #accessToastComponentReference></app-access-toast>
