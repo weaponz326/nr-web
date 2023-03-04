@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-terms',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TermsPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Terms", url: "/home/terms/all-terms", icon: "bi bi-list-ul" },
@@ -15,6 +16,11 @@ export class TermsPage implements OnInit {
   ]
   
   ngOnInit(): void {
+  }
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/terms/configuration");
   }
 
 }

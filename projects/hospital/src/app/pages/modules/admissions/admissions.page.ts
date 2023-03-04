@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admissions',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdmissionsPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Admissions", url: "/home/admissions/all-admissions", icon: "bi bi-list-ul" },
@@ -16,4 +17,9 @@ export class AdmissionsPage implements OnInit {
   ngOnInit(): void {
   }
 
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/admissions/configuration");
+  }
+  
 }

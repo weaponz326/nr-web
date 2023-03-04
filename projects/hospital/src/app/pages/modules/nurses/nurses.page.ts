@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nurses',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NursesPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Nurses", url: "/home/nurses/all-nurses", icon: "bi bi-list-ul" },
@@ -15,6 +16,11 @@ export class NursesPage implements OnInit {
   ]
   
   ngOnInit(): void {
+  }
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/nurses/configuration");
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchasing',
@@ -7,13 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PurchasingPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Purchasing", url: "/home/purchasing/all-purchasing", icon: "bi bi-list-ul" },
   ]
   
   ngOnInit(): void {
+  }
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/purchasing/configuration");
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notes',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "Note Board", url: "/home/notes/note-board", icon: "bi bi-clipboard" },
@@ -16,4 +17,9 @@ export class NotesPage implements OnInit {
   ngOnInit(): void {
   }
 
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/notes/configuration");
+  }
+  
 }

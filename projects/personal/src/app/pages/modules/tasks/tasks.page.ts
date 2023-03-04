@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Task Groups", url: "/home/tasks/all-task-groups", icon: "bi bi-list-ul" },
@@ -15,6 +16,11 @@ export class TasksPage implements OnInit {
   ]
   
   ngOnInit(): void {
+  }
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/tasks/configuration");
   }
 
 }

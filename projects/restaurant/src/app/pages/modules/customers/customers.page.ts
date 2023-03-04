@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 
@@ -9,7 +10,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class CustomersPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Customers", url: "/home/customers/all-customers", icon: "bi bi-list-ul" },
@@ -18,5 +19,10 @@ export class CustomersPage implements OnInit {
   
   ngOnInit(): void {
   }  
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/customers/configuration");
+  }
 
 }

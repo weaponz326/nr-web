@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,13 +9,18 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class TablesPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Tables", url: "/home/tables/all-tables", icon: "bi bi-list-ul" },
   ]
   
   ngOnInit(): void {
+  }
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/tables/configuration");
   }
 
 }

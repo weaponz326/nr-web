@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-parents',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParentsPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Parents", url: "/home/parents/all-parents", icon: "bi bi-list-ul" },
@@ -17,4 +18,9 @@ export class ParentsPage implements OnInit {
   ngOnInit(): void {
   }
 
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/parents/configuration");
+  }
+  
 }

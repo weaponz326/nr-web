@@ -16,6 +16,7 @@ export class ModuleSidenavComponent implements OnInit {
   @Input() suite: any;
   @Input() showConf: any = false;
   @Input() navLinks: any[] = [];
+  @Output() gotoConfig = new EventEmitter<number>();
   
   @ViewChild('accessToastComponentReference', { read: AccessToastComponent, static: false }) accessToast!: AccessToastComponent;
 
@@ -24,7 +25,9 @@ export class ModuleSidenavComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkConfigAccess(){
+  checkConfigAccess(e: any){
+    e.preventDefault();
+
     if(this.suite == 'Personal')
       this.accessLevel = 'Admin';
     else if(this.suite == 'Restaurant')
@@ -46,11 +49,12 @@ export class ModuleSidenavComponent implements OnInit {
 
     if (this.accessLevel != "Staff"){
       console.log("Access granted :)");
+      this.gotoConfig.emit();
     }
     else{
       console.log("Access denied :(");
       this.accessToast.openToast();
     }
   }
-  
+    
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fiscal-year',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FiscalYearPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Fiscal Years", url: "/home/fiscal-year/all-years", icon: "bi bi-list-ul" },
@@ -15,6 +16,11 @@ export class FiscalYearPage implements OnInit {
   ]
 
   ngOnInit(): void {
+  }
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/fiscal-year/configuration");
   }
 
 }

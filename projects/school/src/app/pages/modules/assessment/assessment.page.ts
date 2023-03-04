@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assessment',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssessmentPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Assessment", url: "/home/assessment/all-assessment", icon: "bi bi-list-ul" },
@@ -17,4 +18,9 @@ export class AssessmentPage implements OnInit {
   ngOnInit(): void {
   }
 
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/assessment/configuration");
+  }
+  
 }

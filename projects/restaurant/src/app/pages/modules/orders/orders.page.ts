@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,13 +9,18 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class OrdersPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navLinks: any[] = [
     { text: "All Orders", url: "/home/orders/all-orders", icon: "bi bi-list-ul" },
   ]
   
   ngOnInit(): void {
+  }
+
+  gotoConfig(){
+    console.log('going...');
+    this.router.navigateByUrl("/home/orders/configuration");
   }
 
 }
