@@ -41,7 +41,6 @@ export class AddOrderComponent implements OnInit {
     orderDate: new FormControl(),
     customerName: new FormControl(''),
     orderType: new FormControl(''),
-    tableNumber: new FormControl({value: '', disabled: true}),
   })
 
 
