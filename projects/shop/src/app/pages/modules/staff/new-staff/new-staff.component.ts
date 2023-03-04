@@ -5,7 +5,7 @@ import { StaffFormComponent } from '../staff-form/staff-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { StaffApiService } from 'projects/shop/src/app/services/modules-api/staff-api/staff-api.service';
+import { StaffApiService } from 'projects/shop/src/app/services/modules-api/staff-api/staff-api.service';
 
 // import { Staff } from 'projects/shop/src/app/models/modules/staff/staff.model';
 
@@ -20,7 +20,7 @@ export class NewStaffComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private staffApi: StaffApiService
+    private staffApi: StaffApiService
   ) { }
 
   @ViewChild('staffFormComponentReference', { read: StaffFormComponent, static: false }) staffForm!: StaffFormComponent;
@@ -64,39 +64,39 @@ export class NewStaffComponent implements OnInit {
     console.log(data);
     this.isStaffSaving = true;
 
-    // this.staffApi.postStaff(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('shop_staff_id', res.id);
+    this.staffApi.postStaff(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('shop_staff_id', res.id);
 
-    //       if(this.staffForm.photo.isImageChanged){
-    //         this.putStaffImage();
-    //       }
-    //       else{
-    //         this.router.navigateByUrl('/home/staff/view-staff');                    
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isStaffSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.staffForm.photo.isImageChanged){
+            this.putStaffImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/staff/view-staff');                    
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isStaffSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putStaffImage(){
-    // this.staffApi.putStaffPhoto(this.staffForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/staff/view-staff');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.staffApi.putStaffPhoto(this.staffForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/staff/view-staff');                    
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewStaffCodeConfig(){

@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { InvoiceApiService } from 'projects/shop/src/app/services/modules-api/invoice-api/invoice-api.service';
+import { InvoiceApiService } from 'projects/shop/src/app/services/modules-api/invoice-api/invoice-api.service';
 
 // import { Invoice } from 'projects/shop/src/app/models/modules/invoice/invoice.model';
 
@@ -20,7 +20,7 @@ export class NewInvoiceComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private invoiceApi: InvoiceApiService,
+    private invoiceApi: InvoiceApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -75,31 +75,31 @@ export class NewInvoiceComponent implements OnInit {
     console.log(data);
     this.isInvoiceSaving = true;
 
-    // this.invoiceApi.postInvoice(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.invoiceApi.postInvoice(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('shop_invoice_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('shop_invoice_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isInvoiceSaving = false;
-    //         this.router.navigateByUrl('/home/invoice/view-invoice');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isInvoiceSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isInvoiceSaving = false;
+            this.router.navigateByUrl('/home/invoice/view-invoice');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isInvoiceSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }
 
   getNewInvoiceCodeConfig(){
-    this.invoiceForm.controls.invoiceNumber.disable();
+    // this.invoiceForm.controls.invoiceNumber.disable();
 
     // this.invoiceApi.getNewInvoiceCodeConfig()
     //   .subscribe({

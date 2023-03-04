@@ -8,7 +8,7 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 // import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
+import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
 // import { OrdersPrintService } from 'projects/shop/src/app/services/modules-printing/orders-print/orders-print.service';
 
 // import { Order } from 'projects/shop/src/app/models/modules/orders/orders.model';
@@ -24,7 +24,7 @@ export class ViewOrderComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private ordersApi: OrdersApiService,
+    private ordersApi: OrdersApiService,
     // private ordersPrint: OrdersPrintService
   ) { }
 
@@ -66,29 +66,29 @@ export class ViewOrderComponent implements OnInit {
   getOrder(){
     this.isOrderLoading = true;
 
-    // this.ordersApi.getOrder()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.ordersApi.getOrder()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.orderFormData = res;
-    //       this.isOrderLoading = false;
+          this.orderFormData = res;
+          this.isOrderLoading = false;
 
-    //       this.orderForm.controls.orderCode.setValue(this.orderFormData.order_code);
-    //       this.orderForm.controls.orderDate.setValue(new Date(this.orderFormData.order_date).toISOString().slice(0, 16));
-    //       this.orderForm.controls.orderType.setValue(this.orderFormData.order_type);
-    //       this.orderForm.controls.orderStatus.setValue(this.orderFormData.order_status);
+          this.orderForm.controls.orderCode.setValue(this.orderFormData.order_code);
+          this.orderForm.controls.orderDate.setValue(new Date(this.orderFormData.order_date).toISOString().slice(0, 16));
+          this.orderForm.controls.orderType.setValue(this.orderFormData.order_type);
+          this.orderForm.controls.orderStatus.setValue(this.orderFormData.order_status);
 
-    //       this.selectedCustomerId = this.orderFormData.customer?.id;
-    //       this.selectedCustomerName = this.orderFormData.customer_name;
-    //       this.orderForm.controls.customerName.setValue(this.orderFormData.customer_name);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isOrderLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.selectedCustomerId = this.orderFormData.customer?.id;
+          this.selectedCustomerName = this.orderFormData.customer_name;
+          this.orderForm.controls.customerName.setValue(this.orderFormData.customer_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isOrderLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putOrder(){
@@ -116,18 +116,18 @@ export class ViewOrderComponent implements OnInit {
     console.log(data);
     this.isOrderSaving = true;
 
-    // this.ordersApi.putOrder(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isOrderSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isOrderSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.ordersApi.putOrder(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isOrderSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isOrderSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -137,18 +137,18 @@ export class ViewOrderComponent implements OnInit {
   deleteOrder(){
     this.isOrderDeleting = true;
 
-    // this.ordersApi.deleteOrder()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.ordersApi.deleteOrder()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/orders/all-orders');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/orders/all-orders');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openCustomerWindow(){

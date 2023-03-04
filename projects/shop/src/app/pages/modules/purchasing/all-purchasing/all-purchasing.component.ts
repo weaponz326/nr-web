@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { NewPurchasingComponent } from '../new-purchasing/new-purchasing.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-// import { PurchasingApiService } from 'projects/restaurant/src/app/services/modules-api/purchasing-api/purchasing-api.service';
-// import { PurchasingPrintService } from 'projects/restaurant/src/app/services/modules-printing/purchasing-print/purchasing-print.service';
+import { PurchasingApiService } from 'projects/shop/src/app/services/modules-api/purchasing-api/purchasing-api.service';
+// import { PurchasingPrintService } from 'projects/shop/src/app/services/modules-printing/purchasing-print/purchasing-print.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class AllPurchasingComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private purchasingApi: PurchasingApiService,
+    private purchasingApi: PurchasingApiService,
     // private purchasingPrint: PurchasingPrintService
   ) { }
 
@@ -46,26 +46,26 @@ export class AllPurchasingComponent implements OnInit {
   getAccountPurchasing(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.purchasingApi.getAccountPurchasing(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.purchasingGridData = res.results;
+    this.purchasingApi.getAccountPurchasing(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.purchasingGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -78,7 +78,7 @@ export class AllPurchasingComponent implements OnInit {
   viewPurchasing(purchasingId: any){
     console.log(purchasingId);
 
-    sessionStorage.setItem("restaurant_purchasing_id", purchasingId);
+    sessionStorage.setItem("shop_purchasing_id", purchasingId);
     this.router.navigateByUrl("/home/purchasing/view-purchasing");
   }
 

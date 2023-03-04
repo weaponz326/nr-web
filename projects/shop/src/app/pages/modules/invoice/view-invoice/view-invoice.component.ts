@@ -8,7 +8,7 @@ import { InvoiceItemsComponent } from '../invoice-items/invoice-items.component'
 // import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { InvoiceApiService } from 'projects/shop/src/app/services/modules-api/invoice-api/invoice-api.service';
+import { InvoiceApiService } from 'projects/shop/src/app/services/modules-api/invoice-api/invoice-api.service';
 // import { InvoicePrintService } from 'projects/shop/src/app/services/modules-printing/invoice-print/invoice-print.service';
 
 // import { Invoice } from 'projects/shop/src/app/models/modules/invoice/invoice.model';
@@ -24,7 +24,7 @@ export class ViewInvoiceComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private invoiceApi: InvoiceApiService,
+    private invoiceApi: InvoiceApiService,
     // private invoicePrint: InvoicePrintService
   ) { }
 
@@ -67,29 +67,29 @@ export class ViewInvoiceComponent implements OnInit {
   getInvoice(){
     this.isInvoiceLoading = true;
 
-    // this.invoiceApi.getInvoice()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.invoiceApi.getInvoice()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.invoiceFormData = res;
-    //       this.isInvoiceLoading = false;
+          this.invoiceFormData = res;
+          this.isInvoiceLoading = false;
 
-    //       this.invoiceForm.controls.invoiceNumber.setValue(this.invoiceFormData.invoice_number);
-    //       this.invoiceForm.controls.invoiceDate.setValue(new Date(this.invoiceFormData.invoice_date).toISOString().slice(0, 16));
-    //       this.invoiceForm.controls.customerContact.setValue(this.invoiceFormData.customer_contact);
-    //       this.invoiceForm.controls.dueDate.setValue(this.invoiceFormData.due_date);
+          this.invoiceForm.controls.invoiceNumber.setValue(this.invoiceFormData.invoice_number);
+          this.invoiceForm.controls.invoiceDate.setValue(new Date(this.invoiceFormData.invoice_date).toISOString().slice(0, 16));
+          this.invoiceForm.controls.customerContact.setValue(this.invoiceFormData.customer_contact);
+          this.invoiceForm.controls.dueDate.setValue(this.invoiceFormData.due_date);
 
-    //       this.selectedCustomerId = this.invoiceFormData.customer?.id;
-    //       this.selectedCustomerName = this.invoiceFormData.customer_name;
-    //       this.invoiceForm.controls.customerName.setValue(this.invoiceFormData.customer_name);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isInvoiceLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.selectedCustomerId = this.invoiceFormData.customer?.id;
+          this.selectedCustomerName = this.invoiceFormData.customer_name;
+          this.invoiceForm.controls.customerName.setValue(this.invoiceFormData.customer_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isInvoiceLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putInvoice(){
@@ -117,18 +117,18 @@ export class ViewInvoiceComponent implements OnInit {
     console.log(data);
     this.isInvoiceaving = true;
 
-    // this.invoiceApi.putInvoice(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isInvoiceaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isInvoiceaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.invoiceApi.putInvoice(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isInvoiceaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isInvoiceaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -138,18 +138,18 @@ export class ViewInvoiceComponent implements OnInit {
   deleteInvoice(){
     this.isInvoiceDeleting = true;
 
-    // this.invoiceApi.deleteInvoice()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.invoiceApi.deleteInvoice()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/invoice/all-invoice');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/invoice/all-invoice');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openCustomerWindow(){

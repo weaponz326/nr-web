@@ -5,7 +5,7 @@ import { CampaignFormComponent } from '../campaign-form/campaign-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { MarkettingApiService } from 'projects/shop/src/app/services/modules-api/marketting-api/marketting-api.service';
+import { MarkettingApiService } from 'projects/shop/src/app/services/modules-api/marketting-api/marketting-api.service';
 
 // import { Campaign } from 'projects/shop/src/app/models/modules/marketting/marketting.model';
 
@@ -20,7 +20,7 @@ export class NewCampaignComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private markettingApi: MarkettingApiService
+    private markettingApi: MarkettingApiService
   ) { }
 
   @ViewChild('campaignFormComponentReference', { read: CampaignFormComponent, static: false }) campaignForm!: CampaignFormComponent;
@@ -35,7 +35,7 @@ export class NewCampaignComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createCampaign(){
+  postCampaign(){
     console.log('u are saving a new campaign');
 
     // let data: Campaign = {
@@ -55,21 +55,21 @@ export class NewCampaignComponent implements OnInit {
     console.log(data);
     this.isCampaignSaving = true;
 
-    // this.markettingApi.postCampaign(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isCampaignSaving = false;
+    this.markettingApi.postCampaign(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isCampaignSaving = false;
 
-    //       sessionStorage.setItem('shop_campaign_id', res.id);
-    //       this.router.navigateByUrl('/home/marketting/view-campaign');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isCampaignSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          sessionStorage.setItem('shop_campaign_id', res.id);
+          this.router.navigateByUrl('/home/marketting/view-campaign');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCampaignSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

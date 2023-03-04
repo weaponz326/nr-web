@@ -5,7 +5,7 @@ import { PaymentFormComponent } from '../payment-form/payment-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PaymentsApiService } from 'projects/shop/src/app/services/modules-api/payments-api/payments-api.service';
+import { PaymentsApiService } from 'projects/shop/src/app/services/modules-api/payments-api/payments-api.service';
 
 // import { Payment } from 'projects/shop/src/app/models/modules/payments/payments.model';
 
@@ -20,7 +20,7 @@ export class NewPaymentComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private paymentsApi: PaymentsApiService
+    private paymentsApi: PaymentsApiService
   ) { }
 
   @ViewChild('paymentFormComponentReference', { read: PaymentFormComponent, static: false }) paymentForm!: PaymentFormComponent;

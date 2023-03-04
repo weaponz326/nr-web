@@ -6,7 +6,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 // import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
+import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
 
 // import { Order } from 'projects/shop/src/app/models/modules/orders/orders.model';
 
@@ -21,7 +21,7 @@ export class AddOrderComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private ordersApi: OrdersApiService,
+    private ordersApi: OrdersApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -78,30 +78,30 @@ export class AddOrderComponent implements OnInit {
     console.log(data);
     this.isOrderSaving = true;
 
-    // this.ordersApi.postOrder(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.ordersApi.postOrder(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('shop_order_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('shop_order_id', res.id);
 
-    //         if (data.order_type == "Delivery"){
-    //           // this.createDelivery();
-    //           // TODO: implement with django signals on backend
-    //         }
+            if (data.order_type == "Delivery"){
+              // this.createDelivery();
+              // TODO: implement with django signals on backend
+            }
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isOrderSaving = false;
-    //         this.router.navigateByUrl('/home/orders/view-order');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isOrderSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isOrderSaving = false;
+            this.router.navigateByUrl('/home/orders/view-order');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isOrderSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }

@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PurchasingApiService } from 'projects/shop/src/app/services/modules-api/purchasing-api/purchasing-api.service';
+import { PurchasingApiService } from 'projects/shop/src/app/services/modules-api/purchasing-api/purchasing-api.service';
 
 // import { Purchasing } from 'projects/shop/src/app/models/modules/purchasing/purchasing.model';
 
@@ -20,7 +20,7 @@ export class NewPurchasingComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private purchasingApi: PurchasingApiService,
+    private purchasingApi: PurchasingApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -75,25 +75,25 @@ export class NewPurchasingComponent implements OnInit {
     console.log(data);
     this.isPurchasingSaving = true;
 
-    // this.purchasingApi.postPurchasing(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.purchasingApi.postPurchasing(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         sessionStorage.setItem('shop_purchasing_id', res.id);
+          if(res.id){
+            sessionStorage.setItem('shop_purchasing_id', res.id);
 
-    //         this.dismissButton.nativeElement.click();
-    //         this.isPurchasingSaving = false;
-    //         this.router.navigateByUrl('/home/purchasing/view-purchasing');
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPurchasingSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.dismissButton.nativeElement.click();
+            this.isPurchasingSaving = false;
+            this.router.navigateByUrl('/home/purchasing/view-purchasing');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPurchasingSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
 
     console.log(data);
   }

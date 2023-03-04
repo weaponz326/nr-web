@@ -5,7 +5,7 @@ import { EditInventoryComponent } from '../edit-inventory/edit-inventory.compone
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { InventoryApiService } from 'projects/shop/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
+import { InventoryApiService } from 'projects/shop/src/app/services/modules-api/inventory-api/inventory-api.service';
 // import { InventoryPrintService } from 'projects/shop/src/app/services/modules-printing/inventory-print/inventory-print.service';
 
 
@@ -17,7 +17,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 export class AllInventoryComponent implements OnInit {
 
   constructor(
-    // private inventoryApi: InventoryApiService,
+    private inventoryApi: InventoryApiService,
     // private kitchenStockPrint: KitchenStockPrintService
   ) { }
 
@@ -50,28 +50,28 @@ export class AllInventoryComponent implements OnInit {
   getAccountInventory(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.inventoryApi.getAccountInventory(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.itemsGridData = res.results;
+    this.inventoryApi.getAccountInventory(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.itemsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //       else 
-    //         this.isDataAvailable = true
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+          else 
+            this.isDataAvailable = true
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -85,64 +85,64 @@ export class AllInventoryComponent implements OnInit {
     console.log(data);
     this.addInventory.isItemSaving = true;
 
-    // this.inventoryApi.postInventory(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.inventoryApi.postInventory(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getAccountInventory(1, 20, '-created_at');
-    //         this.addInventory.isItemSaving = false;
-    //         this.addInventory.addButton.nativeElement.click();
-    //         this.isDataAvailable = false;
+          if(res.id){
+            this.getAccountInventory(1, 20, '-created_at');
+            this.addInventory.isItemSaving = false;
+            this.addInventory.addButton.nativeElement.click();
+            this.isDataAvailable = false;
 
-    //         this.addInventory.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addInventory.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addInventory.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addInventory.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putInventory(item: any){
     console.log(item);
     this.editInventory.isItemSaving = true;
 
-    // this.inventoryApi.putInventory(item.id, item.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editInventory.isItemSaving = false;
-    //       this.editInventory.editButton.nativeElement.click();
-    //       this.getAccountInventory(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addInventory.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.inventoryApi.putInventory(item.id, item.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editInventory.isItemSaving = false;
+          this.editInventory.editButton.nativeElement.click();
+          this.getAccountInventory(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.addInventory.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteInventory(){
     this.editInventory.isItemDeleting = true;
 
-    // this.inventoryApi.deleteInventory(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editInventory.isItemDeleting = false;
-    //       this.getAccountInventory(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editInventory.isItemDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.inventoryApi.deleteInventory(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editInventory.isItemDeleting = false;
+          this.getAccountInventory(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.editInventory.isItemDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditItem(data: any){

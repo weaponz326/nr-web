@@ -4,7 +4,7 @@ import { PayableFormComponent } from '../payable-form/payable-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PayablesApiService } from 'projects/shop/src/app/services/modules-api/payables-api/payables-api.service';
+import { PayablesApiService } from 'projects/shop/src/app/services/modules-api/payables-api/payables-api.service';
 
 // import { Payable } from 'projects/shop/src/app/models/modules/payables/payables.model';
 
@@ -18,7 +18,7 @@ export class AddPayableComponent implements OnInit {
 
   constructor(
     private customCookie: CustomCookieService,
-    // private payablesApi: PayablesApiService
+    private payablesApi: PayablesApiService
   ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();

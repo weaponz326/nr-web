@@ -5,7 +5,7 @@ import { EditSalesComponent } from '../edit-sales/edit-sales.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { SalesApiService } from 'projects/shop/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
+import { SalesApiService } from 'projects/shop/src/app/services/modules-api/sales-api/sales-api.service';
 // import { SalesPrintService } from 'projects/shop/src/app/services/modules-printing/sales-print/sales-print.service';
 
 
@@ -17,7 +17,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 export class AllSalesComponent implements OnInit {
 
   constructor(
-    // private salesApi: SalesApiService,
+    private salesApi: SalesApiService,
     // private kitchenStockPrint: KitchenStockPrintService
   ) { }
 
@@ -50,28 +50,28 @@ export class AllSalesComponent implements OnInit {
   getAccountSales(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.salesApi.getAccountSales(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.itemsGridData = res.results;
+    this.salesApi.getAccountSales(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.itemsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //       else 
-    //         this.isDataAvailable = true
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+          else 
+            this.isDataAvailable = true
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -85,64 +85,64 @@ export class AllSalesComponent implements OnInit {
     console.log(data);
     this.addSales.isItemSaving = true;
 
-    // this.salesApi.postSales(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.salesApi.postSales(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getAccountSales(1, 20, '-created_at');
-    //         this.addSales.isItemSaving = false;
-    //         this.addSales.addButton.nativeElement.click();
-    //         this.isDataAvailable = false;
+          if(res.id){
+            this.getAccountSales(1, 20, '-created_at');
+            this.addSales.isItemSaving = false;
+            this.addSales.addButton.nativeElement.click();
+            this.isDataAvailable = false;
 
-    //         this.addSales.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addSales.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addSales.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addSales.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putSales(item: any){
     console.log(item);
     this.editSales.isItemSaving = true;
 
-    // this.salesApi.putSales(item.id, item.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editSales.isItemSaving = false;
-    //       this.editSales.editButton.nativeElement.click();
-    //       this.getAccountSales(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addSales.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.salesApi.putSales(item.id, item.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editSales.isItemSaving = false;
+          this.editSales.editButton.nativeElement.click();
+          this.getAccountSales(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.addSales.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteSales(){
     this.editSales.isItemDeleting = true;
 
-    // this.salesApi.deleteSales(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editSales.isItemDeleting = false;
-    //       this.getAccountSales(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editSales.isItemDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.salesApi.deleteSales(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editSales.isItemDeleting = false;
+          this.getAccountSales(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.editSales.isItemDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditItem(data: any){

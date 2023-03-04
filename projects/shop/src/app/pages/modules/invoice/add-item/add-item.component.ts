@@ -36,7 +36,7 @@ export class AddItemComponent implements OnInit {
     this.addButton.nativeElement.click();
   }
 
-  saveItem(){
+  saveItem(){    
     // let data: InvoiceItem = {
     let data = {
       item_number: this.itemForm.itemForm.controls.itemNumber.value as number,

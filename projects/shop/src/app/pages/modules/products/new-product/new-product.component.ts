@@ -5,7 +5,7 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { ProductsApiService } from 'projects/shop/src/app/services/modules-api/products-api/products-api.service';
+import { ProductsApiService } from 'projects/shop/src/app/services/modules-api/products-api/products-api.service';
 
 // import { Product } from 'projects/shop/src/app/models/modules/products/products.model';
 
@@ -20,7 +20,7 @@ export class NewProductComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private productsApi: ProductsApiService,
+    private productsApi: ProductsApiService,
   ) { }
 
   @ViewChild('productFormComponentReference', { read: ProductFormComponent, static: false }) productForm!: ProductFormComponent;
@@ -53,39 +53,39 @@ export class NewProductComponent implements OnInit {
     console.log(data);
     this.isProductSaving = true;
 
-    // this.productsApi.postProduct(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       sessionStorage.setItem('shop_product_id', res.id);
+    this.productsApi.postProduct(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          sessionStorage.setItem('shop_product_id', res.id);
 
-    //       if(this.productForm.photo.isImageChanged){
-    //         this.putProductImage();
-    //       }
-    //       else{
-    //         this.router.navigateByUrl('/home/products/view-product');                    
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isProductSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.productForm.productImage.isImageChanged){
+            this.putProductImage();
+          }
+          else{
+            this.router.navigateByUrl('/home/products/view-product');                    
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isProductSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putProductImage(){
-    // this.productsApi.putProductPhoto(this.productForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.router.navigateByUrl('/home/products/view-product');                    
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.productsApi.putProductPhoto(this.productForm.productImage.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/home/products/view-product');                    
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewProductCodeConfig(){

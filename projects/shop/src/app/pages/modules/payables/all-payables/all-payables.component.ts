@@ -5,7 +5,7 @@ import { EditPayableComponent } from '../edit-payable/edit-payable.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { PayablesApiService } from 'projects/shop/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
+import { PayablesApiService } from 'projects/shop/src/app/services/modules-api/payables-api/payables-api.service';
 // import { PayablePrintService } from 'projects/shop/src/app/services/modules-printing/payable-print/payable-print.service';
 
 
@@ -17,7 +17,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 export class AllPayablesComponent implements OnInit {
 
   constructor(
-    // private payablesApi: PayablesApiService,
+    private payablesApi: PayablesApiService,
     // private kitchenStockPrint: KitchenStockPrintService
   ) { }
 
@@ -50,28 +50,28 @@ export class AllPayablesComponent implements OnInit {
   getAccountPayable(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.payablesApi.getAccountPayable(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.itemsGridData = res.results;
+    this.payablesApi.getAccountPayable(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.itemsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //       else 
-    //         this.isDataAvailable = true
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+          else 
+            this.isDataAvailable = true
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -85,64 +85,64 @@ export class AllPayablesComponent implements OnInit {
     console.log(data);
     this.addPayable.isItemSaving = true;
 
-    // this.payablesApi.postPayable(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.payablesApi.postPayable(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getAccountPayable(1, 20, '-created_at');
-    //         this.addPayable.isItemSaving = false;
-    //         this.addPayable.addButton.nativeElement.click();
-    //         this.isDataAvailable = false;
+          if(res.id){
+            this.getAccountPayable(1, 20, '-created_at');
+            this.addPayable.isItemSaving = false;
+            this.addPayable.addButton.nativeElement.click();
+            this.isDataAvailable = false;
 
-    //         this.addPayable.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addPayable.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addPayable.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addPayable.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putPayable(item: any){
     console.log(item);
     this.editPayable.isItemSaving = true;
 
-    // this.payablesApi.putPayable(item.id, item.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editPayable.isItemSaving = false;
-    //       this.editPayable.editButton.nativeElement.click();
-    //       this.getAccountPayable(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addPayable.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.payablesApi.putPayable(item.id, item.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editPayable.isItemSaving = false;
+          this.editPayable.editButton.nativeElement.click();
+          this.getAccountPayable(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.addPayable.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deletePayable(){
     this.editPayable.isItemDeleting = true;
 
-    // this.payablesApi.deletePayable(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editPayable.isItemDeleting = false;
-    //       this.getAccountPayable(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editPayable.isItemDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.payablesApi.deletePayable(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editPayable.isItemDeleting = false;
+          this.getAccountPayable(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.editPayable.isItemDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditItem(data: any){

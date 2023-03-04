@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { StaffApiService } from 'projects/shop/src/app/services/modules-api/staff-api/staff-api.service';
+import { StaffApiService } from 'projects/shop/src/app/services/modules-api/staff-api/staff-api.service';
 // import { StaffPrintService } from 'projects/shop/src/app/services/modules-printing/staff-print/staff-print.service';
 
 // import { Staff } from 'projects/shop/src/app/models/modules/staff/staff.model';
@@ -24,7 +24,7 @@ export class ViewStaffComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private staffApi: StaffApiService,
+    private staffApi: StaffApiService,
     // private staffPrint: StaffPrintService
   ) { }
 
@@ -52,41 +52,39 @@ export class ViewStaffComponent implements OnInit {
   getStaff(){
     this.isStaffLoading = true;
 
-    // this.staffApi.getStaff()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.staffApi.getStaff()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.staffFormData = res;
-    //       this.isStaffLoading = false;
+          this.staffFormData = res;
+          this.isStaffLoading = false;
 
-    //       this.staffForm.staffForm.controls.firstName.setValue(this.staffFormData.first_name);
-    //       this.staffForm.staffForm.controls.lastName.setValue(this.staffFormData.last_name);
-    //       this.staffForm.staffForm.controls.sex.setValue(this.staffFormData.sex);
-    //       this.staffForm.bday.setValue(this.staffFormData.date_of_birth);
-    //       this.staffForm.staffForm.controls.nationality.setValue(this.staffFormData.nationality);
-    //       this.staffForm.staffForm.controls.religion.setValue(this.staffFormData.religion);
-    //       this.staffForm.staffForm.controls.phone.setValue(this.staffFormData.phone);
-    //       this.staffForm.staffForm.controls.email.setValue(this.staffFormData.email);
-    //       this.staffForm.staffForm.controls.address.setValue(this.staffFormData.address);
-    //       this.staffForm.staffForm.controls.state.setValue(this.staffFormData.state);
-    //       this.staffForm.staffForm.controls.city.setValue(this.staffFormData.city);
-    //       this.staffForm.staffForm.controls.postCode.setValue(this.staffFormData.post_code);
-    //       this.staffForm.staffForm.controls.staffCode.setValue(this.staffFormData.staff_code);
-    //       this.staffForm.staffForm.controls.department.setValue(this.staffFormData.department);
-    //       this.staffForm.staffForm.controls.job.setValue(this.staffFormData.job);
+          this.staffForm.staffForm.controls.firstName.setValue(this.staffFormData.first_name);
+          this.staffForm.staffForm.controls.lastName.setValue(this.staffFormData.last_name);
+          this.staffForm.staffForm.controls.sex.setValue(this.staffFormData.sex);
+          this.staffForm.bday.setValue(this.staffFormData.date_of_birth);
+          this.staffForm.staffForm.controls.nationality.setValue(this.staffFormData.nationality);
+          this.staffForm.staffForm.controls.religion.setValue(this.staffFormData.religion);
+          this.staffForm.staffForm.controls.phone.setValue(this.staffFormData.phone);
+          this.staffForm.staffForm.controls.email.setValue(this.staffFormData.email);
+          this.staffForm.staffForm.controls.address.setValue(this.staffFormData.address);
+          this.staffForm.staffForm.controls.state.setValue(this.staffFormData.state);
+          this.staffForm.staffForm.controls.city.setValue(this.staffFormData.city);
+          this.staffForm.staffForm.controls.postCode.setValue(this.staffFormData.post_code);
+          this.staffForm.staffForm.controls.staffCode.setValue(this.staffFormData.staff_code);
+          this.staffForm.staffForm.controls.department.setValue(this.staffFormData.department);
+          this.staffForm.staffForm.controls.job.setValue(this.staffFormData.job);
           
-    //       if (this.staffFormData.photo != null)
-    //         this.staffForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.staffFormData.photo;
-    //       else
-    //         this.staffForm.photo.imgSrc = 'assets/images/utilities/photo-avatar.jpg';
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isStaffLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if (this.staffFormData.photo != null)
+            this.staffForm.photo.imgSrc = environment.apiUrl.slice(0, -1) + this.staffFormData.photo;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isStaffLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   updateStaff(){
@@ -114,24 +112,24 @@ export class ViewStaffComponent implements OnInit {
     console.log(data);
     this.isStaffSaving = true;
 
-    // this.staffApi.putStaff(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.staffApi.putStaff(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(this.staffForm.photo.isImageChanged){
-    //         this.putStaffImage();
-    //       }
-    //       else{
-    //         this.isStaffSaving = false;
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isStaffSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.staffForm.photo.isImageChanged){
+            this.putStaffImage();
+          }
+          else{
+            this.isStaffSaving = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isStaffSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -141,33 +139,33 @@ export class ViewStaffComponent implements OnInit {
   deleteStaff(){
     this.isStaffDeleting = true;
 
-    // this.staffApi.deleteStaff()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isStaffDeleting = false;
-    //       this.router.navigateByUrl('/home/staff/all-staff');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isStaffDeleting = false;
-    //     }
-    //   })
+    this.staffApi.deleteStaff()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isStaffDeleting = false;
+          this.router.navigateByUrl('/home/staff/all-staff');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isStaffDeleting = false;
+        }
+      })
   }
 
   putStaffImage(){
-    // this.staffApi.putStaffPhoto(this.staffForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isStaffSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.staffApi.putStaffPhoto(this.staffForm.photo.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isStaffSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

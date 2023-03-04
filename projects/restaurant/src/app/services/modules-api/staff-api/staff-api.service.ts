@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from 'projects/personal/src/environments/environment';
+import { environment } from 'projects/restaurant/src/environments/environment';
 import { AuthHeadersService } from 'projects/personal/src/app/services/auth/auth-headers/auth-headers.service';
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 

@@ -8,7 +8,7 @@ import { PurchasingItemsComponent } from '../purchasing-items/purchasing-items.c
 // import { SelectSupplierComponent } from '../../../../components/select-windows/suppliers-windows/select-supplier/select-supplier.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { PurchasingApiService } from 'projects/shop/src/app/services/modules-api/purchasing-api/purchasing-api.service';
+import { PurchasingApiService } from 'projects/shop/src/app/services/modules-api/purchasing-api/purchasing-api.service';
 // import { PurchasingPrintService } from 'projects/shop/src/app/services/modules-printing/purchasing-print/purchasing-print.service';
 
 // import { Purchasing } from 'projects/shop/src/app/models/modules/purchasing/purchasing.model';
@@ -24,7 +24,7 @@ export class ViewPurchasingComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private purchasingApi: PurchasingApiService,
+    private purchasingApi: PurchasingApiService,
     // private purchasingPrint: PurchasingPrintService
   ) { }
 
@@ -69,29 +69,29 @@ export class ViewPurchasingComponent implements OnInit {
   getPurchasing(){
     this.isPurchasingLoading = true;
 
-    // this.purchasingApi.getPurchasing()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.purchasingApi.getPurchasing()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.purchasingFormData = res;
-    //       this.isPurchasingLoading = false;
+          this.purchasingFormData = res;
+          this.isPurchasingLoading = false;
 
-    //       this.purchasingForm.controls.purchasingCode.setValue(this.purchasingFormData.purchasing_code);
-    //       this.purchasingForm.controls.purchasingDate.setValue(new Date(this.purchasingFormData.purchasing_date).toISOString().slice(0, 16));
-    //       this.purchasingForm.controls.invoiceNumber.setValue(this.purchasingFormData.invoice_number);
+          this.purchasingForm.controls.purchasingCode.setValue(this.purchasingFormData.purchasing_code);
+          this.purchasingForm.controls.purchasingDate.setValue(new Date(this.purchasingFormData.purchasing_date).toISOString().slice(0, 16));
+          this.purchasingForm.controls.invoiceNumber.setValue(this.purchasingFormData.invoice_number);
 
-    //       this.selectedSupplierId = this.purchasingFormData.supplier?.id;
-    //       this.selectedSupplierName = this.purchasingFormData.supplier_name;
-    //       this.selectedSupplierCode = this.purchasingFormData.supplier_code;
-    //       this.purchasingForm.controls.supplierName.setValue(this.purchasingFormData.supplier_name);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPurchasingLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.selectedSupplierId = this.purchasingFormData.supplier?.id;
+          this.selectedSupplierName = this.purchasingFormData.supplier_name;
+          this.selectedSupplierId = this.purchasingFormData.supplier_code;
+          this.purchasingForm.controls.supplierName.setValue(this.purchasingFormData.supplier_name);
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPurchasingLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putPurchasing(){
@@ -118,18 +118,18 @@ export class ViewPurchasingComponent implements OnInit {
     console.log(data);
     this.isPurchasingaving = true;
 
-    // this.purchasingApi.putPurchasing(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isPurchasingaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isPurchasingaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.purchasingApi.putPurchasing(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isPurchasingaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isPurchasingaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -139,18 +139,18 @@ export class ViewPurchasingComponent implements OnInit {
   deletePurchasing(){
     this.isPurchasingDeleting = true;
 
-    // this.purchasingApi.deletePurchasing()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.purchasingApi.deletePurchasing()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.router.navigateByUrl('/home/purchasing/all-purchasing');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.router.navigateByUrl('/home/purchasing/all-purchasing');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openSupplierWindow(){

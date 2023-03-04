@@ -5,7 +5,7 @@ import { EditReceivableComponent } from '../edit-receivable/edit-receivable.comp
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 
-// import { ReceivablesApiService } from 'projects/shop/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
+import { ReceivablesApiService } from 'projects/shop/src/app/services/modules-api/receivables-api/receivables-api.service';
 // import { ReceivablePrintService } from 'projects/shop/src/app/services/modules-printing/receivable-print/receivable-print.service';
 
 
@@ -17,7 +17,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 export class AllReceivablesComponent implements OnInit {
 
   constructor(
-    // private receivablesApi: ReceivablesApiService,
+    private receivablesApi: ReceivablesApiService,
     // private kitchenStockPrint: KitchenStockPrintService
   ) { }
 
@@ -50,28 +50,28 @@ export class AllReceivablesComponent implements OnInit {
   getAccountReceivable(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.receivablesApi.getAccountReceivable(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.itemsGridData = res.results;
+    this.receivablesApi.getAccountReceivable(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.itemsGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //       else 
-    //         this.isDataAvailable = true
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+          else 
+            this.isDataAvailable = true
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -85,64 +85,64 @@ export class AllReceivablesComponent implements OnInit {
     console.log(data);
     this.addReceivable.isItemSaving = true;
 
-    // this.receivablesApi.postReceivable(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.receivablesApi.postReceivable(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getAccountReceivable(1, 20, '-created_at');
-    //         this.addReceivable.isItemSaving = false;
-    //         this.addReceivable.addButton.nativeElement.click();
-    //         this.isDataAvailable = false;
+          if(res.id){
+            this.getAccountReceivable(1, 20, '-created_at');
+            this.addReceivable.isItemSaving = false;
+            this.addReceivable.addButton.nativeElement.click();
+            this.isDataAvailable = false;
 
-    //         this.addReceivable.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addReceivable.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addReceivable.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addReceivable.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putReceivable(item: any){
     console.log(item);
     this.editReceivable.isItemSaving = true;
 
-    // this.receivablesApi.putReceivable(item.id, item.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editReceivable.isItemSaving = false;
-    //       this.editReceivable.editButton.nativeElement.click();
-    //       this.getAccountReceivable(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addReceivable.isItemSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.receivablesApi.putReceivable(item.id, item.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editReceivable.isItemSaving = false;
+          this.editReceivable.editButton.nativeElement.click();
+          this.getAccountReceivable(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.addReceivable.isItemSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteReceivable(){
     this.editReceivable.isItemDeleting = true;
 
-    // this.receivablesApi.deleteReceivable(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.editReceivable.isItemDeleting = false;
-    //       this.getAccountReceivable(1, 20, '-created_at');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editReceivable.isItemDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.receivablesApi.deleteReceivable(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.editReceivable.isItemDeleting = false;
+          this.getAccountReceivable(1, 20, '-created_at');
+        },
+        error: (err) => {
+          console.log(err);
+          this.editReceivable.isItemDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditItem(data: any){

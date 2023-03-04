@@ -5,7 +5,7 @@ import { SupplierFormComponent } from '../supplier-form/supplier-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { SuppliersApiService } from 'projects/shop/src/app/services/modules-api/suppliers-api/suppliers-api.service';
+import { SuppliersApiService } from 'projects/shop/src/app/services/modules-api/suppliers-api/suppliers-api.service';
 
 // import { Supplier } from 'projects/shop/src/app/models/modules/suppliers/suppliers.model';
 
@@ -20,7 +20,7 @@ export class NewSupplierComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private suppliersApi: SuppliersApiService
+    private suppliersApi: SuppliersApiService
   ) { }
 
   @ViewChild('supplierFormComponentReference', { read: SupplierFormComponent, static: false }) supplierForm!: SupplierFormComponent;
@@ -58,21 +58,21 @@ export class NewSupplierComponent implements OnInit {
     console.log(data);
     this.isSupplierSaving = true;
 
-    // this.suppliersApi.postSupplier(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isSupplierSaving = false;
+    this.suppliersApi.postSupplier(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isSupplierSaving = false;
 
-    //       sessionStorage.setItem('shop_supplier_id', res.id);
-    //       this.router.navigateByUrl('/home/suppliers/view-supplier');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isSupplierSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          sessionStorage.setItem('shop_supplier_id', res.id);
+          this.router.navigateByUrl('/home/suppliers/view-supplier');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isSupplierSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewsupplierCodeConfig(){

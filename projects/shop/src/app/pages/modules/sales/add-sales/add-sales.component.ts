@@ -4,7 +4,7 @@ import { SalesFormComponent } from '../sales-form/sales-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { SalesApiService } from 'projects/shop/src/app/services/modules-api/sales-api/sales-api.service';
+import { SalesApiService } from 'projects/shop/src/app/services/modules-api/sales-api/sales-api.service';
 
 // import { Sales } from 'projects/shop/src/app/models/modules/sales/sales.model';
 
@@ -18,7 +18,7 @@ export class AddSalesComponent implements OnInit {
 
   constructor(
     private customCookie: CustomCookieService,
-    // private salesApi: SalesApiService
+    private salesApi: SalesApiService
   ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();

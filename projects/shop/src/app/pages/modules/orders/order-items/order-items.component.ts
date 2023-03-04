@@ -5,7 +5,7 @@ import { EditItemComponent } from '../edit-item/edit-item.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
 
-// import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
+import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/mo
 export class OrderItemsComponent implements OnInit {
 
   constructor(
-    // private ordersApi: OrdersApiService
+    private ordersApi: OrdersApiService
   ) { }
 
   @ViewChild('addItemComponentReference', { read: AddItemComponent, static: false }) addItem!: AddItemComponent;
@@ -41,24 +41,24 @@ export class OrderItemsComponent implements OnInit {
   getOrderItem(){
     this.isFetchingGridData = true;
 
-    // this.ordersApi.getOrderItem()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.itemsGridData = res;
-    //       this.calculateTotalPrice();
+    this.ordersApi.getOrderItem()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.itemsGridData = res;
+          this.calculateTotalPrice();
 
-    //       try { this.lastItem = Number((res[res.length - 1]).item_number) }
-    //       catch{ this.lastItem = 0 }
+          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastItem = 0 }
 
-    //       this.isFetchingGridData = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   calculateTotalPrice(){
@@ -75,81 +75,81 @@ export class OrderItemsComponent implements OnInit {
     console.log(data);
     this.addItem.isItemSaving = true;
 
-    // this.ordersApi.postItem(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.ordersApi.postItem(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(res.id){
-    //         this.getOrderItem();
+          if(res.id){
+            this.getOrderItem();
 
-    //         this.addItem.isItemSaving = false;
-    //         this.addItem.dismissButton.nativeElement.click();
-    //         this.addItem.resetForm();
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.addItem.isItemSaving = false;
-    //       this.addItem.dismissButton.nativeElement.click();
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+            this.addItem.isItemSaving = false;
+            this.addItem.dismissButton.nativeElement.click();
+            this.addItem.resetForm();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.addItem.isItemSaving = false;
+          this.addItem.dismissButton.nativeElement.click();
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putItem(order_item: any){
     console.log(order_item);
     this.editItem.isItemSaving = true;
 
-    // this.ordersApi.putItem(order_item.id, order_item.data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.ordersApi.putItem(order_item.id, order_item.data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.editItem.isItemSaving = false;
-    //       this.editItem.dismissButton.nativeElement.click();
-    //       this.getOrderItem();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.editItem.isItemSaving = false;
-    //       this.editItem.dismissButton.nativeElement.click();
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.editItem.isItemSaving = false;
+          this.editItem.dismissButton.nativeElement.click();
+          this.getOrderItem();
+        },
+        error: (err) => {
+          console.log(err);
+          this.editItem.isItemSaving = false;
+          this.editItem.dismissButton.nativeElement.click();
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   deleteItem(){
     this.isItemDeleting = true;
 
-    // this.ordersApi.deleteItem(this.deleteId)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isItemDeleting = false;
-    //       this.getOrderItem();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isItemDeleting = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.ordersApi.deleteItem(this.deleteId)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isItemDeleting = false;
+          this.getOrderItem();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isItemDeleting = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   patchTotalAmount(){
     let data = { order_total: this.totalAmount }
 
-    // this.ordersApi.putOrder(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.ordersApi.putOrder(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openEditItem(data: any){

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-// import { MarkettingApiService } from 'projects/shop/src/app/services/modules-api/marketting-api/marketting-api.service';
+import { MarkettingApiService } from 'projects/shop/src/app/services/modules-api/marketting-api/marketting-api.service';
 // import { MarkettingPrintService } from 'projects/shop/src/app/services/modules-printing/marketting-print/marketting-print.service';
 
 
@@ -16,7 +16,7 @@ export class AllCampaignsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private markettingApi: MarkettingApiService,
+    private markettingApi: MarkettingApiService,
     // private markettingPrint: MarkettingPrintService,
   ) { }
 
@@ -49,26 +49,26 @@ export class AllCampaignsComponent implements OnInit {
   getAccountCampaign(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-  //   this.markettingApi.getAccountCampaign(page, size, sortField)
-  //     .subscribe({
-  //       next: (res) => {
-  //         console.log(res);
-  //         this.campaignsGridData = res.results;
+    this.markettingApi.getAccountCampaign(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.campaignsGridData = res.results;
 
-  //         this.currentPage = res.current_page;
-  //         this.totalPages = res.total_pages;
-  //         this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-  //         this.isFetchingGridData = false;
-  //         if(this.totalItems == 0)
-  //           this.isDataAvailable = false          
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //         this.isFetchingGridData = false;
-  //         this.connectionToast.openToast();
-  //       }
-  //     })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false          
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){

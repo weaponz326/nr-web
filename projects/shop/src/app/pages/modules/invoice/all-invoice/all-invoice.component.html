@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of invoiceGridData" (dblclick)="viewInvoice(data.id)" class="table-pointer">
-                                <td>{{data?.invoice_code}}</td>
+                                <td>{{data?.invoice_number}}</td>
                                 <td>{{data?.invoice_date | date: 'short'}}</td>
                                 <td>{{data?.customer_name}}</td>
                                 <td>{{data?.invoice_total}}</td>

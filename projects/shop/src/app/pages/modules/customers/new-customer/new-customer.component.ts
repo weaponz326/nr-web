@@ -5,7 +5,7 @@ import { CustomerFormComponent } from '../customer-form/customer-form.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { CustomersApiService } from 'projects/shop/src/app/services/modules-api/customers-api/customers-api.service';
+import { CustomersApiService } from 'projects/shop/src/app/services/modules-api/customers-api/customers-api.service';
 
 // import { Customer } from 'projects/shop/src/app/models/modules/customers/customers.model';
 
@@ -20,7 +20,7 @@ export class NewCustomerComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private customersApi: CustomersApiService
+    private customersApi: CustomersApiService
   ) { }
 
   @ViewChild('customerFormComponentReference', { read: CustomerFormComponent, static: false }) customerForm!: CustomerFormComponent;
@@ -58,21 +58,21 @@ export class NewCustomerComponent implements OnInit {
     console.log(data);
     this.isCustomerSaving = true;
 
-    // this.customersApi.postCustomer(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isCustomerSaving = false;
+    this.customersApi.postCustomer(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isCustomerSaving = false;
 
-    //       sessionStorage.setItem('shop_customer_id', res.id);
-    //       this.router.navigateByUrl('/home/customers/view-customer');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isCustomerSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          sessionStorage.setItem('shop_customer_id', res.id);
+          this.router.navigateByUrl('/home/customers/view-customer');
+        },
+        error: (err) => {
+          console.log(err);
+          this.isCustomerSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   getNewcustomerCodeConfig(){

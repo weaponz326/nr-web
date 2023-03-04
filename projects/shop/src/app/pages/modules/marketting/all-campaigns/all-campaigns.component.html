@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of campaignsGridData" (dblclick)="viewCampaign(data.id)" class="table-pointer">
-                                <td>{{data?.campaign_number}}</td>
+                                <td>{{data?.campaign_code}}</td>
                                 <td>{{data?.campaign_name}}</td>
                                 <td>{{data?.campaign_type}}</td>
                                 <td>{{data?.campaign_status}}</td>

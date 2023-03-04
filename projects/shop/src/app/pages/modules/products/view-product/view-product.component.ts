@@ -8,7 +8,7 @@ import { DeleteModalOneComponent } from 'projects/personal/src/app/components/mo
 import { environment } from 'projects/shop/src/environments/environment';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { ProductsApiService } from 'projects/shop/src/app/services/modules-api/products-api/products-api.service';
+import { ProductsApiService } from 'projects/shop/src/app/services/modules-api/products-api/products-api.service';
 // import { ProductsPrintService } from 'projects/shop/src/app/services/printing/products-print/products-print.service';
 
 // import { Product } from 'projects/shop/src/app/models/modules/products/products.model';
@@ -24,7 +24,7 @@ export class ViewProductComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    // private productsApi: ProductsApiService,
+    private productsApi: ProductsApiService,
     // private productsPrint: ProductsPrintService,
   ) { }
 
@@ -50,30 +50,28 @@ export class ViewProductComponent implements OnInit {
   getProduct(){
     this.isProductLoading = true;
 
-    // this.productsApi.getProduct()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.productData = res;
-    //       this.isProductLoading = false;
+    this.productsApi.getProduct()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.productData = res;
+          this.isProductLoading = false;
 
-    //       this.productForm.productForm.controls.productCode.setValue(this.productData.product_code);
-    //       this.productForm.productForm.controls.productName.setValue(this.productData.product_name);
-    //       this.productForm.productForm.controls.description.setValue(this.productData.description);
-    //       this.productForm.productForm.controls.price.setValue(this.productData.price);
-    //       this.productForm.productForm.controls.productCategory.setValue(this.productData.product_category);
+          this.productForm.productForm.controls.productCode.setValue(this.productData.product_code);
+          this.productForm.productForm.controls.productName.setValue(this.productData.product_name);
+          this.productForm.productForm.controls.description.setValue(this.productData.description);
+          this.productForm.productForm.controls.price.setValue(this.productData.price);
+          this.productForm.productForm.controls.productCategory.setValue(this.productData.product_category);
 
-    //       if (this.productData.product_image != null)
-    //         this.productForm.productImage.imgSrc = environment.apiUrl.slice(0, -1) + this.productData.photo;
-    //       else
-    //         this.productForm.productImage.imgSrc = 'assets/images/utilities/photo-placeholder.jpg';
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isProductLoading = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if (this.productData.product_image != null)
+            this.productForm.productImage.imgSrc = environment.apiUrl.slice(0, -1) + this.productData.product_image;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isProductLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   putProduct(){
@@ -91,24 +89,24 @@ export class ViewProductComponent implements OnInit {
     console.log(data);
     this.isProductSaving = true;
 
-    // this.productsApi.putProduct(data)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.productsApi.putProduct(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       if(this.productForm.photo.isImageChanged){
-    //         this.putProductImage();
-    //       }
-    //       else{
-    //         this.isProductSaving = false;
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isProductSaving = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(this.productForm.productImage.isImageChanged){
+            this.putProductImage();
+          }
+          else{
+            this.isProductSaving = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isProductSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   confirmDelete(){
@@ -118,33 +116,33 @@ export class ViewProductComponent implements OnInit {
   deleteProduct(){
     this.isProductDeleting = true;
 
-    // this.productsApi.deleteProduct()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isProductDeleting = false;
-    //       this.router.navigateByUrl('/home/products/all-product');
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //       this.isProductDeleting = false;
-    //     }
-    //   })
+    this.productsApi.deleteProduct()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isProductDeleting = false;
+          this.router.navigateByUrl('/home/products/all-product');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+          this.isProductDeleting = false;
+        }
+      })
   }
 
   putProductImage(){
-    // this.productsApi.putProductPhoto(this.productForm.photo.image)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.isProductSaving = false;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);          
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+    this.productsApi.putProductPhoto(this.productForm.productImage.image)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isProductSaving = false;
+        },
+        error: (err) => {
+          console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

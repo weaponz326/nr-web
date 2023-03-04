@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { NewInvoiceComponent } from '../new-invoice/new-invoice.component'
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
-// import { InvoiceApiService } from 'projects/restaurant/src/app/services/modules-api/invoice-api/invoice-api.service';
-// import { InvoicePrintService } from 'projects/restaurant/src/app/services/modules-printing/invoice-print/invoice-print.service';
+import { InvoiceApiService } from 'projects/shop/src/app/services/modules-api/invoice-api/invoice-api.service';
+// import { InvoicePrintService } from 'projects/shop/src/app/services/modules-printing/invoice-print/invoice-print.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class AllInvoiceComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private invoiceApi: InvoiceApiService,
+    private invoiceApi: InvoiceApiService,
     // private invoicePrint: InvoicePrintService
   ) { }
 
@@ -46,26 +46,26 @@ export class AllInvoiceComponent implements OnInit {
   getAccountInvoice(page: any, size: any, sortField: any){
     this.isFetchingGridData = true;
 
-    // this.invoiceApi.getAccountInvoice(page, size, sortField)
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-    //       this.invoiceGridData = res.results;
+    this.invoiceApi.getAccountInvoice(page, size, sortField)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.invoiceGridData = res.results;
 
-    //       this.currentPage = res.current_page;
-    //       this.totalPages = res.total_pages;
-    //       this.totalItems = res.count;
+          this.currentPage = res.current_page;
+          this.totalPages = res.total_pages;
+          this.totalItems = res.count;
 
-    //       this.isFetchingGridData = false;
-    //       if(this.totalItems == 0)
-    //         this.isDataAvailable = false
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.isFetchingGridData = false;
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          this.isFetchingGridData = false;
+          if(this.totalItems == 0)
+            this.isDataAvailable = false
+        },
+        error: (err) => {
+          console.log(err);
+          this.isFetchingGridData = false;
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   sortTable(column: any){
@@ -78,7 +78,7 @@ export class AllInvoiceComponent implements OnInit {
   viewInvoice(invoiceId: any){
     console.log(invoiceId);
 
-    sessionStorage.setItem("restaurant_invoice_id", invoiceId);
+    sessionStorage.setItem("shop_invoice_id", invoiceId);
     this.router.navigateByUrl("/home/invoice/view-invoice");
   }
 
