@@ -9,7 +9,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { PaymentsApiService } from 'projects/shop/src/app/services/modules-api/payments-api/payments-api.service';
 // import { PaymentsPrintService } from 'projects/shop/src/app/services/modules-printing/payments-print/payments-print.service';
 
-// import { Payment } from 'projects/shop/src/app/models/modules/payments/payments.model';
+import { Payment } from 'projects/shop/src/app/models/modules/payments/payments.model';
 
 
 @Component({
@@ -78,8 +78,7 @@ export class ViewPaymentComponent implements OnInit {
   updatePayment(){
     console.log('u are saving a new payment');
 
-    // var data: Payment = {
-    var data = {
+    var data: Payment = {
       account: this.customCookie.getCookie('shop_id') as string,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
       payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,

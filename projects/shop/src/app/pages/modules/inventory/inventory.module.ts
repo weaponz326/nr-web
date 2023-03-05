@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InventoryRoutingModule } from './inventory-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { ProductsWindowsModule } from '../../../components/select-windows/products-windows/products-windows.module';
 
 import { InventoryPage } from './inventory.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -32,6 +33,7 @@ import { InventoryFormComponent } from './inventory-form/inventory-form.componen
     InventoryRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    ProductsWindowsModule
   ]
 })
 export class InventoryModule { }

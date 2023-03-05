@@ -9,7 +9,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { CustomersApiService } from 'projects/shop/src/app/services/modules-api/customers-api/customers-api.service';
 // import { CustomersPrintService } from 'projects/shop/src/app/services/modules-printing/customers-print/customers-print.service';
 
-// import { Customer } from 'projects/shop/src/app/models/modules/customers/customers.model';
+import { Customer } from 'projects/shop/src/app/models/modules/customers/customers.model';
 
 
 @Component({
@@ -75,8 +75,7 @@ export class ViewCustomerComponent implements OnInit {
   putCustomer(){
     console.log('u are saving a new customer');
 
-    // let data: Customer = {
-    let data = {
+    let data: Customer = {
       account: this.customCookie.getCookie('shop_id') as string,
       customer_code: this.customerForm.customerForm.controls.customerCode.value as string,
       customer_name: this.customerForm.customerForm.controls.customerName.value as string,

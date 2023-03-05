@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { InventoryFormComponent } from '../inventory-form/inventory-form.component';
+import { SelectProductComponent } from '../../../../components/select-windows/products-windows/select-product/select-product.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { Inventory } from 'projects/shop/src/app/models/modules/inventory/inventory.model';
+import { Inventory } from 'projects/shop/src/app/models/modules/inventory/inventory.model';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class EditInventoryComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('inventoryFormComponentReference', { read: InventoryFormComponent, static: false }) inventoryForm!: InventoryFormComponent;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   navHeading: any[] = [
     { text: "All Items", url: "/home/inventory/all-inventory" },
@@ -42,7 +44,7 @@ export class EditInventoryComponent implements OnInit {
     this.inventoryForm.inventoryForm.controls.inventoryCode.setValue(data?.product?.inventory_code);
     this.inventoryForm.inventoryForm.controls.productName.setValue(data?.product?.product_name);
     this.inventoryForm.inventoryForm.controls.productCode.setValue(data?.product?.product_code);
-    this.inventoryForm.inventoryForm.controls.unitPrice.setValue(data.unit_price);
+    this.inventoryForm.inventoryForm.controls.unitPrice.setValue(data?.product?.price);
     this.inventoryForm.inventoryForm.controls.stock.setValue(data.stock);
     this.inventoryForm.inventoryForm.controls.refillOrdered.setValue(data.refill_ordered);
     this.inventoryForm.inventoryForm.controls.location.setValue(data.location);
@@ -51,17 +53,16 @@ export class EditInventoryComponent implements OnInit {
     this.inventoryForm.inventoryForm.controls.manufacturingDate.setValue(data.manufacturing_date);
     this.inventoryForm.inventoryForm.controls.expiryDate.setValue(data.expiry_date);
 
+    this.inventoryForm.selectedProductId = data.product?.id;
+
     this.editButton.nativeElement.click();
   }
 
   saveItem(){
-    // let data: Inventory = {
-    let data = {
+    let data: Inventory = {
       account: this.customCookie.getCookie('shop_id') as string,
+      product: this.inventoryForm.selectedProductId,
       inventory_code: this.inventoryForm.inventoryForm.controls.inventoryCode.value as string,
-      productName: this.inventoryForm.inventoryForm.controls.productName.value as string,
-      productCode: this.inventoryForm.inventoryForm.controls.productCode.value as string,
-      unit_price: this.inventoryForm.inventoryForm.controls.unitPrice.value as number,
       stock: this.inventoryForm.inventoryForm.controls.stock.value as number,
       refill_ordered: this.inventoryForm.inventoryForm.controls.refillOrdered.value as number,
       location: this.inventoryForm.inventoryForm.controls.location.value as string,
@@ -81,6 +82,20 @@ export class EditInventoryComponent implements OnInit {
 
   deleteItem(){
     this.deleteItemEvent.emit(this.inventoryData.id);
+  }
+
+  openProductWindow(){
+    console.log("You are opening select product window")
+    this.selectProduct.openModal();
+  }
+
+  onProductSelected(productData: any){
+    console.log(productData);
+
+    this.inventoryForm.selectedProductId = productData.id;
+    this.inventoryForm.inventoryForm.controls.productName.setValue(productData.product_name);
+    this.inventoryForm.inventoryForm.controls.productCode.setValue(productData.product_code);
+    this.inventoryForm.inventoryForm.controls.unitPrice.setValue(productData.price);
   }
 
 }

@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
 
-                <app-inventory-form #inventoryFormComponentReference></app-inventory-form>
+                <app-inventory-form #inventoryFormComponentReference (openProductWindow)="openProductWindow()"></app-inventory-form>
 
             </div>
 
@@ -28,3 +28,7 @@
         </div>
     </div>
 </div>
+
+<!-- select product window component -->
+
+<app-select-product #selectProductComponentReference [closeTarget]="'#editPayableModal'" (rowSelected)="onProductSelected($event)"></app-select-product>

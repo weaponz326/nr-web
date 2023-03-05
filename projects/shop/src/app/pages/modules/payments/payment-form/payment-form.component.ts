@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-// import { SelectOrderComponent } from '../../../../components/select-windows/orders-windows/select-order/select-order.component';
+import { SelectOrderComponent } from '../../../../components/select-windows/orders-windows/select-order/select-order.component';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class PaymentFormComponent implements OnInit {
 
   constructor() { }
 
-  // @ViewChild('selectOrderComponentReference', { read: SelectOrderComponent, static: false }) selectOrder!: SelectOrderComponent;
+  @ViewChild('selectOrderComponentReference', { read: SelectOrderComponent, static: false }) selectOrder!: SelectOrderComponent;
 
   selectedOrderId = "";
   selectedOrderData: any;
@@ -44,7 +44,7 @@ export class PaymentFormComponent implements OnInit {
 
   openOrderWindow(){
     console.log("You are opening select order window")
-    // this.selectOrder.openModal();
+    this.selectOrder.openModal();
   }
 
   setBalance(){

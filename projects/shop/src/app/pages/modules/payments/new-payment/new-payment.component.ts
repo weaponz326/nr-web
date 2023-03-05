@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { PaymentsApiService } from 'projects/shop/src/app/services/modules-api/payments-api/payments-api.service';
 
-// import { Payment } from 'projects/shop/src/app/models/modules/payments/payments.model';
+import { Payment } from 'projects/shop/src/app/models/modules/payments/payments.model';
 
 
 @Component({
@@ -43,8 +43,7 @@ export class NewPaymentComponent implements OnInit {
   createPayment(){
     console.log('u are saving a new payment');
 
-    // var data: Payment = {
-    var data = {
+    var data: Payment = {
       account: this.customCookie.getCookie('shop_id') as string,
       order: this.paymentForm.selectedOrderId,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
@@ -57,26 +56,26 @@ export class NewPaymentComponent implements OnInit {
     if(this.paymentForm.selectedOrderId != ""){
       this.isPaymentSaving = true;
 
-      // this.paymentsApi.postPayment(data)
-      //   .subscribe({
-      //     next: (res) => {
-      //       console.log(res);
-      //       this.isPaymentSaving = false;
+      this.paymentsApi.postPayment(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.isPaymentSaving = false;
 
-      //       sessionStorage.setItem('shop_payment_id', res.id);
-      //       this.router.navigateByUrl('/home/payments/view-payment');
-      //     },
-      //     error: (err) => {
-      //       console.log(err);
-      //       this.isPaymentSaving = false;
-      //       this.connectionToast.openToast();
-      //     }
-      //   })
+            sessionStorage.setItem('shop_payment_id', res.id);
+            this.router.navigateByUrl('/home/payments/view-payment');
+          },
+          error: (err) => {
+            console.log(err);
+            this.isPaymentSaving = false;
+            this.connectionToast.openToast();
+          }
+        })
     }
   }
 
   getNewpaymentCodeConfig(){
-    this.paymentForm.paymentForm.controls.paymentCode.disable();
+    // this.paymentForm.paymentForm.controls.paymentCode.disable();
 
     // this.paymentsApi.getNewPaymentCodeConfig()
     //   .subscribe({

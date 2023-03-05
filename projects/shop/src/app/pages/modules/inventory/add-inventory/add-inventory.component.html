@@ -1,13 +1,13 @@
-<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addItemModal">
+<button [hidden]="true" #addButtonElementReference data-bs-toggle="modal" data-bs-target="#addInventoryModal">
     Launch demo modal
 </button>
 
-<div class="modal fade form-modal" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+<div class="modal fade form-modal" id="addInventoryModal" tabindex="-1" aria-labelledby="addInventoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header bg-light">
-                <span class="modal-title" id="addItemModalLabel">Add New Inventory</span>
+                <span class="modal-title" id="addInventoryModalLabel">Add New Inventory</span>
                 <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
 
-                <app-inventory-form #inventoryFormComponentReference></app-inventory-form>
+                <app-inventory-form #inventoryFormComponentReference (openProductWindow)="openProductWindow()"></app-inventory-form>
 
             </div>
 
@@ -27,3 +27,7 @@
         </div>
     </div>
 </div>
+
+<!-- select product window component -->
+
+<app-select-product #selectProductComponentReference [closeTarget]="'#addInventoryModal'" (rowSelected)="onProductSelected($event)"></app-select-product>

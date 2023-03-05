@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 
 import { InventoryFormComponent } from '../inventory-form/inventory-form.component';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectProductComponent } from '../../../../components/select-windows/products-windows/select-product/select-product.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 // import { InventoryApiService } from 'projects/shop/src/app/services/modules-api/inventory-api/inventory-api.service';
 
-// import { Inventory } from 'projects/shop/src/app/models/modules/inventory/inventory.model';
+import { Inventory } from 'projects/shop/src/app/models/modules/inventory/inventory.model';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class AddInventoryComponent implements OnInit {
 
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   @ViewChild('inventoryFormComponentReference', { read: InventoryFormComponent, static: false }) inventoryForm!: InventoryFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -32,27 +34,7 @@ export class AddInventoryComponent implements OnInit {
   isItemSaving = false;
 
   ngOnInit(): void {
-  }
-
-  getNewInventoryCodeConfig(){
-    this.inventoryForm.inventoryForm.controls.inventoryCode.disable();
-
-    // this.inventoryApi.getNewInventoryCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.inventoryForm.inventoryForm.controls.itemCode.setValue(res.code);
-    //       else
-    //         this.inventoryForm.inventoryForm.controls.itemCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
+  }  
   
   openModal(){
     this.addButton.nativeElement.click();
@@ -60,13 +42,10 @@ export class AddInventoryComponent implements OnInit {
   }
 
   saveItem(){
-    // let data: Inventory = {
-    let data = {
+    let data: Inventory = {
       account: this.customCookie.getCookie('shop_id') as string,
+      product: this.inventoryForm.selectedProductId,
       inventory_code: this.inventoryForm.inventoryForm.controls.inventoryCode.value as string,
-      productName: this.inventoryForm.inventoryForm.controls.productName.value as string,
-      productCode: this.inventoryForm.inventoryForm.controls.productCode.value as string,
-      unit_price: this.inventoryForm.inventoryForm.controls.unitPrice.value as number,
       stock: this.inventoryForm.inventoryForm.controls.stock.value as number,
       refill_ordered: this.inventoryForm.inventoryForm.controls.refillOrdered.value as number,
       location: this.inventoryForm.inventoryForm.controls.location.value as string,
@@ -91,6 +70,40 @@ export class AddInventoryComponent implements OnInit {
     this.inventoryForm.inventoryForm.controls.batchNumber.setValue('');
     this.inventoryForm.inventoryForm.controls.manufacturingDate.setValue('');
     this.inventoryForm.inventoryForm.controls.expiryDate.setValue('');
+  }
+
+  getNewInventoryCodeConfig(){
+    // this.inventoryForm.inventoryForm.controls.inventoryCode.disable();
+
+    // this.inventoryApi.getNewInventoryCodeConfig()
+    //   .subscribe({
+    //     next: (res) => {
+    //       console.log(res);
+
+    //       if(res.code)
+    //         this.inventoryForm.inventoryForm.controls.itemCode.setValue(res.code);
+    //       else
+    //         this.inventoryForm.inventoryForm.controls.itemCode.enable();
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //       this.connectionToast.openToast();
+    //     }
+    //   })
+  }
+
+  openProductWindow(){
+    console.log("You are opening select product window")
+    this.selectProduct.openModal();
+  }
+
+  onProductSelected(productData: any){
+    console.log(productData);
+
+    this.inventoryForm.selectedProductId = productData.id;
+    this.inventoryForm.inventoryForm.controls.productName.setValue(productData.product_name);
+    this.inventoryForm.inventoryForm.controls.productCode.setValue(productData.product_code);
+    this.inventoryForm.inventoryForm.controls.unitPrice.setValue(productData.price);
   }
 
 }
