@@ -36,8 +36,8 @@
                                     <app-table-sorting [sortField]="'invoice_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="25%" class="min-width-3">
-                                    Customer Name
-                                    <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                    Supplier Name
+                                    <app-table-sorting [sortField]="'supplier_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="10%" class="min-width-2">
                                     Amount
@@ -55,7 +55,7 @@
                                 <td>{{data?.payable_date}}</td>
                                 <td>{{data?.due_date}}</td>
                                 <td>{{data?.invoice_number}}</td>
-                                <td>{{data?.customer_name}}</td>
+                                <td>{{data?.supplier?.supplier_name}}</td>
                                 <td>{{data?.amount}}</td>
                                 <td>{{data?.due_date}}</td>
                             </tr>

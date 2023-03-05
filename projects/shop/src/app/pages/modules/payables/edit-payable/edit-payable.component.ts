@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { PayableFormComponent } from '../payable-form/payable-form.component';
+import { SelectSupplierComponent } from '../../../../components/select-windows/suppliers-windows/select-supplier/select-supplier.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { Payable } from 'projects/shop/src/app/models/modules/payables/payables.model';
+
+import { Payable } from 'projects/shop/src/app/models/modules/payables/payables.model';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class EditPayableComponent implements OnInit {
 
   @ViewChild('editButtonElementReference', { read: ElementRef, static: false }) editButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
+  @ViewChild('selectSupplierComponentReference', { read: SelectSupplierComponent, static: false }) selectSupplier!: SelectSupplierComponent;
 
   @ViewChild('payableFormComponentReference', { read: PayableFormComponent, static: false }) payableForm!: PayableFormComponent;
 
@@ -43,22 +46,23 @@ export class EditPayableComponent implements OnInit {
     this.payableForm.payableForm.controls.payableDate.setValue(data.recevable_date);
     this.payableForm.payableForm.controls.dueDate.setValue(data.due_date);
     this.payableForm.payableForm.controls.invoiceNumber.setValue(data.invoice_number);
-    this.payableForm.payableForm.controls.customerName.setValue(data.customer_name);
+    this.payableForm.payableForm.controls.supplierName.setValue(data.supplier?.supplier_name);
     this.payableForm.payableForm.controls.amount.setValue(data.amount);
     this.payableForm.payableForm.controls.datePaid.setValue(data.date_paid);
+
+    this.payableForm.selectedSupplierId = data.supplier?.id;
 
     this.editButton.nativeElement.click();
   }
 
   saveItem(){
-    // let data: Payable = {
-    let data = {
+    let data: Payable = {
       account: this.customCookie.getCookie('shop_id') as string,
-      recevable_code: this.payableForm.payableForm.controls.payableCode.value as string,
-      recevable_date: this.payableForm.payableForm.controls.payableDate.value,
+      supplier: this.payableForm.selectedSupplierId,
+      payable_code: this.payableForm.payableForm.controls.payableCode.value as string,
+      payable_date: this.payableForm.payableForm.controls.payableDate.value,
       due_date: this.payableForm.payableForm.controls.dueDate.value,
       invoice_number: this.payableForm.payableForm.controls.invoiceNumber.value as string,
-      customer_name: this.payableForm.payableForm.controls.customerName.value as string,
       amount: this.payableForm.payableForm.controls.amount.value as number,
       date_paid: this.payableForm.payableForm.controls.datePaid.value,
     }
@@ -73,6 +77,18 @@ export class EditPayableComponent implements OnInit {
 
   deleteItem(){
     this.deleteItemEvent.emit(this.payableData.id);
+  }
+
+  openSupplierWindow(){
+    console.log("You are opening select supplier window")
+    this.selectSupplier.openModal();
+  }
+
+  onSupplierSelected(supplierData: any){
+    console.log(supplierData);
+
+    this.payableForm.selectedSupplierId = supplierData.id;
+    this.payableForm.payableForm.controls.supplierName.setValue(supplierData.supplier_name);
   }
 
 }

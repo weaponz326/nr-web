@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -11,12 +11,17 @@ export class PayableFormComponent implements OnInit {
 
   constructor() { }
 
+  @Output() openSupplierWindow = new EventEmitter<any>();
+
+  selectedSupplierId = "";
+  selectedSupplierData = "";
+  
   payableForm = new FormGroup({
     payableCode: new FormControl(''),
     payableDate: new FormControl(),
     dueDate: new FormControl(),
     invoiceNumber: new FormControl(''),
-    customerName: new FormControl(''),
+    supplierName: new FormControl({value: '', disabled: true}),
     amount: new FormControl(0.00),
     datePaid: new FormControl(),
   })

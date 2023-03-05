@@ -20,7 +20,7 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Invoice Date :</label></div>
                         <div class="col-md-8">
-                            <input type="datetime-local" formControlName="invoiceDate" class="form-control form-control-sm w-100">
+                            <input type="date" formControlName="invoiceDate" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -28,7 +28,7 @@
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Customer Name :</label></div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="customerName" class="form-control" (keydown)="selectedCustomerId = ''">
+                                <input formControlName="customerName" class="form-control">
                                 <button type="button" class="btn btn-secondary" (click)="openCustomerWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -39,14 +39,26 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Customer Contact :</label></div>
                         <div class="col-md-8">
-                            <textarea rows="3" formControlName="customerContact" class="form-control form-control-sm w-100"></textarea>
+                            <input formControlName="customerContact" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Due Date :</label></div>
                         <div class="col-md-8">
-                            <input type="datetime-local" formControlName="dueDate" class="form-control form-control-sm w-100">
+                            <input type="date" formControlName="dueDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Invoice Status :</label></div>
+                        <div class="col-md-8">
+                            <select formControlName="invoiceStatus" class="form-control form-control-sm w-100">
+                                <option>Processing</option>
+                                <option>Approved</option>
+                                <option>Completed</option>
+                                <option>Cancelled</option>
+                            </select>
                         </div>
                     </div>
 
@@ -94,4 +106,4 @@
 
 <!-- select customer window component -->
 
-<!-- <app-select-customer #selectCustomerComponentReference (rowSelected)="onCustomerSelected($event)"></app-select-customer> -->
+<app-select-customer #selectCustomerComponentReference (rowSelected)="onCustomerSelected($event)"></app-select-customer>

@@ -11,7 +11,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { ProductsApiService } from 'projects/shop/src/app/services/modules-api/products-api/products-api.service';
 // import { ProductsPrintService } from 'projects/shop/src/app/services/printing/products-print/products-print.service';
 
-// import { Product } from 'projects/shop/src/app/models/modules/products/products.model';
+import { Product } from 'projects/shop/src/app/models/modules/products/products.model';
 
 
 @Component({
@@ -77,7 +77,7 @@ export class ViewProductComponent implements OnInit {
   putProduct(){
     console.log('u are saving a new product');
 
-    var data = {
+    var data: Product = {
       account: this.customCookie.getCookie('shop_id') as string,
       product_code: this.productForm.productForm.controls.productCode.value as string,
       product_name: this.productForm.productForm.controls.productName.value as string,

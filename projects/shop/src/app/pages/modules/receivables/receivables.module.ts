@@ -6,6 +6,8 @@ import { ReceivablesRoutingModule } from './receivables-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
+import { CustomersWindowsModule } from '../../../components/select-windows/customers-windows/customers-windows.module';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AllReceivablesComponent } from './all-receivables/all-receivables.component';
@@ -32,6 +34,7 @@ import { ReceivablesPage } from './receivables.page';
     ReceivablesRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    CustomersWindowsModule
   ]
 })
 export class ReceivablesModule { }

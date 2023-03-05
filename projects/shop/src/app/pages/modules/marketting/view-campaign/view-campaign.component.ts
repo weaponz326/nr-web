@@ -9,7 +9,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { MarkettingApiService } from 'projects/shop/src/app/services/modules-api/marketting-api/marketting-api.service';
 // import { MarkettingPrintService } from 'projects/shop/src/app/services/modules-printing/marketting-print/marketting-print.service';
 
-// import { Campaign } from 'projects/shop/src/app/models/modules/marketting/marketting.model';
+import { Campaign } from 'projects/shop/src/app/models/modules/marketting/marketting.model';
 
 
 @Component({
@@ -76,8 +76,7 @@ export class ViewCampaignComponent implements OnInit {
   putCampaign(){
     console.log('u are saving a new campaign');
 
-    // let data: Campaign = {
-    let data = {
+    let data: Campaign = {
       account: this.customCookie.getCookie('shop_id') as string,
       campaign_code: this.campaignForm.campaignForm.controls.campaignCode.value as string,
       campaign_name: this.campaignForm.campaignForm.controls.campaignName.value as string,

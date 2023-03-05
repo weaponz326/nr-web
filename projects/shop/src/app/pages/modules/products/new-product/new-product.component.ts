@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { ProductsApiService } from 'projects/shop/src/app/services/modules-api/products-api/products-api.service';
 
-// import { Product } from 'projects/shop/src/app/models/modules/products/products.model';
+import { Product } from 'projects/shop/src/app/models/modules/products/products.model';
 
 
 @Component({
@@ -41,7 +41,7 @@ export class NewProductComponent implements OnInit {
   postProduct(){
     console.log('u are saving a new product');
 
-    var data = {
+    var data: Product = {
       account: this.customCookie.getCookie('shop_id') as string,
       product_code: this.productForm.productForm.controls.productCode.value as string,
       product_name: this.productForm.productForm.controls.productName.value as string,

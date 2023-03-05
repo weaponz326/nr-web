@@ -1,13 +1,13 @@
-<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editItemModal">
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editPayableModal">
     Launch demo modal
 </button>
 
-<div class="modal fade form-modal" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+<div class="modal fade form-modal" id="editPayableModal" tabindex="-1" aria-labelledby="editPayableModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header bg-light">
-                <span class="modal-title" id="editItemModalLabel">Edit Payable</span>
+                <span class="modal-title" id="editPayableModalLabel">Edit Payable</span>
                 <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -28,3 +28,7 @@
         </div>
     </div>
 </div>
+
+<!-- select supplier window component -->
+
+<app-select-supplier #selectSupplierComponentReference [closeTarget]="'#editPayableModal'" (rowSelected)="onSupplierSelected($event)"></app-select-supplier>

@@ -5,13 +5,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { InvoiceItemsComponent } from '../invoice-items/invoice-items.component';
-// import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
+import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { InvoiceApiService } from 'projects/shop/src/app/services/modules-api/invoice-api/invoice-api.service';
 // import { InvoicePrintService } from 'projects/shop/src/app/services/modules-printing/invoice-print/invoice-print.service';
 
-// import { Invoice } from 'projects/shop/src/app/models/modules/invoice/invoice.model';
+import { Invoice } from 'projects/shop/src/app/models/modules/invoice/invoice.model';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class ViewInvoiceComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('invoiceItemsComponentReference', { read: InvoiceItemsComponent, static: false }) invoiceItems!: InvoiceItemsComponent;
 
-  // @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
+  @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
 
   navHeading: any[] = [
     { text: "All Invoice", url: "/home/invoice/all-invoice" },
@@ -44,8 +44,6 @@ export class ViewInvoiceComponent implements OnInit {
   invoiceFormData: any;
 
   selectedCustomerId = "";
-  selectedCustomerName = "";
-  selectedTableId = "";
 
   isInvoiceLoading: boolean = false;
   isInvoiceaving: boolean = false;
@@ -55,9 +53,10 @@ export class ViewInvoiceComponent implements OnInit {
   invoiceForm = new FormGroup({
     invoiceNumber: new FormControl(''),
     invoiceDate: new FormControl(),
-    customerName: new FormControl(''),
-    customerContact: new FormControl(''),
+    customerName: new FormControl({value: '', disabled: true}),
+    customerContact: new FormControl({value: '', disabled: true}),
     dueDate: new FormControl(),
+    invoiceStatus: new FormControl(''),
   })
 
   ngOnInit(): void {
@@ -76,13 +75,13 @@ export class ViewInvoiceComponent implements OnInit {
           this.isInvoiceLoading = false;
 
           this.invoiceForm.controls.invoiceNumber.setValue(this.invoiceFormData.invoice_number);
-          this.invoiceForm.controls.invoiceDate.setValue(new Date(this.invoiceFormData.invoice_date).toISOString().slice(0, 16));
-          this.invoiceForm.controls.customerContact.setValue(this.invoiceFormData.customer_contact);
-          this.invoiceForm.controls.dueDate.setValue(this.invoiceFormData.due_date);
+          this.invoiceForm.controls.invoiceDate.setValue(new Date(this.invoiceFormData.invoice_date).toISOString().slice(0, 10));
+          this.invoiceForm.controls.invoiceStatus.setValue(this.invoiceFormData.invoice_status);
+          this.invoiceForm.controls.dueDate.setValue(new Date(this.invoiceFormData.due_date).toISOString().slice(0, 10));
 
           this.selectedCustomerId = this.invoiceFormData.customer?.id;
-          this.selectedCustomerName = this.invoiceFormData.customer_name;
-          this.invoiceForm.controls.customerName.setValue(this.invoiceFormData.customer_name);
+          this.invoiceForm.controls.customerName.setValue(this.invoiceFormData?.customer?.customer_name);
+          this.invoiceForm.controls.customerContact.setValue(this.invoiceFormData?.customer?.phone);
         },
         error: (err) => {
           console.log(err);
@@ -93,25 +92,14 @@ export class ViewInvoiceComponent implements OnInit {
   }
 
   putInvoice(){
-    var customerName = "";
-
-    if(this.selectedCustomerName != ""){
-      customerName = this.selectedCustomerName;
-    }
-    else{
-      customerName = this.invoiceForm.controls.customerName.value as string;
-    }
-
-    // let data: Invoice = {
-    let data = {
+    let data: Invoice = {
       account: this.customCookie.getCookie('shop_id') as string,
       customer: this.selectedCustomerId,
-      customer_name: customerName,
       invoice_number: this.invoiceForm.controls.invoiceNumber.value as string,
-      invoice_date: this.invoiceForm.controls.invoiceDate.value as string,
-      due_date: this.invoiceForm.controls.dueDate.value as string,
-      total_amount: 0,
-      invoice_status: "",
+      invoice_date: this.invoiceForm.controls.invoiceDate.value,
+      due_date: this.invoiceForm.controls.dueDate.value,
+      total_amount: this.invoiceItems.totalAmount,
+      invoice_status: this.invoiceForm.controls.invoiceStatus.value as string,
     }
 
     console.log(data);
@@ -154,7 +142,7 @@ export class ViewInvoiceComponent implements OnInit {
 
   openCustomerWindow(){
     console.log("You are opening select customer window")
-    // this.selectCustomer.openModal();
+    this.selectCustomer.openModal();
   }
 
   onCustomerSelected(customerData: any){

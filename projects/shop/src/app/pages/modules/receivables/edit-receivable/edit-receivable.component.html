@@ -1,13 +1,13 @@
-<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editItemModal">
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editReceivableModal">
     Launch demo modal
 </button>
 
-<div class="modal fade form-modal" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+<div class="modal fade form-modal" id="editReceivableModal" tabindex="-1" aria-labelledby="editReceivableModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header bg-light">
-                <span class="modal-title" id="editItemModalLabel">Edit Receivable</span>
+                <span class="modal-title" id="editReceivableModalLabel">Edit Receivable</span>
                 <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
 
-                <app-receivable-form #receivableFormComponentReference></app-receivable-form>
+                <app-receivable-form #receivableFormComponentReference (openCustomerWindow)="openCustomerWindow()"></app-receivable-form>
 
             </div>
 
@@ -28,3 +28,7 @@
         </div>
     </div>
 </div>
+
+<!-- select customer window component -->
+
+<app-select-customer #selectCustomerComponentReference [closeTarget]="'#editReceivableModal'" (rowSelected)="onCustomerSelected($event)"></app-select-customer>
