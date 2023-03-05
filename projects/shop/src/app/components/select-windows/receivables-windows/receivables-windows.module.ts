@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+
 import { SelectReceivableComponent } from './select-receivable/select-receivable.component';
 
 
@@ -9,7 +12,11 @@ import { SelectReceivableComponent } from './select-receivable/select-receivable
     SelectReceivableComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ModuleUtilitiesModule,
+  ],
+  exports: [
+    SelectReceivableComponent
   ]
 })
 export class ReceivablesWindowsModule { }
