@@ -15,7 +15,7 @@
 
                 <!-- appointment form component -->
 
-                <app-appointment-form #appointmentFormComponentReference></app-appointment-form>
+                <app-appointment-form #appointmentFormComponentReference (openPatientWindow)="openPatientWindow()"></app-appointment-form>
 
             </div>
 
@@ -28,3 +28,8 @@
         </div>
     </div>
 </div>
+
+<!-- select patient window component -->
+
+<app-select-patient #selectPatientComponentReference [closeTarget]="'#editAppointmentModal'" (rowSelected)="onPatientSelected($event)"></app-select-patient>
+

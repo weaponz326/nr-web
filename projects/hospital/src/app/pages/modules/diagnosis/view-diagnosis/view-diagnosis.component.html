@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="patientName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openPatientWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -45,7 +45,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="patientNumber" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openPatientWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -78,7 +78,7 @@
             <div class="col-md-12">
                 <button type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" routerLink="/home/diagnosis/all-diagnosis">Cancel</button>
                 <button [disabled]="isDiagnosisDeleting" type="button" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="confirmDelete()">Delete</button>
-                <button [disabled]="isDiagnosisaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn">Save</button>
+                <button [disabled]="isDiagnosisaving" type="submit" class="btn btn-secondary btn-sm float-end ms-1 page-form-btn" (click)="putDiagnosis()">Save</button>
             </div>
         </div>
         <div *ngIf="isDiagnosisLoading" class="row page-form">
@@ -102,3 +102,7 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteDiagnosis()"></app-delete-modal-one>
+
+<!-- select patient window component -->
+
+<app-select-patient #selectPatientComponentReference [closeTarget]="'#newDiagnosisModal'" (rowSelected)="onPatientSelected($event)"></app-select-patient>

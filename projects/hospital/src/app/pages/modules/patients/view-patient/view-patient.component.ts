@@ -11,7 +11,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { PatientsApiService } from 'projects/hospital/src/app/services/modules-api/patients-api/patients-api.service';
 // import { PatientsPrintService } from 'projects/hospital/src/app/services/printing/patients-print/patients-print.service';
 
-// import { Patient } from 'projects/hospital/src/app/models/modules/patients/patients.model';
+import { Patient } from 'projects/hospital/src/app/models/modules/patients/patients.model';
 
 
 @Component({

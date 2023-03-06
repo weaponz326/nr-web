@@ -48,17 +48,17 @@ export class DiagnosisApiService {
     return this.http.delete(this.diagnosisUrl + "diagnosis/" + sessionStorage.getItem('hospital_diagnosis_id'), this.authHeaders.headers);
   }
 
-  // diagnosis report
+  // diagnosis detail
 
-  public getDiagnosisReport(): Observable<any>{
+  public getDiagnosisDetail(): Observable<any>{
     return this.http.get(this.diagnosisUrl + "diagnosis-report/" + sessionStorage.getItem('hospital_diagnosis_id'), this.authHeaders.headers);
   }
 
-  public putDiagnosisReport(diagnosis: any): Observable<any>{
+  public putDiagnosisDetail(diagnosis: any): Observable<any>{
     return this.http.put(this.diagnosisUrl + "diagnosis-report/" + sessionStorage.getItem('hospital_diagnosis_id'), diagnosis, this.authHeaders.headers);
   }
 
-  public deleteDiagnosisReport(): Observable<any>{
+  public deleteDiagnosisDetail(): Observable<any>{
     return this.http.delete(this.diagnosisUrl + "diagnosis-report/" + sessionStorage.getItem('hospital_diagnosis_id'), this.authHeaders.headers);
   }
 

@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { AppointmentFormComponent } from '../appointment-form/appointment-form.component';
+import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { Appointment } from 'projects/restaurant/src/app/models/modules/kitchen-stock/kitchen-stock.model';
+
+import { Appointment } from 'projects/hospital/src/app/models/modules/appointments/appointments.model';
 
 
 @Component({
@@ -22,6 +24,7 @@ export class EditAppointmentComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('appointmentFormComponentReference', { read: AppointmentFormComponent, static: false }) appointmentForm!: AppointmentFormComponent;
+  @ViewChild('selectPatientComponentReference', { read: SelectPatientComponent, static: false }) selectPatient!: SelectPatientComponent;
 
   navHeading: any[] = [
     { text: "All Appointments", url: "/home/kitchen-stock/all-appointments" },
@@ -40,25 +43,25 @@ export class EditAppointmentComponent implements OnInit {
     this.appointmentData = data;
 
     this.appointmentForm.appointmentForm.controls.appointmentCode.setValue(data.appointment_code);
-    this.appointmentForm.appointmentForm.controls.patientName.setValue(data.patent?.first_name + " " + data.patent?.last_name);
-    this.appointmentForm.appointmentForm.controls.patientNumber.setValue(data.patient?.clinical_number);
     this.appointmentForm.appointmentForm.controls.consultantName.setValue(data.consultant_name);
     this.appointmentForm.appointmentForm.controls.appointmentDate.setValue(new Date(data.appointment_date).toISOString().slice(0, 16));
     this.appointmentForm.appointmentForm.controls.appointmentStatus.setValue(data.appointment_status);
     this.appointmentForm.appointmentForm.controls.remarks.setValue(data.remarks);
 
+    this.appointmentForm.selectedPatientId = data.patient?.id;
+    this.appointmentForm.appointmentForm.controls.patientName.setValue(data.patient?.first_name + " " + data.patient?.last_name);
+    this.appointmentForm.appointmentForm.controls.patientNumber.setValue(data.patient?.clinical_number);
+
     this.editButton.nativeElement.click();
   }
 
   saveAppointment(){
-    // let data: Appointment = {
-    let data = {
+    let data: Appointment = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      patient: this.appointmentForm.selectedPatientId,
       appointment_code: this.appointmentForm.appointmentForm.controls.appointmentCode.value as string,
-      patient_name: this.appointmentForm.appointmentForm.controls.patientName.value as string,
-      patient_number: this.appointmentForm.appointmentForm.controls.patientNumber.value as string,
       consultant_name: this.appointmentForm.appointmentForm.controls.consultantName.value as string,
-      appointment_date: this.appointmentForm.appointmentForm.controls.appointmentDate.value as number,
+      appointment_date: this.appointmentForm.appointmentForm.controls.appointmentDate.value,
       appointment_status: this.appointmentForm.appointmentForm.controls.appointmentStatus.value as string,
       remarks: this.appointmentForm.appointmentForm.controls.remarks.value as string,
     }
@@ -73,6 +76,19 @@ export class EditAppointmentComponent implements OnInit {
 
   deleteAppointment(){
     this.deleteAppointmentEvent.emit(this.appointmentData.id);
+  }
+
+  openPatientWindow(){
+    console.log("You are opening select patient window")
+    this.selectPatient.openModal();
+  }
+
+  onPatientSelected(patientData: any){
+    console.log(patientData);
+
+    this.appointmentForm.selectedPatientId = patientData.id;
+    this.appointmentForm.appointmentForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
+    this.appointmentForm.appointmentForm.controls.patientNumber.setValue(patientData.clinical_number);
   }
 
 }

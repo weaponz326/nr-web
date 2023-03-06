@@ -6,11 +6,13 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { DiagnosisDetailsComponent } from '../diagnosis-details/diagnosis-details.component';
 
+import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
+
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
 // import { DiagnosisPrintService } from 'projects/hospital/src/app/services/modules-printing/diagnosis-print/diagnosis-print.service';
 
-// import { Diagnosis } from 'projects/hospital/src/app/models/modules/diagnosis/diagnosis.model';
+import { Diagnosis } from 'projects/hospital/src/app/models/modules/diagnosis/diagnosis.model';
 
 
 @Component({
@@ -33,10 +35,14 @@ export class ViewDiagnosisComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('diagnosisDetailsComponentReference', { read: DiagnosisDetailsComponent, static: false }) diagnosisDetails!: DiagnosisDetailsComponent;
 
+  @ViewChild('selectPatientComponentReference', { read: SelectPatientComponent, static: false }) selectPatient!: SelectPatientComponent;
+
   navHeading: any[] = [
     { text: "All Diagnosis", url: "/home/diagnosis/all-diagnosis" },
     { text: "View Diagnosis", url: "/home/diagnosis/view-diagnosis" },
   ];
+
+  selectedPatientId = '';
 
   diagnosisFormData: any;
 
@@ -48,8 +54,8 @@ export class ViewDiagnosisComponent implements OnInit {
   diagnosisForm = new FormGroup({
     diagnosisCode: new FormControl(''),
     diagnosisDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
     consultantName: new FormControl('')
   })
 
@@ -59,8 +65,6 @@ export class ViewDiagnosisComponent implements OnInit {
 
   getDiagnosis(){
     this.isDiagnosisLoading = true;
-
-    // this.diagnosisDetails.getDiagnosisReport();
 
     this.diagnosisApi.getDiagnosis()
       .subscribe({
@@ -73,6 +77,10 @@ export class ViewDiagnosisComponent implements OnInit {
           this.diagnosisForm.controls.diagnosisCode.setValue(this.diagnosisFormData.diagnosis_code);
           this.diagnosisForm.controls.diagnosisDate.setValue(new Date(this.diagnosisFormData.diagnosis_date).toISOString().slice(0, 16));
           this.diagnosisForm.controls.consultantName.setValue(this.diagnosisFormData.consultant_name);
+
+          this.selectedPatientId = this.diagnosisFormData.patient?.id;
+          this.diagnosisForm.controls.patientName.setValue(this.diagnosisFormData.patient?.first_name + " " + this.diagnosisFormData.patient?.last_name);
+          this.diagnosisForm.controls.patientNumber.setValue(this.diagnosisFormData.patient?.clinical_number);
         },
         error: (err) => {
           console.log(err);
@@ -83,11 +91,12 @@ export class ViewDiagnosisComponent implements OnInit {
   }
 
   putDiagnosis(){
-    // let data: Diagnosis = {
-    let data = {
+    let data: Diagnosis = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      patient: this.selectedPatientId,
       diagnosis_code: this.diagnosisForm.controls.diagnosisCode.value as string,
-      diagnosis_date: this.diagnosisForm.controls.diagnosisDate.value as string,
+      diagnosis_date: this.diagnosisForm.controls.diagnosisDate.value,
+      consultant_name: this.diagnosisForm.controls.consultantName.value as string,
     }
 
     console.log(data);
@@ -133,6 +142,19 @@ export class ViewDiagnosisComponent implements OnInit {
   onPrint(){
     console.log("lets start printing...");
     // this.diagnosisPrint.printViewDiagnosis();
+  }
+
+  openPatientWindow(){
+    console.log("You are opening select patient window")
+    this.selectPatient.openModal();
+  }
+
+  onPatientSelected(patientData: any){
+    console.log(patientData);
+
+    this.selectedPatientId = patientData.id;
+    this.diagnosisForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
+    this.diagnosisForm.controls.patientNumber.setValue(patientData.clinical_number);
   }
 
 }

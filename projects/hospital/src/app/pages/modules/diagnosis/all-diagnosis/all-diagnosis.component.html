@@ -46,7 +46,7 @@
                                 <td>{{data?.diagnosis_code}}</td>
                                 <td>{{data?.diagnosis_date | date: 'short'}}</td>
                                 <td>{{data?.patient?.first_name}} {{data?.patient?.last_name}}</td>
-                                <td>{{data?.patient?.clinical_code}}</td>
+                                <td>{{data?.patient?.clinical_number}}</td>
                                 <td>{{data?.consultatn_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

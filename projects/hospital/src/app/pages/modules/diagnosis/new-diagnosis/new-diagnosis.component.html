@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="patientName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openPatientWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -45,7 +45,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="patientNumber" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openPatientWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -73,4 +73,8 @@
 
 <!-- connection error toast component -->
 
-<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+<app-connection-toast #connectionToastComponentReference (openPatientWindow)="openPatientWindow()"></app-connection-toast>
+
+<!-- select patient window component -->
+
+<app-select-patient #selectPatientComponentReference [closeTarget]="'#newDiagnosisModal'" (rowSelected)="onPatientSelected($event)"></app-select-patient>

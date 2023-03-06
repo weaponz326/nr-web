@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
 
-// import { Diagnosis } from 'projects/hospital/src/app/models/modules/diagnosis/diagnosis.model';
+import { Diagnosis } from 'projects/hospital/src/app/models/modules/diagnosis/diagnosis.model';
 
 
 @Component({
@@ -27,14 +28,17 @@ export class NewDiagnosisComponent implements OnInit {
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('selectPatientComponentReference', { read: SelectPatientComponent, static: false }) selectPatient!: SelectPatientComponent;
+
+  selectedPatientId = '';
 
   isDiagnosisSaving = false;
 
   diagnosisForm = new FormGroup({
     diagnosisCode: new FormControl(''),
     diagnosisDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
     consultantName: new FormControl('')
   })
 
@@ -49,11 +53,12 @@ export class NewDiagnosisComponent implements OnInit {
   }
 
   createDiagnosis(){
-    // let data: Diagnosis = {
-    let data = {
+    let data: Diagnosis = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      patient: this.selectedPatientId,
       diagnosis_code: this.diagnosisForm.controls.diagnosisCode.value as string,
-      diagnosis_date: this.diagnosisForm.controls.diagnosisDate.value as string,
+      diagnosis_date: this.diagnosisForm.controls.diagnosisDate.value,
+      consultant_name: this.diagnosisForm.controls.consultantName.value as string,
     }
 
     console.log(data);
@@ -100,6 +105,19 @@ export class NewDiagnosisComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openPatientWindow(){
+    console.log("You are opening select patient window")
+    this.selectPatient.openModal();
+  }
+
+  onPatientSelected(patientData: any){
+    console.log(patientData);
+
+    this.selectedPatientId = patientData.id;
+    this.diagnosisForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
+    this.diagnosisForm.controls.patientNumber.setValue(patientData.clinical_number);
   }
  
 }

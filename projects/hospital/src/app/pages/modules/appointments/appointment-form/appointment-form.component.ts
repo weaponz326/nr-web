@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -11,10 +11,14 @@ export class AppointmentFormComponent implements OnInit {
 
   constructor() { }
 
+  @Output() openPatientWindow = new EventEmitter<any>();
+
+  selectedPatientId = '';
+
   appointmentForm = new FormGroup({
     appointmentCode: new FormControl(''),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
     consultantName: new FormControl(''),
     appointmentDate: new FormControl(),
     remarks: new FormControl(''),

@@ -6,6 +6,8 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
 
+import { DiagnosisDetails } from 'projects/hospital/src/app/models/modules/diagnosis/diagnosis.model';
+
 
 @Component({
   selector: 'app-diagnosis-details',
@@ -35,11 +37,11 @@ export class DiagnosisDetailsComponent implements OnInit {
   bloodGroupOptions = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
   ngOnInit(): void {
-    this.getDiagnosisReport();
+    this.getDiagnosisDetail();
   }
 
-  getDiagnosisReport(){
-    this.diagnosisApi.getDiagnosisReport()
+  getDiagnosisDetail(){
+    this.diagnosisApi.getDiagnosisDetail()
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -62,15 +64,14 @@ export class DiagnosisDetailsComponent implements OnInit {
   }
 
   saveDiagnosisDetail(){
-    // let data: DiagnosisReport = {
-    let data = {
+    let data: DiagnosisDetails = {
       blood_group: this.diagnosisDetailsForm.controls.bloodGroup.value as string,
-      temperature: this.diagnosisDetailsForm.controls.temperature.value as string,
-      weight: this.diagnosisDetailsForm.controls.weight.value as string,
-      height: this.diagnosisDetailsForm.controls.height.value as string,
-      blood_pressure: this.diagnosisDetailsForm.controls.bloodPressure.value as string,
-      pulse: this.diagnosisDetailsForm.controls.pulse.value as string,
-      diagnosis_details: this.diagnosisDetailsForm.controls.diagnosis.value as string,
+      temperature: this.diagnosisDetailsForm.controls.temperature.value as number,
+      weight: this.diagnosisDetailsForm.controls.weight.value as number,
+      height: this.diagnosisDetailsForm.controls.height.value as number,
+      blood_pressure: this.diagnosisDetailsForm.controls.bloodPressure.value as number,
+      pulse: this.diagnosisDetailsForm.controls.pulse.value as number,
+      diagnosis: this.diagnosisDetailsForm.controls.diagnosis.value as string,
       treatment: this.diagnosisDetailsForm.controls.treatment.value as string,
       remarks: this.diagnosisDetailsForm.controls.remarks.value as string,
     }
