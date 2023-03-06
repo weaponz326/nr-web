@@ -26,7 +26,7 @@ export class HousekeepingChecklistComponent implements OnInit {
 
   checklistsGridData: any[] = [];
 
-  lastChecklist = 0;
+  lastItem = 0;
 
   deleteId = "";
   isChecklistDeleting = false;
@@ -46,8 +46,8 @@ export class HousekeepingChecklistComponent implements OnInit {
           console.log(res);
           this.checklistsGridData = res;
 
-          try { this.lastChecklist = Number((res[res.length - 1]).checklist_number) }
-          catch{ this.lastChecklist = 0 }
+          try { this.lastItem = Number((res[res.length - 1]).item_number) }
+          catch{ this.lastItem = 0 }
 
           this.isFetchingGridData = false;
         },

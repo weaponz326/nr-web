@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { BookedRoomFormComponent } from '../booked-room-form/booked-room-form.component'
+import { SelectRoomComponent } from '../../../../components/select-windows/rooms-windows/select-room/select-room.component';
 
 import { BookedRoom } from 'projects/hotel/src/app/models/modules/bookings/bookings.model';
 
@@ -20,6 +21,7 @@ export class EditBookedRoomComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('bookedRoomFormComponentReference', { read: BookedRoomFormComponent, static: false }) bookedRoomForm!: BookedRoomFormComponent;
+  @ViewChild('selectRoomComponentReference', { read: SelectRoomComponent, static: false }) selectRoom!: SelectRoomComponent;
 
   bookingItemData: any;
 
@@ -32,7 +34,7 @@ export class EditBookedRoomComponent implements OnInit {
     this.bookingItemData = data;
 
     this.bookedRoomForm.bookedRoomForm.controls.roomNumber.setValue(data.room.room_number);
-    this.bookedRoomForm.bookedRoomForm.controls.roomNumber.setValue(data.room.room_type);
+    this.bookedRoomForm.bookedRoomForm.controls.roomType.setValue(data.room.room_type);
     this.bookedRoomForm.bookedRoomForm.controls.rate.setValue(data.room.rate);
     this.bookedRoomForm.bookedRoomForm.controls.personsNumber.setValue(data.persons_number);
 
@@ -54,4 +56,18 @@ export class EditBookedRoomComponent implements OnInit {
     this.saveItemEvent.emit(item);
   }
 
+  openRoomWindow(){
+    console.log("You are opening select room window")
+    this.selectRoom.openModal();
+  }
+
+  onRoomSelected(roomData: any){
+    console.log(roomData);
+
+    this.bookedRoomForm.selectedRoomId = roomData.id;
+    this.bookedRoomForm.bookedRoomForm.controls.roomNumber.setValue(roomData.room_number);
+    this.bookedRoomForm.bookedRoomForm.controls.roomType.setValue(roomData.room_type);
+    this.bookedRoomForm.bookedRoomForm.controls.rate.setValue(roomData.rate);
+  }
+  
 }

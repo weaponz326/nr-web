@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="guestCode" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openGuestWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -45,7 +45,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="guestName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openGuestWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -56,17 +56,6 @@
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Expected Arrival :</label></div>
                         <div class="col-md-8">
                             <input type="datetime-local" formControlName="expectedArrival" class="form-control form-control-sm w-100">
-                        </div>
-                    </div>
-
-                    <div class="row mb-1">
-                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Booking Status :</label></div>
-                        <div class="col-md-8">
-                            <select formControlName="bookingStatus" class="form-control form-control-sm w-100">
-                                <option>Waiting</option>
-                                <option>Arrived</option>
-                                <option>Cancelld</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -85,3 +74,7 @@
 <!-- connection error toast component -->
 
 <app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select guest window components -->
+
+<app-select-guest #selectGuestComponentReference [closeTarget]="'#addBookingModal'" (rowSelected)="onGuestSelected($event)"></app-select-guest>

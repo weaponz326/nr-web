@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { HousekeepingChecklistComponent } from '../housekeeping-checklist/housekeeping-checklist.component';
+import { SelectRoomComponent } from '../../../../components/select-windows/rooms-windows/select-room/select-room.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { HousekeepingApiService } from 'projects/hotel/src/app/services/modules-api/housekeeping-api/housekeeping-api.service';
@@ -32,6 +33,7 @@ export class ViewHousekeepingComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('housekeepingChecklistComponentReference', { read: HousekeepingChecklistComponent, static: false }) housekeepingChecklist!: HousekeepingChecklistComponent;
+  @ViewChild('selectRoomComponentReference', { read: SelectRoomComponent, static: false }) selectRoom!: SelectRoomComponent;
 
   navHeading: any[] = [
     { text: "All Housekeeping", url: "/home/housekeeping/all-housekeeping" },
@@ -70,7 +72,9 @@ export class ViewHousekeepingComponent implements OnInit {
 
           this.housekeepingForm.controls.housekeepingCode.setValue(this.housekeepingFormData.housekeeping_code);
           this.housekeepingForm.controls.housekeepingDate.setValue(new Date(this.housekeepingFormData.housekeeping_date).toISOString().slice(0, 16));
-          this.housekeepingForm.controls.roomNumber.setValue(this.housekeepingFormData.room_number);
+          this.housekeepingForm.controls.roomNumber.setValue(this.housekeepingFormData.room?.room_number);
+
+          this.selectedRoomId = this.housekeepingFormData.room?.id;
         },
         error: (err) => {
           console.log(err);
@@ -124,6 +128,18 @@ export class ViewHousekeepingComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openRoomWindow(){
+    console.log("You are opening select room window")
+    this.selectRoom.openModal();
+  }
+
+  onRoomSelected(roomData: any){
+    console.log(roomData);
+
+    this.selectedRoomId = roomData.id;
+    this.housekeepingForm.controls.roomNumber.setValue(roomData.room_number);
   }
 
   onPrint(){

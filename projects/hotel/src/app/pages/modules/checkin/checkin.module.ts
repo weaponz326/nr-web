@@ -6,6 +6,10 @@ import { CheckinRoutingModule } from './checkin-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
+import { GuestsWindowsModule } from '../../../components/select-windows/guests-windows/guests-windows.module';
+import { BookingsWindowsModule } from '../../../components/select-windows/bookings-windows/bookings-windows.module';
+import { RoomsWindowsModule } from '../../../components/select-windows/rooms-windows/rooms-windows.module';
+
 import { CheckinPage } from './checkin.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -34,6 +38,9 @@ import { CheckinRoomsComponent } from './checkin-rooms/checkin-rooms.component';
     CheckinRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    GuestsWindowsModule,
+    BookingsWindowsModule,
+    RoomsWindowsModule
   ]
 })
 export class CheckinModule { }

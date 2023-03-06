@@ -6,6 +6,8 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { ServiceItemsComponent } from '../service-items/service-items.component';
 
+import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
+
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { ServicesApiService } from 'projects/hotel/src/app/services/modules-api/services-api/services-api.service';
 // import { ServicesPrintService } from 'projects/hotel/src/app/services/modules-printing/services-print/services-print.service';
@@ -32,6 +34,8 @@ export class ViewServiceComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('serviceItemsComponentReference', { read: ServiceItemsComponent, static: false }) serviceItems!: ServiceItemsComponent;
+
+  @ViewChild('selectGuestComponentReference', { read: SelectGuestComponent, static: false }) selectGuest!: SelectGuestComponent;
 
   navHeading: any[] = [
     { text: "All Services", url: "/home/services/all-services" },
@@ -73,6 +77,10 @@ export class ViewServiceComponent implements OnInit {
           this.serviceForm.controls.serviceCode.setValue(this.serviceFormData.service_code);
           this.serviceForm.controls.serviceName.setValue(this.serviceFormData.service_name);
           this.serviceForm.controls.serviceType.setValue(this.serviceFormData.service_type);
+
+          this.selectedGuestId = this.serviceFormData.guest?.id;
+          this.serviceForm.controls.guestName.setValue(this.serviceFormData.guest?.guest_name);
+          this.serviceForm.controls.guestCode.setValue(this.serviceFormData.guest?.guest_code);
         },
         error: (err) => {
           console.log(err);
@@ -89,7 +97,7 @@ export class ViewServiceComponent implements OnInit {
       service_code: this.serviceForm.controls.serviceCode.value as string,
       service_name: this.serviceForm.controls.serviceName.value as string,
       service_type: this.serviceForm.controls.serviceType.value as string,
-      service_total: 0
+      service_total: this.serviceItems.totalAmount
     }
 
     console.log(data);
@@ -128,6 +136,19 @@ export class ViewServiceComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openGuestWindow(){
+    console.log("You are opening select guest window")
+    this.selectGuest.openModal();
+  }
+
+  onGuestSelected(guestData: any){
+    console.log(guestData);
+
+    this.selectedGuestId = guestData.id;
+    this.serviceForm.controls.guestName.setValue(guestData.guest_name);
+    this.serviceForm.controls.guestCode.setValue(guestData.guest_code);
   }
 
   onPrint(){

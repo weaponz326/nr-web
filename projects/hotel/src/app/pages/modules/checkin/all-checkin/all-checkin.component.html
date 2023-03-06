@@ -45,8 +45,10 @@
                             <tr *ngFor="let data of checkinGridData" (dblclick)="viewCheckin(data.id)" class="table-pointer">
                                 <td>{{data?.checkin_code}}</td>
                                 <td>{{data?.checkin_date}}</td>
-                                <td>{{data?.guest?.guest_code}}</td>
-                                <td>{{data?.guest?.guest_name}}</td>
+                                <td *ngIf="!data?.from_booking">{{data?.guest?.guest_code}}</td>
+                                <td *ngIf="!data?.from_booking">{{data?.guest?.guest_name}}</td>
+                                <td *ngIf="data?.from_booking">{{data?.booking?.guest?.guest_code}}</td>
+                                <td *ngIf="data?.from_booking">{{data?.booking?.guest?.guest_name}}</td>
                                 <td>{{data?.room?.room_number}}</td>
                             </tr>                          
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

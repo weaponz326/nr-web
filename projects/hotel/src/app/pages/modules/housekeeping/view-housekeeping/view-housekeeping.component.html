@@ -29,7 +29,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="roomNumber" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openRoomWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -74,3 +74,7 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteHousekeeping()"></app-delete-modal-one>
+
+<!-- select room window components -->
+
+<app-select-room #selectRoomComponentReference (rowSelected)="onRoomSelected($event)"></app-select-room>

@@ -7,6 +7,8 @@ import { MainNavbarModule } from 'projects/application/src/app/components/main-n
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
 import { GuestsWindowsModule } from '../../../components/select-windows/guests-windows/guests-windows.module';
+import { CheckinWindowsModule } from '../../../components/select-windows/checkin-windows/checkin-windows.module';
+import { ServicesWindowsModule } from '../../../components/select-windows/services-windows/services-windows.module';
 
 import { BillsPage } from './bills.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -34,7 +36,9 @@ import { BillTablesComponent } from './bill-tables/bill-tables.component';
     BillsRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    GuestsWindowsModule
+    GuestsWindowsModule,
+    CheckinWindowsModule,
+    ServicesWindowsModule
   ]
 })
 export class BillsModule { }

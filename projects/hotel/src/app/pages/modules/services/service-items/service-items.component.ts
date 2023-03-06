@@ -64,6 +64,7 @@ export class ServiceItemsComponent implements OnInit {
   calculateTotalAmount(){
     this.totalAmount = 0;
     for (let item of this.itemsGridData){
+      console.log(item.amount);
       this.totalAmount += item.amount;
     }
 

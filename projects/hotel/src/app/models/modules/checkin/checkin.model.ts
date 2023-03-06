@@ -1,6 +1,7 @@
 export class Checkin {
     account!: string;
     guest!: string;
+    room!: string;
     checkin_code!: string;
     from_booking!: boolean;
     booking_code!: string;

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServicesRoutingModule } from './services-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
+import { GuestsWindowsModule } from '../../../components/select-windows/guests-windows/guests-windows.module';
 
 import { ServicesPage } from './services.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -38,6 +39,7 @@ import { ItemFormComponent } from './item-form/item-form.component';
     ServicesRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    GuestsWindowsModule
   ]
 })
 export class ServicesModule { }

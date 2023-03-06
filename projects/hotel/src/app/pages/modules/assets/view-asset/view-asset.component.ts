@@ -58,7 +58,8 @@ export class ViewAssetComponent implements OnInit {
           this.assetForm.assetForm.controls.assetNumber.setValue(this.assetData.asset_number);
           this.assetForm.assetForm.controls.assetName.setValue(this.assetData.asset_name);          
           this.assetForm.assetForm.controls.category.setValue(this.assetData.category);          
-          this.assetForm.assetForm.controls.type.setValue(this.assetData.type);          
+          this.assetForm.assetForm.controls.assetType.setValue(this.assetData.asset_type);          
+          this.assetForm.assetForm.controls.location.setValue(this.assetData.location);          
           this.assetForm.assetForm.controls.model.setValue(this.assetData.model);          
           this.assetForm.assetForm.controls.description.setValue(this.assetData.description);          
           this.assetForm.assetForm.controls.datePurchased.setValue(this.assetData.date_purchased);          
@@ -80,7 +81,8 @@ export class ViewAssetComponent implements OnInit {
       asset_number: this.assetForm.assetForm.controls.assetNumber.value as string,
       asset_name: this.assetForm.assetForm.controls.assetName.value as string,
       category: this.assetForm.assetForm.controls.category.value as string,
-      type: this.assetForm.assetForm.controls.type.value as string,
+      asset_type: this.assetForm.assetForm.controls.assetType.value as string,
+      location: this.assetForm.assetForm.controls.location.value as string,
       model: this.assetForm.assetForm.controls.model.value as string,
       description: this.assetForm.assetForm.controls.description.value as string,
       date_purchased: this.assetForm.assetForm.controls.datePurchased.value,

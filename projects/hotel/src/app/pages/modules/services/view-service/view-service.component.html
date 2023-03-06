@@ -36,7 +36,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="guestCode" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openGuestWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -48,7 +48,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="guestName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openGuestWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -95,3 +95,7 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteService()"></app-delete-modal-one>
+
+<!-- select guest window component -->
+
+<app-select-guest #selectGuestComponentReference [closeTarget]="'#addServiceModal'" (rowSelected)="onGuestSelected($event)"></app-select-guest>

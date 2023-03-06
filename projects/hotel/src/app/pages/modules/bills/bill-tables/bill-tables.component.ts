@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
-// import { SelectCheckinComponent } from '../../../../components/select-windows/checkin-windows/select-checkin/select-checkin.component';
-// import { SelectServiceComponent } from '../../../../components/select-windows/services-windows/select-service/select-service.component';
+import { SelectCheckinComponent } from '../../../../components/select-windows/checkin-windows/select-checkin/select-checkin.component';
+import { SelectServiceComponent } from '../../../../components/select-windows/services-windows/select-service/select-service.component';
 
 import { BillsApiService } from 'projects/hotel/src/app/services/modules-api/bills-api/bills-api.service';
 import { CheckinCharge, ServiceCharge } from 'projects/hotel/src/app/models/modules/bills/bills.model';
@@ -24,8 +24,8 @@ export class BillTablesComponent implements OnInit {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
-  // @ViewChild('selectCheckinComponentReference', { read: SelectCheckinComponent, static: false }) selectCheckin!: SelectCheckinComponent;
-  // @ViewChild('selectServiceComponentReference', { read: SelectServiceComponent, static: false }) selectService!: SelectServiceComponent;
+  @ViewChild('selectCheckinComponentReference', { read: SelectCheckinComponent, static: false }) selectCheckin!: SelectCheckinComponent;
+  @ViewChild('selectServiceComponentReference', { read: SelectServiceComponent, static: false }) selectService!: SelectServiceComponent;
 
   checkinGridData: any[] = [];
   servicesGridData: any[] = [];

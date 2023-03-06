@@ -79,7 +79,8 @@ export class ViewBillComponent implements OnInit {
 
           this.selectedGuestId = this.billFormData.guest?.id;
           this.selectedGuestName = this.billFormData.guest_name;
-          this.billForm.controls.guestName.setValue(this.billFormData.guest_name);
+          this.billForm.controls.guestName.setValue(this.billFormData.guest?.guest_name);
+          this.billForm.controls.guestCode.setValue(this.billFormData.guest?.guest_code);
        },
         error: (err) => {
           console.log(err);
@@ -145,6 +146,7 @@ export class ViewBillComponent implements OnInit {
     console.log(guestData);
 
     this.billForm.controls.guestName.setValue(guestData.guest_name);
+    this.billForm.controls.guestCode.setValue(guestData.guest_code);
     this.selectedGuestId = guestData.id;
   }
 

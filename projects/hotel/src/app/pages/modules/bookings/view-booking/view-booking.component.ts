@@ -6,6 +6,8 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { BookedRoomsComponent } from '../booked-rooms/booked-rooms.component';
 
+import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
+
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BookingsApiService } from 'projects/hotel/src/app/services/modules-api/bookings-api/bookings-api.service';
 // import { BookingsPrintService } from 'projects/hotel/src/app/services/modules-printing/bookings-print/bookings-print.service';
@@ -33,6 +35,8 @@ export class ViewBookingComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('bookedRoomsComponentReference', { read: BookedRoomsComponent, static: false }) bookedRooms!: BookedRoomsComponent;
 
+  @ViewChild('selectGuestComponentReference', { read: SelectGuestComponent, static: false }) selectGuest!: SelectGuestComponent;
+
   navHeading: any[] = [
     { text: "All Bookings", url: "/home/bookings/all-bookings" },
     { text: "View Booking", url: "/home/bookings/view-booking" },
@@ -43,7 +47,7 @@ export class ViewBookingComponent implements OnInit {
   isBookingLoading: boolean = false;
   isBookingSaving: boolean = false;
   isBookingDeleting: boolean = false;
-  isCheckingDelivery: boolean = false;
+  isBookinggDelivery: boolean = false;
 
   bookingForm = new FormGroup({
     bookingCode: new FormControl({value: '', disabled: true}),
@@ -75,6 +79,10 @@ export class ViewBookingComponent implements OnInit {
           this.bookingForm.controls.bookingDate.setValue(new Date(this.bookingFormData.booking_date).toISOString().slice(0, 16));
           this.bookingForm.controls.expectedArrival.setValue(new Date(this.bookingFormData.expected_arrival).toISOString().slice(0, 16));
           this.bookingForm.controls.bookingStatus.setValue(this.bookingFormData.booking_status);
+
+          this.selectedGuestId = this.bookingFormData.guest?.id;
+          this.bookingForm.controls.guestCode.setValue(this.bookingFormData.guest?.guest_code)
+          this.bookingForm.controls.guestName.setValue(this.bookingFormData.guest?.guest_name)
         },
         error: (err) => {
           console.log(err);
@@ -130,6 +138,19 @@ export class ViewBookingComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openGuestWindow(){
+    console.log("You are opening select guest window")
+    this.selectGuest.openModal();
+  }
+
+  onGuestSelected(guestData: any){
+    console.log(guestData);
+
+    this.selectedGuestId = guestData.id;
+    this.bookingForm.controls.guestName.setValue(guestData.guest_name);
+    this.bookingForm.controls.guestCode.setValue(guestData.guest_code);
   }
 
   onPrint(){

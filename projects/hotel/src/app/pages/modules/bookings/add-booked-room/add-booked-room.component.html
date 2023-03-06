@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
 
-                <app-booked-room-form #bookedRoomFormComponentReference></app-booked-room-form>
+                <app-booked-room-form #bookedRoomFormComponentReference (openRoomWindow)="openRoomWindow()"></app-booked-room-form>
 
             </div>
 
@@ -27,3 +27,7 @@
         </div>
     </div>
 </div>
+
+<!-- select room window components -->
+
+<app-select-room #selectRoomComponentReference [closeTarget]="'#addItemModal'" (rowSelected)="onRoomSelected($event)"></app-select-room>

@@ -27,6 +27,7 @@ export class NewCheckinComponent implements OnInit {
   @ViewChild('checkinFormComponentReference', { read: CheckinFormComponent, static: false }) checkinForm!: CheckinFormComponent;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+
   navHeading: any[] = [
     { text: "New Checkin", url: "/home/checkin/new-checkin" },
   ];
@@ -37,12 +38,17 @@ export class NewCheckinComponent implements OnInit {
     this.getNewCheckinCodeConfig();
   }
 
+  ngAfterViewInit(): void {
+    this.checkinForm.checkinForm.controls.checkinDate.setValue(new Date().toISOString().slice(0, 16));
+  }
+
   postCheckin(){
     console.log('u are saving a new checkin');
 
     var data: Checkin = {
       account: this.customCookie.getCookie('hotel_id') as string,
       guest: this.checkinForm.selectedGuestId,
+      room: this.checkinForm.selectedRoomId,
       checkin_code: this.checkinForm.checkinForm.controls.checkinCode.value as string,
       from_booking: this.checkinForm.checkinForm.controls.fromBooking.value,
       booking_code: this.checkinForm.checkinForm.controls.bookingCode.value as string,
@@ -72,8 +78,7 @@ export class NewCheckinComponent implements OnInit {
   }
 
   getNewCheckinCodeConfig(){
-    
-    
+        
   }
 
 }

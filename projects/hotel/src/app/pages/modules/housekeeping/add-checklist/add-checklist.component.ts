@@ -27,6 +27,7 @@ export class AddChecklistComponent implements OnInit {
   }
 
   openModal(lastId: any){
+    console.log(lastId);
     this.checklistForm.checklistForm.controls.itemNumber.setValue(lastId + 1);
 
     this.addButton.nativeElement.click();

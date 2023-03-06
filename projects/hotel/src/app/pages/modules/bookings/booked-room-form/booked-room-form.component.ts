@@ -14,6 +14,8 @@ export class BookedRoomFormComponent implements OnInit {
   selectedRoomId = "";
   selectedRoomData: any;
 
+  @Output() openRoomWindow = new EventEmitter<any>();
+
   bookedRoomForm = new FormGroup({
     roomNumber: new FormControl({value: "", disabled: true}),
     roomType: new FormControl({value: "", disabled: true}),

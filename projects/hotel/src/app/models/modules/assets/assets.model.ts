@@ -3,7 +3,8 @@ export class Asset {
     asset_number!: string;
     asset_name!: string;
     category!: string;
-    type!: string;
+    asset_type!: string;
+    location!: string;
     model!: string;
     description!: string;
     date_purchased!: Date;

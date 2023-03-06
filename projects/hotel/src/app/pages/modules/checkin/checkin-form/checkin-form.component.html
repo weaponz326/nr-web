@@ -17,10 +17,10 @@
                 </div>
             </div>
 
-            <div class="row mb-1">
+            <div class="row mb-2">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">From Booking :</label></div>
-                <div class="col-md-8">
-                    <input type="checkbox" formControlName="fromBooking" class="form-check-input py-auto" (change)="onBookingCheckChanged($event)">
+                <div class="col-md-8 mt-1">
+                    <input type="checkbox" formControlName="fromBooking" class="form-check-input" (change)="onBookingCheckChanged($event)">
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
                         <input formControlName="bookingCode" class="form-control">
-                        <button type="button" class="btn btn-secondary" [disabled]="bookingDisabled">
+                        <button type="button" class="btn btn-secondary" [disabled]="isBookingDisabled" (click)="openBookingWindow()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -41,7 +41,7 @@
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
                         <input formControlName="guestName" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" [disabled]="isGuestDisabled" (click)="openGuestWindow()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -53,7 +53,7 @@
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
                         <input formControlName="guestCode" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" [disabled]="isGuestDisabled" (click)="openGuestWindow()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -67,14 +67,14 @@
             <div class="row mb-1">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Check-In Date :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="checkinDate" type="date" class="form-control form-control-sm w-100">
+                    <input formControlName="checkinDate" type="datetime-local" class="form-control form-control-sm w-100">
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Check-Out Date :</label></div>
                 <div class="col-md-8">
-                    <input formControlName="checkoutDate" type="date" class="form-control form-control-sm w-100">
+                    <input formControlName="checkoutDate" type="datetime-local" class="form-control form-control-sm w-100">
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
                 <div class="col-md-8">
                     <div class="input-group input-group-sm w-100">
                         <input formControlName="roomNumber" class="form-control">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" (click)="openRoomWindow()">
                             <i class="bi bi-three-dots"></i>
                         </button>
                     </div>
@@ -104,3 +104,11 @@
     <hr />
 
 </form>
+
+<!-- select guest booking room window components -->
+
+<app-select-guest #selectGuestComponentReference (rowSelected)="onGuestSelected($event)"></app-select-guest>
+
+<app-select-booking #selectBookingComponentReference (rowSelected)="onBookingSelected($event)"></app-select-booking>
+
+<app-select-room #selectRoomComponentReference (rowSelected)="onRoomSelected($event)"></app-select-room>

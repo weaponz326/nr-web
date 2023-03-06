@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
                 <input formControlName="roomNumber" class="form-control">
-                <button type="button" class="btn btn-secondary">
+                <button type="button" class="btn btn-secondary" (click)="openRoomWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>
@@ -19,12 +19,7 @@
             <label class="float-md-end float-sm-start mt-1">Room Type :</label>
         </div>
         <div class="col-md-8">
-            <div class="input-group input-group-sm w-100">
-                <input formControlName="roomType" class="form-control">
-                <button type="button" class="btn btn-secondary">
-                    <i class="bi bi-three-dots"></i>
-                </button>
-            </div>
+            <input formControlName="roomType" class="form-control form-control-sm w-100">
         </div>
     </div>
 
@@ -33,12 +28,7 @@
             <label class="float-md-end float-sm-start mt-1">Rate :</label>
         </div>
         <div class="col-md-8">
-            <div class="input-group input-group-sm w-100">
-                <input type="number" min="0" step=".01" formControlName="rate" class="form-control">
-                <button type="button" class="btn btn-secondary">
-                    <i class="bi bi-three-dots"></i>
-                </button>
-            </div>
+            <input type="number" min="0.00" step="0.00" formControlName="rate" class="form-control form-control-sm w-100">
         </div>
     </div>
 

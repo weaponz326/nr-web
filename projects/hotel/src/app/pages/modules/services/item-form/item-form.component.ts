@@ -17,7 +17,7 @@ export class ItemFormComponent implements OnInit {
     itemNumber: new FormControl(),
     itemDate: new FormControl(),
     description: new FormControl(''),
-    amount: new FormControl(1)
+    amount: new FormControl(0.00)
   })
 
   ngOnInit(): void {

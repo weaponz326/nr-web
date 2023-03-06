@@ -6,6 +6,9 @@ import { BookingsRoutingModule } from './bookings-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
+import { GuestsWindowsModule } from '../../../components/select-windows/guests-windows/guests-windows.module';
+import { RoomsWindowsModule } from '../../../components/select-windows/rooms-windows/rooms-windows.module';
+
 import { BookingsPage } from './bookings.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -38,6 +41,8 @@ import { BookedRoomFormComponent } from './booked-room-form/booked-room-form.com
     BookingsRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    GuestsWindowsModule,
+    RoomsWindowsModule
   ]
 })
 export class BookingsModule { }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BookingsApiService } from 'projects/hotel/src/app/services/modules-api/bookings-api/bookings-api.service';
@@ -27,6 +28,8 @@ export class AddBookingComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+  @ViewChild('selectGuestComponentReference', { read: SelectGuestComponent, static: false }) selectGuest!: SelectGuestComponent;
+
   isBookingSaving = false;
 
   bookingForm = new FormGroup({
@@ -35,7 +38,6 @@ export class AddBookingComponent implements OnInit {
     guestCode: new FormControl({value: '', disabled: true}),
     guestName: new FormControl({value: '', disabled: true}),
     expectedArrival: new FormControl(),
-    bookingStatus: new FormControl(''),
   })
 
   selectedGuestId = '';
@@ -56,7 +58,7 @@ export class AddBookingComponent implements OnInit {
       booking_code: this.bookingForm.controls.bookingCode.value as string,
       booking_date: this.bookingForm.controls.bookingDate.value,
       expected_arrival: this.bookingForm.controls.expectedArrival.value,
-      booking_status: this.bookingForm.controls.bookingStatus.value as string,
+      booking_status: '',
     }
 
     console.log(data);
@@ -103,6 +105,19 @@ export class AddBookingComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openGuestWindow(){
+    console.log("You are opening select guest window")
+    this.selectGuest.openModal();
+  }
+
+  onGuestSelected(guestData: any){
+    console.log(guestData);
+
+    this.selectedGuestId = guestData.id;
+    this.bookingForm.controls.guestName.setValue(guestData.guest_name);
+    this.bookingForm.controls.guestCode.setValue(guestData.guest_code);
   }
   
 }

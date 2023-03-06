@@ -57,13 +57,25 @@ export class ViewCheckinComponent implements OnInit {
 
           this.checkinForm.checkinForm.controls.checkinCode.setValue(this.checkinData.checkin_code);
           this.checkinForm.checkinForm.controls.fromBooking.setValue(this.checkinData.from_booking);
-          this.checkinForm.checkinForm.controls.bookingCode.setValue(this.checkinData.booking.booking_code);
-          this.checkinForm.checkinForm.controls.guestCode.setValue(this.checkinData.guest.guest_code);
-          this.checkinForm.checkinForm.controls.guestName.setValue(this.checkinData.guest.guest_name);
           this.checkinForm.checkinForm.controls.checkinDate.setValue(this.checkinData.checkin_date);
           this.checkinForm.checkinForm.controls.checkoutDate.setValue(this.checkinData.checkout_date);
           this.checkinForm.checkinForm.controls.numberNights.setValue(this.checkinData.number_nights);
-          this.checkinForm.checkinForm.controls.roomNumber.setValue(this.checkinData.room.room_number);
+
+          this.checkinForm.selectedRoomId = this.checkinData.room?.id;
+          this.checkinForm.checkinForm.controls.roomNumber.setValue(this.checkinData.room?.room_number)
+
+          if(this.checkinData.from_booking == true){
+            this.checkinForm.selectedBookingId = this.checkinData.booking?.id;
+            this.checkinForm.selectedGuestId = this.checkinData.booking?.guest?.id;
+            this.checkinForm.checkinForm.controls.bookingCode.setValue(this.checkinData.booking?.booking_code)
+            this.checkinForm.checkinForm.controls.guestCode.setValue(this.checkinData.booking?.guest?.guest_code)
+            this.checkinForm.checkinForm.controls.guestName.setValue(this.checkinData.booking?.guest?.guest_name)
+          }
+          else{
+            this.checkinForm.selectedGuestId = this.checkinData.guest?.id;
+            this.checkinForm.checkinForm.controls.guestCode.setValue(this.checkinData.guest?.guest_code)
+            this.checkinForm.checkinForm.controls.guestName.setValue(this.checkinData.guest?.guest_name)
+          }
         },
         error: (err) => {
           console.log(err);
@@ -79,6 +91,7 @@ export class ViewCheckinComponent implements OnInit {
     var data: Checkin = {
       account: this.customCookie.getCookie('hotel_id') as string,
       guest: this.checkinForm.selectedGuestId,
+      room: this.checkinForm.selectedRoomId,
       checkin_code: this.checkinForm.checkinForm.controls.checkinCode.value as string,
       from_booking: this.checkinForm.checkinForm.controls.fromBooking.value,
       booking_code: this.checkinForm.checkinForm.controls.bookingCode.value as string,

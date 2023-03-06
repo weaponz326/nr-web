@@ -29,7 +29,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="guestCode" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openGuestWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -41,7 +41,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="guestName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openGuestWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -63,8 +63,9 @@
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Booking Status :</label></div>
                         <div class="col-md-8">
                             <select formControlName="bookingStatus" class="form-control form-control-sm w-100">
-                                <option>Processing</option>
-                                <option>Finished</option>
+                                <option>Waiting</option>
+                                <option>Arrived</option>
+                                <option>Cancelld</option>
                             </select>
                         </div>
                     </div>
@@ -112,3 +113,7 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteBooking()"></app-delete-modal-one>
+
+<!-- select guest window components -->
+
+<app-select-guest #selectGuestComponentReference (rowSelected)="onGuestSelected($event)"></app-select-guest>
