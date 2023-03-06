@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { BillTablesComponent } from '../bill-tables/bill-tables.component';
-// import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
+import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BillsApiService } from 'projects/hotel/src/app/services/modules-api/bills-api/bills-api.service';
@@ -34,7 +34,7 @@ export class ViewBillComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('billTablesComponentReference', { read: BillTablesComponent, static: false }) billTables!: BillTablesComponent;
 
-  // @ViewChild('selectGuestComponentReference', { read: SelectGuestComponent, static: false }) selectGuest!: SelectGuestComponent;
+  @ViewChild('selectGuestComponentReference', { read: SelectGuestComponent, static: false }) selectGuest!: SelectGuestComponent;
 
   navHeading: any[] = [
     { text: "All Bills", url: "/home/bills/all-bills" },
@@ -138,7 +138,7 @@ export class ViewBillComponent implements OnInit {
 
   openGuestWindow(){
     console.log("You are opening select guest window")
-    // this.selectGuest.openModal();
+    this.selectGuest.openModal();
   }
 
   onGuestSelected(guestData: any){

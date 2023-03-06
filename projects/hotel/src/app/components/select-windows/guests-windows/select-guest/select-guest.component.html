@@ -30,14 +30,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of guestsGridData" (dblclick)="selectRow(data.id)" class="table-pointer">
+                        <tr *ngFor="let data of guestsGridData" (dblclick)="selectRow(data)" class="table-pointer">
                             <td>{{data?.guest_code}}</td>
                             <td>{{data?.guest_name}}</td>
                             <td>{{data?.phone}}</td>
                         </tr>
                         <tr *ngIf="isFetchingGridData || !isDataAvailable">
                             <td colspan="3">
-                                <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
+                                <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                             </td>
                         </tr>
                     </tbody>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
+import { SelectGuestComponent } from '../../../../components/select-windows/guests-windows/select-guest/select-guest.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BillsApiService } from 'projects/hotel/src/app/services/modules-api/bills-api/bills-api.service';
@@ -28,7 +28,7 @@ export class NewBillComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  // @ViewChild('selectGuestComponentReference', { read: SelectGuestComponent, static: false }) selectGuest!: SelectGuestComponent;
+  @ViewChild('selectGuestComponentReference', { read: SelectGuestComponent, static: false }) selectGuest!: SelectGuestComponent;
 
   selectedGuestId = "";
   selectedGuestName = "";
@@ -88,7 +88,7 @@ export class NewBillComponent implements OnInit {
   }
 
   getNewBillCodeConfig(){
-    this.billForm.controls.billCode.disable();
+    // this.billForm.controls.billCode.disable();
 
     // this.billsApi.getNewBillCodeConfig()
     //   .subscribe({
@@ -109,7 +109,7 @@ export class NewBillComponent implements OnInit {
   
   openGuestWindow(){
     console.log("You are opening select guest window")
-    // this.selectGuest.openModal();
+    this.selectGuest.openModal();
   }
 
   onGuestSelected(guestData: any){
@@ -118,6 +118,7 @@ export class NewBillComponent implements OnInit {
     this.selectedGuestId = guestData.id;
     this.selectedGuestName = guestData.guest_name;
     this.billForm.controls.guestName.setValue(guestData.guest_name);
+    this.billForm.controls.guestCode.setValue(guestData.guest_code);
   }
 
 }
