@@ -5,13 +5,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { PurchasingItemsComponent } from '../purchasing-items/purchasing-items.component';
-// import { SelectSupplierComponent } from '../../../../components/select-windows/suppliers-windows/select-supplier/select-supplier.component';
+import { SelectSupplierComponent } from '../../../../components/select-windows/suppliers-windows/select-supplier/select-supplier.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { PurchasingApiService } from 'projects/shop/src/app/services/modules-api/purchasing-api/purchasing-api.service';
 // import { PurchasingPrintService } from 'projects/shop/src/app/services/modules-printing/purchasing-print/purchasing-print.service';
 
-// import { Purchasing } from 'projects/shop/src/app/models/modules/purchasing/purchasing.model';
+import { Purchasing } from 'projects/shop/src/app/models/modules/purchasing/purchasing.model';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class ViewPurchasingComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('purchasingItemsComponentReference', { read: PurchasingItemsComponent, static: false }) purchasingItems!: PurchasingItemsComponent;
 
-  // @ViewChild('selectSupplierComponentReference', { read: SelectSupplierComponent, static: false }) selectSupplier!: SelectSupplierComponent;
+  @ViewChild('selectSupplierComponentReference', { read: SelectSupplierComponent, static: false }) selectSupplier!: SelectSupplierComponent;
 
   navHeading: any[] = [
     { text: "All Purchasing", url: "/home/purchasing/all-purchasing" },
@@ -55,8 +55,8 @@ export class ViewPurchasingComponent implements OnInit {
   purchasingForm = new FormGroup({
     purchasingCode: new FormControl(''),
     purchasingDate: new FormControl(),
-    supplierCode: new FormControl(''),
-    supplierName: new FormControl(''),
+    supplierCode: new FormControl({value: '', disabled: true}),
+    supplierName: new FormControl({value: '', disabled: true}),
     supplierContact: new FormControl(''),
     invoiceNumber: new FormControl(''),
     status: new FormControl(''),
@@ -78,13 +78,15 @@ export class ViewPurchasingComponent implements OnInit {
           this.isPurchasingLoading = false;
 
           this.purchasingForm.controls.purchasingCode.setValue(this.purchasingFormData.purchasing_code);
-          this.purchasingForm.controls.purchasingDate.setValue(new Date(this.purchasingFormData.purchasing_date).toISOString().slice(0, 16));
+          this.purchasingForm.controls.purchasingDate.setValue(new Date(this.purchasingFormData.purchasing_date).toISOString().slice(0, 10));
           this.purchasingForm.controls.invoiceNumber.setValue(this.purchasingFormData.invoice_number);
+          this.purchasingForm.controls.status.setValue(this.purchasingFormData.status);
 
           this.selectedSupplierId = this.purchasingFormData.supplier?.id;
           this.selectedSupplierName = this.purchasingFormData.supplier_name;
           this.selectedSupplierId = this.purchasingFormData.supplier_code;
-          this.purchasingForm.controls.supplierName.setValue(this.purchasingFormData.supplier_name);
+          this.purchasingForm.controls.supplierName.setValue(this.purchasingFormData.supplier?.supplier_name);
+          this.purchasingForm.controls.supplierCode.setValue(this.purchasingFormData.supplier?.supplier_code);
         },
         error: (err) => {
           console.log(err);
@@ -104,15 +106,14 @@ export class ViewPurchasingComponent implements OnInit {
       supplierName = this.purchasingForm.controls.supplierName.value as string;
     }
 
-    // let data: Purchasing = {
-    let data = {
+    let data: Purchasing = {
       account: this.customCookie.getCookie('shop_id') as string,
       supplier: this.selectedSupplierId,
       purchasing_code: this.purchasingForm.controls.purchasingCode.value as string,
-      purchasing_date: this.purchasingForm.controls.purchasingDate.value as string,
+      purchasing_date: this.purchasingForm.controls.purchasingDate.value,
       invoice_number: this.purchasingForm.controls.invoiceNumber.value as string,
-      total_amount: 0,
-      purchasing_status: "",
+      total_amount: this.purchasingItems.totalAmount,
+      status: this.purchasingForm.controls.status.value as string,
     }
 
     console.log(data);
@@ -155,13 +156,14 @@ export class ViewPurchasingComponent implements OnInit {
 
   openSupplierWindow(){
     console.log("You are opening select supplier window")
-    // this.selectSupplier.openModal();
+    this.selectSupplier.openModal();
   }
 
   onSupplierSelected(supplierData: any){
     console.log(supplierData);
 
     this.purchasingForm.controls.supplierName.setValue(supplierData.supplier_name);
+    this.purchasingForm.controls.supplierCode.setValue(supplierData.supplier_code);
     this.selectedSupplierId = supplierData.id;
   }  
 

@@ -9,7 +9,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { SuppliersApiService } from 'projects/shop/src/app/services/modules-api/suppliers-api/suppliers-api.service';
 // import { SuppliersPrintService } from 'projects/shop/src/app/services/modules-printing/suppliers-print/suppliers-print.service';
 
-// import { Supplier } from 'projects/shop/src/app/models/modules/suppliers/suppliers.model';
+import { Supplier } from 'projects/shop/src/app/models/modules/suppliers/suppliers.model';
 
 
 @Component({
@@ -75,8 +75,7 @@ export class ViewSupplierComponent implements OnInit {
   putSupplier(){
     console.log('u are saving a new supplier');
 
-    // let data: Supplier = {
-    let data = {
+    let data: Supplier = {
       account: this.customCookie.getCookie('shop_id') as string,
       supplier_code: this.supplierForm.supplierForm.controls.supplierCode.value as string,
       supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,

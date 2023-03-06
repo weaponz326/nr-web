@@ -64,7 +64,7 @@ export class PurchasingItemsComponent implements OnInit {
   calculateTotalPrice(){
     this.totalAmount = 0;
     for (let item of this.itemsGridData){
-      this.totalAmount += item.menu_item.price * item.quantity;
+      this.totalAmount += item.product.price * item.quantity;
     }
 
     this.patchTotalAmount();

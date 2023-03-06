@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { SuppliersApiService } from 'projects/shop/src/app/services/modules-api/suppliers-api/suppliers-api.service';
 
-// import { Supplier } from 'projects/shop/src/app/models/modules/suppliers/suppliers.model';
+import { Supplier } from 'projects/shop/src/app/models/modules/suppliers/suppliers.model';
 
 
 @Component({
@@ -42,8 +42,7 @@ export class NewSupplierComponent implements OnInit {
   createSupplier(){
     console.log('u are saving a new supplier');
 
-    // let data: Supplier = {
-    let data = {
+    let data: Supplier = {
       account: this.customCookie.getCookie('shop_id') as string,
       supplier_code: this.supplierForm.supplierForm.controls.supplierCode.value as string,
       supplier_name: this.supplierForm.supplierForm.controls.supplierName.value as string,
@@ -76,7 +75,7 @@ export class NewSupplierComponent implements OnInit {
   }
 
   getNewsupplierCodeConfig(){
-    this.supplierForm.supplierForm.controls.supplierCode.disable();
+    // this.supplierForm.supplierForm.controls.supplierCode.disable();
 
     // this.suppliersApi.getNewSupplierCodeConfig()
     //   .subscribe({

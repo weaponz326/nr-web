@@ -6,6 +6,9 @@ import { OrdersRoutingModule } from './orders-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
+import { ProductsWindowsModule } from '../../../components/select-windows/products-windows/products-windows.module';
+import { CustomersWindowsModule } from '../../../components/select-windows/customers-windows/customers-windows.module';
+
 import { OrdersPage } from './orders.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -38,6 +41,8 @@ import { ItemFormComponent } from './item-form/item-form.component';
     OrdersRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    ProductsWindowsModule,
+    CustomersWindowsModule
   ]
 })
 export class OrdersModule { }

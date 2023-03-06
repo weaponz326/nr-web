@@ -10,7 +10,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { StaffApiService } from 'projects/shop/src/app/services/modules-api/staff-api/staff-api.service';
 // import { StaffPrintService } from 'projects/shop/src/app/services/modules-printing/staff-print/staff-print.service';
 
-// import { Staff } from 'projects/shop/src/app/models/modules/staff/staff.model';
+import { Staff } from 'projects/shop/src/app/models/modules/staff/staff.model';
 import { environment } from 'projects/shop/src/environments/environment';
 
 

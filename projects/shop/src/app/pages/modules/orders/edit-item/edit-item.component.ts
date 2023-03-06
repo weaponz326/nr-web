@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { ItemFormComponent } from '../item-form/item-form.component'
-// import { SelectProductComponent } from '../../../../components/select-windows/menu-windows/select-product/select-product.component';
+import { SelectProductComponent } from '../../../../components/select-windows/products-windows/select-product/select-product.component';
 
-// import { OrderItem } from 'projects/shop/src/app/models/modules/orders/orders.model';
+import { OrderItem } from 'projects/shop/src/app/models/modules/orders/orders.model';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class EditItemComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('itemFormComponentReference', { read: ItemFormComponent, static: false }) itemForm!: ItemFormComponent;
-  // @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   orderItemData: any;
 
@@ -45,8 +45,7 @@ export class EditItemComponent implements OnInit {
   }
 
   saveItem(){
-    // let data: OrderItem = {
-    let data = {
+    let data: OrderItem = {
       item_number: this.itemForm.itemForm.controls.itemNumber.value as number,
       order: sessionStorage.getItem('shop_order_id') as string,
       quantity: this.itemForm.itemForm.controls.quantity.value as number,
@@ -62,8 +61,8 @@ export class EditItemComponent implements OnInit {
   }
 
   openProductWindow(){
-    console.log("You are opening select menu item window")
-    // this.selectProduct.openModal();
+    console.log("You are opening select product item window")
+    this.selectProduct.openModal();
   }
 
   onProductSelected(itemData: any){
@@ -71,8 +70,8 @@ export class EditItemComponent implements OnInit {
     this.itemForm.selectedProductId = itemData.id;
     this.itemForm.selectedProductData = itemData;
 
-    this.itemForm.itemForm.controls.productCode.setValue(itemData?.product?.product_code);
-    this.itemForm.itemForm.controls.productName.setValue(itemData?.product?.product_name);
+    this.itemForm.itemForm.controls.productCode.setValue(itemData?.product_code);
+    this.itemForm.itemForm.controls.productName.setValue(itemData?.product_name);
     this.itemForm.itemForm.controls.price.setValue(itemData.price);
   }
   

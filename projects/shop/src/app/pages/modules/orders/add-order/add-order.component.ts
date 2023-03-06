@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
-// import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
+import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
 
-// import { Order } from 'projects/shop/src/app/models/modules/orders/orders.model';
+import { Order } from 'projects/shop/src/app/models/modules/orders/orders.model';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class AddOrderComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
-  // @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
+  @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
 
   selectedCustomerId = "";
   selectedCustomerName = "";
@@ -42,7 +42,6 @@ export class AddOrderComponent implements OnInit {
     customerName: new FormControl(''),
     orderType: new FormControl(''),
   })
-
 
   ngOnInit(): void {
   }
@@ -63,8 +62,7 @@ export class AddOrderComponent implements OnInit {
       customerName = this.orderForm.controls.customerName.value as string;
     }
 
-    // let data: Order = {
-    let data = {
+    let data: Order = {
       account: this.customCookie.getCookie('shop_id') as string,
       customer: this.selectedCustomerId,
       customer_name: customerName,
@@ -86,11 +84,6 @@ export class AddOrderComponent implements OnInit {
           if(res.id){
             sessionStorage.setItem('shop_order_id', res.id);
 
-            if (data.order_type == "Delivery"){
-              // this.createDelivery();
-              // TODO: implement with django signals on backend
-            }
-
             this.dismissButton.nativeElement.click();
             this.isOrderSaving = false;
             this.router.navigateByUrl('/home/orders/view-order');
@@ -107,7 +100,7 @@ export class AddOrderComponent implements OnInit {
   }
 
   getNewOrderCodeConfig(){
-    this.orderForm.controls.orderCode.disable();
+    // this.orderForm.controls.orderCode.disable();
 
     // this.ordersApi.getNewOrderCodeConfig()
     //   .subscribe({
@@ -128,7 +121,7 @@ export class AddOrderComponent implements OnInit {
   
   openCustomerWindow(){
     console.log("You are opening select customer window")
-    // this.selectCustomer.openModal();
+    this.selectCustomer.openModal();
   }
 
   onCustomerSelected(customerData: any){

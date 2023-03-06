@@ -8,8 +8,8 @@
                 <thead>
                     <tr class="bg-light">
                         <th width="5%" class="min-width-1">No.</th>
-                        <th width="35%" class="min-width-3">Menu Item</th>
-                        <th width="15%" class="min-width-2">Item Price</th>
+                        <th width="35%" class="min-width-3">Product</th>
+                        <th width="15%" class="min-width-2">Price</th>
                         <th width="10%" class="min-width-2">Quantity</th>
                         <th width="15%" class="min-width-2">Total Price</th>
                         <th width="10%" class="p-0 min-width-2">
@@ -22,7 +22,7 @@
                 <tbody>
                     <tr *ngFor="let data of itemsGridData; index as i" (dblClick)="openEditItem(i)">
                         <td>{{data?.item_number}}</td>
-                        <td>{{data?.product.item_name}}</td>
+                        <td>{{data?.product.product_name}}</td>
                         <td>{{data?.product.price}}</td>
                         <td>{{data?.quantity}}</td>
                         <td>{{data?.product.price * data?.quantity}}</td>

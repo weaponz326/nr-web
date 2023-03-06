@@ -11,7 +11,7 @@
                         <th width="25%" class="min-width-2">Product ID</th>
                         <th width="60%" class="min-width-2">Product Name</th>
                         <th width="15%" class="p-0 min-width-1">
-                            <button class="btn btn-secondary btn-sm w-100">
+                            <button class="btn btn-secondary btn-sm w-100" (click)="selectProduct.openModal()">
                                 <i class="bi bi-plus"></i>
                             </button>
                         </th>
@@ -20,7 +20,7 @@
                 <tbody>
                     <tr *ngFor="let data of productProductsGridData; index as i">
                         <td>{{data?.product.product_code}}</td>
-                        <td>{{data?.product.first_name}} {{data?.product.last_name}}</td>
+                        <td>{{data?.product.product_name}}</td>
                         <td class="p-0">
                             <button class="btn btn-sm border w-50" (click)="gotoProduct(data.id)"><i class="bi bi-eye"></i></button>
                             <button class="btn btn-sm border w-50" (click)="confirmDelete(data.id)"><i class="bi bi-trash"></i></button>
@@ -40,3 +40,15 @@
     </div>
 
 </div>
+
+<!-- select product component -->
+
+<app-select-product #selectProductComponentReference (rowSelected)="postSupplierProduct($event)"></app-select-product>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteSupplierProduct()"></app-delete-modal-two>

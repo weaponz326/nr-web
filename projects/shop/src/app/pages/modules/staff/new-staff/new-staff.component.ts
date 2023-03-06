@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { StaffApiService } from 'projects/shop/src/app/services/modules-api/staff-api/staff-api.service';
 
-// import { Staff } from 'projects/shop/src/app/models/modules/staff/staff.model';
+import { Staff } from 'projects/shop/src/app/models/modules/staff/staff.model';
 
 
 @Component({
@@ -100,7 +100,7 @@ export class NewStaffComponent implements OnInit {
   }
 
   getNewStaffCodeConfig(){
-    this.staffForm.staffForm.controls.staffCode.disable();
+    // this.staffForm.staffForm.controls.staffCode.disable();
 
     // this.staffApi.getNewStaffCodeConfig()
     //   .subscribe({

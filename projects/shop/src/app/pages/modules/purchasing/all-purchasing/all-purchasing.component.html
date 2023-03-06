@@ -28,7 +28,7 @@
                                     <app-table-sorting [sortField]="'purchasing_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="50%" class="min-width-3">
-                                    Customer Name
+                                    Supplier Name
                                     <app-table-sorting [sortField]="'customer_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                             </tr>
@@ -37,7 +37,7 @@
                             <tr *ngFor="let data of purchasingGridData" (dblclick)="viewPurchasing(data.id)" class="table-pointer">
                                 <td>{{data?.purchasing_code}}</td>
                                 <td>{{data?.purchasing_date | date: 'short'}}</td>
-                                <td>{{data?.supplier_name}}</td>
+                                <td>{{data?.supplier?.supplier_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
                                 <td colspan="3">

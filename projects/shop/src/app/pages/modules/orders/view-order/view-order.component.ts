@@ -5,13 +5,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { OrderItemsComponent } from '../order-items/order-items.component';
-// import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
+import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { OrdersApiService } from 'projects/shop/src/app/services/modules-api/orders-api/orders-api.service';
 // import { OrdersPrintService } from 'projects/shop/src/app/services/modules-printing/orders-print/orders-print.service';
 
-// import { Order } from 'projects/shop/src/app/models/modules/orders/orders.model';
+import { Order } from 'projects/shop/src/app/models/modules/orders/orders.model';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class ViewOrderComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('orderItemsComponentReference', { read: OrderItemsComponent, static: false }) orderItems!: OrderItemsComponent;
 
-  // @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
+  @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
 
   navHeading: any[] = [
     { text: "All Orders", url: "/home/orders/all-orders" },
@@ -45,7 +45,6 @@ export class ViewOrderComponent implements OnInit {
 
   selectedCustomerId = "";
   selectedCustomerName = "";
-  selectedTableId = "";
 
   isOrderLoading: boolean = false;
   isOrderSaving: boolean = false;
@@ -101,8 +100,7 @@ export class ViewOrderComponent implements OnInit {
       customerName = this.orderForm.controls.customerName.value as string;
     }
 
-    // let data: Order = {
-    let data = {
+    let data: Order = {
       account: this.customCookie.getCookie('shop_id') as string,
       customer: this.selectedCustomerId,
       customer_name: this.orderForm.controls.customerName.value as string,
@@ -153,7 +151,7 @@ export class ViewOrderComponent implements OnInit {
 
   openCustomerWindow(){
     console.log("You are opening select customer window")
-    // this.selectCustomer.openModal();
+    this.selectCustomer.openModal();
   }
 
   onCustomerSelected(customerData: any){

@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { DeleteModalTwoComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-two/delete-modal-two.component'
-// import { SelectProductComponent } from '../../../../components/select-windows/products-windows/select-product/select-product.component';
+import { SelectProductComponent } from '../../../../components/select-windows/products-windows/select-product/select-product.component';
 
 import { SuppliersApiService } from 'projects/shop/src/app/services/modules-api/suppliers-api/suppliers-api.service';
-// import { SupplierProduct } from 'projects/shop/src/app/models/modules/suppliers/suppliers.model';
+import { SupplierProduct } from 'projects/shop/src/app/models/modules/suppliers/suppliers.model';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class SupplierProductsComponent implements OnInit {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;
-  // @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   productProductsGridData: any[] = [];
 
@@ -55,8 +55,7 @@ export class SupplierProductsComponent implements OnInit {
   }
 
   postSupplierProduct(productData: any){
-    // let data: SupplierProduct = {
-    let data = {
+    let data: SupplierProduct = {
       supplier: sessionStorage.getItem('shop_supplier_id') as string,
       product: productData.id,
     }
