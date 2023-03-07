@@ -17,3 +17,10 @@ export class Expenditure {
   item_description!: string;
   amount!: number;
 }
+
+export class BudgetCodeConfig {
+  entry_mode!: string;
+  prefix!: string;
+  last_code!: string;
+  suffix!: string;
+}

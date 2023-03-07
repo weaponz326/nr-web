@@ -76,6 +76,32 @@ export class TasksApiService {
     return this.http.delete(this.tasksUrl + "task-item/" + taskItemId, this.authHeaders.headers);
   }
 
+  // config
+
+  public getTaskGroupCodeConfig(): Observable<any>{
+    return this.http.get(this.tasksUrl + "config/task-group-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public putTaskGroupCodeConfig(taskgroup: any): Observable<any>{
+    return this.http.put(this.tasksUrl + "config/task-group-code/" + this.customCookie.getCookie('personal_id'), taskgroup, this.authHeaders.headers);
+  }
+
+  public getNewTaskGroupCodeConfig(): Observable<any>{
+    return this.http.get(this.tasksUrl + "config/new-task-group-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public getTaskItemCodeConfig(): Observable<any>{
+    return this.http.get(this.tasksUrl + "config/task-item-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public putTaskItemCodeConfig(taskitem: any): Observable<any>{
+    return this.http.put(this.tasksUrl + "config/task-item-code/" + this.customCookie.getCookie('personal_id'), taskitem, this.authHeaders.headers);
+  }
+
+  public getNewTaskItemCodeConfig(): Observable<any>{
+    return this.http.get(this.tasksUrl + "config/new-task-item-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getTaskGroupCount(): Observable<any>{

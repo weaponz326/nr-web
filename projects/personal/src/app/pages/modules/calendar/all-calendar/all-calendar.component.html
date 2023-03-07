@@ -19,11 +19,15 @@
                     <table class="table table-bordered w-100 page-table">
                         <thead>
                             <tr class="bg-light">
-                                <th width="65%" class="min-width-4">
+                                <th width="20%" class="min-width-4">
+                                    Calendar ID
+                                    <app-table-sorting [sortField]="'calendar_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="55%" class="min-width-4">
                                     Calendar Name
                                     <app-table-sorting [sortField]="'calendar_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="35%" class="min-width-3">
+                                <th width="25%" class="min-width-3">
                                     Created At
                                     <app-table-sorting [sortField]="'created_at'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -31,18 +35,19 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of calendarGridData" (dblclick)="viewCalendar(data?.id)" class="table-pointer">
+                                <td>{{data?.calendar_code}}</td>
                                 <td>{{data?.calendar_name}}</td>
                                 <td>{{data?.created_at | date}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                                <td colspan="2">
+                                <td colspan="3">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-light">
-                                <td colspan="2">
+                                <td colspan="3">
                                     <app-table-paginator
                                     [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getUserCalendars($event, 20, '')"
                                     ></app-table-paginator>

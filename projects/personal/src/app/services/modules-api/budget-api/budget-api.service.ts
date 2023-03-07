@@ -90,6 +90,20 @@ export class BudgetApiService {
     return this.http.delete(this.budgetUrl + "expenditure/" + expenditureId, this.authHeaders.headers);
   }
 
+  // config
+
+  public getBudgetCodeConfig(): Observable<any>{
+    return this.http.get(this.budgetUrl + "config/budget-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public putBudgetCodeConfig(budget: any): Observable<any>{
+    return this.http.put(this.budgetUrl + "config/budget-code/" + this.customCookie.getCookie('personal_id'), budget, this.authHeaders.headers);
+  }
+
+  public getNewBudgetCodeConfig(): Observable<any>{
+    return this.http.get(this.budgetUrl + "config/new-budget-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getBudgetCount(): Observable<any>{

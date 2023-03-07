@@ -50,6 +50,20 @@ export class NotesApiService {
     return this.http.get(this.notesUrl + "note-search?search=" + search, this.authHeaders.headers);
   }
 
+  // config
+
+  public getNoteCodeConfig(): Observable<any>{
+    return this.http.get(this.notesUrl + "config/note-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public putNoteCodeConfig(note: any): Observable<any>{
+    return this.http.put(this.notesUrl + "config/note-code/" + this.customCookie.getCookie('personal_id'), note, this.authHeaders.headers);
+  }
+
+  public getNewNoteCodeConfig(): Observable<any>{
+    return this.http.get(this.notesUrl + "config/new-note-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getNoteCount(): Observable<any>{

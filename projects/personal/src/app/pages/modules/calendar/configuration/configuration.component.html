@@ -3,6 +3,139 @@
 <main>
     <div class="container-fluid px-4">
 
+        <h5 class="mb-3">Calendar ID</h5>
+
+        <div class="row nr-standard-font">
+            <div class="col-md-6">
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-check">
+                            <input [(ngModel)]="calendarEntryMode" class="form-check-input" type="radio" value="Manual" id="calendarConfig" name="calendarConfig" (change)="calendarEntryModeChange($event)">
+                            <label class="form-check-label" for="menuIDMode">
+                                Manually enter calendar ID
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input [(ngModel)]="calendarEntryMode" class="form-check-input" type="radio" value="Auto" id="calendarConfig" name="calendarConfig" checked (change)="calendarEntryModeChange($event)">
+                            <label class="form-check-label" for="menuIDMode">
+                                Automatically generate calendar ID
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Prefix :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="calendarPrefix" [disabled]="calendarEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setCalendarSampleId()">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Code length :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="calendarCodeLength" [disabled]="calendarEntryMode == 'Manual'" type="number" min="0" class="form-control form-control-sm w-100" (change)="setCalendarSampleId()">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Suffix :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="calendarSuffix" [disabled]="calendarEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setCalendarSampleId()">
+                    </div>
+                </div>
+
+                <div class="row mb-1 mt-3">
+                    <div class="col-md-4">
+                        <label class="mt-1">Sample ID :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <strong>{{calendarSampleID}}</strong>
+                    </div>
+                </div>
+
+                <hr>
+
+            </div>
+        </div>        
+
+        <h5 class="mb-3">Schedule ID</h5>
+
+        <div class="row nr-standard-font">
+            <div class="col-md-6">
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-check">
+                            <input [(ngModel)]="scheduleEntryMode" class="form-check-input" type="radio" value="Manual" id="scheduleConfig" name="scheduleConfig" (change)="scheduleEntryModeChange($event)">
+                            <label class="form-check-label" for="menuIDMode">
+                                Manually enter schedule ID
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input [(ngModel)]="scheduleEntryMode" class="form-check-input" type="radio" value="Auto" id="scheduleConfig" name="scheduleConfig" checked (change)="scheduleEntryModeChange($event)">
+                            <label class="form-check-label" for="menuIDMode">
+                                Automatically generate schedule ID
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Prefix :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="schedulePrefix" [disabled]="scheduleEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setScheduleSampleId()">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Code length :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="scheduleCodeLength" [disabled]="scheduleEntryMode == 'Manual'" type="number" min="0" class="form-control form-control-sm w-100" (change)="setScheduleSampleId()">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Suffix :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="scheduleSuffix" [disabled]="scheduleEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setScheduleSampleId()">
+                    </div>
+                </div>
+
+                <div class="row mb-1 mt-3">
+                    <div class="col-md-4">
+                        <label class="mt-1">Sample ID :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <strong>{{scheduleSampleID}}</strong>
+                    </div>
+                </div>
+
+                <hr>
+
+            </div>
+        </div>        
+        
+        <div class="row mt-3 page-form">
+            <div class="col-md-12">
+                <button [disabled]="isConfigSaving || isConfigLoading" type="submit" class="btn btn-secondary btn-sm page-form-btn" (click)="saveConfig()">
+                    Save
+                </button>
+            </div>
+        </div>
 
     </div>
 </main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

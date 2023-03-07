@@ -76,6 +76,32 @@ export class CalendarApiService {
     return this.http.delete(this.calendarUrl + "schedule/" + scheduleId, this.authHeaders.headers);
   }
 
+  // config
+
+  public getCalendarCodeConfig(): Observable<any>{
+    return this.http.get(this.calendarUrl + "config/calendar-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public putCalendarCodeConfig(calendar: any): Observable<any>{
+    return this.http.put(this.calendarUrl + "config/calendar-code/" + this.customCookie.getCookie('personal_id'), calendar, this.authHeaders.headers);
+  }
+
+  public getNewCalendarCodeConfig(): Observable<any>{
+    return this.http.get(this.calendarUrl + "config/new-calendar-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public getScheduleCodeConfig(): Observable<any>{
+    return this.http.get(this.calendarUrl + "config/schedule-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
+  public putScheduleCodeConfig(schedule: any): Observable<any>{
+    return this.http.put(this.calendarUrl + "config/schedule-code/" + this.customCookie.getCookie('personal_id'), schedule, this.authHeaders.headers);
+  }
+
+  public getNewScheduleCodeConfig(): Observable<any>{
+    return this.http.get(this.calendarUrl + "config/new-schedule-code/" + this.customCookie.getCookie('personal_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getCalendarCount(): Observable<any>{

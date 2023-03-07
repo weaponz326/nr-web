@@ -30,6 +30,7 @@ export class NewCalendarComponent implements OnInit {
   isSavingCalendar = false;
 
   calendarForm = new FormGroup({
+    calendarCode: new FormControl(''),
     calendarName: new FormControl('')
   })
 
@@ -38,11 +39,13 @@ export class NewCalendarComponent implements OnInit {
 
   openModal(){
     this.newButton.nativeElement.click();
+    this.getNewCalendarCodeConfig();
   }
 
   createCalendar(){
     let data: Calendar = {
       user: this.customCookie.getCookie('personal_id') as string,
+      calendar_code: this.calendarForm.controls.calendarCode.value as string,
       calendar_name: this.calendarForm.controls.calendarName.value as string
     }
 
@@ -67,6 +70,26 @@ export class NewCalendarComponent implements OnInit {
           this.connectionToast.openToast();
           this.isSavingCalendar = false;
           console.log(err);
+        }
+      })
+  }
+
+  getNewCalendarCodeConfig(){
+    this.calendarForm.controls.calendarCode.disable();
+
+    this.calendarApi.getNewCalendarCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.calendarForm.controls.calendarCode.setValue(res.code);
+          else
+            this.calendarForm.controls.calendarCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
         }
       })
   }

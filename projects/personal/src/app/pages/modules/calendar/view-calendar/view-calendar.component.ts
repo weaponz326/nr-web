@@ -34,6 +34,7 @@ export class ViewCalendarComponent implements OnInit {
   isCalendarSaving: boolean = false;
 
   calendarForm = new FormGroup({
+    calendarCode: new FormControl(''),
     calendarName: new FormControl('')
   })
 
@@ -49,6 +50,7 @@ export class ViewCalendarComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.calendarFormData = res;
+          this.calendarForm.controls.calendarCode.setValue(res.calendar_code);
           this.calendarForm.controls.calendarName.setValue(res.calendar_name);
           this.isCalendarLoading = false;
         },
@@ -63,6 +65,7 @@ export class ViewCalendarComponent implements OnInit {
   updateCalendar(){
     let data: Calendar = {
       user: this.customCookie.getCookie('personal_id') as string,
+      calendar_code: this.calendarForm.controls.calendarCode.value as string,
       calendar_name: this.calendarForm.controls.calendarName.value as string
     }
 
