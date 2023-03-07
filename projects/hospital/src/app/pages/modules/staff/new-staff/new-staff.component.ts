@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { StaffApiService } from 'projects/hospital/src/app/services/modules-api/staff-api/staff-api.service';
 
-// import { Staff } from 'projects/hospital/src/app/models/modules/staff/staff.model';
+import { Staff } from 'projects/hospital/src/app/models/modules/staff/staff.model';
 
 
 @Component({

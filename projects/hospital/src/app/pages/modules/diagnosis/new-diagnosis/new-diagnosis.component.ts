@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
+import { SelectAdmissionComponent } from '../../../../components/select-windows/admissions-windows/select-admission/select-admission.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { DiagnosisApiService } from 'projects/hospital/src/app/services/modules-api/diagnosis-api/diagnosis-api.service';
@@ -30,7 +31,10 @@ export class NewDiagnosisComponent implements OnInit {
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('selectPatientComponentReference', { read: SelectPatientComponent, static: false }) selectPatient!: SelectPatientComponent;
 
+  @ViewChild('selectAdmissionComponentReference', { read: SelectAdmissionComponent, static: false }) selectAdmission!: SelectAdmissionComponent;
+
   selectedPatientId = '';
+  selectedAdmissionId = '';
 
   isDiagnosisSaving = false;
 
@@ -39,9 +43,9 @@ export class NewDiagnosisComponent implements OnInit {
     diagnosisDate: new FormControl(),
     patientName: new FormControl({value: '', disabled: true}),
     patientNumber: new FormControl({value: '', disabled: true}),
+    admissionCode: new FormControl({value: '', disabled: true}),
     consultantName: new FormControl('')
   })
-
 
   ngOnInit(): void {
   }
@@ -55,7 +59,7 @@ export class NewDiagnosisComponent implements OnInit {
   createDiagnosis(){
     let data: Diagnosis = {
       account: this.customCookie.getCookie('hospital_id') as string,
-      patient: this.selectedPatientId,
+      admission: this.selectedAdmissionId,
       diagnosis_code: this.diagnosisForm.controls.diagnosisCode.value as string,
       diagnosis_date: this.diagnosisForm.controls.diagnosisDate.value,
       consultant_name: this.diagnosisForm.controls.consultantName.value as string,
@@ -107,17 +111,18 @@ export class NewDiagnosisComponent implements OnInit {
       })
   }
 
-  openPatientWindow(){
-    console.log("You are opening select patient window")
-    this.selectPatient.openModal();
+  openAdmissionWindow(){
+    console.log("You are opening select admission window")
+    this.selectAdmission.openModal();
   }
 
-  onPatientSelected(patientData: any){
-    console.log(patientData);
+  onAdmissionSelected(admissionData: any){
+    console.log(admissionData);
 
-    this.selectedPatientId = patientData.id;
-    this.diagnosisForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
-    this.diagnosisForm.controls.patientNumber.setValue(patientData.clinical_number);
+    this.selectedAdmissionId = admissionData.id;
+    this.diagnosisForm.controls.admissionCode.setValue(admissionData.admission_code);
+    this.diagnosisForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
+    this.diagnosisForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
  
 }

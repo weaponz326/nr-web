@@ -7,6 +7,7 @@ import { MainNavbarModule } from 'projects/application/src/app/components/main-n
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
 import { PatientsWindowsModule } from '../../../components/select-windows/patients-windows/patients-windows.module';
+import { AdmissionsWindowsModule } from '../../../components/select-windows/admissions-windows/admissions-windows.module';
 
 import { DiagnosisPage } from './diagnosis.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -34,7 +35,8 @@ import { DiagnosisDetailsComponent } from './diagnosis-details/diagnosis-details
     DiagnosisRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
-    PatientsWindowsModule
+    PatientsWindowsModule,
+    AdmissionsWindowsModule
   ]
 })
 export class DiagnosisModule { }

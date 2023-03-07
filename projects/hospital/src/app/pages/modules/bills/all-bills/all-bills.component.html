@@ -45,8 +45,8 @@
                             <tr *ngFor="let data of billsGridData" (dblclick)="viewBill(data.id)" class="table-pointer">
                                 <td>{{data?.bill_code}}</td>
                                 <td>{{data?.bill_date | date: 'short'}}</td>
-                                <td>{{data?.patient?.first_name}} {{data?.patient?.last_name}}</td>
-                                <td>{{data?.patient?.patient_number}}</td>
+                                <td>{{data?.admission?.patient?.first_name}} {{data?.admission?.patient?.last_name}}</td>
+                                <td>{{data?.admission?.patient?.patient_number}}</td>
                                 <td>{{data?.admission?.admission_code}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

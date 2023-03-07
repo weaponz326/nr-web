@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectAdmissionComponent } from '../../../../components/select-windows/admissions-windows/select-admission/select-admission.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
 
-// import { Dispense } from 'projects/hospital/src/app/models/modules/dispensary/dispensary.model';
+import { Dispense } from 'projects/hospital/src/app/models/modules/dispensary/dispensary.model';
 
 
 @Component({
@@ -27,32 +28,35 @@ export class NewDispenseComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+  @ViewChild('selectAdmissionComponentReference', { read: SelectAdmissionComponent, static: false }) selectAdmission!: SelectAdmissionComponent;
+
+  selectedAdmissionId = '';
+
   isDispenseSaving = false;
 
   dispenseForm = new FormGroup({
     dispenseCode: new FormControl(''),
     dispenseDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
-    prescriptionCode: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
+    admissionCode: new FormControl({value: '', disabled: true}),
   })
-
 
   ngOnInit(): void {
   }
 
   openModal(){
     this.newButton.nativeElement.click();
-    this.dispenseForm.controls.dispenseDate.setValue(new Date().toISOString().slice(0, 10));
+    this.dispenseForm.controls.dispenseDate.setValue(new Date().toISOString().slice(0, 16));
     this.getNewDispenseCodeConfig();
   }
 
   createDispense(){
-    // let data: Dispense = {
-    let data = {
+    let data: Dispense = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      admission: this.selectedAdmissionId,
       dispense_code: this.dispenseForm.controls.dispenseCode.value as string,
-      dispense_date: this.dispenseForm.controls.dispenseDate.value as string,
+      dispense_date: this.dispenseForm.controls.dispenseDate.value,
     }
 
     console.log(data);
@@ -99,6 +103,20 @@ export class NewDispenseComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openAdmissionWindow(){
+    console.log("You are opening select admission window")
+    this.selectAdmission.openModal();
+  }
+
+  onAdmissionSelected(admissionData: any){
+    console.log(admissionData);
+
+    this.selectedAdmissionId = admissionData.id;
+    this.dispenseForm.controls.admissionCode.setValue(admissionData.admission_code);
+    this.dispenseForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
+    this.dispenseForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
 
 }

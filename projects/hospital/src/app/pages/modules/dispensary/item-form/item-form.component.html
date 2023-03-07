@@ -5,7 +5,7 @@
             <label class="float-md-end float-sm-start mt-1">Item No. :</label>
         </div>
         <div class="col-md-8">
-            <input type="number" min="1" formControlName="drugName" class="form-control form-control-sm w-100">
+            <input type="number" min="1" formControlName="itemNumber" class="form-control form-control-sm w-100">
         </div>
     </div>
 
@@ -16,7 +16,7 @@
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
                 <input formControlName="drugName" class="form-control">
-                <button type="button" class="btn btn-secondary">
+                <button type="button" class="btn btn-secondary" (click)="openDrugWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>
@@ -30,10 +30,19 @@
         <div class="col-md-8">
             <div class="input-group input-group-sm w-100">
                 <input formControlName="ndcNumber" class="form-control">
-                <button type="button" class="btn btn-secondary">
+                <button type="button" class="btn btn-secondary" (click)="openDrugWindow.emit()">
                     <i class="bi bi-three-dots"></i>
                 </button>
             </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Quantity :</label>
+        </div>
+        <div class="col-md-8">
+            <input type="number" min="0" formControlName="quantity" class="form-control form-control-sm w-100">
         </div>
     </div>
 

@@ -10,7 +10,8 @@
                         <th width="5%" class="min-width-1">No.</th>
                         <th width="25%" class="min-width-2">Drug Name</th>
                         <th width="15%" class="min-width-2">NDC No.</th>
-                        <th width="45%" class="min-width-2">Remarks</th>
+                        <th width="10%" class="min-width-2">Quantity</th>
+                        <th width="35%" class="min-width-2">Remarks</th>
                         <th width="10%" class="p-0 min-width-2">
                             <button class="btn btn-secondary btn-sm w-100" (click)="addItem.openModal(lastItem)">
                                 <i class="bi bi-plus"></i>
@@ -23,6 +24,7 @@
                         <td>{{data?.item_number}}</td>
                         <td>{{data?.drug.drug_name}}</td>
                         <td>{{data?.drug.ndc_number}}</td>
+                        <td>{{data?.quantity}}</td>
                         <td>{{data?.remarks}}</td>
                         <td class="p-0">
                             <button class="btn btn-sm bdispense w-50" (click)="openEditItem(data)"><i class="bi bi-pen"></i></button>
@@ -32,7 +34,7 @@
                         </td>
                     </tr>
                     <tr *ngIf="isFetchingGridData" class="text-center">
-                        <td colspan="5">
+                        <td colspan="6">
                             <div class="spinner-grow m-2" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
@@ -41,6 +43,14 @@
                 </tbody>
             </table>
         </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <h4 class="mb-3">Dispense' Prescription</h4>
+
+        <app-dispense-prescription></app-dispense-prescription>
 
     </div>
 </div>

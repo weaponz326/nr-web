@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectAdmissionComponent } from '../../../../components/select-windows/admissions-windows/select-admission/select-admission.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { PrescriptionsApiService } from 'projects/hospital/src/app/services/modules-api/prescriptions-api/prescriptions-api.service';
 
-// import { Prescription } from 'projects/hospital/src/app/models/modules/prescriptions/prescriptions.model';
+import { Prescription } from 'projects/hospital/src/app/models/modules/prescriptions/prescriptions.model';
 
 
 @Component({
@@ -27,13 +28,18 @@ export class NewPrescriptionComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+  @ViewChild('selectAdmissionComponentReference', { read: SelectAdmissionComponent, static: false }) selectAdmission!: SelectAdmissionComponent;
+
+  selectedAdmissionId = '';
+  
   isPrescriptionSaving = false;
 
   prescriptionForm = new FormGroup({
     prescriptionCode: new FormControl(''),
     prescriptionDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
+    admissionCode: new FormControl({value: '', disabled: true}),
     consultantName: new FormControl(''),
   })
 
@@ -47,11 +53,11 @@ export class NewPrescriptionComponent implements OnInit {
   }
 
   createPrescription(){
-    // let data: Prescription = {
-    let data = {
+    let data: Prescription = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      admission: this.selectedAdmissionId,
       prescription_code: this.prescriptionForm.controls.prescriptionCode.value as string,
-      prescription_date: this.prescriptionForm.controls.prescriptionDate.value as string,
+      prescription_date: this.prescriptionForm.controls.prescriptionDate.value,
       consultant_name: this.prescriptionForm.controls.consultantName.value as string,
     }
 
@@ -99,6 +105,20 @@ export class NewPrescriptionComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openAdmissionWindow(){
+    console.log("You are opening select admission window")
+    this.selectAdmission.openModal();
+  }
+
+  onAdmissionSelected(admissionData: any){
+    console.log(admissionData);
+
+    this.selectedAdmissionId = admissionData.id;
+    this.prescriptionForm.controls.admissionCode.setValue(admissionData.admission_code);
+    this.prescriptionForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
+    this.prescriptionForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
 
 }

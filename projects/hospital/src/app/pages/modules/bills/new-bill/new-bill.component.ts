@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectAdmissionComponent } from '../../../../components/select-windows/admissions-windows/select-admission/select-admission.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BillsApiService } from 'projects/hospital/src/app/services/modules-api/bills-api/bills-api.service';
 
-// import { Bill } from 'projects/hospital/src/app/models/modules/bills/bills.model';
+import { Bill } from 'projects/hospital/src/app/models/modules/bills/bills.model';
 
 
 @Component({
@@ -27,14 +28,18 @@ export class NewBillComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+  @ViewChild('selectAdmissionComponentReference', { read: SelectAdmissionComponent, static: false }) selectAdmission!: SelectAdmissionComponent;
+
+  selectedAdmissionId = '';
+
   isBillSaving = false;
 
   billForm = new FormGroup({
     billCode: new FormControl(''),
     billDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
-    admissionCode: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
+    admissionCode: new FormControl({value: '', disabled: true}),
   })
 
 
@@ -48,11 +53,11 @@ export class NewBillComponent implements OnInit {
   }
 
   createBill(){
-    // let data: Bill = {
-    let data = {
+    let data: Bill = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      admission: this.selectedAdmissionId,
       bill_code: this.billForm.controls.billCode.value as string,
-      bill_date: this.billForm.controls.billDate.value as string,
+      bill_date: this.billForm.controls.billDate.value,
       total_amount: 0,
       bill_status: "",
     }
@@ -101,6 +106,20 @@ export class NewBillComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openAdmissionWindow(){
+    console.log("You are opening select admission window")
+    this.selectAdmission.openModal();
+  }
+
+  onAdmissionSelected(admissionData: any){
+    console.log(admissionData);
+
+    this.selectedAdmissionId = admissionData.id;
+    this.billForm.controls.admissionCode.setValue(admissionData.admission_code);
+    this.billForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
+    this.billForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
 
 }

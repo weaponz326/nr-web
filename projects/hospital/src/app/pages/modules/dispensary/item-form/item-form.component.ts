@@ -17,8 +17,11 @@ export class ItemFormComponent implements OnInit {
     itemNumber: new FormControl(),
     drugName: new FormControl({value: '', disabled: true}),
     ndcNumber: new FormControl({value: '', disabled: true}),
+    quantity: new FormControl(1),
     remarks: new FormControl('')
   })
+
+  selectedDrugId = '';
 
   ngOnInit(): void {
   }

@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
 
-                <app-item-form #itemFormComponentReference></app-item-form>
+                <app-item-form #itemFormComponentReference (openDrugWindow)="openDrugWindow()"></app-item-form>
 
             </div>
 
@@ -27,3 +27,7 @@
         </div>
     </div>
 </div>
+
+<!-- select drug window component -->
+
+<app-select-drug #selectDrugComponentReference [closeTarget]="'#addItemModal'" (rowSelected)="onDrugSelected($event)"></app-select-drug>

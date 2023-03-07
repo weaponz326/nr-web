@@ -1,6 +1,6 @@
 export class Diagnosis {
     account!: string;
-    patient!: string;
+    admission!: string;
     diagnosis_code!: string;
     diagnosis_date!: Date;
     consultant_name!: string;

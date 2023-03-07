@@ -6,6 +6,9 @@ import { DispensaryRoutingModule } from './dispensary-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
+import { AdmissionsWindowsModule } from '../../../components/select-windows/admissions-windows/admissions-windows.module';
+import { DrugsWindowsModule } from '../../../components/select-windows/drugs-windows/drugs-windows.module';
+
 import { DispensaryPage } from './dispensary.page';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -16,6 +19,7 @@ import { DispenseItemsComponent } from './dispense-items/dispense-items.componen
 import { AddItemComponent } from './add-item/add-item.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ItemFormComponent } from './item-form/item-form.component';
+import { DispensePrescriptionComponent } from './dispense-prescription/dispense-prescription.component';
 
 
 @NgModule({
@@ -29,7 +33,8 @@ import { ItemFormComponent } from './item-form/item-form.component';
     DispenseItemsComponent,
     AddItemComponent,
     EditItemComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    DispensePrescriptionComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +43,8 @@ import { ItemFormComponent } from './item-form/item-form.component';
     DispensaryRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    AdmissionsWindowsModule,
+    DrugsWindowsModule
   ]
 })
 export class DispensaryModule { }

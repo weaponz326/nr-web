@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '
 
 import { ItemFormComponent } from '../item-form/item-form.component'
 
-// import { PrescriptionItem } from 'projects/hospital/src/app/models/modules/prescriptions/prescriptions.model';
+import { PrescriptionItem } from 'projects/hospital/src/app/models/modules/prescriptions/prescriptions.model';
 
 
 @Component({
@@ -40,8 +40,7 @@ export class EditItemComponent implements OnInit {
   }
 
   saveItem(){
-    // let data: PrescriptionItem = {
-    let data = {
+    let data: PrescriptionItem = {
       item_number: this.itemForm.itemForm.controls.itemNumber.value as number,
       prescription: sessionStorage.getItem('hospital_prescription_id') as string,
       medicine: this.itemForm.itemForm.controls.medicine.value as string,

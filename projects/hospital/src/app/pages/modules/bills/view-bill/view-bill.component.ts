@@ -6,11 +6,13 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { BillTablesComponent } from '../bill-tables/bill-tables.component';
 
+import { SelectAdmissionComponent } from '../../../../components/select-windows/admissions-windows/select-admission/select-admission.component';
+
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { BillsApiService } from 'projects/hospital/src/app/services/modules-api/bills-api/bills-api.service';
 // import { BillsPrintService } from 'projects/hospital/src/app/services/modules-printing/bills-print/bills-print.service';
 
-// import { Bill } from 'projects/hospital/src/app/models/modules/bills/bills.model';
+import { Bill } from 'projects/hospital/src/app/models/modules/bills/bills.model';
 
 
 @Component({
@@ -33,6 +35,8 @@ export class ViewBillComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('billTablesComponentReference', { read: BillTablesComponent, static: false }) billTables!: BillTablesComponent;
 
+  @ViewChild('selectAdmissionComponentReference', { read: SelectAdmissionComponent, static: false }) selectAdmission!: SelectAdmissionComponent;
+
   navHeading: any[] = [
     { text: "All Bills", url: "/home/bills/all-bills" },
     { text: "View Bill", url: "/home/bills/view-bill" },
@@ -40,9 +44,7 @@ export class ViewBillComponent implements OnInit {
 
   billFormData: any;
 
-  selectedCustomerId = "";
-  selectedCustomerName = "";
-  selectedTableId = "";
+  selectedAdmissionId = "";
 
   isBillLoading: boolean = false;
   isBillSaving: boolean = false;
@@ -52,9 +54,9 @@ export class ViewBillComponent implements OnInit {
   billForm = new FormGroup({
     billCode: new FormControl(''),
     billDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
-    admissionCode: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
+    admissionCode: new FormControl({value: '', disabled: true}),
     billStatus: new FormControl(''),
   })
 
@@ -76,6 +78,11 @@ export class ViewBillComponent implements OnInit {
           this.billForm.controls.billCode.setValue(this.billFormData.bill_code);
           this.billForm.controls.billDate.setValue(new Date(this.billFormData.bill_date).toISOString().slice(0, 16));
           this.billForm.controls.billStatus.setValue(this.billFormData.bill_status);
+
+          this.selectedAdmissionId = this.billFormData.admission?.id;
+          this.billForm.controls.admissionCode.setValue(this.billFormData.admission?.admission_code);
+          this.billForm.controls.patientNumber.setValue(this.billFormData.admission?.patient?.clinical_number);
+          this.billForm.controls.patientNumber.setValue(this.billFormData.admission?.patient?.last_name + " " + this.billFormData.admission?.patient?.first_name);
         },
         error: (err) => {
           console.log(err);
@@ -86,13 +93,14 @@ export class ViewBillComponent implements OnInit {
   }
 
   putBill(){
-    // let data: Bill = {
-      let data = {
-        account: this.customCookie.getCookie('hospital_id') as string,
-        bill_code: this.billForm.controls.billCode.value as string,
-        bill_date: this.billForm.controls.billDate.value as string,
-        bill_status: this.billForm.controls.billStatus.value as string,
-      }
+    let data: Bill = {
+      account: this.customCookie.getCookie('hospital_id') as string,
+      admission: this.selectedAdmissionId,
+      bill_code: this.billForm.controls.billCode.value as string,
+      bill_date: this.billForm.controls.billDate.value,
+      total_amount: 0,
+      bill_status: this.billForm.controls.billStatus.value as string,
+    }
 
     console.log(data);
     this.isBillSaving = true;
@@ -130,6 +138,20 @@ export class ViewBillComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openAdmissionWindow(){
+    console.log("You are opening select admission window")
+    this.selectAdmission.openModal();
+  }
+
+  onAdmissionSelected(admissionData: any){
+    console.log(admissionData);
+
+    this.selectedAdmissionId = admissionData.id;
+    this.billForm.controls.admissionCode.setValue(admissionData.admission_code);
+    this.billForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
+    this.billForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
 
   onPrint(){

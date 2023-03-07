@@ -4,7 +4,7 @@
     <div class="container-fluid px-5">
 
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
 
                 <div class="row mb-3">
                     <div class="col-md-12">
@@ -19,7 +19,7 @@
                     <table class="table table-bordered w-100 page-table">
                         <thead>
                             <tr class="bg-light">
-                                <th width="20%" class="min-width-2">
+                                <th width="15%" class="min-width-2">
                                     Prescription ID
                                     <app-table-sorting [sortField]="'prescription_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -27,11 +27,15 @@
                                     Prescription Date
                                     <app-table-sorting [sortField]="'prescription_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="40%" class="min-width-3">
+                                <th width="15%" class="min-width-3">
+                                    Admission ID
+                                    <app-table-sorting [sortField]="'admission_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="35%" class="min-width-3">
                                     Patient Name
                                     <app-table-sorting [sortField]="'patient_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="20%" class="min-width-2">
+                                <th width="15%" class="min-width-2">
                                     Patient No.
                                     <app-table-sorting [sortField]="'patient_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -41,18 +45,19 @@
                             <tr *ngFor="let data of prescriptionsGridData" (dblclick)="viewPrescription(data.id)" class="table-pointer">
                                 <td>{{data?.prescription_code}}</td>
                                 <td>{{data?.prescription_date | date: 'short'}}</td>
-                                <td>{{data?.patient?.first_name}} {{data?.patient?.last_name}}</td>
-                                <td>{{data?.patient?.patient_number}}</td>
+                                <td>{{data?.admisiion?.admission_code}}</td>
+                                <td>{{data?.admisiion?.patient?.first_name}} {{data?.admisiion?.patient?.last_name}}</td>
+                                <td>{{data?.admisiion?.patient?.patient_number}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                                <td colspan="4">
+                                <td colspan="5">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-light">
-                                <td colspan="4">
+                                <td colspan="5">
                                     <app-table-paginator
                                     [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountPrescription($event, 20, '')"
                                     ></app-table-paginator>

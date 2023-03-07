@@ -6,11 +6,13 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { DeleteModalOneComponent } from 'projects/personal/src/app/components/module-utilities/delete-modal-one/delete-modal-one.component'
 import { DispenseItemsComponent } from '../dispense-items/dispense-items.component';
 
+import { SelectAdmissionComponent } from '../../../../components/select-windows/admissions-windows/select-admission/select-admission.component';
+
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { DispensaryApiService } from 'projects/hospital/src/app/services/modules-api/dispensary-api/dispensary-api.service';
 // import { DispensaryPrintService } from 'projects/hospital/src/app/services/modules-printing/dispensary-print/dispensary-print.service';
 
-// import { Dispense } from 'projects/hospital/src/app/models/modules/dispensary/dispensary.model';
+import { Dispense } from 'projects/hospital/src/app/models/modules/dispensary/dispensary.model';
 
 
 @Component({
@@ -33,6 +35,8 @@ export class ViewDispenseComponent implements OnInit {
   @ViewChild('deleteModalComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('dispenseItemsComponentReference', { read: DispenseItemsComponent, static: false }) dispenseItems!: DispenseItemsComponent;
 
+  @ViewChild('selectAdmissionComponentReference', { read: SelectAdmissionComponent, static: false }) selectAdmission!: SelectAdmissionComponent;
+
   navHeading: any[] = [
     { text: "All Dispenses", url: "/home/dispensary/all-dispenses" },
     { text: "View Dispense", url: "/home/dispensary/view-dispense" },
@@ -40,9 +44,7 @@ export class ViewDispenseComponent implements OnInit {
 
   dispenseFormData: any;
 
-  selectedCustomerId = "";
-  selectedCustomerName = "";
-  selectedTableId = "";
+  selectedAdmissionId = '';
 
   isDispenseLoading: boolean = false;
   isDispenseSaving: boolean = false;
@@ -52,9 +54,9 @@ export class ViewDispenseComponent implements OnInit {
   dispenseForm = new FormGroup({
     dispenseCode: new FormControl(''),
     dispenseDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
-    prescriptionCode: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
+    admissionCode: new FormControl({value: '', disabled: true}),
   })
 
   ngOnInit(): void {
@@ -73,7 +75,12 @@ export class ViewDispenseComponent implements OnInit {
           this.isDispenseLoading = false;
 
           this.dispenseForm.controls.dispenseCode.setValue(this.dispenseFormData.dispense_code);
-          this.dispenseForm.controls.dispenseDate.setValue(new Date(this.dispenseFormData.dispense_date).toISOString().slice(0, 10));
+          this.dispenseForm.controls.dispenseDate.setValue(new Date(this.dispenseFormData.dispense_date).toISOString().slice(0, 16));
+
+          this.selectedAdmissionId = this.dispenseFormData.admission?.id;
+          this.dispenseForm.controls.admissionCode.setValue(this.dispenseFormData.admission?.admission_code);
+          this.dispenseForm.controls.patientNumber.setValue(this.dispenseFormData.admission?.patient?.clinical_number);
+          this.dispenseForm.controls.patientNumber.setValue(this.dispenseFormData.admission?.patient?.last_name + " " + this.dispenseFormData.admission?.patient?.first_name);
         },
         error: (err) => {
           console.log(err);
@@ -84,11 +91,11 @@ export class ViewDispenseComponent implements OnInit {
   }
 
   putDispense(){
-    // let data: Dispense = {
-    let data = {
+    let data: Dispense = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      admission: this.selectedAdmissionId,
       dispense_code: this.dispenseForm.controls.dispenseCode.value as string,
-      dispense_date: this.dispenseForm.controls.dispenseDate.value as string,
+      dispense_date: this.dispenseForm.controls.dispenseDate.value,
     }
 
     console.log(data);
@@ -127,6 +134,20 @@ export class ViewDispenseComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openAdmissionWindow(){
+    console.log("You are opening select admission window")
+    this.selectAdmission.openModal();
+  }
+
+  onAdmissionSelected(admissionData: any){
+    console.log(admissionData);
+
+    this.selectedAdmissionId = admissionData.id;
+    this.dispenseForm.controls.admissionCode.setValue(admissionData.admission_code);
+    this.dispenseForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
+    this.dispenseForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
 
   onPrint(){

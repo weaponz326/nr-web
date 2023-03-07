@@ -23,19 +23,23 @@
                                     Diagnosis ID
                                     <app-table-sorting [sortField]="'diagnosis_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="20%" class="min-width-3">
+                                <th width="15%" class="min-width-3">
                                     Diagnosis Date
                                     <app-table-sorting [sortField]="'diagnosis_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="30%" class="min-width-3">
+                                <th width="12%" class="min-width-3">
+                                    Admission ID
+                                    <app-table-sorting [sortField]="'admission_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="25%" class="min-width-3">
                                     Patient Name
                                     <app-table-sorting [sortField]="'patient_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="13%" class="min-width-2">
+                                <th width="12%" class="min-width-2">
                                     Patient No.
                                     <app-table-sorting [sortField]="'patient_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="25%" class="min-width-2">
+                                <th width="24%" class="min-width-2">
                                     Consultant Name
                                     <app-table-sorting [sortField]="'consultant_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -45,19 +49,20 @@
                             <tr *ngFor="let data of diagnosisGridData" (dblclick)="viewDiagnosis(data.id)" class="table-pointer">
                                 <td>{{data?.diagnosis_code}}</td>
                                 <td>{{data?.diagnosis_date | date: 'short'}}</td>
-                                <td>{{data?.patient?.first_name}} {{data?.patient?.last_name}}</td>
-                                <td>{{data?.patient?.clinical_number}}</td>
-                                <td>{{data?.consultatn_name}}</td>
+                                <td>{{data?.admission?.admission_code}}</td>
+                                <td>{{data?.admission?.patient?.first_name}} {{data?.admission?.patient?.last_name}}</td>
+                                <td>{{data?.admission?.patient?.clinical_number}}</td>
+                                <td>{{data?.consultant_name}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                                <td colspan="5">
+                                <td colspan="6">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-light">
-                                <td colspan="5">
+                                <td colspan="6">
                                     <app-table-paginator
                                     [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountDiagnosis($event, 20, '')"
                                     ></app-table-paginator>

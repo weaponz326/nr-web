@@ -36,7 +36,7 @@
                                     <app-table-sorting [sortField]="'patient_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="15%" class="min-width-2">
-                                    Prescription ID
+                                    Admission ID
                                     <app-table-sorting [sortField]="'admission_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                             </tr>
@@ -45,9 +45,9 @@
                             <tr *ngFor="let data of dispensesGridData" (dblclick)="viewDispense(data.id)" class="table-pointer">
                                 <td>{{data?.dispense_code}}</td>
                                 <td>{{data?.dispense_date | date: 'short'}}</td>
-                                <td>{{data?.patient?.first_name}} {{data?.patient?.last_name}}</td>
-                                <td>{{data?.patient?.patient_number}}</td>
-                                <td>{{data?.prescription?.prescription_code}}</td>
+                                <td>{{data?.admission?.patient?.first_name}} {{data?.admission?.patient?.last_name}}</td>
+                                <td>{{data?.admission?.patient?.patient_number}}</td>
+                                <td>{{data?.admission?.admission_code}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvaidispensele">
                                 <td colspan="5">
