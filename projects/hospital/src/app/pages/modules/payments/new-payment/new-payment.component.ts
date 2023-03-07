@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { PaymentsApiService } from 'projects/hospital/src/app/services/modules-api/payments-api/payments-api.service';
 
-// import { Payment } from 'projects/hospital/src/app/models/modules/payments/payments.model';
+import { Payment } from 'projects/hospital/src/app/models/modules/payments/payments.model';
 
 
 @Component({
@@ -43,9 +43,9 @@ export class NewPaymentComponent implements OnInit {
   createPayment(){
     console.log('u are saving a new payment');
 
-    // var data: Payment = {
-    var data = {
+    var data: Payment = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      bill: this.paymentForm.selectedBillId,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
       payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,
       amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as number,

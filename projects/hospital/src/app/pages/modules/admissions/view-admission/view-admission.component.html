@@ -52,7 +52,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="patientName" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openPatientWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -64,7 +64,7 @@
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
                                 <input formControlName="patientNumber" class="form-control">
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" (click)="openPatientWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                             </div>
@@ -114,3 +114,7 @@
 <!-- delete confirmation modal component -->
 
 <app-delete-modal-one #deleteModalComponentReference (confirmEvent)="deleteAdmission()"></app-delete-modal-one>
+
+<!-- select patient window component -->
+
+<app-select-patient #selectPatientComponentReference (rowSelected)="onPatientSelected($event)"></app-select-patient>

@@ -1,7 +1,9 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { WardPatientFormComponent } from '../ward-patient-form/ward-patient-form.component';
-// import { WardPatient } from 'projects/hospital/src/app/models/modules/ward/ward.model';
+import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
+
+import { WardPatient } from 'projects/hospital/src/app/models/modules/wards/wards.model';
 
 
 @Component({
@@ -19,6 +21,7 @@ export class AddWardPatientComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('wardPatientFormComponentReference', { read: WardPatientFormComponent, static: false }) wardPatientForm!: WardPatientFormComponent;
+  @ViewChild('selectPatientComponentReference', { read: SelectPatientComponent, static: false }) selectPatient!: SelectPatientComponent;
 
   isSaving = false;
 
@@ -30,12 +33,12 @@ export class AddWardPatientComponent implements OnInit {
   }
 
   saveWardPatient(){
-    // let data: WardPatient = {
-    let data = {
+    let data: WardPatient = {
+      ward: sessionStorage.getItem('hospital_ward_id') as string,
+      patient: this.wardPatientForm.selectedPatientId,
       checkin_date: this.wardPatientForm.wardPatientForm.controls.checkinDate.value,
       checkout_date: this.wardPatientForm.wardPatientForm.controls.checkoutDate.value,
       bed_number: this.wardPatientForm.wardPatientForm.controls.bedNumber.value as string,
-      ward: sessionStorage.getItem('hospital_ward_id') as string,
     }
 
     this.saveWardPatientEvent.emit(data);
@@ -45,6 +48,19 @@ export class AddWardPatientComponent implements OnInit {
     this.wardPatientForm.wardPatientForm.controls.checkinDate.setValue('');
     this.wardPatientForm.wardPatientForm.controls.checkoutDate.setValue('');
     this.wardPatientForm.wardPatientForm.controls.bedNumber.setValue('');
+  }
+
+  openPatientWindow(){
+    console.log("You are opening select patient window")
+    this.selectPatient.openModal();
+  }
+
+  onPatientSelected(patientData: any){
+    console.log(patientData);
+
+    this.wardPatientForm.selectedPatientId = patientData.id;
+    this.wardPatientForm.wardPatientForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
+    this.wardPatientForm.wardPatientForm.controls.patientNumber.setValue(patientData.clinical_number);
   }
 
 }

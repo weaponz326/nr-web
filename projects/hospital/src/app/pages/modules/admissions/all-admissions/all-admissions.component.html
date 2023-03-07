@@ -46,7 +46,7 @@
                                 <td>{{data?.admission_code}}</td>
                                 <td>{{data?.admission_date | date: 'short'}}</td>
                                 <td>{{data?.patient?.first_name}} {{data?.patient?.last_name}}</td>
-                                <td>{{data?.patient?.patient_number}}</td>
+                                <td>{{data?.patient?.clinical_number}}</td>
                                 <td>{{data?.admission_status}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">

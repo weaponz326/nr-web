@@ -23,19 +23,23 @@
                                     Payment ID
                                     <app-table-sorting [sortField]="'payment_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="20%" class="min-width-3">
+                                <th width="15%" class="min-width-3">
                                     Payment Date
                                     <app-table-sorting [sortField]="'payment_date'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
-                                </th>
-                                <th width="30%" class="min-width-2">
-                                    Patient Name
-                                    <app-table-sorting [sortField]="'patient_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
                                 <th width="15%" class="min-width-2">
                                     Patient No.
                                     <app-table-sorting [sortField]="'patient_number'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="20%" class="min-width-3">
+                                <th width="25%" class="min-width-2">
+                                    Patient Name
+                                    <app-table-sorting [sortField]="'patient_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>                                
+                                <th width="15%" class="min-width-3">
+                                    Bill ID
+                                    <app-table-sorting [sortField]="'amount_paid'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="15%" class="min-width-3">
                                     Amount Paid
                                     <app-table-sorting [sortField]="'amount_paid'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -45,19 +49,20 @@
                             <tr *ngFor="let data of paymentsGridData" (dblclick)="viewPayment(data.id)" class="table-pointer">
                                 <td>{{data?.payment_code}}</td>
                                 <td>{{data?.payment_date}}</td>
-                                <td>{{data?.patient?.patient_name}}</td>
-                                <td>{{data?.patient?.clinical_number}}</td>
+                                <td>{{data?.bill?.admission?.patient?.clinical_number}}</td>
+                                <td>{{data?.bill?.admission?.patient?.first_name}} {{data?.bill?.admission?.patient?.last_name}}</td>
+                                <td>{{data?.bill?.bill_code}}</td>
                                 <td>{{data?.amount_paid}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                                <td colspan="5">
+                                <td colspan="6">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-light">
-                                <td colspan="5">
+                                <td colspan="6">
                                     <app-table-paginator
                                     [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getAccountPayment($event, 20, '')"
                                     ></app-table-paginator>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -11,9 +11,13 @@ export class WardPatientFormComponent implements OnInit {
 
   constructor() { }
 
+  @Output() openPatientWindow = new EventEmitter<any>();
+
+  selectedPatientId = '';
+
   wardPatientForm = new FormGroup({
-    patientNumber: new FormControl(''),
-    patientName: new FormControl(''),
+    patientNumber: new FormControl({value: '', disabled: true}),
+    patientName: new FormControl({value: '', disabled: true}),
     checkinDate: new FormControl(),
     checkoutDate: new FormControl(),
     bedNumber: new FormControl('')

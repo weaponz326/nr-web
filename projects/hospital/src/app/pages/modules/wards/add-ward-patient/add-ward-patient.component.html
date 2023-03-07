@@ -15,7 +15,7 @@
 
                 <!-- ward patient form component -->
 
-                <app-ward-patient-form #wardPatientFormComponentReference></app-ward-patient-form>
+                <app-ward-patient-form #wardPatientFormComponentReference (openPatientWindow)="openPatientWindow()"></app-ward-patient-form>
 
             </div>
 
@@ -27,3 +27,7 @@
         </div>
     </div>
 </div>
+
+<!-- select patient window component -->
+
+<app-select-patient #selectPatientComponentReference [closeTarget]="'#addWardPatientModal'" (rowSelected)="onPatientSelected($event)"></app-select-patient>

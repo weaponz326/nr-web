@@ -9,7 +9,7 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { PaymentsApiService } from 'projects/hospital/src/app/services/modules-api/payments-api/payments-api.service';
 // import { PaymentsPrintService } from 'projects/hospital/src/app/services/modules-printing/payments-print/payments-print.service';
 
-// import { Payment } from 'projects/hospital/src/app/models/modules/payments/payments.model';
+import { Payment } from 'projects/hospital/src/app/models/modules/payments/payments.model';
 
 
 @Component({
@@ -59,8 +59,13 @@ export class ViewPaymentComponent implements OnInit {
           this.paymentForm.paymentForm.controls.paymentCode.setValue(res.payment_code);
           this.paymentForm.paymentForm.controls.paymentDate.setValue(new Date(res.payment_date).toISOString().slice(0, 16));
           this.paymentForm.paymentForm.controls.amountPaid.setValue(res.amount_paid);
-          this.paymentForm.paymentForm.controls.totalAmount.setValue(res.order.order_total);
-
+          
+          this.paymentForm.selectedBillId = res.bill?.id;
+          this.paymentForm.paymentForm.controls.billCode.setValue(res.bill?.bill_code);
+          this.paymentForm.paymentForm.controls.admissionCode.setValue(res.bill?.admission?.admission_code);
+          this.paymentForm.paymentForm.controls.patientNumber.setValue(res.bill?.admission?.patient?.clinical_number);
+          this.paymentForm.paymentForm.controls.patientNumber.setValue(res.bill?.admission?.patient?.last_name + " " + res.bill?.admission?.patient?.first_name);
+          
           this.paymentForm.setBalance()
         },
         error: (err) => {
@@ -74,9 +79,9 @@ export class ViewPaymentComponent implements OnInit {
   updatePayment(){
     console.log('u are saving a new payment');
 
-    // var data: Payment = {
-    var data = {
+    var data: Payment = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      bill: this.paymentForm.selectedBillId,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
       payment_date: this.paymentForm.paymentForm.controls.paymentDate.value,
       amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as number,

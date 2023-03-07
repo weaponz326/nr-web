@@ -78,7 +78,7 @@ export class AllWardsComponent implements OnInit {
   viewWard(wardId: any){
     console.log(wardId);
 
-    sessionStorage.setItem('association_ward_id', wardId);
+    sessionStorage.setItem('hospital_ward_id', wardId);
     this.router.navigateByUrl('/home/wards/view-ward');
   }
 

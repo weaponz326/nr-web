@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { DrugsApiService } from 'projects/hospital/src/app/services/modules-api/drugs-api/drugs-api.service';
 
-// import { Drug } from 'projects/hospital/src/app/models/modules/drugs/drugs.model';
+import { Drug } from 'projects/hospital/src/app/models/modules/drugs/drugs.model';
 
 
 @Component({
@@ -41,7 +41,7 @@ export class NewDrugComponent implements OnInit {
   postDrug(){
     console.log('u are saving a new drug');
 
-    var data = {
+    var data: Drug = {
       account: this.customCookie.getCookie('hospital_id') as string,
       ndc_number: this.drugForm.drugForm.controls.ndcNumber.value as string,
       drug_name: this.drugForm.drugForm.controls.drugName.value as string,
@@ -50,17 +50,17 @@ export class NewDrugComponent implements OnInit {
       drug_type: this.drugForm.drugForm.controls.drugType.value as string,
       unit_dose: this.drugForm.drugForm.controls.unitDose.value as string,
       category: this.drugForm.drugForm.controls.drugCategory.value as string,
-      unit_price: this.drugForm.drugForm.controls.unitPrice.value as string,
+      unit_price: this.drugForm.drugForm.controls.unitPrice.value as number,
       batch_number: this.drugForm.drugForm.controls.batchNumber.value as string,
-      purchased_date: this.drugForm.drugForm.controls.purchasedDate.value as string,
-      initial_quantity: this.drugForm.drugForm.controls.initialQuantity.value as string,
-      dispensed_quantity: this.drugForm.drugForm.controls.dispensedQuantity.value as string,
-      remaining_quantity: this.drugForm.drugForm.controls.remainingQuantity.value as string,
-      manufacturing_date: this.drugForm.drugForm.controls.manufacturingDate.value as string,
-      expiry_date: this.drugForm.drugForm.controls.expiryDate.value as string,
+      purchased_date: this.drugForm.drugForm.controls.purchasedDate.value,
+      initial_quantity: this.drugForm.drugForm.controls.initialQuantity.value as number,
+      dispensed_quantity: this.drugForm.drugForm.controls.dispensedQuantity.value as number,
+      remaining_quantity: this.drugForm.drugForm.controls.remainingQuantity.value as number,
+      manufacturing_date: this.drugForm.drugForm.controls.manufacturingDate.value,
+      expiry_date: this.drugForm.drugForm.controls.expiryDate.value,
       storage_location: this.drugForm.drugForm.controls.storageLocation.value as string,
       storage_bin: this.drugForm.drugForm.controls.storageBin.value as string,
-      refill_ordered: this.drugForm.drugForm.controls.refillOrdered.value as string,
+      refill_ordered: this.drugForm.drugForm.controls.refillOrdered.value as number,
     }
 
     console.log(data);

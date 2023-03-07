@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
+import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { AdmissionsApiService } from 'projects/hospital/src/app/services/modules-api/admissions-api/admissions-api.service';
 
-// import { Admission } from 'projects/hospital/src/app/models/modules/admissions/admissions.model';
+import { Admission } from 'projects/hospital/src/app/models/modules/admissions/admissions.model';
 
 
 @Component({
@@ -27,17 +28,20 @@ export class NewAdmissionComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
+  @ViewChild('selectPatientComponentReference', { read: SelectPatientComponent, static: false }) selectPatient!: SelectPatientComponent;
+
+  selectedPatientId = '';
+
   isAdmissionSaving = false;
 
   admissionForm = new FormGroup({
     admissionCode: new FormControl(''),
     admissionDate: new FormControl(),
     dischargeDate: new FormControl(),
-    patientName: new FormControl(''),
-    patientNumber: new FormControl(''),
+    patientName: new FormControl({value: '', disabled: true}),
+    patientNumber: new FormControl({value: '', disabled: true}),
     admissionStatus: new FormControl(''),
   })
-
 
   ngOnInit(): void {
   }
@@ -49,12 +53,12 @@ export class NewAdmissionComponent implements OnInit {
   }
 
   createAdmission(){
-    // let data: Admission = {
-    let data = {
+    let data: Admission = {
       account: this.customCookie.getCookie('hospital_id') as string,
+      patient: this.selectedPatientId,
       admission_code: this.admissionForm.controls.admissionCode.value as string,
-      admission_date: this.admissionForm.controls.admissionDate.value as string,
-      discharge_date: this.admissionForm.controls.dischargeDate.value as string,
+      admission_date: this.admissionForm.controls.admissionDate.value,
+      discharge_date: this.admissionForm.controls.dischargeDate.value,
       admission_status: this.admissionForm.controls.admissionStatus.value as string,
     }
 
@@ -102,6 +106,19 @@ export class NewAdmissionComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })
+  }
+
+  openPatientWindow(){
+    console.log("You are opening select patient window")
+    this.selectPatient.openModal();
+  }
+
+  onPatientSelected(patientData: any){
+    console.log(patientData);
+
+    this.selectedPatientId = patientData.id;
+    this.admissionForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
+    this.admissionForm.controls.patientNumber.setValue(patientData.clinical_number);
   }
 
 }

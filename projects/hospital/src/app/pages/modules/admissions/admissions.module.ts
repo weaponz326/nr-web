@@ -6,6 +6,8 @@ import { AdmissionsRoutingModule } from './admissions-routing.module';
 import { MainNavbarModule } from 'projects/application/src/app/components/main-navbar/main-navbar.module';
 import { ModuleUtilitiesModule } from 'projects/personal/src/app/components/module-utilities/module-utilities.module';
 
+import { PatientsWindowsModule } from '../../../components/select-windows/patients-windows/patients-windows.module';
+
 import { AdmissionsPage } from './admissions.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -34,6 +36,7 @@ import { AdmissionActivitiesComponent } from './admission-activities/admission-a
     AdmissionsRoutingModule,
     MainNavbarModule,
     ModuleUtilitiesModule,
+    PatientsWindowsModule
   ]
 })
 export class AdmissionsModule { }

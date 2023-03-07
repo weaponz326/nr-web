@@ -7,7 +7,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
 import { WardsApiService } from 'projects/hospital/src/app/services/modules-api/wards-api/wards-api.service';
 
-// import { Ward } from 'projects/hospital/src/app/models/modules/wards/wards.model';
+import { Ward } from 'projects/hospital/src/app/models/modules/wards/wards.model';
 
 
 @Component({
@@ -37,8 +37,7 @@ export class NewWardComponent implements OnInit {
   }
 
   postWard(){
-    // let data: Ward = {
-    let data = {
+    let data: Ward = {
       account: this.customCookie.getCookie('hospital_id') as string,
       ward_number: this.wardForm.wardForm.controls.wardNumber.value as string,
       ward_name: this.wardForm.wardForm.controls.wardName.value as string,
