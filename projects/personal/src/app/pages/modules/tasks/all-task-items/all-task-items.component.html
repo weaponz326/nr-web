@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
 
         <div class="row">
-            <div class="col-md-9">                
+            <div class="col-md-10">                
 
                 <div class="row mb-3">
                     <div class="col-md-12">
@@ -18,11 +18,15 @@
                     <table class="table table-bordered w-100 page-table">
                         <thead>
                             <tr class="bg-light">
-                                <th width="35%" class="min-width-4">
+                                <th width="15%" class="min-width-4">
+                                    Item ID
+                                    <app-table-sorting [sortField]="'task_item_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="30%" class="min-width-4">
                                     Task Item
                                     <app-table-sorting [sortField]="'task_item'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="20%" class="min-width-2">
+                                <th width="15%" class="min-width-2">
                                     Priority
                                     <app-table-sorting [sortField]="'priority'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -30,7 +34,7 @@
                                     Status
                                     <app-table-sorting [sortField]="'status'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="30%" class="min-width-3">
+                                <th width="25%" class="min-width-3">
                                     Task Group
                                     <app-table-sorting [sortField]="'task_group'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -38,20 +42,21 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of taskItemsGridData">
+                                <td>{{data?.task_item_code}}</td>
                                 <td>{{data?.task_item}}</td>
                                 <td>{{data?.priority}}</td>
                                 <td>{{data?.status}}</td>
                                 <td>{{data?.task_group.task_group}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                                <td colspan="6">
+                                <td colspan="7">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-light">
-                                <td colspan="6">
+                                <td colspan="7">
                                     <app-table-paginator
                                     [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getUserTaskItems($event, 20, '')"
                                     ></app-table-paginator>

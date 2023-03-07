@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
     
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
 
                 <div class="row mb-3">
                     <div class="col-md-12">
@@ -19,11 +19,15 @@
                     <table class="table table-bordered w-100 page-table">
                         <thead>
                             <tr class="bg-light">
-                                <th width="65%" class="min-width-4">
+                                <th width="20%" class="min-width-4">
+                                    Task Group ID
+                                    <app-table-sorting [sortField]="'task_group_code'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
+                                </th>
+                                <th width="55%" class="min-width-4">
                                     Task Group Name
                                     <app-table-sorting [sortField]="'task_group'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
-                                <th width="35%" class="min-width-3">
+                                <th width="25%" class="min-width-3">
                                     Created At
                                     <app-table-sorting [sortField]="'calendar_name'" [currentField]="currentSortColumn" (sortDirection)="sortTable($event)"></app-table-sorting>
                                 </th>
@@ -31,18 +35,19 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of taskGroupsGridData" (dblclick)="viewTaskGroup(data?.id)" class="table-pointer">
+                                <td>{{data?.task_group_code}}</td>
                                 <td>{{data?.task_group}}</td>
                                 <td>{{data?.created_at | date}}</td>
                             </tr>
                             <tr *ngIf="isFetchingGridData || !isDataAvailable">
-                                <td colspan="2">
+                                <td colspan="3">
                                     <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingGridData" [isNoData]="isDataAvailable"></app-table-loading>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="bg-light">
-                                <td colspan="2">
+                                <td colspan="3">
                                     <app-table-paginator
                                     [currentPage]="currentPage" [totalPages]="totalPages" (pageSelected)="getUserTaskGroups($event, 20, '')"
                                     ></app-table-paginator>
