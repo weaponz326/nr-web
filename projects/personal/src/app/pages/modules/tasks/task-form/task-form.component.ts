@@ -12,6 +12,7 @@ export class TaskFormComponent implements OnInit {
   constructor() { }
 
   taskForm = new FormGroup({
+    taskItemCode: new FormControl(''),
     taskItem: new FormControl(''),
     description: new FormControl(''),
     priority: new FormControl(''),

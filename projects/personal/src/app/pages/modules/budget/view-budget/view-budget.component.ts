@@ -45,6 +45,7 @@ export class ViewBudgetComponent implements OnInit {
   isBudgetDeleting: boolean = false;
 
   budgetForm = new FormGroup({
+    budgetCode: new FormControl({value: '', disabled: true}),
     budgetName: new FormControl(''),
     budgetType: new FormControl('')
   })
@@ -61,13 +62,9 @@ export class ViewBudgetComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.budgetFormData = res;
+          this.budgetForm.controls.budgetCode.setValue(this.budgetFormData.budget_code);
           this.budgetForm.controls.budgetName.setValue(this.budgetFormData.budget_name);
           this.budgetForm.controls.budgetType.setValue(this.budgetFormData.budget_type);
-
-          // this.budgetTables.addIncome.budgetData = this.budgetFormData.data();
-          // this.budgetTables.editIncome.budgetData = this.budgetFormData.data();
-          // this.budgetTables.addExpenditure.budgetData = this.budgetFormData.data();
-          // this.budgetTables.editExpenditure.budgetData = this.budgetFormData.data();
 
           this.isBudgetLoading = false;
         },
@@ -82,6 +79,7 @@ export class ViewBudgetComponent implements OnInit {
   updateBudget(){
     let data: Budget = {
       user: this.customCookie.getCookie('personal_id') as string,
+      budget_code: this.budgetForm.controls.budgetCode.value as string,
       budget_name: this.budgetForm.controls.budgetName.value as string,
       budget_type: this.budgetForm.controls.budgetType.value as string
     }

@@ -34,7 +34,8 @@ export class ViewTaskGroupComponent implements OnInit {
   isTaskGroupSaving: boolean = false;
 
   taskGroupForm = new FormGroup({
-    taskGroupName: new FormControl('')
+    taskGroupCode: new FormControl(''),
+    taskGroupName: new FormControl(''),
   })
 
   ngOnInit(): void {
@@ -63,6 +64,7 @@ export class ViewTaskGroupComponent implements OnInit {
   updateTaskGroup(){
     let data: TaskGroup = {
       user: this.customCookie.getCookie('personal_id') as string,
+      task_group_code: this.taskGroupForm.controls.taskGroupCode.value as string,
       task_group: this.taskGroupForm.controls.taskGroupName.value as string,
     }
 

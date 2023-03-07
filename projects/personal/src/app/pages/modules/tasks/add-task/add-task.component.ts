@@ -34,11 +34,14 @@ export class AddTaskComponent implements OnInit {
 
     this.taskForm.taskForm.controls.priority.setValue("Mid priority");
     this.taskForm.taskForm.controls.status.setValue("To Do");
+
+    this.getNewTaskItemCodeConfig();
   }
 
   postTask(){
     let data: TaskItem = {
       task_group: sessionStorage.getItem('personal_task_group_id') as string,
+      task_item_code: this.taskForm.taskForm.controls.taskItemCode.value as string,
       task_item: this.taskForm.taskForm.controls.taskItem.value as string,
       description: this.taskForm.taskForm.controls.description.value as string,
       priority: this.taskForm.taskForm.controls.priority.value as string,
@@ -74,10 +77,31 @@ export class AddTaskComponent implements OnInit {
   }
 
   resetForm(){
+    this.taskForm.taskForm.controls.taskItemCode.setValue('');
     this.taskForm.taskForm.controls.taskItem.setValue('');
     this.taskForm.taskForm.controls.description.setValue('');
     this.taskForm.taskForm.controls.priority.setValue('');
     this.taskForm.taskForm.controls.status.setValue('');
+  }
+
+  getNewTaskItemCodeConfig(){
+    this.taskForm.taskForm.controls.taskItemCode.disable();
+
+    this.tasksApi.getNewTaskItemCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.taskForm.taskForm.controls.taskItemCode.setValue(res.code);
+          else
+            this.taskForm.taskForm.controls.taskItemCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

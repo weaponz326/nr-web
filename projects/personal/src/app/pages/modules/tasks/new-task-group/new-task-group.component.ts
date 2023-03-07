@@ -30,6 +30,7 @@ export class NewTaskGroupComponent implements OnInit {
   isTaskGroupSaving = false;
 
   taskGroupForm = new FormGroup({
+    taskGroupCode: new FormControl(''),
     taskGroupName: new FormControl('')
   })
 
@@ -38,11 +39,13 @@ export class NewTaskGroupComponent implements OnInit {
 
   openModal(){
     this.newButton.nativeElement.click();
+    this.getNewTaskGroupCodeConfig();
   }
 
   createTaskGroup(){
     let data: TaskGroup = {
       user: this.customCookie.getCookie('personal_id') as string,
+      task_group_code: this.taskGroupForm.controls.taskGroupCode.value as string,
       task_group: this.taskGroupForm.controls.taskGroupName.value as string,
     }
 
@@ -67,6 +70,26 @@ export class NewTaskGroupComponent implements OnInit {
           this.connectionToast.openToast();
           this.isTaskGroupSaving = false;
           console.log(err);
+        }
+      })
+  }
+
+  getNewTaskGroupCodeConfig(){
+    this.taskGroupForm.controls.taskGroupCode.disable();
+
+    this.tasksApi.getNewTaskGroupCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.taskGroupForm.controls.taskGroupCode.setValue(res.code);
+          else
+            this.taskGroupForm.controls.taskGroupCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
         }
       })
   }

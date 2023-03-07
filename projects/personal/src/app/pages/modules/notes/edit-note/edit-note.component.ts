@@ -35,6 +35,7 @@ export class EditNoteComponent implements OnInit {
   isNoteDeleting = false;
 
   noteForm = new FormGroup({
+    noteCode: new FormControl({value: '', disabled: true}),
     title: new FormControl(''),
     body: new FormControl('')
   })
@@ -48,6 +49,7 @@ export class EditNoteComponent implements OnInit {
 
     console.log(data);
 
+    this.noteForm.controls.noteCode.setValue(data.note_code);
     this.noteForm.controls.title.setValue(data.title);
     this.noteForm.controls.body.setValue(data.body);
   }
@@ -55,6 +57,7 @@ export class EditNoteComponent implements OnInit {
   updateNote(){
     let data: Note = {
       user: this.customCookie.getCookie('personal_id') as string,
+      note_code: this.noteForm.controls.noteCode.value as string,
       title: this.noteForm.controls.title.value as string,
       body: this.noteForm.controls.body.value as string,
     }

@@ -30,6 +30,7 @@
                     <div *ngFor="let data of noteBoardData; index as i" class="col-md-4">
                         <div class="card bg-note-card shadow-sm h-100">
                             <div class="card-body">
+                                <p class="note-card-id mb-1">{{data.note_code}}</p>
                                 <p class="note-card-title mb-1">{{data.title}}</p>
                                 <p class="note-card-date text-muted mb-2">{{data.created_at | date:'short'}}</p>
                                 <p class="note-card-body mb-2">{{data.body}}</p>

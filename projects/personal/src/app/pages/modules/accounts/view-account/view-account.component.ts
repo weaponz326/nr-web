@@ -45,6 +45,7 @@ export class ViewAccountComponent implements OnInit {
   isAccountDeleting: boolean = false;
 
   accountForm = new FormGroup({
+    accountCode: new FormControl({value: '', disabled: true}),
     accountName: new FormControl(''),
     accountNumber: new FormControl(''),
     bankName: new FormControl(''),
@@ -64,13 +65,11 @@ export class ViewAccountComponent implements OnInit {
           console.log(res);
           this.accountFormData = res;
 
+          this.accountForm.controls.accountCode.setValue(this.accountFormData.account_code);
           this.accountForm.controls.accountName.setValue(this.accountFormData.account_name);
           this.accountForm.controls.accountNumber.setValue(this.accountFormData.account_number);
           this.accountForm.controls.bankName.setValue(this.accountFormData.bank_name);
           this.accountForm.controls.accountType.setValue(this.accountFormData.account_type);
-
-          // this.accountTransactions.addTransaction.transactionAccount = this.accountFormData;
-          // this.accountTransactions.editTransaction.transactionAccount = this.accountFormData;
 
           this.isAccountLoading = false;
         },
@@ -85,6 +84,7 @@ export class ViewAccountComponent implements OnInit {
   updateAccount(){
     let data: Account = {
       user: this.customCookie.getCookie('personal_id') as string,
+      account_code: this.accountForm.controls.accountCode.value as string,
       account_name: this.accountForm.controls.accountName.value as string,
       account_number: this.accountForm.controls.accountNumber.value as string,
       bank_name: this.accountForm.controls.bankName.value as string,

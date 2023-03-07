@@ -1,5 +1,6 @@
 export class Budget {
   user!: string;
+  budget_code!: string;
   budget_name!: string;
   budget_type!: string;
 }

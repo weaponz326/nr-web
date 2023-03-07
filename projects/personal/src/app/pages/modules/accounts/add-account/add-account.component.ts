@@ -30,6 +30,7 @@ export class AddAccountComponent implements OnInit {
   isSavingAccount = false;
 
   accountForm = new FormGroup({
+    accountCode: new FormControl(''),
     accountName: new FormControl(''),
     accountNumber: new FormControl(''),
     bankName: new FormControl(''),
@@ -37,6 +38,7 @@ export class AddAccountComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    this.getNewAccountCodeConfig();
   }
 
   openModal(){
@@ -49,6 +51,7 @@ export class AddAccountComponent implements OnInit {
 
     let data: Account = {
       user: this.customCookie.getCookie('personal_id') as string,
+      account_code: this.accountForm.controls.accountCode.value as string,
       account_name: this.accountForm.controls.accountName.value as string,
       account_number: this.accountForm.controls.accountNumber.value as string,
       bank_name: this.accountForm.controls.bankName.value as string,
@@ -77,4 +80,24 @@ export class AddAccountComponent implements OnInit {
       })
   }
 
+  getNewAccountCodeConfig(){
+    this.accountForm.controls.accountCode.disable();
+
+    this.accountsApi.getNewAccountCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.accountForm.controls.accountCode.setValue(res.code);
+          else
+            this.accountForm.controls.accountCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

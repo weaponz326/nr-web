@@ -39,6 +39,7 @@ export class EditTaskComponent implements OnInit {
 
     this.taskFormData = data;
 
+    this.taskForm.taskForm.controls.taskItemCode.setValue(this.taskFormData.task_item_code);
     this.taskForm.taskForm.controls.taskItem.setValue(this.taskFormData.task_item);
     this.taskForm.taskForm.controls.description.setValue(this.taskFormData.description);
     this.taskForm.taskForm.controls.priority.setValue(this.taskFormData.priority);
@@ -48,6 +49,7 @@ export class EditTaskComponent implements OnInit {
   saveTask(){
     let data: TaskItem = {
       task_group: sessionStorage.getItem('personal_task_group_id') as string,
+      task_item_code: this.taskForm.taskForm.controls.taskItemCode.value as string,
       task_item: this.taskForm.taskForm.controls.taskItem.value as string,
       description: this.taskForm.taskForm.controls.description.value as string,
       priority: this.taskForm.taskForm.controls.priority.value as string,
