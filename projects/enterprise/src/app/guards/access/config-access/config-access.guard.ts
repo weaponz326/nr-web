@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ConfigAccessGuard implements CanActivate {
   
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    let accessLevel = JSON.parse(localStorage.getItem('enterpriseUserLevel') as string).access_level;
+    let accessLevel = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).access_level;
 
     if (accessLevel != "Staff"){
       return true;
@@ -20,7 +20,7 @@ export class ConfigAccessGuard implements CanActivate {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
-    let accessLevel = JSON.parse(localStorage.getItem('enterpriseUserLevel') as string).access_level;
+    let accessLevel = JSON.parse(localStorage.getItem('enterpriseUserAccess') as string).access_level;
 
     if (accessLevel != "Staff"){
       return true;
