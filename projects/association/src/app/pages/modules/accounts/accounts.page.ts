@@ -20,7 +20,7 @@ export class AccountsPage implements OnInit {
 
   gotoConfig(){
     console.log('going...');
-    this.router.navigateByUrl("/home/association/configuration");
+    this.router.navigateByUrl("/home/accounts/configuration");
   }
 
 }

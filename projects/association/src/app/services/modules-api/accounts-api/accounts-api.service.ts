@@ -90,4 +90,18 @@ export class AccountsApiService {
     return this.http.get(this.accountsUrl + "dashboard/transaction-annotate?account=" + this.customCookie.getCookie('association_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getAccountCodeConfig(): Observable<any>{
+    return this.http.get(this.accountsUrl + "config/account-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putAccountCodeConfig(account: any): Observable<any>{
+    return this.http.put(this.accountsUrl + "config/account-code/" + this.customCookie.getCookie('restaurant_id'), account, this.authHeaders.headers);
+  }
+
+  public getNewAccountCodeConfig(): Observable<any>{
+    return this.http.get(this.accountsUrl + "config/new-account-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+  }
+
 }

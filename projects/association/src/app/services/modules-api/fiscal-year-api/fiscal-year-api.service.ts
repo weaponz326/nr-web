@@ -45,4 +45,18 @@ export class FiscalYearApiService {
     return this.http.delete(this.fiscalYearUrl + "fiscal-year/" + sessionStorage.getItem('association_fiscal_year_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getFiscalYearCodeConfig(): Observable<any>{
+    return this.http.get(this.fiscalYearUrl + "config/fiscal-year-code/" + this.customCookie.getCookie('association_id'), this.authHeaders.headers);
+  }
+
+  public putFiscalYearCodeConfig(year: any): Observable<any>{
+    return this.http.put(this.fiscalYearUrl + "config/fiscal-year-code/" + this.customCookie.getCookie('association_id'), year, this.authHeaders.headers);
+  }
+
+  public getNewFiscalYearCodeConfig(): Observable<any>{
+    return this.http.get(this.fiscalYearUrl + "config/new-fiscal-year-code/" + this.customCookie.getCookie('association_id'), this.authHeaders.headers);
+  }
+
 }

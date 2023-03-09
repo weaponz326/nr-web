@@ -20,7 +20,7 @@ export class ActionPlanApiService {
 
   actionPlanUrl = environment.apiUrl + 'association-modules/action-plan/';
 
-  // actionPlan
+  // action plan
 
   public getAccountActionPlan(page: any, size: any, sortField: any): Observable<any>{
     return this.http.get(this.actionPlanUrl + "action-plan?account=" + this.customCookie.getCookie('association_id')
@@ -45,7 +45,7 @@ export class ActionPlanApiService {
     return this.http.delete(this.actionPlanUrl + "action-plan/" + sessionStorage.getItem('association_action_plan_id'), this.authHeaders.headers);
   }
 
-  // action-plan
+  // plan step
 
   public getPlanStep(): Observable<any>{
     return this.http.get(this.actionPlanUrl + "plan-step?action_plan=" + sessionStorage.getItem('association_action_plan_id'), this.authHeaders.headers);
@@ -65,6 +65,20 @@ export class ActionPlanApiService {
 
   public deleteStep(stepId: any): Observable<any>{
     return this.http.delete(this.actionPlanUrl + "plan-step/" + stepId, this.authHeaders.headers);
+  }
+
+  // config
+
+  public getActionPlanCodeConfig(): Observable<any>{
+    return this.http.get(this.actionPlanUrl + "config/action-plan-code/" + this.customCookie.getCookie('association_id'), this.authHeaders.headers);
+  }
+
+  public putActionPlanCodeConfig(plan: any): Observable<any>{
+    return this.http.put(this.actionPlanUrl + "config/action-plan-code/" + this.customCookie.getCookie('association_id'), plan, this.authHeaders.headers);
+  }
+
+  public getNewActionPlanCodeConfig(): Observable<any>{
+    return this.http.get(this.actionPlanUrl + "config/new-action-plan-code/" + this.customCookie.getCookie('association_id'), this.authHeaders.headers);
   }
 
 }

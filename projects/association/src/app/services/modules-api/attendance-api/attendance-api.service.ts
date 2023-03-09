@@ -45,4 +45,18 @@ export class AttendanceApiService {
     return this.http.delete(this.attendanceUrl + "attendance/" + sessionStorage.getItem('association_attendance_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getAttendanceCodeConfig(): Observable<any>{
+    return this.http.get(this.attendanceUrl + "config/attendance-code/" + this.customCookie.getCookie('association_id'), this.authHeaders.headers);
+  }
+
+  public putAttendanceCodeConfig(attendance: any): Observable<any>{
+    return this.http.put(this.attendanceUrl + "config/attendance-code/" + this.customCookie.getCookie('association_id'), attendance, this.authHeaders.headers);
+  }
+
+  public getNewAttendanceCodeConfig(): Observable<any>{
+    return this.http.get(this.attendanceUrl + "config/new-attendance-code/" + this.customCookie.getCookie('association_id'), this.authHeaders.headers);
+  }
+
 }
