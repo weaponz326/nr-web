@@ -54,6 +54,7 @@ export class ViewAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAccount();
+    this.getAccountCodeConfig();
   }
 
   getAccount(){
@@ -133,6 +134,22 @@ export class ViewAccountComponent implements OnInit {
 
   confirmDelete(){
     this.deleteModal.openModal();
+  }
+
+  getAccountCodeConfig(){
+    this.accountsApi.getAccountCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.accountForm.controls.accountCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

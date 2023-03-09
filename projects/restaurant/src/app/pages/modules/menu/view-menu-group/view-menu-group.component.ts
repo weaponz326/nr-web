@@ -10,6 +10,8 @@ import { CustomCookieService } from 'projects/application/src/app/services/custo
 import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
 import { MenuPrintService } from 'projects/restaurant/src/app/services/modules-printing/menu-print/menu-print.service';
 
+import { MenuGroup } from 'projects/restaurant/src/app/models/modules/menu/menu.model';
+
 
 @Component({
   selector: 'app-view-menu-group',
@@ -41,12 +43,14 @@ export class ViewMenuGroupComponent implements OnInit {
   isMenuGroupDeleting: boolean = false;
 
   menuGroupForm = new FormGroup({
+    menuGroupCode: new FormControl(''),
     menuGroup: new FormControl(''),
     category: new FormControl('')
   })
 
   ngOnInit(): void {
     this.getMenuGroup();
+    this.getMenuGroupCodeConfig();
   }
 
   getMenuGroup(){
@@ -58,8 +62,8 @@ export class ViewMenuGroupComponent implements OnInit {
           console.log(res);
 
           this.menuGroupFormData = res;
-          // this.menuItems.addMenuItem.menuGroupData = res;
 
+          this.menuGroupForm.controls.menuGroupCode.setValue(this.menuGroupFormData.menu_group_code);
           this.menuGroupForm.controls.menuGroup.setValue(this.menuGroupFormData.menu_group);
           this.menuGroupForm.controls.category.setValue(this.menuGroupFormData.category);
 
@@ -76,9 +80,11 @@ export class ViewMenuGroupComponent implements OnInit {
   updateMenuGroup(){
     console.log("u are updating a menu group");
 
-    let data = {
-      menu_group: this.menuGroupForm.controls.menuGroup.value,
-      category: this.menuGroupForm.controls.category.value
+    let data: MenuGroup = {
+      account: this.customCookie.getCookie('restaurant_id') as string,
+      menu_group_code: this.menuGroupForm.controls.menuGroupCode.value as string,
+      menu_group: this.menuGroupForm.controls.menuGroup.value as string,
+      category: this.menuGroupForm.controls.category.value as string
     }
 
     this.isMenuGroupSaving = true;
@@ -112,6 +118,22 @@ export class ViewMenuGroupComponent implements OnInit {
           console.log(res);
 
           this.router.navigateByUrl('/home/menu/all-menu-groups');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getMenuGroupCodeConfig(){
+    this.menuApi.getMenuGroupCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.entry_mode == "Auto")
+            this.menuGroupForm.controls.menuGroupCode.disable();
         },
         error: (err) => {
           console.log(err);

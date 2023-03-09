@@ -83,6 +83,18 @@ export class MenuApiService {
 
   // config
 
+  public getMenuGroupCodeConfig(): Observable<any>{
+    return this.http.get(this.menuUrl + "config/menu-group-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+  }
+
+  public putMenuGroupCodeConfig(data: any): Observable<any>{
+    return this.http.put(this.menuUrl + "config/menu-group-code/" + this.customCookie.getCookie('restaurant_id'), data, this.authHeaders.headers);
+  }
+
+  public getNewMenuGroupCodeConfig(): Observable<any>{
+    return this.http.get(this.menuUrl + "config/new-menu-group-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
+  }
+
   public getMenuItemCodeConfig(): Observable<any>{
     return this.http.get(this.menuUrl + "config/menu-item-code/" + this.customCookie.getCookie('restaurant_id'), this.authHeaders.headers);
   }

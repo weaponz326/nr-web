@@ -160,9 +160,9 @@ export class ConfigurationComponent implements OnInit {
       this.calendarSampleID = "- - - -";
     }
     else if(e.target.value == "Auto"){
-      this.calendarPrefix = this.calendarConfigData.calendarPrefix;
+      this.calendarPrefix = this.calendarConfigData.prefix;
       this.calendarCodeLength = this.calendarConfigData.last_code.length;
-      this.calendarSuffix = this.calendarConfigData.calendarSuffix
+      this.calendarSuffix = this.calendarConfigData.suffix;
 
       this.setCalendarSampleId();
     }
@@ -175,9 +175,9 @@ export class ConfigurationComponent implements OnInit {
       this.scheduleSampleID = "- - - -";
     }
     else if(e.target.value == "Auto"){
-      this.schedulePrefix = this.scheduleConfigData.schedulePrefix;
+      this.schedulePrefix = this.scheduleConfigData.prefix;
       this.scheduleCodeLength = this.scheduleConfigData.last_code.length;
-      this.scheduleSuffix = this.scheduleConfigData.scheduleSuffix
+      this.scheduleSuffix = this.scheduleConfigData.suffix;
 
       this.setScheduleSampleId();
     }

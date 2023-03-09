@@ -45,13 +45,14 @@ export class ViewBudgetComponent implements OnInit {
   isBudgetDeleting: boolean = false;
 
   budgetForm = new FormGroup({
-    budgetCode: new FormControl({value: '', disabled: true}),
+    budgetCode: new FormControl(''),
     budgetName: new FormControl(''),
     budgetType: new FormControl('')
   })
 
   ngOnInit(): void {
     this.getBudget();
+    this.getBudgetCodeConfig();
   }
 
   getBudget(){
@@ -125,6 +126,21 @@ export class ViewBudgetComponent implements OnInit {
 
   getIoe(e: any){
     this.ioe = e;
+  }
+
+  getBudgetCodeConfig(){
+    this.budgetApi.getBudgetCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.budgetForm.controls.budgetCode.disable();            
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

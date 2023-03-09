@@ -47,6 +47,7 @@ export class ViewStaffComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStaff();
+    this.getStaffCodeConfig();
   }
 
   getStaff(){
@@ -165,6 +166,22 @@ export class ViewStaffComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getStaffCodeConfig(){
+    this.staffApi.getStaffCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.staffForm.staffForm.controls.staffCode.disable();                    
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

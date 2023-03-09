@@ -40,6 +40,7 @@ export class ViewTaskGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTaskGroup();
+    this.getTaskGroupCodeConfig();
   }
 
   getTaskGroup(){
@@ -82,6 +83,22 @@ export class ViewTaskGroupComponent implements OnInit {
           console.log(err);
           this.connectionToast.openToast();
           this.isTaskGroupSaving = false;
+        }
+      })
+  }
+
+  getTaskGroupCodeConfig(){
+    this.tasksApi.getTaskGroupCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.taskGroupForm.controls.taskGroupCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
         }
       })
   }

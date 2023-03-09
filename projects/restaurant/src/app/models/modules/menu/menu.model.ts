@@ -1,5 +1,6 @@
 export class MenuGroup {
   account!: string;
+  menu_group_code!: string;
   menu_group!: string;
   category!: string;
 }
@@ -11,6 +12,13 @@ export class MenuItem {
   price!: number;
   image!: any;
   description!: string;
+}
+
+export class MenuGroupCodeConfig {
+  entry_mode!: string;
+  prefix!: string;
+  last_code!: string;
+  suffix!: string;
 }
 
 export class MenuItemCodeConfig {

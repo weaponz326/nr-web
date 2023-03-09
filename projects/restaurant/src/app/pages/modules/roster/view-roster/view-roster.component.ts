@@ -51,6 +51,7 @@ export class ViewRosterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoster();
+    this.getRosterCodeConfig();
   }
 
   getRoster(){
@@ -131,6 +132,21 @@ export class ViewRosterComponent implements OnInit {
 
   onPrint(){
     console.log("lets start printing...");
+  }
+
+  getRosterCodeConfig(){
+    this.rosterApi.getRosterCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.rosterForm.controls.rosterCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

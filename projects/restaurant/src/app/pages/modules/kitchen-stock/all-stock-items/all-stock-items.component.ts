@@ -45,6 +45,7 @@ export class AllStockItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAccountStockItem(1, 20, "-created_at");
+    this.getStockItemCodeConfig();
   }
 
   getAccountStockItem(page: any, size: any, sortField: any){
@@ -153,6 +154,20 @@ export class AllStockItemsComponent implements OnInit {
   confirmDelete(id: any){
     this.deleteId = id;
     this.deleteModal.openModal();
+  }
+
+  getStockItemCodeConfig(){
+    this.kitchenStockApi.getStockItemCodeConfig()
+      .subscribe({
+        next: (res) => {
+          if (res.entry_mode == "Auto")
+            this.editStockItem.stockItemForm.stockItemForm.controls.itemCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

@@ -32,6 +32,7 @@ export class MenuItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMenuGroupMenuItem();
+    this.getMenuItemCodeConfig();
   }
 
   getMenuGroupMenuItem(){
@@ -161,5 +162,22 @@ export class MenuItemsComponent implements OnInit {
     this.deleteId = id;
     this.deleteModal.openModal();
   }
+
+  getMenuItemCodeConfig(){
+    this.menuApi.getMenuItemCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.editMenuItem.menuItemForm.menuItemForm.controls.itemCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
 
 }

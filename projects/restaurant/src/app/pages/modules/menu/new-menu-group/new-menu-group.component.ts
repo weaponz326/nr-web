@@ -29,6 +29,7 @@ export class NewMenuGroupComponent implements OnInit {
   isMenuGroupSaving = false;
 
   menuGroupForm = new FormGroup({
+    menuGroupCode: new FormControl(''),
     menuGroup: new FormControl(''),
     category: new FormControl('')
   })
@@ -38,11 +39,13 @@ export class NewMenuGroupComponent implements OnInit {
 
   openModal(){
     this.newButton.nativeElement.click();
+    this.getNewMenuGroupCodeConfig();
   }
 
   createMenuGroup(){
     let data: MenuGroup = {
       account: this.customCookie.getCookie('restaurant_id') as string,
+      menu_group_code: this.menuGroupForm.controls.menuGroupCode.value as string,
       menu_group: this.menuGroupForm.controls.menuGroup.value as string,
       category: this.menuGroupForm.controls.category.value as string
     }
@@ -65,6 +68,26 @@ export class NewMenuGroupComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.isMenuGroupSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNewMenuGroupCodeConfig(){
+    this.menuGroupForm.controls.menuGroupCode.disable();
+
+    this.menuApi.getNewMenuGroupCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code)
+            this.menuGroupForm.controls.menuGroupCode.setValue(res.code);
+          else
+            this.menuGroupForm.controls.menuGroupCode.enable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

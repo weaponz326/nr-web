@@ -59,6 +59,7 @@ export class ViewReservationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReservation();
+    this.getReservationCodeConfig();
   }
 
   getReservation(){
@@ -154,6 +155,22 @@ export class ViewReservationComponent implements OnInit {
 
     this.reservationForm.controls.customerName.setValue(customerData.customer_name);
     this.selectedCustomerId = customerData.id;
+  }
+
+  getReservationCodeConfig(){
+    this.reservationsApi.getReservationCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if (res.entry_mode == "Auto")
+            this.reservationForm.controls.reservationCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

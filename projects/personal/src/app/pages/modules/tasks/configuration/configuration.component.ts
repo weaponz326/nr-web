@@ -160,9 +160,9 @@ export class ConfigurationComponent implements OnInit {
       this.taskGroupSampleID = "- - - -";
     }
     else if(e.target.value == "Auto"){
-      this.taskGroupPrefix = this.taskGroupConfigData.taskGroupPrefix;
+      this.taskGroupPrefix = this.taskGroupConfigData.prefix;
       this.taskGroupCodeLength = this.taskGroupConfigData.last_code.length;
-      this.taskGroupSuffix = this.taskGroupConfigData.taskGroupSuffix
+      this.taskGroupSuffix = this.taskGroupConfigData.suffix;
 
       this.setTaskGroupSampleId();
     }
@@ -175,9 +175,9 @@ export class ConfigurationComponent implements OnInit {
       this.taskItemSampleID = "- - - -";
     }
     else if(e.target.value == "Auto"){
-      this.taskItemPrefix = this.taskItemConfigData.taskItemPrefix;
+      this.taskItemPrefix = this.taskItemConfigData.prefix;
       this.taskItemCodeLength = this.taskItemConfigData.last_code.length;
-      this.taskItemSuffix = this.taskItemConfigData.taskItemSuffix
+      this.taskItemSuffix = this.taskItemConfigData.suffix;
 
       this.setTaskItemSampleId();
     }

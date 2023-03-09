@@ -70,6 +70,7 @@ export class ViewOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrder();
+    this.getOrderCodeConfig();
   }
 
   getOrder(){
@@ -237,6 +238,22 @@ export class ViewOrderComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.isCheckingDelivery = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getOrderCodeConfig(){
+    this.ordersApi.getOrderCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.orderForm.controls.orderCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

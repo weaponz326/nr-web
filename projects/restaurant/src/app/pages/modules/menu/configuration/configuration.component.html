@@ -3,6 +3,71 @@
 <main>
     <div class="container-fluid px-4">
     
+         <!-- menu group code -->
+
+         <h5 class="mb-3">Menu Group ID</h5>
+
+         <div class="row nr-standard-font">
+             <div class="col-md-6">
+ 
+                 <div class="row mb-3">
+                     <div class="col">
+                         <div class="form-check">
+                             <input [(ngModel)]="menuGroupEntryMode" class="form-check-input" type="radio" value="Manual" id="groupIDMode" name="groupIdMode" (change)="menuGroupEntryModeChange($event)">
+                             <label class="form-check-label" for="menuIDMode">
+                                 Manually enter menu group ID
+                             </label>
+                         </div>
+                         <div class="form-check">
+                             <input [(ngModel)]="menuGroupEntryMode" class="form-check-input" type="radio" value="Auto" id="groupIDMode" name="groupIdMode" checked (change)="menuGroupEntryModeChange($event)">
+                             <label class="form-check-label" for="menuIDMode">
+                                 Automatically generate menu group ID
+                             </label>
+                         </div>
+                     </div>
+                 </div>
+ 
+                 <div class="row mb-1">
+                     <div class="col-md-4">
+                         <label class="mt-1">Prefix :</label>
+                     </div>
+                     <div class="col-md-5">
+                         <input [(ngModel)]="menuGroupPrefix" [disabled]="menuGroupEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setMenuGroupSampleId()">
+                     </div>
+                 </div>
+                 <div class="row mb-1">
+                     <div class="col-md-4">
+                         <label class="mt-1">Code length :</label>
+                     </div>
+                     <div class="col-md-5">
+                         <input [(ngModel)]="menuGroupCodeLength" [disabled]="menuGroupEntryMode == 'Manual'" type="number" min="0" class="form-control form-control-sm w-100" (change)="setMenuGroupSampleId()">
+                     </div>
+                 </div>
+                 <div class="row mb-1">
+                     <div class="col-md-4">
+                         <label class="mt-1">Suffix :</label>
+                     </div>
+                     <div class="col-md-5">
+                         <input [(ngModel)]="menuGroupSuffix" [disabled]="menuGroupEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setMenuGroupSampleId()">
+                     </div>
+                 </div>
+ 
+                 <div class="row mb-1 mt-3">
+                     <div class="col-md-4">
+                         <label class="mt-1">Sample ID :</label>
+                     </div>
+                     <div class="col-md-5">
+                         <strong>{{menuGroupSampleID}}</strong>
+                     </div>
+                 </div>
+ 
+                 <hr>
+                 
+             </div>
+         </div>
+
+        <!-- menu item code -->
+
         <h5 class="mb-3">Menu Item ID</h5>
 
         <div class="row nr-standard-font">
@@ -11,13 +76,13 @@
                 <div class="row mb-3">
                     <div class="col">
                         <div class="form-check">
-                            <input [(ngModel)]="entryMode" class="form-check-input" type="radio" value="Manual" id="menuIDMode" name="menuIdMode" (change)="entryModeChange($event)">
+                            <input [(ngModel)]="menuItemEntryMode" class="form-check-input" type="radio" value="Manual" id="itemIDMode" name="itemIdMode" (change)="menuItemEntryModeChange($event)">
                             <label class="form-check-label" for="menuIDMode">
                                 Manually enter menu item ID
                             </label>
                         </div>
                         <div class="form-check">
-                            <input [(ngModel)]="entryMode" class="form-check-input" type="radio" value="Auto" id="menuIDMode" name="menuIdMode" checked (change)="entryModeChange($event)">
+                            <input [(ngModel)]="menuItemEntryMode" class="form-check-input" type="radio" value="Auto" id="itemIDMode" name="itemIdMode" checked (change)="menuItemEntryModeChange($event)">
                             <label class="form-check-label" for="menuIDMode">
                                 Automatically generate menu item ID
                             </label>
@@ -30,7 +95,7 @@
                         <label class="mt-1">Prefix :</label>
                     </div>
                     <div class="col-md-5">
-                        <input [(ngModel)]="prefix" [disabled]="entryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setSampleId()">
+                        <input [(ngModel)]="menuItemPrefix" [disabled]="menuItemEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setMenuGroupSampleId()">
                     </div>
                 </div>
                 <div class="row mb-1">
@@ -38,7 +103,7 @@
                         <label class="mt-1">Code length :</label>
                     </div>
                     <div class="col-md-5">
-                        <input [(ngModel)]="codeLength" [disabled]="entryMode == 'Manual'" type="number" min="0" class="form-control form-control-sm w-100" (change)="setSampleId()">
+                        <input [(ngModel)]="menuItemCodeLength" [disabled]="menuItemEntryMode == 'Manual'" type="number" min="0" class="form-control form-control-sm w-100" (change)="setMenuGroupSampleId()">
                     </div>
                 </div>
                 <div class="row mb-1">
@@ -46,7 +111,7 @@
                         <label class="mt-1">Suffix :</label>
                     </div>
                     <div class="col-md-5">
-                        <input [(ngModel)]="suffix" [disabled]="entryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setSampleId()">
+                        <input [(ngModel)]="menuItemSuffix" [disabled]="menuItemEntryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setMenuGroupSampleId()">
                     </div>
                 </div>
 
@@ -55,16 +120,18 @@
                         <label class="mt-1">Sample ID :</label>
                     </div>
                     <div class="col-md-5">
-                        <strong>{{sampleID}}</strong>
+                        <strong>{{menuItemSampleID}}</strong>
                     </div>
                 </div>
 
+                <hr>
+                
             </div>
         </div>
         
         <div class="row mt-3 page-form">
             <div class="col-md-12">
-                <button [disabled]="isConfigSaving || isConfigLoading" type="submit" class="btn btn-secondary btn-sm page-form-btn" (click)="putMenuItemCodeConfig()">
+                <button [disabled]="isConfigSaving || isConfigLoading" type="submit" class="btn btn-secondary btn-sm page-form-btn" (click)="saveConfig()">
                     Save
                 </button>
             </div>

@@ -93,11 +93,7 @@ export class ConfigurationComponent implements OnInit {
     console.log(e.target.value);
 
     if(e.target.value == "Manual"){
-      // this.prefix = "";
-      // this.codeLength = 0;
-      // this.suffix = ""
-
-      this.sampleID = "";
+      this.sampleID = "- - - -";
     }
     else if(e.target.value == "Auto"){
       this.prefix = this.configData.prefix;

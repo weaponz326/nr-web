@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
-import { MenuItemCodeConfig } from 'projects/restaurant/src/app/models/modules/menu/menu.model';
+import { MenuGroupCodeConfig, MenuItemCodeConfig } from 'projects/restaurant/src/app/models/modules/menu/menu.model';
 
 
 @Component({
@@ -24,18 +24,82 @@ export class ConfigurationComponent implements OnInit {
   isConfigLoading: boolean = false;
   isConfigSaving: boolean = false;
 
-  configData: any;
+  menuGroupConfigData: any;
+  menuItemConfigData: any;
 
-  entryMode = "Auto";
+  menuGroupEntryMode = "Auto";
+  menuItemEntryMode = "Auto";
 
-  prefix = "";
-  codeLength = 0;
-  suffix = ""
+  menuGroupPrefix = "";
+  menuGroupCodeLength = 0;
+  menuGroupSuffix = ""
 
-  sampleID = "";
+  menuItemPrefix = "";
+  menuItemCodeLength = 0;
+  menuItemSuffix = ""
+  
+  menuGroupSampleID = "";
+  menuItemSampleID = "";
 
   ngOnInit(): void {
+    this.getMenuGroupCodeConfig();
     this.getMenuItemCodeConfig();
+  }
+
+  saveConfig(){
+    this.putMenuGroupCodeConfig();
+    this.putMenuItemCodeConfig();
+  }
+
+  getMenuGroupCodeConfig(){
+    this.isConfigLoading = true;
+
+    this.menuApi.getMenuGroupCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isConfigLoading = false;
+          this.menuGroupConfigData = res;
+
+          this.menuGroupEntryMode = res.entry_mode;
+          this.menuGroupPrefix = res.prefix;
+          this.menuGroupSuffix = res.suffix;
+          this.menuGroupCodeLength = res.last_code.length
+
+          this.setMenuGroupSampleId();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isConfigLoading = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  putMenuGroupCodeConfig(){
+    let data: MenuGroupCodeConfig = {
+      entry_mode: this.menuGroupEntryMode,
+      prefix: this.menuGroupPrefix,
+      last_code: this.menuGroupConfigData.last_code.padStart(this.menuGroupCodeLength, "0"),
+      suffix: this.menuGroupSuffix,
+    }
+
+    this.isConfigSaving = true;
+
+    this.menuApi.putMenuGroupCodeConfig(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isConfigSaving = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isConfigSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+
+    console.log(data);
   }
 
   getMenuItemCodeConfig(){
@@ -46,14 +110,14 @@ export class ConfigurationComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.isConfigLoading = false;
-          this.configData = res;
+          this.menuItemConfigData = res;
 
-          this.entryMode = res.entry_mode;
-          this.prefix = res.prefix;
-          this.suffix = res.suffix;
-          this.codeLength = res.last_code.length
+          this.menuItemEntryMode = res.entry_mode;
+          this.menuItemPrefix = res.prefix;
+          this.menuItemSuffix = res.suffix;
+          this.menuItemCodeLength = res.last_code.length
 
-          this.setSampleId();
+          this.setMenuItemSampleId();
         },
         error: (err) => {
           console.log(err);
@@ -65,10 +129,10 @@ export class ConfigurationComponent implements OnInit {
 
   putMenuItemCodeConfig(){
     let data: MenuItemCodeConfig = {
-      entry_mode: this.entryMode,
-      prefix: this.prefix,
-      last_code: this.configData.last_code.padStart(this.codeLength, "0"),
-      suffix: this.suffix,
+      entry_mode: this.menuItemEntryMode,
+      prefix: this.menuItemPrefix,
+      last_code: this.menuItemConfigData.last_code.padStart(this.menuItemCodeLength, "0"),
+      suffix: this.menuItemSuffix,
     }
 
     this.isConfigSaving = true;
@@ -89,29 +153,47 @@ export class ConfigurationComponent implements OnInit {
     console.log(data);
   }
 
-  entryModeChange(e: any){
+  menuGroupEntryModeChange(e: any){
     console.log(e.target.value);
 
     if(e.target.value == "Manual"){
-      // this.prefix = "";
-      // this.codeLength = 0;
-      // this.suffix = ""
-
-      this.sampleID = "";
+      this.menuGroupSampleID = "- - - -";
     }
     else if(e.target.value == "Auto"){
-      this.prefix = this.configData.prefix;
-      this.codeLength = this.configData.last_code.length;
-      this.suffix = this.configData.suffix
+      this.menuGroupPrefix = this.menuGroupConfigData.prefix;
+      this.menuGroupCodeLength = this.menuGroupConfigData.last_code.length;
+      this.menuGroupSuffix = this.menuGroupConfigData.suffix;
 
-      this.setSampleId();
+      this.setMenuGroupSampleId();
+    }
+  }  
+
+  menuItemEntryModeChange(e: any){
+    console.log(e.target.value);
+
+    if(e.target.value == "Manual"){
+      this.menuItemSampleID = "- - - -";
+    }
+    else if(e.target.value == "Auto"){
+      this.menuItemPrefix = this.menuItemConfigData.prefix;
+      this.menuItemCodeLength = this.menuItemConfigData.last_code.length;
+      this.menuItemSuffix = this.menuItemConfigData.suffix;
+
+      this.setMenuItemSampleId();
     }
   }
 
-  setSampleId(){
-    if(this.entryMode == "Auto"){
-      var code = "1".padStart(this.codeLength, "0");
-      this.sampleID = this.prefix + code + this.suffix;
+  setMenuGroupSampleId(){
+    if(this.menuGroupEntryMode == "Auto"){
+      var code = "1".padStart(this.menuGroupCodeLength, "0");
+      this.menuGroupSampleID = this.menuGroupPrefix + code + this.menuGroupSuffix;
+    }
+  }
+
+  setMenuItemSampleId(){
+    if(this.menuItemEntryMode == "Auto"){
+      var code = "1".padStart(this.menuItemCodeLength, "0");
+      this.menuItemSampleID = this.menuItemPrefix + code + this.menuItemSuffix;
     }
   }
 
