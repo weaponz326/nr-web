@@ -43,6 +43,7 @@ export class ViewTeacherComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTeacher();
+    this.getTeacherCodeConfig();
   }
 
   getTeacher(){
@@ -161,6 +162,22 @@ export class ViewTeacherComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getTeacherCodeConfig(){
+    this.teachersApi.getTeacherCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.teacherForm.teacherForm.controls.teacherCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

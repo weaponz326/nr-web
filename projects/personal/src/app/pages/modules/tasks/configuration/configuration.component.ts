@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { TasksApiService } from 'projects/personal/src/app/services/modules-api/tasks-api/tasks-api.service';
-import { TaskGroupCodeConfig, TaskItemCodeConfig } from 'projects/personal/src/app/models/modules/tasks/tasks.model';
+import { CodeConfig } from 'projects/personal/src/app/models/code-config/code-config.model';
 
 
 @Component({
@@ -77,7 +77,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putTaskGroupCodeConfig(){
-    let data: TaskGroupCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.taskGroupEntryMode,
       prefix: this.taskGroupPrefix,
       last_code: this.taskGroupConfigData.last_code.padStart(this.taskGroupCodeLength, "0"),
@@ -128,7 +128,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putTaskItemCodeConfig(){
-    let data: TaskItemCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.taskItemEntryMode,
       prefix: this.taskItemPrefix,
       last_code: this.taskItemConfigData.last_code.padStart(this.taskItemCodeLength, "0"),

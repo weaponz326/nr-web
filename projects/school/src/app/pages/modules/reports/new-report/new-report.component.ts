@@ -111,12 +111,14 @@ export class NewReportComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.reportForm.controls.reportCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.reportForm.controls.reportCode.disable();
             this.reportForm.controls.reportCode.setValue(res.code);
-          else
+          }
+          else{
             this.reportForm.controls.reportCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

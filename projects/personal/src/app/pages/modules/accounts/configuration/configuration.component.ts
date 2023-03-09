@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { AccountsApiService } from 'projects/personal/src/app/services/modules-api/accounts-api/accounts-api.service';
-import { AccountCodeConfig } from 'projects/personal/src/app/models/modules/accounts/accounts.model';
+import { CodeConfig } from 'projects/personal/src/app/models/code-config/code-config.model';
 
 
 @Component({
@@ -64,7 +64,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putAccountCodeConfig(){
-    let data: AccountCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.entryMode,
       prefix: this.prefix,
       last_code: this.configData.last_code.padStart(this.codeLength, "0"),

@@ -47,6 +47,7 @@ export class ViewParentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getParent();
+    this.getParentCodeConfig();
   }
 
   getParent(){
@@ -165,6 +166,22 @@ export class ViewParentComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getParentCodeConfig(){
+    this.parentsApi.getParentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.parentForm.parentForm.controls.parentCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

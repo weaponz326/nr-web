@@ -39,8 +39,8 @@ export class NewParentComponent implements OnInit {
   ngAfterViewInit(): void {
     let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
     
-    this.parentForm.selectedTermId = activeTerm.term.id
-    this.parentForm.parentForm.controls.term.setValue(activeTerm.term.term_name);
+    this.parentForm.selectedTermId = activeTerm.term?.id
+    this.parentForm.parentForm.controls.term.setValue(activeTerm.term?.term_name);
   }
 
   postParent(){
@@ -105,18 +105,18 @@ export class NewParentComponent implements OnInit {
   }
 
   getNewParentCodeConfig(){
-    // this.parentForm.parentForm.controls.parentCode.disable();
-
     this.parentsApi.getNewParentCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.parentForm.parentForm.controls.parentCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.parentForm.parentForm.controls.parentCode.disable();
             this.parentForm.parentForm.controls.parentCode.setValue(res.code);
-          else
+          }
+          else{
             this.parentForm.parentForm.controls.parentCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

@@ -47,6 +47,7 @@ export class ViewAssessmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAssessment();
+    this.getAssessmentCodeConfig();
   }
 
   getAssessment(){
@@ -130,6 +131,22 @@ export class ViewAssessmentComponent implements OnInit {
 
   refreshSheet(){
     // this.assessmentTable.getAssessmentAssessmentSheet();
+  }
+
+  getAssessmentCodeConfig(){
+    this.assessmentApi.getAssessmentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.assessmentForm.assessmentForm.controls.assessmentCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

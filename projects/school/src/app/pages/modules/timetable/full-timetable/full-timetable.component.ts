@@ -45,6 +45,7 @@ export class FullTimetableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTimetable();
+    this.getTimetableCodeConfig();
   }
 
   getTimetable(){
@@ -105,6 +106,22 @@ export class FullTimetableComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/timetable/all-timetable');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getTimetableCodeConfig(){
+    this.timetableApi.getTimetableCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.timetableForm.timetableForm.controls.timetableCode.disable();
         },
         error: (err) => {
           console.log(err);

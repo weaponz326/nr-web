@@ -32,17 +32,18 @@ export class AddMenuItemComponent implements OnInit {
   }
 
   getNewMenuItemCodeConfig(){
-    this.menuItemForm.menuItemForm.controls.itemCode.disable();
-
     this.menuApi.getNewMenuItemCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.menuItemForm.menuItemForm.controls.itemCode.disable();
             this.menuItemForm.menuItemForm.controls.itemCode.setValue(res.code);
-          else
+          }
+          else{
             this.menuItemForm.menuItemForm.controls.itemCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

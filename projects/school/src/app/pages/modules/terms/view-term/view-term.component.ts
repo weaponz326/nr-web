@@ -45,6 +45,7 @@ export class ViewTermComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTerm();
+    this.getTermCodeConfig();
   }
 
   getTerm(){
@@ -140,6 +141,22 @@ export class ViewTermComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.isActiveTermSaving = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getTermCodeConfig(){
+    this.termsApi.getTermCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.termForm.termForm.controls.termCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

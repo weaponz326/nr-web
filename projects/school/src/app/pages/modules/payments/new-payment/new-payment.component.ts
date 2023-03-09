@@ -47,7 +47,7 @@ export class NewPaymentComponent implements OnInit {
     console.log('u are saving a new payment');
 
     var data: Payment = {
-      account: this.customCookie.getCookie('restaurant_id') as string,
+      account: this.customCookie.getCookie('school_id') as string,
       payment_code: this.paymentForm.paymentForm.controls.paymentCode.value as string,
       payment_date: this.paymentForm.paymentForm.controls.paymentDate.value as string,
       amount_paid: this.paymentForm.paymentForm.controls.amountPaid.value as string,
@@ -80,12 +80,14 @@ export class NewPaymentComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.paymentForm.paymentForm.controls.paymentCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.paymentForm.paymentForm.controls.paymentCode.disable();
             this.paymentForm.paymentForm.controls.paymentCode.setValue(res.code);
-          else
+          }
+          else{
             this.paymentForm.paymentForm.controls.paymentCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

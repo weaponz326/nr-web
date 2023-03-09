@@ -39,8 +39,8 @@ export class NewAssessmentComponent implements OnInit {
   ngAfterViewInit(): void {
     let activeTerm = JSON.parse(String(localStorage.getItem('schoolActiveTerm')));
     
-    this.assessmentForm.selectedTermId = activeTerm.term.id
-    this.assessmentForm.assessmentForm.controls.term.setValue(activeTerm.term.term_name);
+    this.assessmentForm.selectedTermId = activeTerm.term?.id
+    this.assessmentForm.assessmentForm.controls.term.setValue(activeTerm.term?.term_name);
   }
 
   postAssessment(){
@@ -80,12 +80,14 @@ export class NewAssessmentComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.assessmentForm.assessmentForm.controls.assessmentCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.assessmentForm.assessmentForm.controls.assessmentCode.disable();
             this.assessmentForm.assessmentForm.controls.assessmentCode.setValue(res.code);
-          else
+          }
+          else{
             this.assessmentForm.assessmentForm.controls.assessmentCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

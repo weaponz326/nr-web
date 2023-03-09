@@ -74,17 +74,18 @@ export class NewMenuGroupComponent implements OnInit {
   }
 
   getNewMenuGroupCodeConfig(){
-    this.menuGroupForm.controls.menuGroupCode.disable();
-
     this.menuApi.getNewMenuGroupCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.menuGroupForm.controls.menuGroupCode.disable();
             this.menuGroupForm.controls.menuGroupCode.setValue(res.code);
-          else
+          }
+          else{
             this.menuGroupForm.controls.menuGroupCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

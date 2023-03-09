@@ -112,12 +112,13 @@ export class NewTeacherComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.teacherForm.teacherForm.controls.teacherCode.disable();
-
-          if(res.code)
+          if(res.code){
+            this.teacherForm.teacherForm.controls.teacherCode.disable();
             this.teacherForm.teacherForm.controls.teacherCode.setValue(res.code);
-          else
+          }
+          else{
             this.teacherForm.teacherForm.controls.teacherCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

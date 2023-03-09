@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { BudgetApiService } from 'projects/personal/src/app/services/modules-api/budget-api/budget-api.service';
-import { BudgetCodeConfig } from 'projects/personal/src/app/models/modules/budget/budget.model';
+import { CodeConfig } from 'projects/personal/src/app/models/code-config/code-config.model';
 
 
 @Component({
@@ -64,7 +64,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putBudgetCodeConfig(){
-    let data: BudgetCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.entryMode,
       prefix: this.prefix,
       last_code: this.configData.last_code.padStart(this.codeLength, "0"),

@@ -115,12 +115,13 @@ export class NewStudentComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.studentForm.studentForm.controls.studentCode.disable();
-
-          if(res.code)
+          if(res.code){
+            this.studentForm.studentForm.controls.studentCode.disable();
             this.studentForm.studentForm.controls.studentCode.setValue(res.code);
-          else
+          }
+          else{
             this.studentForm.studentForm.controls.studentCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

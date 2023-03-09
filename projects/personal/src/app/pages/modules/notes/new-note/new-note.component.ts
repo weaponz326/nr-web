@@ -83,17 +83,18 @@ export class NewNoteComponent implements OnInit {
   }
   
   getNewNoteCodeConfig(){
-    this.noteForm.controls.noteCode.disable();
-
     this.notesApi.getNewNoteCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.noteForm.controls.noteCode.disable();
             this.noteForm.controls.noteCode.setValue(res.code);
-          else
+          }
+          else{
             this.noteForm.controls.noteCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

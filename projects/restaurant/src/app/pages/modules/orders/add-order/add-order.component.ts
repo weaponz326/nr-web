@@ -114,17 +114,18 @@ export class AddOrderComponent implements OnInit {
   }
 
   getNewOrderCodeConfig(){
-    this.orderForm.controls.orderCode.disable();
-
     this.ordersApi.getNewOrderCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.orderForm.controls.orderCode.disable();
             this.orderForm.controls.orderCode.setValue(res.code);
-          else
+          }
+          else{
             this.orderForm.controls.orderCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

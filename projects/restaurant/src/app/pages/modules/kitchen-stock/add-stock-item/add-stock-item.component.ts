@@ -35,17 +35,18 @@ export class AddStockItemComponent implements OnInit {
   }
 
   getNewStockItemCodeConfig(){
-    this.stockItemForm.stockItemForm.controls.itemCode.disable();
-
     this.kitchenStockApi.getNewStockItemCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.stockItemForm.stockItemForm.controls.itemCode.disable();
             this.stockItemForm.stockItemForm.controls.itemCode.setValue(res.code);
-          else
+          }
+          else{
             this.stockItemForm.stockItemForm.controls.itemCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

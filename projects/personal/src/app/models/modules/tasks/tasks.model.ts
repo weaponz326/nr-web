@@ -12,17 +12,3 @@ export class TaskItem {
   priority!: string;
   status!: string;
 }
-
-export class TaskGroupCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}
-
-export class TaskItemCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}

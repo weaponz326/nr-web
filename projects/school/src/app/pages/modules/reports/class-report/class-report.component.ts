@@ -64,6 +64,7 @@ export class ClassReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReport();
+    this.getReportCodeConfig();
   }
 
   ngAfterViewInit(): void {
@@ -176,6 +177,22 @@ export class ClassReportComponent implements OnInit {
     this.selectedClassData = classData;
   }
 
+  getReportCodeConfig(){
+    this.reportsApi.getReportCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.reportForm.controls.reportCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.reportPrint.printViewReport();

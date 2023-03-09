@@ -100,17 +100,18 @@ export class NewStaffComponent implements OnInit {
   }
 
   getNewStaffCodeConfig(){
-    this.staffForm.staffForm.controls.staffCode.disable();
-
     this.staffApi.getNewStaffCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.staffForm.staffForm.controls.staffCode.disable();
             this.staffForm.staffForm.controls.staffCode.setValue(res.code);
-          else
+          }
+          else{
             this.staffForm.staffForm.controls.staffCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

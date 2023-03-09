@@ -77,17 +77,18 @@ export class NewCustomerComponent implements OnInit {
   }
 
   getNewcustomerCodeConfig(){
-    this.customerForm.customerForm.controls.customerCode.disable();
-
     this.customersApi.getNewCustomerCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
             this.customerForm.customerForm.controls.customerCode.setValue(res.code);
-          else
+            this.customerForm.customerForm.controls.customerCode.disable();
+          }
+          else{
             this.customerForm.customerForm.controls.customerCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

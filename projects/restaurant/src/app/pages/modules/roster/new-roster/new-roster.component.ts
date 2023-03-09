@@ -81,17 +81,18 @@ export class NewRosterComponent implements OnInit {
   }
 
   getNewrosterCodeConfig(){
-    this.rosterForm.controls.rosterCode.disable();
-
     this.rosterApi.getNewRosterCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.rosterForm.controls.rosterCode.disable();
             this.rosterForm.controls.rosterCode.setValue(res.code);
-          else
+          }
+          else{
             this.rosterForm.controls.rosterCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

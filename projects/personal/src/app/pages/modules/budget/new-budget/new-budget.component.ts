@@ -78,17 +78,18 @@ export class NewBudgetComponent implements OnInit {
   }
 
   getNewBudgetCodeConfig(){
-    this.budgetForm.controls.budgetCode.disable();
-
     this.budgetApi.getNewBudgetCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.budgetForm.controls.budgetCode.disable();
             this.budgetForm.controls.budgetCode.setValue(res.code);
-          else
+          }
+          else{
             this.budgetForm.controls.budgetCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

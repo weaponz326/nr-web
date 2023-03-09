@@ -74,12 +74,14 @@ export class NewTermComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.termForm.termForm.controls.termCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.termForm.termForm.controls.termCode.disable();
             this.termForm.termForm.controls.termCode.setValue(res.code);
-          else
+          }
+          else{
             this.termForm.termForm.controls.termCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

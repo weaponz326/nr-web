@@ -45,6 +45,7 @@ export class ViewSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSection();
+    this.getSectionCodeConfig();
   }
 
   getSection(){
@@ -142,6 +143,22 @@ export class ViewSectionComponent implements OnInit {
           console.log(res);
 
           this.router.navigateByUrl('/home/sections/all-sections');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getSectionCodeConfig(){
+    this.sectionsApi.getSectionCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.sectionForm.sectionForm.controls.sectionCode.disable();
         },
         error: (err) => {
           console.log(err);

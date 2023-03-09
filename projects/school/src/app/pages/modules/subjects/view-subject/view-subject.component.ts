@@ -45,6 +45,7 @@ export class ViewSubjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSubject();
+    this.getSubjectCodeConfig();
   }
 
   getSubject(){
@@ -124,6 +125,22 @@ export class ViewSubjectComponent implements OnInit {
       })
   }
 
+  getSubjectCodeConfig(){
+    this.subjectsApi.getSubjectCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.subjectForm.subjectForm.controls.subjectCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.subjectsPrint.printViewSubject();

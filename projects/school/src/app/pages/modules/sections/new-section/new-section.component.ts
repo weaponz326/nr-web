@@ -77,12 +77,14 @@ export class NewSectionComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.sectionForm.sectionForm.controls.sectionCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.sectionForm.sectionForm.controls.sectionCode.disable();
             this.sectionForm.sectionForm.controls.sectionCode.setValue(res.code);
-          else
+          }
+          else{
             this.sectionForm.sectionForm.controls.sectionCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

@@ -85,17 +85,18 @@ export class NewReservationComponent implements OnInit {
   }
 
   getNewreservationCodeConfig(){
-    this.reservationForm.controls.reservationCode.disable();
-
     this.reservationsApi.getNewReservationCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.reservationForm.controls.reservationCode.disable();
             this.reservationForm.controls.reservationCode.setValue(res.code);
-          else
+          }
+          else{
             this.reservationForm.controls.reservationCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

@@ -14,10 +14,3 @@ export class Transaction {
   transaction_type!: string;
   amount!: number;
 }
-
-export class AccountCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}

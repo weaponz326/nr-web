@@ -85,17 +85,18 @@ export class AddTaskComponent implements OnInit {
   }
 
   getNewTaskItemCodeConfig(){
-    this.taskForm.taskForm.controls.taskItemCode.disable();
-
     this.tasksApi.getNewTaskItemCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.taskForm.taskForm.controls.taskItemCode.disable();
             this.taskForm.taskForm.controls.taskItemCode.setValue(res.code);
-          else
+          }
+          else{
             this.taskForm.taskForm.controls.taskItemCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

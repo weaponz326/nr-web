@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { MenuApiService } from 'projects/restaurant/src/app/services/modules-api/menu-api/menu-api.service';
-import { MenuGroupCodeConfig, MenuItemCodeConfig } from 'projects/restaurant/src/app/models/modules/menu/menu.model';
+import { CodeConfig } from 'projects/personal/src/app/models/code-config/code-config.model';
 
 
 @Component({
@@ -77,7 +77,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putMenuGroupCodeConfig(){
-    let data: MenuGroupCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.menuGroupEntryMode,
       prefix: this.menuGroupPrefix,
       last_code: this.menuGroupConfigData.last_code.padStart(this.menuGroupCodeLength, "0"),
@@ -128,7 +128,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putMenuItemCodeConfig(){
-    let data: MenuItemCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.menuItemEntryMode,
       prefix: this.menuItemPrefix,
       last_code: this.menuItemConfigData.last_code.padStart(this.menuItemCodeLength, "0"),

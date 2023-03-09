@@ -19,9 +19,3 @@ export class Expenditure {
   amount!: number;
 }
 
-export class BudgetCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}

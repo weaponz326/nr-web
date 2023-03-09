@@ -87,12 +87,14 @@ export class NewPlanComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.planForm.planForm.controls.planCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.planForm.planForm.controls.planCode.disable();
             this.planForm.planForm.controls.planCode.setValue(res.code);
-          else
+          }
+          else{
             this.planForm.planForm.controls.planCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

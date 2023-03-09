@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { RosterApiService } from 'projects/restaurant/src/app/services/modules-api/roster-api/roster-api.service';
-import { RosterCodeConfig } from 'projects/restaurant/src/app/models/modules/roster/roster.model';
+import { CodeConfig } from 'projects/personal/src/app/models/code-config/code-config.model';
 
 
 @Component({
@@ -64,7 +64,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putRosterCodeConfig(){
-    let data: RosterCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.entryMode,
       prefix: this.prefix,
       last_code: this.configData.last_code.padStart(this.codeLength, "0"),

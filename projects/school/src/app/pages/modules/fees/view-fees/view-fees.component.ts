@@ -47,6 +47,7 @@ export class ViewFeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFees();
+    this.getFeesCodeConfig();
   }
 
   getFees(){
@@ -114,6 +115,22 @@ export class ViewFeesComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/fees/all-fees');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getFeesCodeConfig(){
+    this.feesApi.getFeesCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.feesForm.feesForm.controls.feesCode.disable();
         },
         error: (err) => {
           console.log(err);

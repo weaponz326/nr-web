@@ -114,12 +114,14 @@ export class NewAttendanceComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.attendanceForm.attendanceForm.controls.attendanceCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.attendanceForm.attendanceForm.controls.attendanceCode.disable();
             this.attendanceForm.attendanceForm.controls.attendanceCode.setValue(res.code);
-          else
+          }
+          else{
             this.attendanceForm.attendanceForm.controls.attendanceCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

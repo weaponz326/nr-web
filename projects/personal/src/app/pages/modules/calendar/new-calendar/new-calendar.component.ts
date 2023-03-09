@@ -75,17 +75,18 @@ export class NewCalendarComponent implements OnInit {
   }
 
   getNewCalendarCodeConfig(){
-    this.calendarForm.controls.calendarCode.disable();
-
     this.calendarApi.getNewCalendarCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.calendarForm.controls.calendarCode.disable();
             this.calendarForm.controls.calendarCode.setValue(res.code);
-          else
+          }
+          else{
             this.calendarForm.controls.calendarCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

@@ -45,6 +45,7 @@ export class ViewPlanComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLessonPlan();
+    this.getLessonPlanCodeConfig();
   }
 
   getLessonPlan(){
@@ -129,6 +130,22 @@ export class ViewPlanComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/plans/all-plans');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getLessonPlanCodeConfig(){
+    this.lessonPlanApi.getLessonPlanCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.planForm.planForm.controls.planCode.disable();
         },
         error: (err) => {
           console.log(err);

@@ -81,17 +81,18 @@ export class AddAccountComponent implements OnInit {
   }
 
   getNewAccountCodeConfig(){
-    this.accountForm.controls.accountCode.disable();
-
     this.accountsApi.getNewAccountCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.accountForm.controls.accountCode.disable();
             this.accountForm.controls.accountCode.setValue(res.code);
-          else
+          }
+          else{
             this.accountForm.controls.accountCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

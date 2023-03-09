@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CalendarApiService } from 'projects/personal/src/app/services/modules-api/calendar-api/calendar-api.service';
-import { CalendarCodeConfig, ScheduleCodeConfig } from 'projects/personal/src/app/models/modules/calendar/calendar.model';
+import { CodeConfig } from 'projects/personal/src/app/models/code-config/code-config.model';
 
 
 @Component({
@@ -77,7 +77,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putCalendarCodeConfig(){
-    let data: CalendarCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.calendarEntryMode,
       prefix: this.calendarPrefix,
       last_code: this.calendarConfigData.last_code.padStart(this.calendarCodeLength, "0"),
@@ -128,7 +128,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putScheduleCodeConfig(){
-    let data: ScheduleCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.scheduleEntryMode,
       prefix: this.schedulePrefix,
       last_code: this.scheduleConfigData.last_code.padStart(this.scheduleCodeLength, "0"),

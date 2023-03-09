@@ -75,17 +75,18 @@ export class NewTaskGroupComponent implements OnInit {
   }
 
   getNewTaskGroupCodeConfig(){
-    this.taskGroupForm.controls.taskGroupCode.disable();
-
     this.tasksApi.getNewTaskGroupCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.taskGroupForm.controls.taskGroupCode.disable();
             this.taskGroupForm.controls.taskGroupCode.setValue(res.code);
-          else
+          }
+          else{
             this.taskGroupForm.controls.taskGroupCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

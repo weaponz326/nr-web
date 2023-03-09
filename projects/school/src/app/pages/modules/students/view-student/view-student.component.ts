@@ -45,6 +45,7 @@ export class ViewStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudent();
+    this.getStudentCodeConfig();
   }
 
   getStudent(){
@@ -172,6 +173,22 @@ export class ViewStudentComponent implements OnInit {
       })
   }
 
+  getStudentCodeConfig(){
+    this.studentsApi.getStudentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.studentForm.studentForm.controls.studentCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.studentsPrint.printViewStudent();

@@ -79,12 +79,14 @@ export class CreateFeesComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.feesForm.feesForm.controls.feesCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.feesForm.feesForm.controls.feesCode.disable();
             this.feesForm.feesForm.controls.feesCode.setValue(res.code);
-          else
+          }
+          else{
             this.feesForm.feesForm.controls.feesCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

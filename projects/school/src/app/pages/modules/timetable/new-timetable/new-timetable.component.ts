@@ -73,12 +73,14 @@ export class NewTimetableComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.timetableForm.timetableForm.controls.timetableCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.timetableForm.timetableForm.controls.timetableCode.disable();
             this.timetableForm.timetableForm.controls.timetableCode.setValue(res.code);
-          else
+          }
+          else{
             this.timetableForm.timetableForm.controls.timetableCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

@@ -80,12 +80,14 @@ export class AddSubjectComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.subjectForm.subjectForm.controls.subjectCode.disable();
 
-          if(res.code)
+          if(res.code){
+            this.subjectForm.subjectForm.controls.subjectCode.disable();
             this.subjectForm.subjectForm.controls.subjectCode.setValue(res.code);
-          else
+          }
+          else{
             this.subjectForm.subjectForm.controls.subjectCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

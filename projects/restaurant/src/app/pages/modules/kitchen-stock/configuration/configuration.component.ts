@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { KitchenStockApiService } from 'projects/restaurant/src/app/services/modules-api/kitchen-stock-api/kitchen-stock-api.service';
-import { StockItemCodeConfig } from 'projects/restaurant/src/app/models/modules/kitchen-stock/kitchen-stock.model';
+import { CodeConfig } from 'projects/personal/src/app/models/code-config/code-config.model';
 
 
 @Component({
@@ -64,7 +64,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   putStockItemCodeConfig(){
-    let data: StockItemCodeConfig = {
+    let data: CodeConfig = {
       entry_mode: this.entryMode,
       prefix: this.prefix,
       last_code: this.configData.last_code.padStart(this.codeLength, "0"),

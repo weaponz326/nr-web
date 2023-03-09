@@ -40,6 +40,7 @@ export class ViewPaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPayment();
+    this.getPaymentCodeConfig();
   }
 
   getPayment(){
@@ -123,6 +124,22 @@ export class ViewPaymentComponent implements OnInit {
       })
   }
 
+  getPaymentCodeConfig(){
+    this.paymentsApi.getPaymentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.paymentForm.paymentForm.controls.paymentCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.paymentsPrint.printViewPayment();
