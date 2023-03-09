@@ -36,7 +36,7 @@ export class ModuleHomePage implements OnInit {
         next: (res) => {
           console.log(res);
           this.level = res;
-          localStorage.setItem("enterpriseUserAccess", JSON.stringify(res));
+          localStorage.setItem("enterpriseUserLevel", JSON.stringify(res));
         },
         error: (err) => {
           console.log(err);
