@@ -41,6 +41,7 @@ export class ViewAttendanceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAttendance();
+    this.getAttendanceCodeConfig();
   }
 
   confirmDelete(){
@@ -109,6 +110,21 @@ export class ViewAttendanceComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/attendance/all-attendance');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getAttendanceCodeConfig(){
+    this.attendanceApi.getAttendanceCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.attendanceForm.attendanceForm.controls.attendanceCode.disable();
         },
         error: (err) => {
           console.log(err);

@@ -45,6 +45,7 @@ export class ViewMemberComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMember();
+    this.getMemberCodeConfig();
   }
 
   getMember(){
@@ -161,6 +162,22 @@ export class ViewMemberComponent implements OnInit {
       })
   }
 
+  getMemberCodeConfig(){
+    this.membersApi.getMemberCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.memberForm.memberForm.controls.memberCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.membersPrint.printViewMember();

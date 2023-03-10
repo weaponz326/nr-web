@@ -18,6 +18,7 @@ export class CommitteeFormComponent implements OnInit {
   selectedMemberId = "";
 
   committeeForm = new FormGroup({
+    committeeCode: new FormControl(''),
     committeeName: new FormControl(''),
     description: new FormControl(''),
     dateCommissioned: new FormControl(),

@@ -11,10 +11,3 @@ export class Customer {
   allergies!: string;
   preferences!: string;
 }
-
-export class CustomerCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}

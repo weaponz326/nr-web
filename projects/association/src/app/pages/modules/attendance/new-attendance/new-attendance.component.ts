@@ -66,7 +66,24 @@ export class NewAttendanceComponent implements OnInit {
   }
 
   getNewAttendanceCodeConfig(){
-    
+    this.attendanceApi.getNewAttendanceCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.attendanceForm.attendanceForm.controls.attendanceCode.setValue(res.code);
+            this.attendanceForm.attendanceForm.controls.attendanceCode.disable();
+          }
+          else{
+            this.attendanceForm.attendanceForm.controls.attendanceCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

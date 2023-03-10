@@ -63,8 +63,25 @@ export class NewGroupComponent implements OnInit {
   }
 
   getNewGroupCodeConfig(){
-    
-    
+    this.groupsApi.getNewGroupCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.groupForm.groupForm.controls.groupCode.setValue(res.code);
+            this.groupForm.groupForm.controls.groupCode.disable();
+          }
+          else{
+            this.groupForm.groupForm.controls.groupCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
+
 
 }

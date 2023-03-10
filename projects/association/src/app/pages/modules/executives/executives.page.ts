@@ -20,7 +20,7 @@ export class ExecutivesPage implements OnInit {
 
   gotoConfig(){
     console.log('going...');
-    this.router.navigateByUrl("/home/exucutives/configuration");
+    this.router.navigateByUrl("/home/executives/configuration");
   }
 
 }

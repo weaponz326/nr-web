@@ -45,6 +45,7 @@ export class ViewGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGroup();
+    this.getGroupCodeConfig();
   }
 
   getGroup(){
@@ -112,6 +113,21 @@ export class ViewGroupComponent implements OnInit {
       }) 
   }
 
+  getGroupCodeConfig(){
+    this.groupsApi.getGroupCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.groupForm.groupForm.controls.groupCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.groupsPrint.printViewGroup();

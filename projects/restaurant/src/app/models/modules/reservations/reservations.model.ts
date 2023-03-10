@@ -14,10 +14,3 @@ export class ReservationTable {
   reservation!: string;
   table!: string;
 }
-
-export class ReservationCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}

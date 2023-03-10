@@ -43,6 +43,7 @@ export class ViewCommitteeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCommittee();
+    this.getCommitteeCodeConfig();
   }
 
   getCommittee(){
@@ -55,6 +56,7 @@ export class ViewCommitteeComponent implements OnInit {
           this.committeeData = res;
           this.isCommitteeLoading = false;
 
+          this.committeeForm.committeeForm.controls.committeeCode.setValue(this.committeeData.committee_code);
           this.committeeForm.committeeForm.controls.committeeName.setValue(this.committeeData.committee_name);
           this.committeeForm.committeeForm.controls.description.setValue(this.committeeData.description);
           this.committeeForm.committeeForm.controls.dateCommissioned.setValue(this.committeeData.date_commissioned);
@@ -76,6 +78,7 @@ export class ViewCommitteeComponent implements OnInit {
 
     var data: Committee = {
       account: this.customCookie.getCookie('association_id') as string,
+      committee_code: this.committeeForm.committeeForm.controls.committeeCode.value as string,
       committee_name: this.committeeForm.committeeForm.controls.committeeName.value as string,
       description: this.committeeForm.committeeForm.controls.description.value as string,
       date_commissioned: this.committeeForm.committeeForm.controls.dateCommissioned.value,
@@ -120,6 +123,21 @@ export class ViewCommitteeComponent implements OnInit {
       })    
   }
 
+  getCommitteeCodeConfig(){
+    this.committeesApi.getCommitteeCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.committeeForm.committeeForm.controls.committeeCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.committeesPrint.printViewCommittee();

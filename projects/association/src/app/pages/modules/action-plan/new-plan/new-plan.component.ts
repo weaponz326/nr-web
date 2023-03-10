@@ -37,6 +37,7 @@ export class NewPlanComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    this.getNewActionPlanCodeConfig();
   }
 
   openModal(){
@@ -63,7 +64,7 @@ export class NewPlanComponent implements OnInit {
 
           if(res.id){
             sessionStorage.setItem('association_actionPlan_id', res.id);
-            this.router.navigateByUrl('/home/action-plan/view-action-plan');
+            this.router.navigateByUrl('/home/action-plan/view-plan');
             this.dismissButton.nativeElement.click();
           }
 
@@ -73,6 +74,27 @@ export class NewPlanComponent implements OnInit {
           this.connectionToast.openToast();
           this.isSavingPlan = false;
           console.log(err);
+        }
+      })
+  }
+
+  getNewActionPlanCodeConfig(){
+    this.actionPlanApi.getNewActionPlanCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.planForm.controls.planCode.setValue(res.code);
+            this.planForm.controls.planCode.disable();
+          }
+          else{
+            this.planForm.controls.planCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
         }
       })
   }

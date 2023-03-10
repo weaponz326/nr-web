@@ -47,6 +47,7 @@ export class ViewPlanComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlan();
+    this.getActionPlanCodeConfig();
   }
 
   getPlan(){
@@ -118,6 +119,21 @@ export class ViewPlanComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })    
+  }
+
+  getActionPlanCodeConfig(){
+    this.actionPlanApi.getActionPlanCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.planForm.controls.planCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

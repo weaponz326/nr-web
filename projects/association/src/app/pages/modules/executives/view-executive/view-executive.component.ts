@@ -43,6 +43,7 @@ export class ViewExecutiveComponent implements OnInit {
 
   ngOnInit(): void {
     this.getExecutive();
+    this.getExecutiveCodeConfig();
   }
 
   getExecutive(){
@@ -115,6 +116,21 @@ export class ViewExecutiveComponent implements OnInit {
           this.connectionToast.openToast();
         }
       })    
+  }
+
+  getExecutiveCodeConfig(){
+    this.executivesApi.getExecutiveCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          // if (res.entry_mode == "Auto")
+          //   this.executiveForm.executiveForm.controls.executiveCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

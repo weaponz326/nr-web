@@ -33,10 +33,3 @@ export class RosterDay {
   batch!: string;
   day!: any;
 }
-
-export class RosterCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}

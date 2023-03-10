@@ -33,6 +33,7 @@ export class AddExecutiveComponent implements OnInit {
   isExecutiveSaving = false;
 
   ngOnInit(): void {
+    this.getNewExecutiveCodeConfig();
   }
 
   postExecutive(){
@@ -64,5 +65,27 @@ export class AddExecutiveComponent implements OnInit {
         }
       })
   }
+
+  getNewExecutiveCodeConfig(){
+    this.executivesApi.getNewExecutiveCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          // if(res.code){
+          //   this.executiveForm.executiveForm.controls.executiveCode.setValue(res.code);
+          //   this.executiveForm.executiveForm.controls.executiveCode.disable();
+          // }
+          // else{
+          //   this.executiveForm.executiveForm.controls.executiveCode.enable();
+          // }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
 
 }

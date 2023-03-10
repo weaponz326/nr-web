@@ -36,7 +36,7 @@ export class NewCustomerComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.getNewcustomerCodeConfig();
+    this.getNewCustomerCodeConfig();
   }
 
   createCustomer(){
@@ -76,7 +76,7 @@ export class NewCustomerComponent implements OnInit {
       })
   }
 
-  getNewcustomerCodeConfig(){
+  getNewCustomerCodeConfig(){
     this.customersApi.getNewCustomerCodeConfig()
       .subscribe({
         next: (res) => {

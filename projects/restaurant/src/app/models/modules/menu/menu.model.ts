@@ -13,17 +13,3 @@ export class MenuItem {
   image!: any;
   description!: string;
 }
-
-export class MenuGroupCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}
-
-export class MenuItemCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  suffix!: string;
-}

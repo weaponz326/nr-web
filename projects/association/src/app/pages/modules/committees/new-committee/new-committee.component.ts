@@ -41,6 +41,7 @@ export class NewCommitteeComponent implements OnInit {
 
     var data: Committee = {
       account: this.customCookie.getCookie('association_id') as string,
+      committee_code: this.committeeForm.committeeForm.controls.committeeCode.value as string,
       committee_name: this.committeeForm.committeeForm.controls.committeeName.value as string,
       description: this.committeeForm.committeeForm.controls.description.value as string,
       date_commissioned: this.committeeForm.committeeForm.controls.dateCommissioned.value,
@@ -57,7 +58,7 @@ export class NewCommitteeComponent implements OnInit {
           console.log(res);
           this.isCommitteeSaving = false;
 
-          sessionStorage.setItem('restaurant_committee_id', res.id);
+          sessionStorage.setItem('association_committee_id', res.id);
           this.router.navigateByUrl('/home/committees/view-committee');
         },
         error: (err) => {
@@ -69,8 +70,24 @@ export class NewCommitteeComponent implements OnInit {
   }
 
   getNewCommitteeCodeConfig(){
+    this.committeesApi.getNewCommitteeCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    
+          if(res.code){
+            this.committeeForm.committeeForm.controls.committeeCode.setValue(res.code);
+            this.committeeForm.committeeForm.controls.committeeCode.disable();
+          }
+          else{
+            this.committeeForm.committeeForm.controls.committeeCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

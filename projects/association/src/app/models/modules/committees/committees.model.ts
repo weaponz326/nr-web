@@ -1,5 +1,6 @@
 export class Committee {
     account!: string;
+    committee_code!: string;
     committee_name!: string;
     description!: string;
     date_commissioned!: Date;

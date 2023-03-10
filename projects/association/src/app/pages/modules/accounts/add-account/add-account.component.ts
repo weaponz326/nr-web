@@ -30,6 +30,7 @@ export class AddAccountComponent implements OnInit {
   isSavingAccount = false;
 
   accountForm = new FormGroup({
+    accountCode: new FormControl(''),
     accountName: new FormControl(''),
     accountNumber: new FormControl(''),
     bankName: new FormControl(''),
@@ -42,6 +43,8 @@ export class AddAccountComponent implements OnInit {
   openModal(){
     this.accountForm.controls.accountType.setValue("Savings");
     this.newButton.nativeElement.click();
+
+    this.getNewaccountCodeConfig();
   }
 
   createAccount(){
@@ -49,6 +52,7 @@ export class AddAccountComponent implements OnInit {
 
     let data: Account = {
       account: this.customCookie.getCookie('association_id') as string,
+      account_code: this.accountForm.controls.accountCode.value as string,
       account_name: this.accountForm.controls.accountName.value as string,
       account_number: this.accountForm.controls.accountNumber.value as string,
       bank_name: this.accountForm.controls.bankName.value as string,
@@ -72,6 +76,27 @@ export class AddAccountComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.isSavingAccount = false;
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getNewaccountCodeConfig(){
+    this.accountsApi.getNewAccountCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.accountForm.controls.accountCode.setValue(res.code);
+            this.accountForm.controls.accountCode.disable();
+          }
+          else{
+            this.accountForm.controls.accountCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

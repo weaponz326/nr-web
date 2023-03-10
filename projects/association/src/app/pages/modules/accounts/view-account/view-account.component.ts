@@ -45,6 +45,7 @@ export class ViewAccountComponent implements OnInit {
   isAccountDeleting: boolean = false;
 
   accountForm = new FormGroup({
+    accountCode: new FormControl(''),
     accountName: new FormControl(''),
     accountNumber: new FormControl(''),
     bankName: new FormControl(''),
@@ -53,6 +54,7 @@ export class ViewAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAccount();
+    this.getAccountCodeConfig();
   }
 
   getAccount(){
@@ -64,13 +66,11 @@ export class ViewAccountComponent implements OnInit {
           console.log(res);
           this.accountFormData = res;
 
+          this.accountForm.controls.accountCode.setValue(this.accountFormData.account_code);
           this.accountForm.controls.accountName.setValue(this.accountFormData.account_name);
           this.accountForm.controls.accountNumber.setValue(this.accountFormData.account_number);
           this.accountForm.controls.bankName.setValue(this.accountFormData.bank_name);
           this.accountForm.controls.accountType.setValue(this.accountFormData.account_type);
-
-          // this.accountTransactions.addTransaction.transactionAccount = this.accountFormData;
-          // this.accountTransactions.editTransaction.transactionAccount = this.accountFormData;
 
           this.isAccountLoading = false;
         },
@@ -85,6 +85,7 @@ export class ViewAccountComponent implements OnInit {
   updateAccount(){
     let data: Account = {
       account: this.customCookie.getCookie('association_id') as string,
+      account_code: this.accountForm.controls.accountCode.value as string,
       account_name: this.accountForm.controls.accountName.value as string,
       account_number: this.accountForm.controls.accountNumber.value as string,
       bank_name: this.accountForm.controls.bankName.value as string,
@@ -133,6 +134,21 @@ export class ViewAccountComponent implements OnInit {
 
   confirmDelete(){
     this.deleteModal.openModal();
+  }
+
+  getAccountCodeConfig(){
+    this.accountsApi.getAccountCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.accountForm.controls.accountCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

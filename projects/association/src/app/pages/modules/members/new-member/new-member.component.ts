@@ -95,8 +95,24 @@ export class NewMemberComponent implements OnInit {
   }
 
   getNewMemberCodeConfig(){
+    this.membersApi.getNewMemberCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    
+          if(res.code){
+            this.memberForm.memberForm.controls.memberCode.disable();
+            this.memberForm.memberForm.controls.memberCode.setValue(res.code);
+          }
+          else{
+            this.memberForm.memberForm.controls.memberCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

@@ -18,10 +18,3 @@ export class Staff {
   job!: string;
 }
  
-export class StaffCodeConfig {
-  entry_mode!: string;
-  prefix!: string;
-  last_code!: string;
-  year_code!: string;
-  suffix!: string;
-}
