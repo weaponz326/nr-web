@@ -43,6 +43,7 @@ export class ViewYearComponent implements OnInit {
 
   ngOnInit(): void {
     this.getYear();
+    this.getFiscalYearCodeConfig();
   }
 
   getYear(){
@@ -131,6 +132,21 @@ export class ViewYearComponent implements OnInit {
     
   }
 
+  getFiscalYearCodeConfig(){
+    this.fiscalYearApi.getFiscalYearCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.yearForm.yearForm.controls.yearCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.yearsPrint.printViewYear();

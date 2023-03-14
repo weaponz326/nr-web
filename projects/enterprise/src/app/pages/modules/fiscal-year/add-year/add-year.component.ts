@@ -33,7 +33,7 @@ export class AddYearComponent implements OnInit {
   isYearSaving = false;
 
   ngOnInit(): void {
-    this.getNewYearCodeConfig();
+    this.getNewFiscalYearCodeConfig();
   }
 
   postYear(){
@@ -68,9 +68,25 @@ export class AddYearComponent implements OnInit {
       })
   }
 
-  getNewYearCodeConfig(){
-    
-    
+  getNewFiscalYearCodeConfig(){
+    this.fiscalYearApi.getNewFiscalYearCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.yearForm.yearForm.controls.yearCode.setValue(res.code);
+            this.yearForm.yearForm.controls.yearCode.disable();
+          }
+          else{
+            this.yearForm.yearForm.controls.yearCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

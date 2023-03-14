@@ -34,29 +34,30 @@ export class AddVisitorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getNewVisitorCodeConfig(){
-    this.visitorForm.visitorForm.controls.visitCode.disable();
+  getNewVisitCodeConfig(){
+    this.receptionApi.getNewVisitCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.receptionApi.getNewVisitorCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.visitorForm.visitorForm.controls.visitCode.setValue(res.code);
-    //       else
-    //         this.visitorForm.visitorForm.controls.visitCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.visitorForm.visitorForm.controls.visitCode.setValue(res.code);
+            this.visitorForm.visitorForm.controls.visitCode.disable();
+          }
+          else{
+            this.visitorForm.visitorForm.controls.visitCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
   
   openModal(){
     this.addButton.nativeElement.click();
-    this.getNewVisitorCodeConfig();
+    this.getNewVisitCodeConfig();
     this.visitorForm.visitorForm.controls.visitDate.setValue(new Date().toISOString().slice(0, 10));
   }
 

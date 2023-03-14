@@ -42,6 +42,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployee();
+    this.getEmployeeCodeConfig();
   }
 
   getEmployee(){
@@ -174,6 +175,22 @@ export class ViewEmployeeComponent implements OnInit {
       })
   }
 
+  getEmployeeCodeConfig(){
+    this.employeesApi.getEmployeeCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.employeeForm.employeeForm.controls.employeeCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.employeesPrint.printViewEmployee();

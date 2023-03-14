@@ -76,4 +76,18 @@ export class LedgerApiService {
     return this.http.delete(this.ledgerUrl + "ledger-item/" + ledgerItemId, this.authHeaders.headers);
   }
   
+  // config
+
+  public getLedgerCodeConfig(): Observable<any>{
+    return this.http.get(this.ledgerUrl + "config/ledger-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+
+  public putLedgerCodeConfig(ledger: any): Observable<any>{
+    return this.http.put(this.ledgerUrl + "config/ledger-code/" + this.customCookie.getCookie('enterprise_id'), ledger, this.authHeaders.headers);
+  }
+
+  public getNewLedgerCodeConfig(): Observable<any>{
+    return this.http.get(this.ledgerUrl + "config/new-ledger-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+  
 }

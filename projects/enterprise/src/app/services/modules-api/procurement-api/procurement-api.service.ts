@@ -63,4 +63,18 @@ export class ProcurementApiService {
     return this.http.delete(this.procurementUrl + "order-review/" + sessionStorage.getItem('enterprise_procurement_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getProcurementCodeConfig(): Observable<any>{
+    return this.http.get(this.procurementUrl + "config/procurement-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+
+  public putProcurementCodeConfig(procurement: any): Observable<any>{
+    return this.http.put(this.procurementUrl + "config/procurement-code/" + this.customCookie.getCookie('enterprise_id'), procurement, this.authHeaders.headers);
+  }
+
+  public getNewProcurementCodeConfig(): Observable<any>{
+    return this.http.get(this.procurementUrl + "config/new-procurement-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+
 }

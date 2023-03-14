@@ -76,4 +76,25 @@ export class NewLedgerComponent implements OnInit {
       })
   }
 
+  getNewLedgerCodeConfig(){
+    this.ledgerApi.getNewLedgerCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.ledgerForm.controls.ledgerCode.setValue(res.code);
+            this.ledgerForm.controls.ledgerCode.disable();
+          }
+          else{
+            this.ledgerForm.controls.ledgerCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

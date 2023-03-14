@@ -70,8 +70,24 @@ export class AddLeaveComponent implements OnInit {
   }
 
   getNewLeaveCodeConfig(){
-    
-    
+    this.leaveApi.getNewLeaveCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.leaveForm.leaveForm.controls.leaveCode.setValue(res.code);
+            this.leaveForm.leaveForm.controls.leaveCode.disable();
+          }
+          else{
+            this.leaveForm.leaveForm.controls.leaveCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

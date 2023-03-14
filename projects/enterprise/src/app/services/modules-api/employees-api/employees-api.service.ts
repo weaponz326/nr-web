@@ -68,5 +68,5 @@ export class EmployeesApiService {
   public getNewEmployeeCodeConfig(): Observable<any>{
     return this.http.get(this.employeesUrl + "config/new-employee-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
   }
-
+ 
 }

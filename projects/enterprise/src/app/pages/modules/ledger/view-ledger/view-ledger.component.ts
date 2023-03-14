@@ -51,6 +51,7 @@ export class ViewLedgerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLedger();
+    this.getLedgerCodeConfig();
   }
 
   getLedger(){
@@ -128,6 +129,21 @@ export class ViewLedgerComponent implements OnInit {
 
   getIoe(e: any){
     this.ioe = e;
+  }
+
+  getLedgerCodeConfig(){
+    this.ledgerApi.getLedgerCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.ledgerForm.controls.ledgerCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

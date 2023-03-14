@@ -43,6 +43,7 @@ export class ViewAppraisalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAppraisal();
+    this.getAppraisalCodeConfig();
   }
 
   getAppraisal(){
@@ -125,6 +126,21 @@ export class ViewAppraisalComponent implements OnInit {
     this.appraisalSheet.deleteAppraisalSheet();
   }
 
+  getAppraisalCodeConfig(){
+    this.appraisalApi.getAppraisalCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.appraisalForm.appraisalForm.controls.appraisalCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.appraisalPrint.printViewAppraisal();

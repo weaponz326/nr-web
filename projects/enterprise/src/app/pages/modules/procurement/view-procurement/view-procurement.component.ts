@@ -134,6 +134,21 @@ export class ViewProcurementComponent implements OnInit {
     this.orderReview.deleteOrderReview();
   }
 
+  getProcurementCodeConfig(){
+    this.procurementApi.getProcurementCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.procurementForm.procurementForm.controls.procurementCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
   onPrint(){
     console.log("lets start printing...");
     // this.procurementPrint.printViewProcurement();

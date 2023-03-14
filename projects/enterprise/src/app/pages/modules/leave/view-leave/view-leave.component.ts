@@ -43,6 +43,7 @@ export class ViewLeaveComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLeave();
+    this.getLeaveCodeConfig();
   }
 
   getLeave(){
@@ -123,6 +124,21 @@ export class ViewLeaveComponent implements OnInit {
       }) 
   }
 
+  getLeaveCodeConfig(){
+    this.leaveApi.getLeaveCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.leaveForm.leaveForm.controls.leaveCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.leavePrint.printViewLeave();

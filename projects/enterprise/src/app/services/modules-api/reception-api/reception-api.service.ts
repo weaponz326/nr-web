@@ -45,4 +45,18 @@ export class ReceptionApiService {
     return this.http.delete(this.receptionUrl + "visitor/" + visitorId, this.authHeaders.headers);
   }
   
+  // config
+
+  public getVisitCodeConfig(): Observable<any>{
+    return this.http.get(this.receptionUrl + "config/visit-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+
+  public putVisitCodeConfig(visit: any): Observable<any>{
+    return this.http.put(this.receptionUrl + "config/visit-code/" + this.customCookie.getCookie('enterprise_id'), visit, this.authHeaders.headers);
+  }
+
+  public getNewVisitCodeConfig(): Observable<any>{
+    return this.http.get(this.receptionUrl + "config/new-visit-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+  
 }

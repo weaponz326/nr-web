@@ -72,8 +72,24 @@ export class NewAssetComponent implements OnInit {
   }
 
   getNewAssetCodeConfig(){
-    
-    
+    this.assetsApi.getNewAssetCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.assetForm.assetForm.controls.assetNumber.setValue(res.code);
+            this.assetForm.assetForm.controls.assetNumber.disable();
+          }
+          else{
+            this.assetForm.assetForm.controls.assetNumber.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

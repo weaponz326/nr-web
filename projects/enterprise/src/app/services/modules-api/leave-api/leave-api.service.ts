@@ -45,4 +45,18 @@ export class LeaveApiService {
     return this.http.delete(this.leaveUrl + "leave/" + sessionStorage.getItem('enterprise_leave_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getLeaveCodeConfig(): Observable<any>{
+    return this.http.get(this.leaveUrl + "config/leave-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+
+  public putLeaveCodeConfig(leave: any): Observable<any>{
+    return this.http.put(this.leaveUrl + "config/leave-code/" + this.customCookie.getCookie('enterprise_id'), leave, this.authHeaders.headers);
+  }
+
+  public getNewLeaveCodeConfig(): Observable<any>{
+    return this.http.get(this.leaveUrl + "config/new-leave-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+  
 }

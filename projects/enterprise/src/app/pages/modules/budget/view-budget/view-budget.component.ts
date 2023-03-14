@@ -45,6 +45,7 @@ export class ViewBudgetComponent implements OnInit {
   isBudgetDeleting: boolean = false;
 
   budgetForm = new FormGroup({
+    budgetCode: new FormControl(''),
     budgetName: new FormControl(''),
     budgetType: new FormControl('')
   })
@@ -61,6 +62,7 @@ export class ViewBudgetComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.budgetFormData = res;
+          this.budgetForm.controls.budgetCode.setValue(this.budgetFormData.budget_code);
           this.budgetForm.controls.budgetName.setValue(this.budgetFormData.budget_name);
           this.budgetForm.controls.budgetType.setValue(this.budgetFormData.budget_type);
 
@@ -77,6 +79,7 @@ export class ViewBudgetComponent implements OnInit {
   updateBudget(){
     let data: Budget = {
       account: this.customCookie.getCookie('enterprise_id') as string,
+      budget_code: this.budgetForm.controls.budgetCode.value as string,
       budget_name: this.budgetForm.controls.budgetName.value as string,
       budget_type: this.budgetForm.controls.budgetType.value as string
     }
@@ -124,6 +127,21 @@ export class ViewBudgetComponent implements OnInit {
     this.ioe = e;
   }
 
+  getBudgetCodeConfig(){
+    this.budgetApi.getBudgetCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.budgetForm.controls.budgetCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.budgetPrint.printViewBudget();

@@ -63,4 +63,18 @@ export class AppraisalApiService {
     return this.http.delete(this.appraisalUrl + "appraisal-sheet/" + sessionStorage.getItem('enterprise_appraisal_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getAppraisalCodeConfig(): Observable<any>{
+    return this.http.get(this.appraisalUrl + "config/appraisal-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+
+  public putAppraisalCodeConfig(appraisal: any): Observable<any>{
+    return this.http.put(this.appraisalUrl + "config/appraisal-code/" + this.customCookie.getCookie('enterprise_id'), appraisal, this.authHeaders.headers);
+  }
+
+  public getNewAppraisalCodeConfig(): Observable<any>{
+    return this.http.get(this.appraisalUrl + "config/new-appraisal-code/" + this.customCookie.getCookie('enterprise_id'), this.authHeaders.headers);
+  }
+
 }

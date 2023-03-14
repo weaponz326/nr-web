@@ -75,8 +75,24 @@ export class NewProcurementComponent implements OnInit {
   }
 
   getNewProcurementCodeConfig(){
-    
-    
+    this.procurementApi.getNewProcurementCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.procurementForm.procurementForm.controls.procurementCode.setValue(res.code);
+            this.procurementForm.procurementForm.controls.procurementCode.disable();
+          }
+          else{
+            this.procurementForm.procurementForm.controls.procurementCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

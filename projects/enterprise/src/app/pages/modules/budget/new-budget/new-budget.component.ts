@@ -30,11 +30,13 @@ export class NewBudgetComponent implements OnInit {
   isSavingBudget = false;
 
   budgetForm = new FormGroup({
+    budgetCode: new FormControl(''),
     budgetName: new FormControl(''),
     budgetType: new FormControl('')
   })
 
   ngOnInit(): void {
+    this.getNewBudgetCodeConfig();
   }
 
   openModal(){
@@ -47,6 +49,7 @@ export class NewBudgetComponent implements OnInit {
 
     let data: Budget = {
       account: this.customCookie.getCookie('enterprise_id') as string,
+      budget_code: this.budgetForm.controls.budgetCode.value as string,
       budget_name: this.budgetForm.controls.budgetName.value as string,
       budget_type: this.budgetForm.controls.budgetType.value as string
     }
@@ -74,4 +77,25 @@ export class NewBudgetComponent implements OnInit {
       })
   }
 
+  getNewBudgetCodeConfig(){
+    this.budgetApi.getNewBudgetCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.budgetForm.controls.budgetCode.setValue(res.code);
+            this.budgetForm.controls.budgetCode.disable();
+          }
+          else{
+            this.budgetForm.controls.budgetCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

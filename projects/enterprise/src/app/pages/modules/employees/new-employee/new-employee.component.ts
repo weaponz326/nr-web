@@ -102,8 +102,24 @@ export class NewEmployeeComponent implements OnInit {
   }
 
   getNewEmployeeCodeConfig(){
+    this.employeesApi.getNewEmployeeCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-
+          if(res.code){
+            this.employeeForm.employeeForm.controls.employeeCode.disable();
+            this.employeeForm.employeeForm.controls.employeeCode.setValue(res.code);
+          }
+          else{
+            this.employeeForm.employeeForm.controls.employeeCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

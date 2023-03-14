@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { VisitorFormComponent } from '../visitor-form/visitor-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { ReceptionApiService } from 'projects/enterprise/src/app/services/modules-api/reception-api/reception-api.service';
+
 import { Visitor } from 'projects/enterprise/src/app/models/modules/reception/reception.model';
 
 
@@ -13,7 +16,10 @@ import { Visitor } from 'projects/enterprise/src/app/models/modules/reception/re
 })
 export class EditVisitorComponent implements OnInit {
 
-  constructor(private customCookie: CustomCookieService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private receptionApi: ReceptionApiService
+  ) { }
 
   @Output() saveVisitorEvent = new EventEmitter<any>();
   @Output() deleteVisitorEvent = new EventEmitter<any>();
@@ -22,6 +28,7 @@ export class EditVisitorComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('visitorFormComponentReference', { read: VisitorFormComponent, static: false }) visitorForm!: VisitorFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   navHeading: any[] = [
     { text: "All Visitors", url: "/home/kitchen-stock/all-visitors" },
@@ -74,6 +81,21 @@ export class EditVisitorComponent implements OnInit {
 
   deleteVisitor(){
     this.deleteVisitorEvent.emit(this.visitorData.id);
+  }
+
+  getVisitCodeConfig(){
+    this.receptionApi.getVisitCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.visitorForm.visitorForm.controls.visitCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

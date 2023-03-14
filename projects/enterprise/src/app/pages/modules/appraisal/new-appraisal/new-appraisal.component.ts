@@ -70,8 +70,24 @@ export class NewAppraisalComponent implements OnInit {
   }
 
   getNewAppraisalCodeConfig(){
-    
-    
+    this.appraisalApi.getNewAppraisalCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.appraisalForm.appraisalForm.controls.appraisalCode.setValue(res.code);
+            this.appraisalForm.appraisalForm.controls.appraisalCode.disable();
+          }
+          else{
+            this.appraisalForm.appraisalForm.controls.appraisalCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }
