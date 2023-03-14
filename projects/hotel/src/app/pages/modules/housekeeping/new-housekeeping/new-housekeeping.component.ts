@@ -84,23 +84,24 @@ export class NewHousekeepingComponent implements OnInit {
   }
 
   getNewHousekeepingCodeConfig(){
-    this.housekeepingForm.controls.housekeepingCode.disable();
+    this.housekeepingApi.getNewHousekeepingCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.housekeepingApi.getNewHousekeepingCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.housekeepingForm.controls.housekeepingCode.setValue(res.code);
-    //       else
-    //         this.housekeepingForm.controls.housekeepingCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.housekeepingForm.controls.housekeepingCode.setValue(res.code);
+            this.housekeepingForm.controls.housekeepingCode.disable();
+          }
+          else{
+            this.housekeepingForm.controls.housekeepingCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   openRoomWindow(){

@@ -57,6 +57,7 @@ export class ViewHousekeepingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHousekeeping();
+    this.getHousekeepingCodeConfig();
   }
 
   getHousekeeping(){
@@ -140,6 +141,21 @@ export class ViewHousekeepingComponent implements OnInit {
 
     this.selectedRoomId = roomData.id;
     this.housekeepingForm.controls.roomNumber.setValue(roomData.room_number);
+  }
+
+  getHousekeepingCodeConfig(){
+    this.housekeepingApi.getHousekeepingCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.housekeepingForm.controls.housekeepingCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

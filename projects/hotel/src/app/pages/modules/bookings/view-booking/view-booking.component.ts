@@ -62,6 +62,7 @@ export class ViewBookingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBooking();
+    this.getBookingCodeConfig();
   }
 
   getBooking(){
@@ -151,6 +152,21 @@ export class ViewBookingComponent implements OnInit {
     this.selectedGuestId = guestData.id;
     this.bookingForm.controls.guestName.setValue(guestData.guest_name);
     this.bookingForm.controls.guestCode.setValue(guestData.guest_code);
+  }
+
+  getBookingCodeConfig(){
+    this.bookingsApi.getBookingCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.bookingForm.controls.bookingCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

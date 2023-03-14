@@ -78,7 +78,24 @@ export class NewCheckinComponent implements OnInit {
   }
 
   getNewCheckinCodeConfig(){
-        
+    this.checkinApi.getNewCheckinCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.checkinForm.checkinForm.controls.checkinCode.setValue(res.code);
+            this.checkinForm.checkinForm.controls.checkinCode.disable();
+          }
+          else{
+            this.checkinForm.checkinForm.controls.checkinCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

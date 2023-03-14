@@ -36,7 +36,7 @@ export class NewGuestComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.getNewguestCodeConfig();
+    this.getNewGuestCodeConfig();
   }
 
   createGuest(){
@@ -74,24 +74,25 @@ export class NewGuestComponent implements OnInit {
       })
   }
 
-  getNewguestCodeConfig(){
-    this.guestForm.guestForm.controls.guestCode.disable();
+  getNewGuestCodeConfig(){
+    this.guestsApi.getNewGuestCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.guestsApi.getNewGuestCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.guestForm.guestForm.controls.guestCode.setValue(res.code);
-    //       else
-    //         this.guestForm.guestForm.controls.guestCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.guestForm.guestForm.controls.guestCode.setValue(res.code);
+            this.guestForm.guestForm.controls.guestCode.disable();
+          }
+          else{
+            this.guestForm.guestForm.controls.guestCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

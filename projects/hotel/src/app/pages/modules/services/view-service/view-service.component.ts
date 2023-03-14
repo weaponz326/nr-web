@@ -61,6 +61,7 @@ export class ViewServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getService();
+    this.getServiceCodeConfig();
   }
 
   getService(){
@@ -151,6 +152,21 @@ export class ViewServiceComponent implements OnInit {
     this.serviceForm.controls.guestCode.setValue(guestData.guest_code);
   }
 
+  getServiceCodeConfig(){
+    this.servicesApi.getServiceCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.serviceForm.controls.serviceCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+      
   onPrint(){
     console.log("lets start printing...");
     // this.servicesPrint.printViewService();

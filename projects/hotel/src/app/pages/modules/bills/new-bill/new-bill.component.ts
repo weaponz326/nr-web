@@ -88,25 +88,26 @@ export class NewBillComponent implements OnInit {
   }
 
   getNewBillCodeConfig(){
-    // this.billForm.controls.billCode.disable();
+    this.billsApi.getNewBillCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.billsApi.getNewBillCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.billForm.controls.billCode.setValue(res.code);
-    //       else
-    //         this.billForm.controls.billCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.billForm.controls.billCode.setValue(res.code);
+            this.billForm.controls.billCode.disable();
+          }
+          else{
+            this.billForm.controls.billCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
-  
+
   openGuestWindow(){
     console.log("You are opening select guest window")
     this.selectGuest.openModal();

@@ -87,23 +87,24 @@ export class AddServiceComponent implements OnInit {
   }
 
   getNewServiceCodeConfig(){
-    this.serviceForm.controls.serviceCode.disable();
+    this.servicesApi.getNewServiceCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.servicesApi.getNewServiceCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.serviceForm.controls.serviceCode.setValue(res.code);
-    //       else
-    //         this.serviceForm.controls.serviceCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.serviceForm.controls.serviceCode.setValue(res.code);
+            this.serviceForm.controls.serviceCode.disable();
+          }
+          else{
+            this.serviceForm.controls.serviceCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
   
   openGuestWindow(){

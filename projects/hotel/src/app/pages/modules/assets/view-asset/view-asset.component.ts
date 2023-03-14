@@ -43,6 +43,7 @@ export class ViewAssetComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAsset();
+    this.getAssetCodeConfig();
   }
 
   getAsset(){
@@ -118,6 +119,21 @@ export class ViewAssetComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/assets/all-assets');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getAssetCodeConfig(){
+    this.assetsApi.getAssetCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.assetForm.assetForm.controls.assetNumber.disable();
         },
         error: (err) => {
           console.log(err);

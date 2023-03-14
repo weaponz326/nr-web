@@ -75,17 +75,18 @@ export class NewPaymentComponent implements OnInit {
   }
 
   getNewpaymentCodeConfig(){
-    this.paymentForm.paymentForm.controls.paymentCode.disable();
-
     this.paymentsApi.getNewPaymentCodeConfig()
       .subscribe({
         next: (res) => {
           console.log(res);
 
-          if(res.code)
+          if(res.code){
+            this.paymentForm.paymentForm.controls.paymentCode.disable();
             this.paymentForm.paymentForm.controls.paymentCode.setValue(res.code);
-          else
+          }
+          else{
             this.paymentForm.paymentForm.controls.paymentCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

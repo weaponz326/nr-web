@@ -43,6 +43,7 @@ export class ViewCheckinComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCheckin();
+    this.getCheckinCodeConfig();
   }
 
   getCheckin(){
@@ -135,6 +136,21 @@ export class ViewCheckinComponent implements OnInit {
           this.connectionToast.openToast();
         }
       }) 
+  }
+
+  getCheckinCodeConfig(){
+    this.checkinApi.getCheckinCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.checkinForm.checkinForm.controls.checkinCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

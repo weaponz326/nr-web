@@ -43,6 +43,7 @@ export class ViewGuestComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGuest();
+    this.getGuestCodeConfig();
   }
 
   getGuest(){
@@ -124,6 +125,21 @@ export class ViewGuestComponent implements OnInit {
       })
   }
 
+  getGuestCodeConfig(){
+    this.guestsApi.getGuestCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.guestForm.guestForm.controls.guestCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.guestsPrint.printViewGuest();

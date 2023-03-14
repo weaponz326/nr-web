@@ -87,26 +87,6 @@ export class AddBookingComponent implements OnInit {
     console.log(data);
   }
 
-  getNewBookingCodeConfig(){
-    this.bookingForm.controls.bookingCode.disable();
-
-    this.bookingsApi.getNewBookingCodeConfig()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          if(res.code)
-            this.bookingForm.controls.bookingCode.setValue(res.code);
-          else
-            this.bookingForm.controls.bookingCode.enable();
-        },
-        error: (err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
   openGuestWindow(){
     console.log("You are opening select guest window")
     this.selectGuest.openModal();
@@ -118,6 +98,27 @@ export class AddBookingComponent implements OnInit {
     this.selectedGuestId = guestData.id;
     this.bookingForm.controls.guestName.setValue(guestData.guest_name);
     this.bookingForm.controls.guestCode.setValue(guestData.guest_code);
+  }
+  
+  getNewBookingCodeConfig(){
+    this.bookingsApi.getNewBookingCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.bookingForm.controls.bookingCode.setValue(res.code);
+            this.bookingForm.controls.bookingCode.disable();
+          }
+          else{
+            this.bookingForm.controls.bookingCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
   
 }

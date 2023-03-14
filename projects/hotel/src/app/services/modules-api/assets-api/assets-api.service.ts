@@ -45,4 +45,18 @@ export class AssetsApiService {
     return this.http.delete(this.assetsUrl + "asset/" + sessionStorage.getItem('hotel_asset_id'), this.authHeaders.headers);
   }
 
+  // config
+
+  public getAssetCodeConfig(): Observable<any>{
+    return this.http.get(this.assetsUrl + "config/asset-code/" + this.customCookie.getCookie('hotel_id'), this.authHeaders.headers);
+  }
+
+  public putAssetCodeConfig(asset: any): Observable<any>{
+    return this.http.put(this.assetsUrl + "config/asset-code/" + this.customCookie.getCookie('hotel_id'), asset, this.authHeaders.headers);
+  }
+
+  public getNewAssetCodeConfig(): Observable<any>{
+    return this.http.get(this.assetsUrl + "config/new-asset-code/" + this.customCookie.getCookie('hotel_id'), this.authHeaders.headers);
+  }
+
 }
