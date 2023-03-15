@@ -161,6 +161,22 @@ export class ViewOrderComponent implements OnInit {
     this.selectedCustomerId = customerData.id;
   }
 
+  getOrderCodeConfig(){
+    this.ordersApi.getOrderCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.orderForm.controls.orderCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.ordersPrint.printViewOrder();

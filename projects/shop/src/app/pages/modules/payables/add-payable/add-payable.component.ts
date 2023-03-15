@@ -36,26 +36,6 @@ export class AddPayableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getNewPayableCodeConfig(){
-    // this.payableForm.payableForm.controls.payableCode.disable();
-
-    // this.payablesApi.getNewPayableCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.payableForm.payableForm.controls.itemCode.setValue(res.code);
-    //       else
-    //         this.payableForm.payableForm.controls.itemCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
-  
   openModal(){
     this.addButton.nativeElement.click();
     this.payableForm.payableForm.controls.payableDate.setValue(new Date().toISOString().slice(0, 10));
@@ -99,4 +79,25 @@ export class AddPayableComponent implements OnInit {
     this.payableForm.payableForm.controls.supplierName.setValue(supplierData.supplier_name);
   }
 
+  getNewPayableCodeConfig(){
+    this.payablesApi.getNewPayableCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.payableForm.payableForm.controls.payableCode.setValue(res.code);
+            this.payableForm.payableForm.controls.payableCode.disable();
+          }
+          else{
+            this.payableForm.payableForm.controls.payableCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

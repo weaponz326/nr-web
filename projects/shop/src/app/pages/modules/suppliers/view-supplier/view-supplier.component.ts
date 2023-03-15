@@ -43,6 +43,7 @@ export class ViewSupplierComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSupplier();
+    this.getSupplierCodeConfig();
   }
 
   getSupplier(){
@@ -116,6 +117,21 @@ export class ViewSupplierComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/suppliers/all-suppliers');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getSupplierCodeConfig(){
+    this.suppliersApi.getSupplierCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.supplierForm.supplierForm.controls.supplierCode.disable();
         },
         error: (err) => {
           console.log(err);

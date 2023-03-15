@@ -43,6 +43,7 @@ export class ViewCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCustomer();
+    this.getCustomerCodeConfig();
   }
 
   getCustomer(){
@@ -116,6 +117,21 @@ export class ViewCustomerComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/customers/all-customers');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getCustomerCodeConfig(){
+    this.customersApi.getCustomerCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.customerForm.customerForm.controls.customerCode.disable();
         },
         error: (err) => {
           console.log(err);

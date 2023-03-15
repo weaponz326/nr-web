@@ -36,26 +36,6 @@ export class AddReceivableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getNewReceivableCodeConfig(){
-    // this.receivableForm.receivableForm.controls.receivableCode.disable();
-
-    // this.receivablesApi.getNewReceivableCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.receivableForm.receivableForm.controls.itemCode.setValue(res.code);
-    //       else
-    //         this.receivableForm.receivableForm.controls.itemCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
-  
   openModal(){
     this.addButton.nativeElement.click();
     this.receivableForm.receivableForm.controls.receivableDate.setValue(new Date().toISOString().slice(0, 10));
@@ -97,6 +77,27 @@ export class AddReceivableComponent implements OnInit {
 
     this.receivableForm.selectedCustomerId = customerData.id;
     this.receivableForm.receivableForm.controls.customerName.setValue(customerData.customer_name);
+  }
+
+  getNewReceivableCodeConfig(){
+    this.receivablesApi.getNewReceivableCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.receivableForm.receivableForm.controls.receivableCode.setValue(res.code);
+            this.receivableForm.receivableForm.controls.receivableCode.disable();
+          }
+          else{
+            this.receivableForm.receivableForm.controls.receivableCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

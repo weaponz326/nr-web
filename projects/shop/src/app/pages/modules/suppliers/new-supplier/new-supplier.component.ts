@@ -36,7 +36,7 @@ export class NewSupplierComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.getNewsupplierCodeConfig();
+    this.getNewSupplierCodeConfig();
   }
 
   createSupplier(){
@@ -74,24 +74,25 @@ export class NewSupplierComponent implements OnInit {
       })
   }
 
-  getNewsupplierCodeConfig(){
-    // this.supplierForm.supplierForm.controls.supplierCode.disable();
+  getNewSupplierCodeConfig(){
+    this.suppliersApi.getNewSupplierCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.suppliersApi.getNewSupplierCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.supplierForm.supplierForm.controls.supplierCode.setValue(res.code);
-    //       else
-    //         this.supplierForm.supplierForm.controls.supplierCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.supplierForm.supplierForm.controls.supplierCode.setValue(res.code);
+            this.supplierForm.supplierForm.controls.supplierCode.disable();
+          }
+          else{
+            this.supplierForm.supplierForm.controls.supplierCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

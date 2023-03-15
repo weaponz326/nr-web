@@ -87,26 +87,6 @@ export class NewInvoiceComponent implements OnInit {
     console.log(data);
   }
 
-  getNewInvoiceCodeConfig(){
-    // this.invoiceForm.controls.invoiceNumber.disable();
-
-    // this.invoiceApi.getNewInvoiceCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.invoiceForm.controls.invoiceNumber.setValue(res.code);
-    //       else
-    //         this.invoiceForm.controls.invoiceNumber.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
-
   openCustomerWindow(){
     console.log("You are opening select customer window")
     this.selectCustomer.openModal();
@@ -120,4 +100,25 @@ export class NewInvoiceComponent implements OnInit {
     this.invoiceForm.controls.customerContact.setValue(customerData.phone);
   }
 
+  getNewInvoiceCodeConfig(){
+    this.invoiceApi.getNewInvoiceCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.invoiceForm.controls.invoiceNumber.setValue(res.code);
+            this.invoiceForm.controls.invoiceNumber.disable();
+          }
+          else{
+            this.invoiceForm.controls.invoiceNumber.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

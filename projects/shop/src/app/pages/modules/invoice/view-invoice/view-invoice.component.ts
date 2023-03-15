@@ -61,6 +61,7 @@ export class ViewInvoiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInvoice();
+    this.getInvoiceCodeConfig();
   }
 
   getInvoice(){
@@ -151,6 +152,21 @@ export class ViewInvoiceComponent implements OnInit {
     this.invoiceForm.controls.customerName.setValue(customerData.customer_name);
     this.selectedCustomerId = customerData.id;
   }  
+
+  getInvoiceCodeConfig(){
+    this.invoiceApi.getInvoiceCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.invoiceForm.controls.invoiceNumber.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
 
   onPrint(){
     console.log("lets start printing...");

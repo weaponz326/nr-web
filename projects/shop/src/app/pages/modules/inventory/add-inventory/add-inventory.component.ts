@@ -5,7 +5,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { SelectProductComponent } from '../../../../components/select-windows/products-windows/select-product/select-product.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { InventoryApiService } from 'projects/shop/src/app/services/modules-api/inventory-api/inventory-api.service';
+import { InventoryApiService } from 'projects/shop/src/app/services/modules-api/inventory-api/inventory-api.service';
 
 import { Inventory } from 'projects/shop/src/app/models/modules/inventory/inventory.model';
 
@@ -19,7 +19,7 @@ export class AddInventoryComponent implements OnInit {
 
   constructor(
     private customCookie: CustomCookieService,
-    // private inventoryApi: InventoryApiService
+    private inventoryApi: InventoryApiService
   ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
@@ -38,6 +38,7 @@ export class AddInventoryComponent implements OnInit {
   
   openModal(){
     this.addButton.nativeElement.click();
+
     this.getNewInventoryCodeConfig();
   }
 
@@ -72,26 +73,6 @@ export class AddInventoryComponent implements OnInit {
     this.inventoryForm.inventoryForm.controls.expiryDate.setValue('');
   }
 
-  getNewInventoryCodeConfig(){
-    // this.inventoryForm.inventoryForm.controls.inventoryCode.disable();
-
-    // this.inventoryApi.getNewInventoryCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.inventoryForm.inventoryForm.controls.itemCode.setValue(res.code);
-    //       else
-    //         this.inventoryForm.inventoryForm.controls.itemCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
-
   openProductWindow(){
     console.log("You are opening select product window")
     this.selectProduct.openModal();
@@ -104,6 +85,27 @@ export class AddInventoryComponent implements OnInit {
     this.inventoryForm.inventoryForm.controls.productName.setValue(productData.product_name);
     this.inventoryForm.inventoryForm.controls.productCode.setValue(productData.product_code);
     this.inventoryForm.inventoryForm.controls.unitPrice.setValue(productData.price);
+  }
+
+  getNewInventoryCodeConfig(){
+    this.inventoryApi.getNewInventoryCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.inventoryForm.inventoryForm.controls.inventoryCode.setValue(res.code);
+            this.inventoryForm.inventoryForm.controls.inventoryCode.disable();
+          }
+          else{
+            this.inventoryForm.inventoryForm.controls.inventoryCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

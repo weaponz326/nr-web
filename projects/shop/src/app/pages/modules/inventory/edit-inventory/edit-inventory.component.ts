@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { InventoryFormComponent } from '../inventory-form/inventory-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { SelectProductComponent } from '../../../../components/select-windows/products-windows/select-product/select-product.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { InventoryApiService } from 'projects/shop/src/app/services/modules-api/inventory-api/inventory-api.service';
+
 import { Inventory } from 'projects/shop/src/app/models/modules/inventory/inventory.model';
 
 
@@ -14,7 +17,10 @@ import { Inventory } from 'projects/shop/src/app/models/modules/inventory/invent
 })
 export class EditInventoryComponent implements OnInit {
 
-  constructor(private customCookie: CustomCookieService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private inventoryApi: InventoryApiService
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
@@ -24,6 +30,7 @@ export class EditInventoryComponent implements OnInit {
 
   @ViewChild('inventoryFormComponentReference', { read: InventoryFormComponent, static: false }) inventoryForm!: InventoryFormComponent;
   @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   navHeading: any[] = [
     { text: "All Items", url: "/home/inventory/all-inventory" },
@@ -56,6 +63,8 @@ export class EditInventoryComponent implements OnInit {
     this.inventoryForm.selectedProductId = data.product?.id;
 
     this.editButton.nativeElement.click();
+
+    this.getInventoryCodeConfig();
   }
 
   saveItem(){
@@ -96,6 +105,21 @@ export class EditInventoryComponent implements OnInit {
     this.inventoryForm.inventoryForm.controls.productName.setValue(productData.product_name);
     this.inventoryForm.inventoryForm.controls.productCode.setValue(productData.product_code);
     this.inventoryForm.inventoryForm.controls.unitPrice.setValue(productData.price);
+  }
+
+  getInventoryCodeConfig(){
+    this.inventoryApi.getInventoryCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.inventoryForm.inventoryForm.controls.inventoryCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

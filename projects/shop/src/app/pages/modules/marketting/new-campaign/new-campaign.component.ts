@@ -33,6 +33,7 @@ export class NewCampaignComponent implements OnInit {
   isCampaignSaving = false;
 
   ngOnInit(): void {
+    this.getNewCampaignCodeConfig();
   }
 
   postCampaign(){
@@ -71,4 +72,25 @@ export class NewCampaignComponent implements OnInit {
       })
   }
 
+  getNewCampaignCodeConfig(){
+    this.markettingApi.getNewCampaignCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.campaignForm.campaignForm.controls.campaignCode.setValue(res.code);
+            this.campaignForm.campaignForm.controls.campaignCode.disable();
+          }
+          else{
+            this.campaignForm.campaignForm.controls.campaignCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

@@ -89,23 +89,24 @@ export class NewProductComponent implements OnInit {
   }
 
   getNewProductCodeConfig(){
-    // this.productsApi.getNewProductCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
+    this.productsApi.getNewProductCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    //       this.productForm.productForm.controls.productCode.disable();
-
-    //       if(res.code)
-    //         this.productForm.productForm.controls.productCode.setValue(res.code);
-    //       else
-    //         this.productForm.productForm.controls.productCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.productForm.productForm.controls.productCode.setValue(res.code);
+            this.productForm.productForm.controls.productCode.disable();
+          }
+          else{
+            this.productForm.productForm.controls.productCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
-
+  
 }

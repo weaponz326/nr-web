@@ -36,7 +36,7 @@ export class NewCustomerComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.getNewcustomerCodeConfig();
+    this.getNewCustomerCodeConfig();
   }
 
   createCustomer(){
@@ -74,24 +74,25 @@ export class NewCustomerComponent implements OnInit {
       })
   }
 
-  getNewcustomerCodeConfig(){
-    // this.customerForm.customerForm.controls.customerCode.disable();
+  getNewCustomerCodeConfig(){
+    this.customersApi.getNewCustomerCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.customersApi.getNewCustomerCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.customerForm.customerForm.controls.customerCode.setValue(res.code);
-    //       else
-    //         this.customerForm.customerForm.controls.customerCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.customerForm.customerForm.controls.customerCode.setValue(res.code);
+            this.customerForm.customerForm.controls.customerCode.disable();
+          }
+          else{
+            this.customerForm.customerForm.controls.customerCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

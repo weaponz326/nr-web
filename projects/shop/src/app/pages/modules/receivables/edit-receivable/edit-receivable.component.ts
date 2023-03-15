@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { ReceivableFormComponent } from '../receivable-form/receivable-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { SelectCustomerComponent } from '../../../../components/select-windows/customers-windows/select-customer/select-customer.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { ReceivablesApiService } from 'projects/shop/src/app/services/modules-api/receivables-api/receivables-api.service';
 
 import { Receivable } from 'projects/shop/src/app/models/modules/receivables/receivables.model';
 
@@ -15,7 +17,10 @@ import { Receivable } from 'projects/shop/src/app/models/modules/receivables/rec
 })
 export class EditReceivableComponent implements OnInit {
 
-  constructor(private customCookie: CustomCookieService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private receivablesApi: ReceivablesApiService
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
@@ -25,6 +30,7 @@ export class EditReceivableComponent implements OnInit {
   @ViewChild('selectCustomerComponentReference', { read: SelectCustomerComponent, static: false }) selectCustomer!: SelectCustomerComponent;
 
   @ViewChild('receivableFormComponentReference', { read: ReceivableFormComponent, static: false }) receivableForm!: ReceivableFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   navHeading: any[] = [
     { text: "All Items", url: "/home/receivables/all-receivables" },
@@ -50,9 +56,11 @@ export class EditReceivableComponent implements OnInit {
     this.receivableForm.receivableForm.controls.amount.setValue(data.amount);
     this.receivableForm.receivableForm.controls.dateReceived.setValue(data.date_received);
 
-    this.receivableForm.selectedCustomerId = data.customer.id;
+    this.receivableForm.selectedCustomerId = data.customer?.id;
 
     this.editButton.nativeElement.click();
+
+    this.getReceivableCodeConfig();
   }
 
   saveItem(){
@@ -89,6 +97,21 @@ export class EditReceivableComponent implements OnInit {
 
     this.receivableForm.selectedCustomerId = customerData.id;
     this.receivableForm.receivableForm.controls.customerName.setValue(customerData.customer_name);
+  }
+
+  getReceivableCodeConfig(){
+    this.receivablesApi.getReceivableCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.receivableForm.receivableForm.controls.receivableCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

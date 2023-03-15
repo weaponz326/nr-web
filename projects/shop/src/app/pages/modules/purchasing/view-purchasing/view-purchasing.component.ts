@@ -64,6 +64,7 @@ export class ViewPurchasingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPurchasing();
+    this.getPurchasingCodeConfig();
   }
 
   getPurchasing(){
@@ -166,6 +167,21 @@ export class ViewPurchasingComponent implements OnInit {
     this.purchasingForm.controls.supplierCode.setValue(supplierData.supplier_code);
     this.selectedSupplierId = supplierData.id;
   }  
+
+  getPurchasingCodeConfig(){
+    this.purchasingApi.getPurchasingCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.purchasingForm.controls.purchasingCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
 
   onPrint(){
     console.log("lets start printing...");

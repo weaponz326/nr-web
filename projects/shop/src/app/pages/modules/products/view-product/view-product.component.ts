@@ -45,6 +45,7 @@ export class ViewProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProduct();
+    this.getProductCodeConfig();
   }
 
   getProduct(){
@@ -140,6 +141,21 @@ export class ViewProductComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getProductCodeConfig(){
+    this.productsApi.getProductCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.productForm.productForm.controls.productCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

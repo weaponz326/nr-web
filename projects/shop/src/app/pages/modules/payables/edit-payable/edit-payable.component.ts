@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { PayableFormComponent } from '../payable-form/payable-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { SelectSupplierComponent } from '../../../../components/select-windows/suppliers-windows/select-supplier/select-supplier.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { PayablesApiService } from 'projects/shop/src/app/services/modules-api/payables-api/payables-api.service';
 
 import { Payable } from 'projects/shop/src/app/models/modules/payables/payables.model';
 
@@ -15,7 +17,10 @@ import { Payable } from 'projects/shop/src/app/models/modules/payables/payables.
 })
 export class EditPayableComponent implements OnInit {
 
-  constructor(private customCookie: CustomCookieService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private payablesApi: PayablesApiService
+  ) { }
 
   @Output() saveItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
@@ -25,6 +30,7 @@ export class EditPayableComponent implements OnInit {
   @ViewChild('selectSupplierComponentReference', { read: SelectSupplierComponent, static: false }) selectSupplier!: SelectSupplierComponent;
 
   @ViewChild('payableFormComponentReference', { read: PayableFormComponent, static: false }) payableForm!: PayableFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
 
   navHeading: any[] = [
     { text: "All Items", url: "/home/payables/all-payables" },
@@ -53,6 +59,8 @@ export class EditPayableComponent implements OnInit {
     this.payableForm.selectedSupplierId = data.supplier?.id;
 
     this.editButton.nativeElement.click();
+
+    this.getPayableCodeConfig();
   }
 
   saveItem(){
@@ -91,4 +99,19 @@ export class EditPayableComponent implements OnInit {
     this.payableForm.payableForm.controls.supplierName.setValue(supplierData.supplier_name);
   }
 
+  getPayableCodeConfig(){
+    this.payablesApi.getPayableCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.payableForm.payableForm.controls.payableCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

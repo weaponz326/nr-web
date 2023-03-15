@@ -43,6 +43,7 @@ export class ViewCampaignComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCampaign();
+    this.getCampaignCodeConfig();
   }
 
   getCampaign(){
@@ -118,6 +119,21 @@ export class ViewCampaignComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigateByUrl('/home/marketting/all-marketting');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getCampaignCodeConfig(){
+    this.markettingApi.getCampaignCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.campaignForm.campaignForm.controls.campaignCode.disable();
         },
         error: (err) => {
           console.log(err);

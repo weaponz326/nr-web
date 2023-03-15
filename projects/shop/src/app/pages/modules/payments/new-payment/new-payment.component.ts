@@ -75,23 +75,24 @@ export class NewPaymentComponent implements OnInit {
   }
 
   getNewpaymentCodeConfig(){
-    // this.paymentForm.paymentForm.controls.paymentCode.disable();
+    this.paymentsApi.getNewPaymentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
 
-    // this.paymentsApi.getNewPaymentCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.paymentForm.paymentForm.controls.paymentCode.setValue(res.code);
-    //       else
-    //         this.paymentForm.paymentForm.controls.paymentCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
+          if(res.code){
+            this.paymentForm.paymentForm.controls.paymentCode.disable();
+            this.paymentForm.paymentForm.controls.paymentCode.setValue(res.code);
+          }
+          else{
+            this.paymentForm.paymentForm.controls.paymentCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

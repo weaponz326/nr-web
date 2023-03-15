@@ -100,26 +100,6 @@ export class NewPurchasingComponent implements OnInit {
     console.log(data);
   }
 
-  getNewPurchasingCodeConfig(){
-    // this.purchasingForm.controls.purchasingCode.disable();
-
-    // this.purchasingApi.getNewPurchasingCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.purchasingForm.controls.purchasingNumber.setValue(res.code);
-    //       else
-    //         this.purchasingForm.controls.purchasingNumber.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
-
   openSupplierWindow(){
     console.log("You are opening select supplier window")
     this.selectSupplier.openModal();
@@ -133,4 +113,25 @@ export class NewPurchasingComponent implements OnInit {
     this.selectedSupplierId = supplierData.id;
   }  
 
+  getNewPurchasingCodeConfig(){
+    this.purchasingApi.getNewPurchasingCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.purchasingForm.controls.purchasingCode.setValue(res.code);
+            this.purchasingForm.controls.purchasingCode.disable();
+          }
+          else{
+            this.purchasingForm.controls.purchasingCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }
