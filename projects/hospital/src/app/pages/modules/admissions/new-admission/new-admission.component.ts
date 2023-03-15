@@ -88,26 +88,6 @@ export class NewAdmissionComponent implements OnInit {
     console.log(data);
   }
 
-  getNewAdmissionCodeConfig(){
-    this.admissionForm.controls.admissionCode.disable();
-
-    this.admissionsApi.getNewAdmissionCodeConfig()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          if(res.code)
-            this.admissionForm.controls.admissionCode.setValue(res.code);
-          else
-            this.admissionForm.controls.admissionCode.enable();
-        },
-        error: (err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
   openPatientWindow(){
     console.log("You are opening select patient window")
     this.selectPatient.openModal();
@@ -119,6 +99,27 @@ export class NewAdmissionComponent implements OnInit {
     this.selectedPatientId = patientData.id;
     this.admissionForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
     this.admissionForm.controls.patientNumber.setValue(patientData.clinical_number);
+  }
+
+  getNewAdmissionCodeConfig(){
+    this.admissionsApi.getNewAdmissionCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.admissionForm.controls.admissionCode.setValue(res.code);
+            this.admissionForm.controls.admissionCode.disable();
+          }
+          else{
+            this.admissionForm.controls.admissionCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

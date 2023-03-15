@@ -104,12 +104,13 @@ export class NewPatientComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.patientForm.patientForm.controls.clinicalNumber.disable();
-
-          if(res.code)
+          if(res.code){
+            this.patientForm.patientForm.controls.clinicalNumber.disable();
             this.patientForm.patientForm.controls.clinicalNumber.setValue(res.code);
-          else
+          }
+          else{
             this.patientForm.patientForm.controls.clinicalNumber.enable();
+          }
         },
         error: (err) => {
           console.log(err);

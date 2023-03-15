@@ -91,26 +91,6 @@ export class NewDiagnosisComponent implements OnInit {
     console.log(data);
   }
 
-  getNewDiagnosisCodeConfig(){
-    this.diagnosisForm.controls.diagnosisCode.disable();
-
-    this.diagnosisApi.getNewDiagnosisCodeConfig()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          if(res.code)
-            this.diagnosisForm.controls.diagnosisCode.setValue(res.code);
-          else
-            this.diagnosisForm.controls.diagnosisCode.enable();
-        },
-        error: (err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
   openAdmissionWindow(){
     console.log("You are opening select admission window")
     this.selectAdmission.openModal();
@@ -125,4 +105,25 @@ export class NewDiagnosisComponent implements OnInit {
     this.diagnosisForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
  
+  getNewDiagnosisCodeConfig(){
+    this.diagnosisApi.getNewDiagnosisCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.diagnosisForm.controls.diagnosisCode.setValue(res.code);
+            this.diagnosisForm.controls.diagnosisCode.disable();
+          }
+          else{
+            this.diagnosisForm.controls.diagnosisCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
 }

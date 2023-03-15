@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { AppointmentFormComponent } from '../appointment-form/appointment-form.component';
+import { ConnectionToastComponent } from 'projects/personal/src/app/components/module-utilities/connection-toast/connection-toast.component'
 import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
+import { AppointmentsApiService } from 'projects/hospital/src/app/services/modules-api/appointments-api/appointments-api.service';
 
 import { Appointment } from 'projects/hospital/src/app/models/modules/appointments/appointments.model';
 
@@ -15,7 +17,10 @@ import { Appointment } from 'projects/hospital/src/app/models/modules/appointmen
 })
 export class EditAppointmentComponent implements OnInit {
 
-  constructor(private customCookie: CustomCookieService) { }
+  constructor(
+    private customCookie: CustomCookieService,
+    private appointmentsApi: AppointmentsApiService
+  ) { }
 
   @Output() saveAppointmentEvent = new EventEmitter<any>();
   @Output() deleteAppointmentEvent = new EventEmitter<any>();
@@ -24,6 +29,7 @@ export class EditAppointmentComponent implements OnInit {
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
 
   @ViewChild('appointmentFormComponentReference', { read: AppointmentFormComponent, static: false }) appointmentForm!: AppointmentFormComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('selectPatientComponentReference', { read: SelectPatientComponent, static: false }) selectPatient!: SelectPatientComponent;
 
   navHeading: any[] = [
@@ -53,6 +59,8 @@ export class EditAppointmentComponent implements OnInit {
     this.appointmentForm.appointmentForm.controls.patientNumber.setValue(data.patient?.clinical_number);
 
     this.editButton.nativeElement.click();
+
+    this.getAppointmentCodeConfig();
   }
 
   saveAppointment(){
@@ -89,6 +97,21 @@ export class EditAppointmentComponent implements OnInit {
     this.appointmentForm.selectedPatientId = patientData.id;
     this.appointmentForm.appointmentForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
     this.appointmentForm.appointmentForm.controls.patientNumber.setValue(patientData.clinical_number);
+  }
+
+  getAppointmentCodeConfig(){
+    this.appointmentsApi.getAppointmentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.appointmentForm.appointmentForm.controls.appointmentCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

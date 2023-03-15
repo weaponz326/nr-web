@@ -103,12 +103,13 @@ export class NewNurseComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.nurseForm.nurseForm.controls.nurseCode.disable();
-
-          if(res.code)
+          if(res.code){
+            this.nurseForm.nurseForm.controls.nurseCode.disable();
             this.nurseForm.nurseForm.controls.nurseCode.setValue(res.code);
-          else
+          }
+          else{
             this.nurseForm.nurseForm.controls.nurseCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

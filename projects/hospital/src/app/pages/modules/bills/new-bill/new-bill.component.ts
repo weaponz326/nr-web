@@ -88,26 +88,6 @@ export class NewBillComponent implements OnInit {
     console.log(data);
   }
 
-  getNewBillCodeConfig(){
-    this.billForm.controls.billCode.disable();
-
-    this.billsApi.getNewBillCodeConfig()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          if(res.code)
-            this.billForm.controls.billCode.setValue(res.code);
-          else
-            this.billForm.controls.billCode.enable();
-        },
-        error: (err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
   openAdmissionWindow(){
     console.log("You are opening select admission window")
     this.selectAdmission.openModal();
@@ -120,6 +100,27 @@ export class NewBillComponent implements OnInit {
     this.billForm.controls.admissionCode.setValue(admissionData.admission_code);
     this.billForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
     this.billForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
+  }
+
+  getNewBillCodeConfig(){
+    this.billsApi.getNewBillCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.billForm.controls.billCode.setValue(res.code);
+            this.billForm.controls.billCode.disable();
+          }
+          else{
+            this.billForm.controls.billCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

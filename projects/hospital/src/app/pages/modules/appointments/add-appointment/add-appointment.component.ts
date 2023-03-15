@@ -5,7 +5,7 @@ import { ConnectionToastComponent } from 'projects/personal/src/app/components/m
 import { SelectPatientComponent } from '../../../../components/select-windows/patients-windows/select-patient/select-patient.component';
 
 import { CustomCookieService } from 'projects/application/src/app/services/custom-cookie/custom-cookie.service';
-// import { AppointmentApiService } from 'projects/hospital/src/app/services/modules-api/appointments-api/appointments-api.service';
+import { AppointmentsApiService } from 'projects/hospital/src/app/services/modules-api/appointments-api/appointments-api.service';
 
 import { Appointment } from 'projects/hospital/src/app/models/modules/appointments/appointments.model';
 
@@ -19,7 +19,7 @@ export class AddAppointmentComponent implements OnInit {
 
   constructor(
     private customCookie: CustomCookieService,
-    // private appointmentApi: AppointmentApiService
+    private appointmentsApi: AppointmentsApiService
   ) { }
 
   @Output() saveAppointmentEvent = new EventEmitter<any>();
@@ -36,26 +36,6 @@ export class AddAppointmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getNewAppointmentCodeConfig(){
-    // this.appointmentForm.appointmentForm.controls.appointmentCode.disable();
-
-    // this.appointmentApi.getNewAppointmentCodeConfig()
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //       if(res.code)
-    //         this.appointmentForm.appointmentForm.controls.appointmentCode.setValue(res.code);
-    //       else
-    //         this.appointmentForm.appointmentForm.controls.appointmentCode.enable();
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.connectionToast.openToast();
-    //     }
-    //   })
-  }
-  
   openModal(){
     this.addButton.nativeElement.click();
     this.appointmentForm.appointmentForm.controls.appointmentDate.setValue(new Date().toISOString().slice(0, 16))
@@ -97,6 +77,27 @@ export class AddAppointmentComponent implements OnInit {
     this.appointmentForm.selectedPatientId = patientData.id;
     this.appointmentForm.appointmentForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
     this.appointmentForm.appointmentForm.controls.patientNumber.setValue(patientData.clinical_number);
+  }
+
+  getNewAppointmentCodeConfig(){
+    this.appointmentsApi.getNewAppointmentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.appointmentForm.appointmentForm.controls.appointmentCode.setValue(res.code);
+            this.appointmentForm.appointmentForm.controls.appointmentCode.disable();
+          }
+          else{
+            this.appointmentForm.appointmentForm.controls.appointmentCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

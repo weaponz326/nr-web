@@ -62,6 +62,7 @@ export class ViewBillComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBill();
+    this.getBillCodeConfig();
   }
 
   getBill(){
@@ -154,6 +155,21 @@ export class ViewBillComponent implements OnInit {
     this.billForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
 
+  getBillCodeConfig(){
+    this.billsApi.getBillCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.billForm.controls.billCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
   onPrint(){
     console.log("lets start printing...");
     // this.billsPrint.printViewBill();

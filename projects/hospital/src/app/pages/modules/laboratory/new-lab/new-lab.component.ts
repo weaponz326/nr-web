@@ -87,26 +87,6 @@ export class NewLabComponent implements OnInit {
     console.log(data);
   }
 
-  getNewLabCodeConfig(){
-    this.labForm.controls.labCode.disable();
-
-    this.labApi.getNewLabCodeConfig()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          if(res.code)
-            this.labForm.controls.labCode.setValue(res.code);
-          else
-            this.labForm.controls.labCode.enable();
-        },
-        error: (err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
   openAdmissionWindow(){
     console.log("You are opening select admission window")
     this.selectAdmission.openModal();
@@ -121,4 +101,25 @@ export class NewLabComponent implements OnInit {
     this.labForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
   
+  getNewLabCodeConfig(){
+    this.labApi.getNewLabCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.labForm.controls.labCode.setValue(res.code);
+            this.labForm.controls.labCode.disable();
+          }
+          else{
+            this.labForm.controls.labCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
 }

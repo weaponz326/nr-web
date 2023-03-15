@@ -87,26 +87,6 @@ export class NewPrescriptionComponent implements OnInit {
     console.log(data);
   }
 
-  getNewPrescriptionCodeConfig(){
-    this.prescriptionForm.controls.prescriptionCode.disable();
-
-    this.prescriptionsApi.getNewPrescriptionCodeConfig()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          if(res.code)
-            this.prescriptionForm.controls.prescriptionCode.setValue(res.code);
-          else
-            this.prescriptionForm.controls.prescriptionCode.enable();
-        },
-        error: (err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
   openAdmissionWindow(){
     console.log("You are opening select admission window")
     this.selectAdmission.openModal();
@@ -119,6 +99,27 @@ export class NewPrescriptionComponent implements OnInit {
     this.prescriptionForm.controls.admissionCode.setValue(admissionData.admission_code);
     this.prescriptionForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
     this.prescriptionForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
+  }
+
+  getNewPrescriptionCodeConfig(){
+    this.prescriptionsApi.getNewPrescriptionCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.prescriptionForm.controls.prescriptionCode.setValue(res.code);
+            this.prescriptionForm.controls.prescriptionCode.disable();
+          }
+          else{
+            this.prescriptionForm.controls.prescriptionCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

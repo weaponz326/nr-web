@@ -21,7 +21,7 @@ export class NewDispenseComponent implements OnInit {
   constructor(
     private router: Router,
     private customCookie: CustomCookieService,
-    private dispensesApi: DispensaryApiService,
+    private dispensaryApi: DispensaryApiService,
   ) { }
 
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
@@ -62,7 +62,7 @@ export class NewDispenseComponent implements OnInit {
     console.log(data);
     this.isDispenseSaving = true;
 
-    this.dispensesApi.postDispense(data)
+    this.dispensaryApi.postDispense(data)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -85,26 +85,6 @@ export class NewDispenseComponent implements OnInit {
     console.log(data);
   }
 
-  getNewDispenseCodeConfig(){
-    this.dispenseForm.controls.dispenseCode.disable();
-
-    this.dispensesApi.getNewDispenseCodeConfig()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          if(res.code)
-            this.dispenseForm.controls.dispenseCode.setValue(res.code);
-          else
-            this.dispenseForm.controls.dispenseCode.enable();
-        },
-        error: (err) => {
-          console.log(err);
-          this.connectionToast.openToast();
-        }
-      })
-  }
-
   openAdmissionWindow(){
     console.log("You are opening select admission window")
     this.selectAdmission.openModal();
@@ -119,4 +99,25 @@ export class NewDispenseComponent implements OnInit {
     this.dispenseForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
   }
 
+  getNewDispenseCodeConfig(){
+    this.dispensaryApi.getNewDispenseCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+
+          if(res.code){
+            this.dispenseForm.controls.dispenseCode.setValue(res.code);
+            this.dispenseForm.controls.dispenseCode.disable();
+          }
+          else{
+            this.dispenseForm.controls.dispenseCode.enable();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+  
 }

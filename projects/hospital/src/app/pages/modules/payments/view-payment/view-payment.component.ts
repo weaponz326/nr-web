@@ -43,6 +43,7 @@ export class ViewPaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPayment();
+    this.getPaymentCodeConfig()
   }
 
   getPayment(){
@@ -117,6 +118,22 @@ export class ViewPaymentComponent implements OnInit {
           console.log(res);
 
           this.router.navigateByUrl('/home/payments/all-payments');
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getPaymentCodeConfig(){
+    this.paymentsApi.getPaymentCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.paymentForm.paymentForm.controls.paymentCode.disable();
         },
         error: (err) => {
           console.log(err);

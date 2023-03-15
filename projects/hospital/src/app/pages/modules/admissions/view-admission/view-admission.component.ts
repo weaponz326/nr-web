@@ -57,6 +57,7 @@ export class ViewAdmissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAdmission();
+    this.getAdmissionCodeConfig();
   }
 
   getAdmission(){
@@ -156,6 +157,21 @@ export class ViewAdmissionComponent implements OnInit {
     this.selectedPatientId = patientData.id;
     this.admissionForm.controls.patientName.setValue(patientData.first_name + " " + patientData.last_name);
     this.admissionForm.controls.patientNumber.setValue(patientData.clinical_number);
+  }
+
+  getAdmissionCodeConfig(){
+    this.admissionsApi.getAdmissionCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.admissionForm.controls.admissionCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
 }

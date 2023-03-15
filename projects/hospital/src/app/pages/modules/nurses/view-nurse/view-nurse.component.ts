@@ -164,6 +164,22 @@ export class ViewNurseComponent implements OnInit {
       })
   }
 
+  getNurseCodeConfig(){
+    this.nursesApi.getNurseCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.nurseForm.nurseForm.controls.nurseCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
   onPrint(){
     console.log("lets start printing...");
     // this.nursesPrint.printViewNurse();

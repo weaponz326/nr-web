@@ -45,6 +45,7 @@ export class ViewPatientComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPatient();
+    this.getPatientCodeConfig();
   }
 
   getPatient(){
@@ -161,6 +162,22 @@ export class ViewPatientComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getPatientCodeConfig(){
+    this.patientsApi.getPatientCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.patientForm.patientForm.controls.clinicalNumber.disable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

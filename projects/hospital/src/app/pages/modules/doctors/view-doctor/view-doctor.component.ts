@@ -45,6 +45,7 @@ export class ViewDoctorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDoctor();
+    this.getDoctorCodeConfig();
   }
 
   getDoctor(){
@@ -161,6 +162,22 @@ export class ViewDoctorComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);          
+          this.connectionToast.openToast();
+        }
+      })
+  }
+
+  getDoctorCodeConfig(){
+    this.doctorsApi.getDoctorCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          if (res.entry_mode == "Auto")
+            this.doctorForm.doctorForm.controls.doctorCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
           this.connectionToast.openToast();
         }
       })

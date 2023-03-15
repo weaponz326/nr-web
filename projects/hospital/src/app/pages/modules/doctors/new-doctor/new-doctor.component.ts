@@ -104,12 +104,13 @@ export class NewDoctorComponent implements OnInit {
         next: (res) => {
           console.log(res);
 
-          this.doctorForm.doctorForm.controls.doctorCode.disable();
-
-          if(res.code)
+          if(res.code){
+            this.doctorForm.doctorForm.controls.doctorCode.disable();
             this.doctorForm.doctorForm.controls.doctorCode.setValue(res.code);
-          else
+          }
+          else{
             this.doctorForm.doctorForm.controls.doctorCode.enable();
+          }
         },
         error: (err) => {
           console.log(err);

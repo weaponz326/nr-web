@@ -62,6 +62,7 @@ export class ViewLabComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLab();
+    this.getLabCodeConfig();
   }
 
   getLab(){
@@ -152,6 +153,21 @@ export class ViewLabComponent implements OnInit {
     this.labForm.controls.admissionCode.setValue(admissionData.admission_code);
     this.labForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
     this.labForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
+  }
+
+  getLabCodeConfig(){
+    this.labApi.getLabCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.labForm.controls.labCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

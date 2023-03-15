@@ -2,8 +2,95 @@
 
 <main>
     <div class="container-fluid px-4">
-
-        
     
+        <h5 class="mb-3">Patients ID</h5>
+
+        <div class="row nr-standard-font">
+            <div class="col-md-6">
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-check">
+                            <input [(ngModel)]="entryMode" class="form-check-input" type="radio" value="Manual" id="menuIDMode" name="menuIdMode" (change)="entryModeChange($event)">
+                            <label class="form-check-label" for="menuIDMode">
+                                Manually enter Patient ID
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input [(ngModel)]="entryMode" class="form-check-input" type="radio" value="Auto" id="menuIDMode" name="menuIdMode" checked (change)="entryModeChange($event)">
+                            <label class="form-check-label" for="menuIDMode">
+                                Automatically generate Patient ID
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Prefix :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="prefix" [disabled]="entryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setSampleId()">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Code length :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="codeLength" [disabled]="entryMode == 'Manual'" type="number" min="0" class="form-control form-control-sm w-100" (change)="setSampleId()">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="offset-md-4 col-md-8">
+                        <div class="form-check">
+                            <input [(ngModel)]="addYear" [disabled]="entryMode == 'Manual'" class="form-check-input" type="checkbox" value="" id="addYear" (change)="addYearChange($event)">
+                            <label class="form-check-label" for="addYear">Add year</label>
+                        </div>
+                        <div class="form-check">
+                            <input [(ngModel)]="yearLength" [disabled]="addYear == false || entryMode == 'Manual'" class="form-check-input" type="radio" [value]="2" id="yearDigits" name="yearDigits" (change)="setSampleId()">
+                            <label class="form-check-label" for="yearDigits">2 year digits</label>
+                        </div>
+                        <div class="form-check">
+                            <input [(ngModel)]="yearLength" [disabled]="addYear == false || entryMode == 'Manual'" class="form-check-input" type="radio" [value]="4" id="yearDigits" name="yearDigits" (change)="setSampleId()">
+                            <label class="form-check-label" for="yearDigits">4 year digits</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md-4">
+                        <label class="mt-1">Suffix :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input [(ngModel)]="suffix" [disabled]="entryMode == 'Manual'" type="text" class="form-control form-control-sm w-100" (change)="setSampleId()">
+                    </div>
+                </div>
+
+                <div class="row mb-1 mt-3">
+                    <div class="col-md-4">
+                        <label class="mt-1">Sample ID :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <strong>{{sampleID}}</strong>
+                    </div>
+                </div>
+
+                <hr>
+                
+            </div>
+        </div>        
+        
+        <div class="row mt-3 page-form">
+            <div class="col-md-12">
+                <button [disabled]="isConfigSaving || isConfigLoading" type="submit" class="btn btn-secondary btn-sm page-form-btn" (click)="putPatientCodeConfig()">
+                    Save
+                </button>
+            </div>
+        </div>
+        
     </div>
 </main>
+
+<!-- connection error prompt component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

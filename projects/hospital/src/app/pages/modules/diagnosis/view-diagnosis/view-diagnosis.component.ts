@@ -65,6 +65,7 @@ export class ViewDiagnosisComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDiagnosis();
+    this.getDiagnosisCodeConfig();
   }
 
   getDiagnosis(){
@@ -156,6 +157,21 @@ export class ViewDiagnosisComponent implements OnInit {
     this.diagnosisForm.controls.admissionCode.setValue(admissionData.admission_code);
     this.diagnosisForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
     this.diagnosisForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
+  }
+
+  getDiagnosisCodeConfig(){
+    this.diagnosisApi.getDiagnosisCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.diagnosisForm.controls.diagnosisCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

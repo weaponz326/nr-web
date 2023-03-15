@@ -59,6 +59,7 @@ export class ViewPrescriptionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPrescription();
+    this.getPrescriptionCodeConfig();
   }
 
   getPrescription(){
@@ -148,6 +149,21 @@ export class ViewPrescriptionComponent implements OnInit {
     this.prescriptionForm.controls.admissionCode.setValue(admissionData.admission_code);
     this.prescriptionForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
     this.prescriptionForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
+  }
+
+  getPrescriptionCodeConfig(){
+    this.prescriptionsApi.getPrescriptionCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.prescriptionForm.controls.prescriptionCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

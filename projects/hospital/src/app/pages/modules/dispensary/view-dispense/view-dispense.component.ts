@@ -61,6 +61,7 @@ export class ViewDispenseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDispense();
+    this.getDispenseCodeConfig();
   }
 
   getDispense(){
@@ -148,6 +149,21 @@ export class ViewDispenseComponent implements OnInit {
     this.dispenseForm.controls.admissionCode.setValue(admissionData.admission_code);
     this.dispenseForm.controls.patientName.setValue(admissionData.patient?.first_name + " " + admissionData.patient?.last_name);
     this.dispenseForm.controls.patientNumber.setValue(admissionData.patient?.clinical_number);
+  }
+
+  getDispenseCodeConfig(){
+    this.dispensaryApi.getDispenseCodeConfig()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.entry_mode == "Auto")
+            this.dispenseForm.controls.dispenseCode.disable();
+        },
+        error: (err) => {
+          console.log(err);
+          this.connectionToast.openToast();
+        }
+      })
   }
 
   onPrint(){

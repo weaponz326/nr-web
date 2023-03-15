@@ -44,6 +44,20 @@ export class AppointmentsApiService {
     return this.http.delete(this.appointmentsUrl + "appointment/" + id, this.authHeaders.headers);
   }
 
+  // config
+
+  public getAppointmentCodeConfig(): Observable<any>{
+    return this.http.get(this.appointmentsUrl + "config/appointment-code/" + this.customCookie.getCookie('hospital_id'), this.authHeaders.headers);
+  }
+
+  public putAppointmentCodeConfig(appointment: any): Observable<any>{
+    return this.http.put(this.appointmentsUrl + "config/appointment-code/" + this.customCookie.getCookie('hospital_id'), appointment, this.authHeaders.headers);
+  }
+
+  public getNewAppointmentCodeConfig(): Observable<any>{
+    return this.http.get(this.appointmentsUrl + "config/new-appointment-code/" + this.customCookie.getCookie('hospital_id'), this.authHeaders.headers);
+  }
+
   // dashboard
 
   public getAppointmentCount(): Observable<any>{
